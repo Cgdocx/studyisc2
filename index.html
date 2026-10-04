@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISC2 CC — Chapter Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0e16;
+    --bg-raised: #101623;
+    --bg-card: #131a29;
+    --line: #232d40;
+    --text: #e8ecf4;
+    --text-dim: #8a94a8;
+    --text-faint: #566072;
+    --warn: #fbbf24;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+    display:flex;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  ::selection{ background: var(--accent-c, #14B8A6); color:#0a0e16; }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity:0.12;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* ===== Spine navigation ===== */
+  .spine{
+    position:sticky; top:0;
+    z-index:2;
+    width:260px;
+    flex-shrink:0;
+    border-right:1px solid var(--line);
+    background: var(--bg-raised);
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+  }
+  .spine-head{ padding:22px 20px 16px; border-bottom:1px solid var(--line); }
+  .spine-head .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px; letter-spacing:0.14em;
+    color: var(--text-faint); text-transform:uppercase;
+  }
+  .spine-head h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:19px; font-weight:700; margin-top:6px; letter-spacing:-0.01em;
+  }
+  .spine-head .sub{
+    margin-top:4px; font-size:12px; color: var(--text-dim);
+    font-family:'Noto Sans Thai', sans-serif;
+  }
+  .spine-list{ flex:1; overflow-y:auto; padding:8px 0 20px; }
+  .spine-list::-webkit-scrollbar{ width:6px; }
+  .spine-list::-webkit-scrollbar-thumb{ background:var(--line); border-radius:4px; }
+
+  .spine-item{
+    position:relative; display:flex; align-items:center; gap:12px;
+    width:100%; padding:11px 20px; background:none; border:none;
+    cursor:pointer; text-align:left; color: var(--text-dim);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .spine-item:hover{ background: rgba(255,255,255,0.03); color: var(--text); }
+  .spine-item .num{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    color: var(--text-faint); width:20px; flex-shrink:0;
+  }
+  .spine-item .dot{
+    width:7px; height:7px; border-radius:50%; background: var(--line);
+    flex-shrink:0; transition: background 0.15s ease, box-shadow 0.15s ease;
+  }
+  .spine-item .label{ font-size:13px; line-height:1.3; font-weight:500; }
+  .spine-item .label .th{
+    display:block; font-family:'Noto Sans Thai', sans-serif;
+    font-size:11px; color: var(--text-faint); margin-top:1px;
+  }
+  .spine-item.active{ background: rgba(255,255,255,0.045); color: var(--text); }
+  .spine-item.active .num{ color: var(--accent-c); }
+  .spine-item.active .dot{
+    background: var(--accent-c);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-c) 20%, transparent);
+  }
+  .spine-item.active::before{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:2px;
+    background: var(--accent-c);
+  }
+  .spine-foot{
+    padding:14px 20px; border-top:1px solid var(--line);
+    font-family:'JetBrains Mono', monospace; font-size:10px;
+    color: var(--text-faint); letter-spacing:0.04em;
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .spine-foot .credit{
+    color: var(--text-dim);
+    font-size:10.5px;
+    letter-spacing:0.02em;
+  }
+  .spine-foot .credit b{
+    color: var(--accent-c, #2DD4BF);
+    font-weight:600;
+  }
+
+  /* ===== Main panel ===== */
+  main{ position:relative; z-index:1; flex:1; min-width:0; height:100vh; overflow-y:auto; scroll-behavior:smooth; }
+  .page{ max-width:960px; margin:0 auto; padding:52px 44px 100px; animation: rise 0.4s ease; }
+  @keyframes rise{ from{ opacity:0; transform: translateY(10px);} to{ opacity:1; transform: translateY(0);} }
+
+  .hero{ display:flex; align-items:flex-start; gap:22px; margin-bottom:8px; }
+  .hero-num{
+    font-family:'JetBrains Mono', monospace; font-size:56px; font-weight:600;
+    color: var(--accent-c); line-height:0.9; opacity:0.85;
+  }
+  .hero-emoji{ font-size:34px; line-height:1; }
+  .hero-titles h2{ font-family:'Space Grotesk', sans-serif; font-size:32px; font-weight:700; letter-spacing:-0.02em; line-height:1.15; }
+  .hero-titles .th-title{ font-family:'Noto Sans Thai', sans-serif; font-size:16px; color: var(--text-dim); margin-top:6px; font-weight:500; }
+  .hero-tagline{
+    margin-top:18px; padding:14px 18px; background: var(--bg-card);
+    border-left:3px solid var(--accent-c); border-radius:4px;
+    font-family:'Noto Sans Thai', sans-serif; font-size:13.5px; color: var(--text-dim); line-height:1.7;
+  }
+  .hero-tagline b{ color: var(--text); font-weight:600; }
+
+  .section-label{
+    font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.12em;
+    text-transform:uppercase; color: var(--text-faint); margin:40px 0 14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .section-label .th-label{
+    font-family:'Noto Sans Thai', sans-serif; text-transform:none; letter-spacing:0;
+    color: var(--text-dim); font-size:12.5px; font-weight:600;
+  }
+  .section-label::after{ content:""; flex:1; height:1px; background: var(--line); }
+
+  /* Topic cards */
+  .topic-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+  @media (max-width: 680px){ .topic-grid{ grid-template-columns: 1fr; } }
+
+  .topic-card{
+    background: var(--bg-card); border:1px solid var(--line); border-radius:10px;
+    padding:18px 20px; transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .topic-card:hover{ border-color: var(--accent-c); transform: translateY(-2px); }
+  .topic-card h3{
+    font-family:'Space Grotesk', sans-serif; font-size:15px; font-weight:600;
+    color: var(--accent-c); margin-bottom:10px; display:flex; align-items:center; gap:8px;
+  }
+  .topic-card h3 .ic{ font-size:16px; }
+  .topic-card .plist{ display:flex; flex-direction:column; gap:9px; }
+  .topic-card .prow{ padding-left:15px; position:relative; }
+  .topic-card .prow::before{ content:"–"; position:absolute; left:0; color: var(--text-faint); }
+  .topic-card .prow .term{
+    font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:600;
+    color: var(--text); display:inline;
+  }
+  .topic-card .prow .desc{
+    font-family:'Noto Sans Thai','Inter',sans-serif; font-size:12.5px;
+    color: var(--text-dim); line-height:1.7; display:block; margin-top:2px;
+  }
+  .topic-card .prow .desc.inline{ display:inline; margin-top:0; }
+
+  /* Exam focus section — distinct visual treatment */
+  .exam-focus{
+    background: linear-gradient(155deg, rgba(251,191,36,0.07), var(--bg-card));
+    border:1px solid rgba(251,191,36,0.25);
+    border-radius:10px;
+    padding:6px;
+  }
+  .ef-item{
+    padding:14px 16px; border-radius:7px;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+  .ef-item:last-child{ border-bottom:none; }
+  .ef-head{
+    display:flex; align-items:center; gap:8px; margin-bottom:5px;
+  }
+  .ef-badge{
+    font-family:'JetBrains Mono', monospace; font-size:9.5px; font-weight:700;
+    letter-spacing:0.06em; color:#0a0e16; background: var(--warn);
+    padding:2px 7px; border-radius:4px; flex-shrink:0;
+  }
+  .ef-title{
+    font-family:'Noto Sans Thai', sans-serif; font-weight:700; font-size:13.5px; color: var(--text);
+  }
+  .ef-body{
+    font-family:'Noto Sans Thai','Inter',sans-serif; font-size:12.5px; color: var(--text-dim);
+    line-height:1.75; padding-left:2px;
+  }
+  .ef-body .k{ color: var(--accent-c); font-weight:600; font-family:'JetBrains Mono',monospace; font-size:12px; }
+
+  /* Cheat sheet */
+  .cheat-box{
+    background: linear-gradient(155deg, var(--bg-card), var(--bg-raised));
+    border:1px solid var(--line); border-radius:10px; padding:18px 20px;
+  }
+  .cheat-box ul{ list-style:none; }
+  .cheat-box li{
+    font-size:12.5px; color: var(--text-dim); line-height:1.9;
+    padding-left:18px; position:relative; font-family:'Noto Sans Thai','Inter',sans-serif;
+  }
+  .cheat-box li::before{ content:"▸"; position:absolute; left:0; color: var(--accent-c); font-size:10px; top:5px; }
+  .cheat-box li b{ color: var(--text); font-weight:600; }
+  .cheat-box li code{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; background:rgba(255,255,255,0.06);
+    padding:1px 5px; border-radius:3px; color: var(--accent-c);
+  }
+
+  .footnav{
+    display:flex; justify-content:space-between; gap:12px;
+    margin-top:44px; padding-top:20px; border-top:1px solid var(--line);
+  }
+  .footnav button{
+    background: var(--bg-card); border:1px solid var(--line); color: var(--text-dim);
+    font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.05em;
+    padding:10px 16px; border-radius:6px; cursor:pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .footnav button:hover:not(:disabled){ border-color: var(--accent-c); color: var(--text); }
+  .footnav button:disabled{ opacity:0.3; cursor:default; }
+  .footnav button.next{ margin-left:auto; }
+
+  @media (max-width: 760px){
+    body{ flex-direction:column; }
+    .spine{ width:100%; height:auto; position:relative; }
+    .spine-list{ display:flex; overflow-x:auto; padding:6px 10px; gap:2px; }
+    .spine-item{ flex-shrink:0; width:auto; padding:8px 12px; }
+    .spine-item .label .th{ display:none; }
+    .spine-item.active::before{ display:none; }
+    main{ height:auto; }
+    .page{ padding:28px 20px 60px; }
+    .hero-num{ font-size:40px; }
+    .hero-titles h2{ font-size:24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="spine" id="spine">
+  <div class="spine-head">
+    <div class="eyebrow">ISC2 · Certified in Cybersecurity</div>
+    <h1>Chapter Index</h1>
+    <div class="sub">สารบัญ 12 บท — สรุป Mind Map</div>
+  </div>
+  <div class="spine-list" id="spineList"></div>
+  <div class="spine-foot">
+    <span>12 CHAPTERS · TH/EN</span>
+    <span class="credit">Made by <b>Gotji</b></span>
+  </div>
+</nav>
+
+<main id="main">
+  <div class="page" id="page"></div>
+</main>
+
+<script>
+const chapters = [
+// ================= CHAPTER 1 =================
+{
+  en: "Cybersecurity Principles", th: "หลักการความปลอดภัยทางไซเบอร์", color:"#2DD4BF", emoji:"🛡️",
+  tagline: "หัวใจของ <b>Information Assurance</b> คือ CIA Triad (Confidentiality, Integrity, Availability) บวกกับ Privacy และจรรยาบรรณ ISC2 — เป็นรากฐานที่ทุกบทถัดไปต่อยอดขึ้นมา",
+  topics: [
+    {h:"Information Assurance", icon:"📋", points:[
+      {t:"นิยาม", d:"เป็น <b>วัตถุประสงค์ (Objective)</b> ของ Cybersecurity ไม่ใช่กฎหมายหรือ Control เฉพาะเจาะจง — เป้าหมายคือรับประกันว่าข้อมูลอยู่ถูกที่ ถูกรูปแบบ ถูกคน"},
+      {t:"องค์ประกอบ", d:"มี 6 ส่วนหลัก: Confidentiality, Integrity, Availability + Privacy, Authentication, Non-repudiation (2 อย่างหลังจะเรียนลึกใน Ch.8-9)"}
+    ]},
+    {h:"CIA Triad", icon:"🔺", points:[
+      {t:"Confidentiality", d:"ป้องกันการเปิดเผยข้อมูลโดยไม่ได้รับอนุญาต (Unauthorized disclosure) — คำถามหลัก: \"ใครเห็นข้อมูล?\""},
+      {t:"Integrity", d:"ป้องกันการแก้ไข/ทำลายข้อมูลโดยไม่ได้รับอนุญาต — คำถามหลัก: \"ข้อมูลถูกแก้ไขไหม?\""},
+      {t:"Availability", d:"ข้อมูลเข้าถึงได้ทันเวลาและเชื่อถือได้ตามที่ต้องการ — คำถามหลัก: \"ใช้งานได้ไหม?\""}
+    ]},
+    {h:"Privacy vs Confidentiality", icon:"🔏", points:[
+      {t:"Privacy", d:"= Control + Possession + Secrecy — สิทธิ์ในการควบคุมข้อมูลของตนเอง กว้างกว่า Confidentiality และมีมิติกฎหมาย/การเมือง/ปรัชญาเข้ามาเกี่ยวข้อง"},
+      {t:"Confidentiality", d:"เป็นเพียง Technical secrecy หนึ่งในองค์ประกอบของ Privacy เท่านั้น ไม่ใช่สิ่งเดียวกัน"}
+    ]},
+    {h:"ISC2 Code of Ethics", icon:"⚖️", points:[
+      {t:"Canon 1", d:"Protect society, the common good, necessary public trust and confidence, and the infrastructure"},
+      {t:"Canon 2", d:"Act honorably, honestly, justly, responsibly, and legally"},
+      {t:"Canon 3", d:"Provide diligent and competent service to principals"},
+      {t:"Canon 4", d:"Advance and protect the profession — ต้องยึดถืออย่างเคร่งครัดเป็นเงื่อนไขของ Certification"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"ออกบ่อย", title:"แยก C / I / A จาก Scenario ให้ได้ทันที", body:"ข้อสอบชอบยกสถานการณ์แล้วถามว่ากระทบเสาไหน — เช่น <span class='k'>Hacker ขโมยข้อมูลไปเปิดเผย = C</span>, <span class='k'>ไวรัสแก้ไขรายงานการเงิน = I</span>, <span class='k'>DDoS ทำเว็บล่ม = A</span> ต้องฝึกแยกให้คล่องเพราะออกเกือบทุกครั้ง"},
+    {badge:"จุดหลอก", title:"Ransomware กระทบได้หลายเสาพร้อมกัน", body:"เข้ารหัสไฟล์ = A (เข้าไม่ได้) หรือ I (ถูกเปลี่ยนแปลง) และถ้ามีการขโมยข้อมูลออกไปด้วย (exfiltrate) จะกระทบ C ด้วย — ข้อสอบมักใช้ Ransomware เป็นตัวหลอกให้เลือกคำตอบเดียว"},
+    {badge:"นิยาม", title:"Information Assurance ไม่ใช่กฎหมายหรือ Control", body:"ข้อสอบมักมีตัวเลือกหลอกว่า IA คือกฎหมายหรือ Technical control — ต้องจำว่า IA คือ <span class='k'>Objective</span> (เป้าหมาย) เท่านั้น"},
+    {badge:"เปรียบเทียบ", title:"Privacy กว้างกว่า Confidentiality เสมอ", body:"คำถามมักถามว่าสองคำนี้ต่างกันอย่างไร — Privacy ครอบคลุมทั้ง Control, Possession และ Secrecy ในขณะที่ Confidentiality เป็นแค่มิติ Secrecy ทางเทคนิค"},
+    {badge:"ต้องจำ", title:"4 Canons ต้องเรียงลำดับถูกต้อง", body:"เมื่อ Canon ขัดแย้งกัน ให้ยึดตามลำดับ 1→2→3→4 (ปกป้องสังคมมาก่อนเสมอ) เป็นหลักการที่ข้อสอบชอบทดสอบผ่าน Scenario จริยธรรม"}
+  ],
+  cheat: [
+    "<b>C</b> = ป้องกันการเปิดเผยข้อมูล → <code>Access Control, Encryption</code>",
+    "<b>I</b> = ป้องกันการแก้ไข/ทำลาย → <code>File Integrity Monitoring, Logging</code>",
+    "<b>A</b> = เข้าถึงได้ตามเวลา → <code>Redundancy, SLA Monitoring</code>",
+    "Privacy ≠ Confidentiality — Privacy กว้างกว่าเสมอ",
+    "IA = Objective (ไม่ใช่กฎหมาย ไม่ใช่ Control เฉพาะ)"
+  ]
+},
+// ================= CHAPTER 2 =================
+{
+  en: "Risk Management", th: "การจัดการความเสี่ยง", color:"#60A5FA", emoji:"📊",
+  tagline: "กระบวนการ <b>ระบุ → ประเมิน → จัดการ</b> ความเสี่ยง ผ่านสูตร Risk = Impact × Likelihood, Security Controls 3 ประเภท และ Governance ที่กำหนดกติกาให้ทั้งองค์กร",
+  topics: [
+    {h:"Risk / Threat / Vulnerability", icon:"⚠️", points:[
+      {t:"Risk", d:"มาตรวัดระดับที่ถูกคุกคาม = f(Impact, Likelihood) — ตามนิยาม NIST SP 800-37"},
+      {t:"Threat", d:"แหล่งที่มาของอันตราย (Source of danger) เช่น Malware, Hacker, Insider, ภัยธรรมชาติ"},
+      {t:"Vulnerability", d:"จุดอ่อนในระบบที่ Threat สามารถใช้ประโยชน์ได้ เช่น Unpatched software, Weak password"},
+      {t:"ความสัมพันธ์", d:"Threat exploit Vulnerability → เกิดเหตุ → เกิด Impact ต่อองค์กร"}
+    ]},
+    {h:"Risk Management Process", icon:"🔄", points:[
+      {t:"1. Identification", d:"ระบุว่ามี Threats และ Vulnerabilities อะไรบ้างที่เกี่ยวข้องกับองค์กร"},
+      {t:"2. Assessment", d:"ให้คะแนน Likelihood × Impact → จัด Priority → เลือก Response ที่เหมาะสม"},
+      {t:"3. Treatment", d:"สร้าง Plan → กำหนด Residual Risk ที่เหลือ → มอบหมาย Owner → Review เป็นระยะ"},
+      {t:"4 Risk Responses", d:"<b>Avoid</b> หลีกเลี่ยง, <b>Accept</b> ยอมรับ, <b>Reduce/Mitigate</b> ลด, <b>Transfer</b> โอน (เช่นซื้อประกัน)"}
+    ]},
+    {h:"Security Controls", icon:"🧩", points:[
+      {t:"Technical", d:"ควบคุมผ่านเทคโนโลยี เช่น Login, MFA, Encryption, Firewall, IDS/IPS"},
+      {t:"Administrative", d:"ควบคุมผ่านเอกสาร/กระบวนการ เช่น Policy, Procedure, Standard, Guideline"},
+      {t:"Physical", d:"ควบคุมทางกายภาพ เช่น ID readers, Locks, CCTV, Guards, Gates"},
+      {t:"5 วัตถุประสงค์", d:"Preventive, Detective, Corrective, Deterrent, Compensating"}
+    ]},
+    {h:"Governance", icon:"📜", points:[
+      {t:"Policy", d:"เอกสารนโยบายระดับสูง — บอกว่า \"ทำไม\" ต้องทำ"},
+      {t:"Procedure", d:"ขั้นตอนปฏิบัติแบบ step-by-step — บอกว่า \"อย่างไร\""},
+      {t:"Standard", d:"ข้อกำหนดเฉพาะที่ต้องปฏิบัติตาม — บอกว่า \"อะไร\""},
+      {t:"Regulations & Laws", d:"กฎหมาย/ระเบียบจากภายนอกที่บังคับให้มี Controls เช่น HIPAA, GDPR, PCI DSS"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"สูตรต้องจำ", title:"Risk = Impact × Likelihood", body:"ข้อสอบมักให้ Scenario แล้วถามว่า Risk Rating เป็นอย่างไร — ต้องประเมินทั้ง <span class='k'>Impact</span> (เสียหายแค่ไหน) และ <span class='k'>Likelihood</span> (โอกาสเกิดมากแค่ไหน) ประกอบกัน ไม่ใช่ดูแค่อย่างเดียว"},
+    {badge:"แยกให้ออก", title:"Risk vs Threat vs Vulnerability", body:"<span class='k'>Threat</span> = แหล่งอันตราย, <span class='k'>Vulnerability</span> = จุดอ่อน, <span class='k'>Risk</span> = การวัดผลรวมทั้งสอง — ข้อสอบชอบสลับให้เลือกผิด"},
+    {badge:"ออกบ่อย", title:"4 Risk Responses ต้องจับคู่กับ Scenario ให้ถูก", body:"<span class='k'>ซื้อ Insurance = Transfer</span>, <span class='k'>ติด Firewall = Reduce</span>, <span class='k'>ไม่เปิด Server สู่ Internet = Avoid</span>, <span class='k'>ใช้ระบบเดิมต่อทั้งที่รู้ว่ามีช่องโหว่ = Accept</span>"},
+    {badge:"เปรียบเทียบ", title:"Technical vs Administrative vs Physical Controls", body:"โจทย์มักยกตัวอย่างเครื่องมือ/นโยบาย แล้วถามว่าเป็น Control ประเภทไหน เช่น Firewall=Technical, Policy document=Administrative, Lock=Physical"},
+    {badge:"ต้องจำ", title:"Residual Risk ไม่มีทางเป็นศูนย์", body:"หลัง Treatment แล้วยังมี Risk ที่เหลืออยู่เสมอ (Residual Risk) — องค์กรต้องยอมรับระดับหนึ่งเสมอ ไม่มี Control ใดขจัด Risk ได้ 100%"},
+    {badge:"เปรียบเทียบ", title:"Policy → Standard → Procedure ลำดับต้องไม่สลับ", body:"Policy บอกทำไม (Why), Standard บอกอะไร (What), Procedure บอกอย่างไร (How) — ข้อสอบชอบเอาคำนิยามมาสลับที่กัน"}
+  ],
+  cheat: [
+    "<code>Risk = Impact × Likelihood</code>",
+    "Threat = แหล่งอันตราย · Vulnerability = จุดอ่อน · Risk = ผลรวมทั้งสอง",
+    "4 Responses: <code>Avoid / Accept / Reduce / Transfer</code>",
+    "3 Control types: <code>Technical / Administrative / Physical</code>",
+    "Residual Risk ≠ 0 เสมอ — Governance คือ Administrative control ประเภทหนึ่ง"
+  ]
+},
+// ================= CHAPTER 3 =================
+{
+  en: "Threats to Security", th: "ภัยคุกคามต่อความปลอดภัย", color:"#F472B6", emoji:"🐛",
+  tagline: "รู้จักศัตรู — Malware 4 ประเภท, Network Attacks และวิวัฒนาการเครื่องมือตรวจจับ/ป้องกันตั้งแต่ Antivirus จนถึง Penetration Testing",
+  topics: [
+    {h:"Malware", icon:"🦠", points:[
+      {t:"Virus", d:"ต้องมี Human interaction จึงจะแพร่ (ต้องมีคนรัน/เปิดไฟล์)"},
+      {t:"Worm", d:"Standalone, Self-replicating — แพร่กระจายได้เองโดยไม่ต้องมีคนรัน"},
+      {t:"Trojan", d:"แฝงตัวเป็นโปรแกรมที่ดูดี แต่ซ่อน Malicious code ไว้ข้างใน (Stealthy)"},
+      {t:"Ransomware", d:"เข้ารหัสข้อมูลแล้วเรียกค่าไถ่ — 3 ปัจจัย: Encrypt + Time limit + Spread"},
+      {t:"APT", d:"Advanced Persistent Threat — ซับซ้อน มักได้รับการสนับสนุนจากรัฐ (State-sponsored) แฝงตัวระยะยาวโดยไม่ถูกตรวจพบ"}
+    ]},
+    {h:"Network Attacks", icon:"🌐", points:[
+      {t:"DDoS", d:"ใช้หลายระบบ (Botnet) ท่วม Traffic เพื่อ Deny access — ต่างจาก DoS ที่ใช้ระบบเดียว"},
+      {t:"MITM / On-path", d:"ดักกลางการสื่อสาร มักเกิดบน Wi-Fi ที่ไม่ปลอดภัย เช่น ร้านกาแฟ โรงแรม"},
+      {t:"Side-Channel", d:"วิเคราะห์ข้อมูลที่รั่วไหลจาก Physical implementation เช่น Power consumption, EM radiation"}
+    ]},
+    {h:"Detection & Mitigation", icon:"🔍", points:[
+      {t:"วิวัฒนาการ Antivirus", d:"AV (ใช้ Signature) → NGAV (ใช้ ML/AI) → EDR (Endpoint+AI) → XDR (Endpoint+Network+Cloud)"},
+      {t:"Patching & Updates", d:"ปิดช่องโหว่ที่รู้จักแล้วอย่างสม่ำเสมอ เป็นแนวป้องกันพื้นฐานที่สำคัญที่สุด"}
+    ]},
+    {h:"Firewalls & IDS/IPS", icon:"🧱", points:[
+      {t:"Host-based vs Network-based", d:"Host-based ปกป้องเฉพาะเครื่อง · Network-based ปกป้องทั้งเครือข่าย"},
+      {t:"Packet Filtering", d:"Stateless = ดูทีละ Packet · Stateful = จำ Connection state ทั้งหมด"},
+      {t:"WAF / NGFW", d:"WAF ป้องกัน Web attacks โดยเฉพาะ (SQLi, XSS) · NGFW ใช้ Deep Packet Inspection + ML ยอดนิยมที่สุด"},
+      {t:"IDS vs IPS", d:"IDS = Detect + Alert เท่านั้น (Passive) · IPS = Detect + Block + Alert (Active)"}
+    ]},
+    {h:"Scanning & Pentesting", icon:"🧪", points:[
+      {t:"Vulnerability Scan", d:"Passive — หาช่องโหว่โดยไม่ Exploit จริง ทำต่อเนื่องสม่ำเสมอ"},
+      {t:"Penetration Test", d:"Active — ทดลอง Exploit ช่องโหว่จริง ทำเป็นช่วงเวลา (Periodic)"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"ออกบ่อยที่สุด", title:"Virus vs Worm ต้องแยกด้วยคำเดียว: Human interaction", body:"<span class='k'>Virus ต้องมีคนรัน (needs human)</span> ในขณะที่ <span class='k'>Worm แพร่กระจายได้เอง (self-replicates)</span> — เป็นจุดสอบยอดนิยมที่สุดของ Chapter นี้"},
+    {badge:"เปรียบเทียบ", title:"DDoS vs DoS", body:"<span class='k'>DDoS = Distributed</span> ใช้หลายระบบ (Botnet) โจมตีพร้อมกัน ส่วน <span class='k'>DoS</span> ใช้ระบบเดียว — ข้อสอบมักถามส่วนต่างนี้ตรงๆ"},
+    {badge:"เปรียบเทียบ", title:"IDS vs IPS — คำเดียวที่ต่างคือ Block", body:"IDS แค่ตรวจจับและแจ้งเตือน (Passive) ส่วน IPS สามารถบล็อกได้ด้วย (Active) — จำง่ายๆ ตัวอักษร S ในทั้งคู่คือ System, P คือ Prevention"},
+    {badge:"เปรียบเทียบ", title:"Vulnerability Scan vs Penetration Test", body:"Scan = <span class='k'>Passive</span> หาช่องโหว่โดยไม่แตะต้องระบบ, Pentest = <span class='k'>Active</span> ลองเจาะระบบจริงเพื่อพิสูจน์ว่า Exploit ได้จริงหรือไม่"},
+    {badge:"จุดหลอก", title:"MITM มักเกิดที่ Wi-Fi สาธารณะที่ไม่ปลอดภัย", body:"ข้อสอบมักยก Scenario ร้านกาแฟ/โรงแรมที่มี Wi-Fi ฟรีไม่มีรหัสผ่าน เป็นสภาพแวดล้อมเสี่ยงต่อ Man-in-the-Middle"},
+    {badge:"ต้องจำ", title:"NGFW คือ Firewall ที่ได้รับความนิยมที่สุดในปัจจุบัน", body:"เพราะรวมความสามารถ Deep Packet Inspection, Malware scanning, NAT และ Threat Intelligence ไว้ในตัวเดียว"}
+  ],
+  cheat: [
+    "Virus = <code>ต้องมีคนรัน</code> · Worm = <code>แพร่เอง</code>",
+    "DDoS = <code>Botnet หลายระบบ</code> · DoS = <code>ระบบเดียว</code>",
+    "IDS = <code>Detect+Alert</code> · IPS = <code>Detect+Block+Alert</code>",
+    "Vuln Scan = <code>Passive</code> · Pentest = <code>Active</code>",
+    "NGFW = <code>DPI+ML</code> ยอดนิยมที่สุด · MITM = Wi-Fi ไม่ปลอดภัย"
+  ]
+},
+// ================= CHAPTER 4 =================
+{
+  en: "Physical Access Controls", th: "การควบคุมการเข้าถึงทางกายภาพ", color:"#FB923C", emoji:"🚪",
+  tagline: "ควบคุมโลกจริง — ตั้งแต่ป้าย Badge, ประตู, การออกแบบพื้นที่แบบ CPTED ไปจนถึงกล้องวงจรปิดและเจ้าหน้าที่รักษาความปลอดภัย เป็น <b>แนวป้องกันด่านแรก</b>",
+  topics: [
+    {h:"Badge Systems", icon:"🪪", points:[
+      {t:"Proximity Card", d:"ใช้ RFID แบบ Contactless แค่แตะหรือเข้าใกล้ Reader เช่น สำนักงาน โรงแรม"},
+      {t:"Smart Card", d:"มี Microchip เก็บ PIN/Key คำนวณยืนยันตัวตน ใช้ในหน่วยงานรัฐบาล"},
+      {t:"Biometric ID", d:"ใช้ Fingerprint/Retina ร่วมกับ Chip ปลอมแปลงยากที่สุด"}
+    ]},
+    {h:"Gates & Barriers", icon:"🚧", points:[
+      {t:"Turnstile", d:"ให้คนผ่านทีละ 1 คน ป้องกัน Tailgating ได้ดี — พบในสถานีรถไฟ สนามกีฬา"},
+      {t:"Barrier Gate", d:"แขนกั้นควบคุม Vehicle traffic ยกขึ้น-ลง ใช้ที่ลานจอดรถ"},
+      {t:"Bollard", d:"เสาสกัดป้องกันรถชน ใช้หน้าอาคารรัฐบาล"},
+      {t:"Tailgating", d:"การแอบตามคนที่มีสิทธิ์เข้าไปโดยไม่ได้รับอนุญาต — เป็น Social engineering เชิงกายภาพ"}
+    ]},
+    {h:"CPTED", icon:"🏛️", points:[
+      {t:"Natural Surveillance", d:"ออกแบบให้สังเกตเห็นกันได้ง่าย (แสงสว่าง ทัศนวิสัย)"},
+      {t:"Natural Access Control", d:"ออกแบบทางเข้า-ออกให้ควบคุมง่าย ลดจุดเข้าที่ไม่จำเป็น"},
+      {t:"Territorial Reinforcement", d:"สร้างขอบเขตพื้นที่ให้ชัดเจนว่าใครเป็นเจ้าของ"},
+      {t:"Maintenance", d:"ดูแลพื้นที่อย่างต่อเนื่อง พื้นที่ที่ถูกทิ้งร้างดึงดูดอาชญากรรม"}
+    ]},
+    {h:"Monitoring", icon:"📹", points:[
+      {t:"Security Guards", d:"ลาดตระเวน ตรวจบัตร เป็นทั้ง Deterrent และผู้ตอบสนองเหตุฉุกเฉิน"},
+      {t:"CCTV", d:"4 ประเภทกล้อง: Fixed (คงที่), PTZ (หมุน+ซูม), Dome (ในร่ม), Bullet (กันน้ำ กลางแจ้ง)"},
+      {t:"Alarm Systems", d:"ใช้ Sensor และ Motion detector แจ้งเตือนการเข้าถึงที่ไม่ได้รับอนุญาต"},
+      {t:"Logs", d:"บันทึก Who/What/When/Where เพื่อสร้าง Accountability trail และส่งเข้า SIEM"}
+    ]},
+    {h:"Authorized vs Unauthorized", icon:"✅", points:[
+      {t:"Authorized", d:"ผู้ถือ Badge ที่ตรงกับ Job function ของตน"},
+      {t:"Visitors", d:"ต้องแสดง ID + ระบุเหตุผลชัดเจน + มี Escort ควบคุม + บันทึก Log ทุกครั้ง"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"ออกบ่อย", title:"Turnstile vs Barrier Gate vs Bollard", body:"<span class='k'>Turnstile</span> ควบคุมคนเดินทีละคน, <span class='k'>Barrier Gate</span> ควบคุมรถ, <span class='k'>Bollard</span> เป็นเสาสกัดกันชน — ข้อสอบชอบให้จับคู่ภาพหรือ Scenario กับชื่ออุปกรณ์"},
+    {badge:"เปรียบเทียบ", title:"Proximity vs Smart Card vs Biometric", body:"เรียงจากความปลอดภัยน้อยไปมาก: <span class='k'>Proximity (RFID)</span> → <span class='k'>Smart Card (Chip)</span> → <span class='k'>Biometric</span> (ปลอมแปลงยากที่สุดเพราะผูกกับร่างกาย)"},
+    {badge:"จุดหลอก", title:"Cybersecurity software ไม่ใช่ Physical Control", body:"ข้อสอบมักใส่ตัวเลือกหลอกเป็น Technical/Logical control ปนมาในคำถามเกี่ยวกับ Physical controls ต้องแยกให้ออก"},
+    {badge:"ต้องจำ", title:"Tailgating คือภัยคุกคามทางกายภาพที่พบบ่อยที่สุด", body:"การแอบตามคนที่มีสิทธิ์เข้าประตู เป็นจุดอ่อนที่ Turnstile และการฝึกอบรมพนักงานช่วยลดความเสี่ยงได้"},
+    {badge:"เปรียบเทียบ", title:"4 หลักการ CPTED ต้องจำครบ", body:"Natural Surveillance, Natural Access Control, Territorial Reinforcement, Maintenance — ข้อสอบอาจถามยกตัวอย่างแล้วให้จับคู่หลักการ"},
+    {badge:"ออกบ่อย", title:"Security ต้อง Balance กับ Convenience", body:"หากมาตรการเข้มงวดเกินไปจนไม่สะดวก พนักงานจะหาทางเลี่ยง Control (เช่น เปิดประตูค้างให้เพื่อน) — เป็นแนวคิดที่ข้อสอบชอบทดสอบผ่านสถานการณ์"}
+  ],
+  cheat: [
+    "Proximity = <code>RFID</code> · Smart = <code>Chip</code> · Biometric = <code>Fingerprint+Chip</code>",
+    "Tailgating = แอบตามคนมีสิทธิ์เข้า (Social engineering ทางกายภาพ)",
+    "CPTED = 4 หลักการ (Surveillance, Access Control, Territorial, Maintenance)",
+    "CCTV 4 แบบ: <code>Fixed / PTZ / Dome / Bullet</code>",
+    "Visitors ต้อง: ID + เหตุผล + Escort + Log ทุกครั้ง"
+  ]
+},
+// ================= CHAPTER 5 =================
+{
+  en: "Logical Access Controls", th: "การควบคุมการเข้าถึงเชิงตรรกะ", color:"#A78BFA", emoji:"🔑",
+  tagline: "Software + Policies ที่ควบคุมว่าใครเข้าถึงอะไรได้บ้าง — จำง่ายๆ <b>DAC = Owner ตัดสินใจ, MAC = ระบบกลางตัดสินใจ, RBAC = Role ตัดสินใจ</b>",
+  topics: [
+    {h:"POLP & Need to Know", icon:"🎯", points:[
+      {t:"Need to Know", d:"ผู้ใช้เข้าถึงเฉพาะข้อมูลที่จำเป็นต่อหน้าที่ของตนเองเท่านั้น"},
+      {t:"POLP", d:"Principle of Least Privilege — ให้สิทธิ์น้อยที่สุดที่จำเป็นต่อการทำงาน"},
+      {t:"3 Privilege Levels", d:"Administrator (เป้าหมายหลักของ Hacker) > User (จำกัดสิทธิ์) > Guest (น้อยที่สุด)"}
+    ]},
+    {h:"Segregation of Duties (SOD)", icon:"🤝", points:[
+      {t:"หลักการ", d:"แบ่งหน้าที่สำคัญให้คนละคนทำ เพื่อป้องกัน Fraud และ Unauthorized activity"},
+      {t:"4 หน้าที่หลัก", d:"Authorization (อนุมัติ), Custody (ครอบครองทรัพย์สิน), Record-keeping (บันทึก), Reconciliation (ตรวจสอบยอด)"},
+      {t:"Dynamic SOD", d:"ห้ามทำ 2 หน้าที่ที่ขัดแย้งกันพร้อมกัน แม้จะมีสิทธิ์ทำได้ทั้งคู่"}
+    ]},
+    {h:"DAC — Discretionary Access Control", icon:"👤", points:[
+      {t:"หลักการ", d:"เจ้าของ (Owner) เป็นผู้กำหนดสิทธิ์การเข้าถึงเอง ผ่าน Access Control List (ACL)"},
+      {t:"สิทธิ์", d:"กำหนดผ่าน r (read) / w (write) / x (execute) เช่นใน Unix/Linux"},
+      {t:"ข้อดี-ข้อเสีย", d:"ยืดหยุ่นสูง แต่จัดการยากเมื่อ Scale ใหญ่ขึ้น"}
+    ]},
+    {h:"MAC — Mandatory Access Control", icon:"🏛️", points:[
+      {t:"หลักการ", d:"Central authority เป็นผู้กำหนดสิทธิ์ ไม่ใช่เจ้าของไฟล์ ใช้ Classification levels (Top Secret → Public)"},
+      {t:"Zero Trust", d:"เข้มงวดที่สุด ใช้ในหน่วยงานรัฐบาล/กลาโหม"},
+      {t:"Bell-LaPadula", d:"เน้น Confidentiality — No Read Up, No Write Down"},
+      {t:"Biba Model", d:"เน้น Integrity — No Write Up, No Read Down"},
+      {t:"Clark-Wilson", d:"เน้น Integrity + Consistency ผ่าน Procedures/Rules ที่ควบคุมการทำธุรกรรม"}
+    ]},
+    {h:"RBAC — Role-Based Access Control", icon:"🧑‍💼", points:[
+      {t:"หลักการ", d:"สิทธิ์กำหนดตาม Role หรือ Job function ไม่ใช่รายบุคคล — เป็น Model ที่นิยมที่สุดในองค์กร"},
+      {t:"Core RBAC", d:"พื้นฐาน: Role assignment + Role authorization + Permission authorization"},
+      {t:"Hierarchical RBAC", d:"สิทธิ์ Inherit ตามลำดับชั้น: Guest < User < Admin"},
+      {t:"Constrained RBAC", d:"เพิ่มข้อจำกัด SOD เข้าไปในระบบ Role"},
+      {t:"Access Matrix", d:"ตาราง Mapping Role → Resource → Actions (r/w/x) ต้อง Update สม่ำเสมอ"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"ออกบ่อยที่สุด", title:"DAC vs MAC vs RBAC — ใครเป็นคนตัดสินใจ", body:"<span class='k'>DAC = Owner</span> ตัดสินใจเอง (ยืดหยุ่นสุด), <span class='k'>MAC = Central authority</span> ตัดสินใจ (เข้มงวดสุด ใช้ในรัฐบาล/กลาโหม), <span class='k'>RBAC = Role</span> เป็นตัวกำหนด (นิยมสุดในองค์กรทั่วไป) — เป็นหัวข้อที่ออกสอบแทบทุกครั้ง"},
+    {badge:"เปรียบเทียบ", title:"Bell-LaPadula vs Biba vs Clark-Wilson", body:"<span class='k'>Bell-LaPadula = Confidentiality</span> (No Read Up, No Write Down), <span class='k'>Biba = Integrity</span> (No Write Up, No Read Down กลับด้านกัน), <span class='k'>Clark-Wilson = Integrity + Consistency</span> ผ่าน Rules"},
+    {badge:"จุดหลอก", title:"unix chmod คือตัวอย่างของ DAC", body:"คำสั่ง <span class='k'>chmod 755 myfile.sh</span> คือเจ้าของไฟล์กำหนดสิทธิ์ r/w/x เอง ตรงตามนิยาม DAC ไม่ใช่ MAC หรือ RBAC"},
+    {badge:"ต้องจำ", title:"POLP ≠ Need to Know", body:"Need to Know = <span class='k'>ข้อมูล</span>ที่ต้องรู้ (Information) ส่วน POLP = <span class='k'>สิทธิ์</span>ที่ต้องมี (Permission) — สองคำนี้ใกล้กันมากจนข้อสอบชอบเอามาสลับ"},
+    {badge:"เปรียบเทียบ", title:"Static SOD vs Dynamic SOD", body:"Static SOD ห้าม Role ที่ขัดแย้งกันมอบให้คนเดียวถาวร ส่วน Dynamic SOD อนุญาตให้มีสิทธิ์ทั้งคู่ได้ แต่ห้ามทำสองหน้าที่พร้อมกันในธุรกรรมเดียว"},
+    {badge:"ออกบ่อย", title:"RBAC เป็น Model ที่นิยมที่สุด เพราะจัดการง่ายกว่า MAC และปลอดภัยกว่า DAC", body:"ข้อสอบชอบถามว่าองค์กรทั่วไปควรเลือกใช้ Model ไหน — คำตอบมักเป็น RBAC เพราะ Balance ระหว่างความปลอดภัยกับการจัดการได้ดีที่สุด"}
+  ],
+  cheat: [
+    "<b>DAC</b> = Owner ตัดสินใจ · <b>MAC</b> = Central authority ตัดสินใจ · <b>RBAC</b> = Role ตัดสินใจ",
+    "Bell-LaPadula = <code>Confidentiality</code> (No Read Up/No Write Down)",
+    "Biba = <code>Integrity</code> (No Write Up/No Read Down)",
+    "POLP ≠ Need to Know (POLP=สิทธิ์ / Need to Know=ข้อมูล)",
+    "RBAC ยอดนิยมที่สุดในองค์กรทั่วไป · MAC เข้มงวดสุดในรัฐบาล/กลาโหม"
+  ]
+},
+// ================= CHAPTER 6 =================
+{
+  en: "Computer Networking Fundamentals", th: "พื้นฐานเครือข่ายคอมพิวเตอร์", color:"#34D399", emoji:"🌐",
+  tagline: "ภาษาของเครือข่าย — OSI 7 ชั้น, Ports/Protocols, TCP vs UDP และวิวัฒนาการจาก IPv4 สู่ WPA3 — บทนี้ออกข้อสอบเน้น Ports และ OSI Layer เป็นพิเศษ",
+  topics: [
+    {h:"Network Types", icon:"🖧", points:[
+      {t:"PAN", d:"Personal-Area Network ระยะ cm-m เช่น Bluetooth"},
+      {t:"LAN / WLAN", d:"เครือข่ายในสำนักงาน — แบบมีสาย (LAN) หรือไร้สาย (WLAN)"},
+      {t:"MAN / WAN", d:"MAN ครอบคลุมเมือง · WAN ครอบคลุมกว้างระดับโลก เช่น Internet"}
+    ]},
+    {h:"OSI Model (7 Layers)", icon:"📶", points:[
+      {t:"L7 Application", d:"HTTP(80), HTTPS(443), FTP(20-21), SSH(22), SMTP(25), DNS(53)"},
+      {t:"L4 Transport", d:"TCP (Reliable) / UDP (Fast) — Error checking + 3-way handshake"},
+      {t:"L3 Network", d:"IP, ICMP, IPSec — Routing + IP addressing"},
+      {t:"L2 Data Link", d:"ARP, MAC address — Framing + Error control"},
+      {t:"L1 Physical", d:"Ethernet, Fiber, Wi-Fi — Raw bits, Cables, Hubs"},
+      {t:"จำง่าย", d:"All People Seem To Need Data Processing (Application→Physical)"}
+    ]},
+    {h:"Ports & Protocols", icon:"🔌", points:[
+      {t:"Well-known", d:"0–1023 (HTTP, SSH, FTP, DNS ฯลฯ)"},
+      {t:"Registered", d:"1024–49151"},
+      {t:"Dynamic/Private", d:"49152–65535"}
+    ]},
+    {h:"TCP vs UDP", icon:"🔀", points:[
+      {t:"TCP", d:"Connection-oriented, Reliable, Ordered ผ่าน 3-way handshake — ใช้กับ Web, Email"},
+      {t:"UDP", d:"Connectionless, เร็วแต่ไม่ Guarantee — ใช้กับ Streaming, VoIP"}
+    ]},
+    {h:"IPv4, IPv6, Wi-Fi", icon:"📡", points:[
+      {t:"IPv4", d:"32-bit แบบ dotted-decimal ~4 พันล้าน address"},
+      {t:"IPv6", d:"128-bit hex จำนวนมหาศาล ไม่ต้องใช้ NAT"},
+      {t:"NAT / CIDR", d:"NAT แปลง Private IP → Public IP · CIDR ให้ความยืดหยุ่นกว่า Classful addressing"},
+      {t:"Wi-Fi Security", d:"วิวัฒนาการ WEP (ล้าสมัยแล้ว!) → WPA → WPA2 → WPA3 (ปลอดภัยที่สุด)"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"ต้องจำขึ้นใจ", title:"Ports สำคัญที่ออกสอบทุกครั้ง", body:"<span class='k'>HTTP=80, HTTPS=443, SSH=22, FTP=20-21, DNS=53, SMTP=25, RDP=3389</span> — ข้อสอบมักถามตรงๆ ว่า Protocol ไหนใช้ Port อะไร"},
+    {badge:"เปรียบเทียบ", title:"TCP vs UDP", body:"<span class='k'>TCP</span> = Reliable, มี 3-way handshake, ใช้กับเว็บ/อีเมล ส่วน <span class='k'>UDP</span> = เร็ว ไม่รอ ACK ใช้กับ Streaming/VoIP — ข้อสอบมักยก Use case มาให้จับคู่"},
+    {badge:"จุดหลอกยอดนิยม", title:"OSI Layer 3 ≠ TCP/IP Layer 1 — คนละชั้นกัน!", body:"แม้ทั้งคู่เกี่ยวกับ Network แต่ OSI Model (7 ชั้น) กับ TCP/IP Model (4 ชั้น) นับเลขไม่ตรงกัน ข้อสอบชอบเอาเลขชั้นมาหลอก ต้องดูชื่อ Layer ให้ดี"},
+    {badge:"ออกบ่อย", title:"WEP ถือว่า Obsolete (ล้าสมัย) แล้ว", body:"เพราะมีช่องโหว่จาก Short/Static key — ข้อสอบมักถามว่า Wi-Fi encryption ตัวไหนไม่ควรใช้แล้ว คำตอบคือ WEP เสมอ"},
+    {badge:"เปรียบเทียบ", title:"3 ประเภท Ports ตามช่วงตัวเลข", body:"<span class='k'>Well-known (0-1023)</span>, <span class='k'>Registered (1024-49151)</span>, <span class='k'>Dynamic (49152-65535)</span> — ข้อสอบอาจให้เลข Port มาแล้วถามว่าอยู่ประเภทไหน"},
+    {badge:"ต้องจำ", title:"NAT ใช้แปลง Private IP เป็น Public IP", body:"เพื่อให้อุปกรณ์ในเครือข่ายภายในออกอินเทอร์เน็ตได้ — IPv6 ไม่จำเป็นต้องใช้ NAT เพราะมี Address มากพอ"}
+  ],
+  cheat: [
+    "จำ Port: <code>80=HTTP 443=HTTPS 22=SSH 53=DNS 25=SMTP</code>",
+    "TCP = <code>Reliable</code> · UDP = <code>Fast</code>",
+    "WEP = <code>Obsolete!</code> ใช้ WPA3 แทน",
+    "OSI (7 ชั้น) ≠ TCP/IP Model (4 ชั้น) — เลขชั้นไม่ตรงกัน!",
+    "MAC = 48-bit Hardware address · NAT = Private→Public IP"
+  ]
+},
+// ================= CHAPTER 7 =================
+{
+  en: "Network Security Infrastructure", th: "โครงสร้างพื้นฐานความปลอดภัยเครือข่าย", color:"#FBBF24", emoji:"☁️",
+  tagline: "จาก Data Center จริงสู่ Cloud — Defense-in-Depth, DMZ/VLAN/VPN และโมเดล Cloud ทั้ง 4 แบบพร้อม SLA เป็นบทที่ครอบคลุมกว้างที่สุดบทหนึ่ง",
+  topics: [
+    {h:"On-Premises Infrastructure", icon:"🏢", points:[
+      {t:"Power & Data Center", d:"UPS + Generator สำรองไฟ, ห้อง Data Center ต้องควบคุม HVAC (อุณหภูมิ+ความชื้น)"},
+      {t:"Fire Suppression", d:"Sprinkler(สำนักงาน), Gas-based(Data center — ไม่ทำลายอุปกรณ์), Foam(สารเคมี), Wet chemical(ครัว)"},
+      {t:"Redundancy", d:"ระบบสำรองนำไปสู่ High Availability — Five nines = 99.999% uptime"},
+      {t:"MOU vs MOA", d:"MOU = ไม่มีผลผูกพันทางกฎหมาย · MOA = มีผลผูกพันทางกฎหมาย (Legally binding)"}
+    ]},
+    {h:"Secure Network Design", icon:"🛡️", points:[
+      {t:"Defense-in-Depth (DiD)", d:"ป้องกันหลายชั้นซ้อนกัน เปรียบเหมือนปราสาทที่มีทั้งคูเมือง กำแพง และทหารรักษาการณ์"},
+      {t:"Segmentation / Micro-seg", d:"แบ่งเครือข่ายเป็นส่วนย่อยเพื่อจำกัดความเสียหายหากถูกเจาะ"},
+      {t:"DMZ", d:"Buffer zone ระหว่าง Internal ↔ External ใช้วาง Public-facing servers"},
+      {t:"VLAN", d:"แบ่ง Network เสมือนในระดับ Logical โดยไม่ต้องเดินสายใหม่"},
+      {t:"VPN", d:"เข้ารหัสการเชื่อมต่อ 3 แบบ: Remote access, Site-to-site, Mobile"},
+      {t:"NAC", d:"Network Access Control — ตรวจสอบ Pre/Post-admission รองรับ BYOD และ IoT"}
+    ]},
+    {h:"Cloud Deployment Models", icon:"☁️", points:[
+      {t:"Public", d:"ทุกคนใช้ได้ผ่าน Internet CSP จัดการทั้งหมด (เช่น Google Suite)"},
+      {t:"Private", d:"เฉพาะองค์กรเดียว Customize ได้สูง แต่ค่าใช้จ่ายสูง"},
+      {t:"Community", d:"หลายองค์กรที่มีความสนใจร่วมกันแชร์ทรัพยากร เช่น หน่วยงานรัฐ โรงพยาบาล"},
+      {t:"Hybrid", d:"ผสม Public+Private — Sensitive data เก็บใน Private ส่วนอื่นใช้ Public ได้รับความนิยมสูงสุด"}
+    ]},
+    {h:"Cloud Service Models", icon:"🍕", points:[
+      {t:"IaaS", d:"CSP ให้ Infrastructure เท่านั้น องค์กรจัดการ OS ขึ้นไปเอง — เหมือนแป้งพิซซ่า"},
+      {t:"PaaS", d:"CSP ให้ Infra+Platform องค์กรจัดการแค่ App+Data — เหมือน Take & Bake"},
+      {t:"SaaS", d:"CSP จัดการทุกอย่าง องค์กรแค่ใช้งาน — เหมือนสั่งเดลิเวอรี่"}
+    ]},
+    {h:"SLA & MSP", icon:"📄", points:[
+      {t:"SLA", d:"Service-Level Agreement มี 3 ประเภท: Customer, Internal, Multilevel — กำหนด Metrics และ Penalty"},
+      {t:"MSP / MSSP", d:"Managed Service/Security Provider — การ Outsource งาน IT/Security ให้บุคคลภายนอก"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"ต้องจำ", title:"Gas-based Fire Suppression ใช้ใน Data Center", body:"เพราะไม่ทำลายอุปกรณ์อิเล็กทรอนิกส์เหมือนน้ำ — ข้อสอบมักถามว่าห้อง Server ควรใช้ระบบดับเพลิงแบบไหน คำตอบคือ Gas-based (CO2, FM-200)"},
+    {badge:"เปรียบเทียบ", title:"IaaS vs PaaS vs SaaS — ใครจัดการอะไร", body:"จำสูตรพิซซ่า: <span class='k'>IaaS</span>=แป้งดิบ(องค์กรทำต่อเอง), <span class='k'>PaaS</span>=Take&Bake(แต่งหน้าเอง), <span class='k'>SaaS</span>=Delivery(พร้อมกิน) — ข้อสอบชอบถามว่าใครรับผิดชอบ OS/App/Data"},
+    {badge:"ออกบ่อย", title:"DMZ คือ Buffer Zone ไม่ใช่ Internal Network", body:"ใช้วาง Server ที่ต้องเปิดให้ Public เข้าถึงได้ (เช่น Web server) โดยไม่ให้ Internal network เสี่ยงโดยตรง"},
+    {badge:"จุดหลอก", title:"MOU ไม่มีผลผูกพันทางกฎหมาย ต่างจาก MOA", body:"ข้อสอบมักถามว่าเอกสารประเภทไหนใช้ฟ้องร้องได้ — คำตอบคือ MOA (Legally binding) ไม่ใช่ MOU"},
+    {badge:"เปรียบเทียบ", title:"Cloud Deployment 4 แบบต้องแยกให้ออก", body:"<span class='k'>Public</span>=ทุกคนใช้ได้, <span class='k'>Private</span>=องค์กรเดียว, <span class='k'>Community</span>=กลุ่มองค์กรที่คล้ายกันแชร์กัน (เช่น รัฐบาล), <span class='k'>Hybrid</span>=ผสมทั้งสอง"},
+    {badge:"ต้องจำ", title:"Five Nines (99.999%) คือมาตรฐาน SLA ระดับสูง", body:"หมายถึง Downtime เพียง ~5 นาทีต่อปี — มักปรากฏในคำถามเกี่ยวกับ SLA และ Redundancy"}
+  ],
+  cheat: [
+    "Gas-based suppression → <code>Data Center</code>",
+    "IaaS=แป้ง · PaaS=Take&Bake · SaaS=Delivery",
+    "DMZ = Buffer zone สำหรับ Public-facing servers",
+    "MOU = ไม่ผูกพันกฎหมาย · MOA = ผูกพันกฎหมาย",
+    "Hybrid Cloud ได้รับความนิยมสูงสุดในปัจจุบัน · Five nines = 99.999% uptime"
+  ]
+},
+// ================= CHAPTER 8 =================
+{
+  en: "Data and the System", th: "ข้อมูลและระบบ", color:"#38BDF8", emoji:"🔐",
+  tagline: "ปกป้องข้อมูลด้วย Encryption, Hashing และ Authentication พร้อมวงจรชีวิตของข้อมูลตั้งแต่ Classification ถึง Destruction",
+  topics: [
+    {h:"Encryption", icon:"🔒", points:[
+      {t:"Symmetric", d:"ใช้ Key เดียวกันเข้า/ถอดรหัส เร็ว (เช่น AES-256) ใช้กับ Data ที่ Session สร้างแล้ว"},
+      {t:"Asymmetric", d:"ใช้ Public+Private key คู่กัน ปลอดภัยกว่าแต่ช้ากว่า (RSA, DH) ใช้สร้าง Session"},
+      {t:"Data at rest / in transit", d:"ข้อมูลที่จัดเก็บ (at rest) และข้อมูลระหว่างส่ง (in transit) ต้องเข้ารหัสทั้งคู่"}
+    ]},
+    {h:"Hashing & Non-repudiation", icon:"#️⃣", points:[
+      {t:"Hashing", d:"One-way function แปลง Data → Fixed-length hash (SHA-256, MD5) — พิสูจน์ Integrity ไม่ใช่ Confidentiality"},
+      {t:"Salting", d:"เพิ่มตัวเลขลับเข้าไปกับข้อมูลก่อน Hash เพื่อป้องกัน Reverse engineering"},
+      {t:"Non-repudiation", d:"ทำให้ผู้ส่งปฏิเสธไม่ได้ว่าตนเองส่งข้อมูล — ใช้ Digital Signature"},
+      {t:"Digital Signature", d:"= Hash message แล้วเข้ารหัส Hash นั้นด้วย Private key ของผู้ส่ง"}
+    ]},
+    {h:"Authentication", icon:"🧬", points:[
+      {t:"5 Factors", d:"Knowledge(รู้), Possession(มี), Inherence(เป็น), Location(อยู่ที่ไหน), Behavior(พฤติกรรม)"},
+      {t:"MFA", d:"ต้องใช้ 2+ ปัจจัยที่ต่างประเภทกัน — Password 2 ตัวไม่ถือเป็น MFA"},
+      {t:"OTP", d:"One-Time Password เป็น Possession factor หมดอายุเร็ว (15-30 วินาที) — App/YubiKey ปลอดภัยกว่า SMS"}
+    ]},
+    {h:"Password Policy", icon:"🔑", points:[
+      {t:"Best Practices", d:"ความยาว 8+ ตัวอักษร, มี Complexity, กำหนดอายุสูงสุด 90 วัน, Monitor รหัสผ่านที่รั่วไหล"},
+      {t:"Technical vs Administrative", d:"บังคับผ่านระบบ (Technical config) ควบคู่กับเอกสารนโยบายที่เป็นลายลักษณ์อักษร (Written doc)"}
+    ]},
+    {h:"Data Handling", icon:"🗂️", points:[
+      {t:"Classification", d:"จัดระดับความลับตั้งแต่ Public จนถึง Top Secret"},
+      {t:"Labeling", d:"ติด Watermark หรือ Tag บนข้อมูลตามระดับชั้น"},
+      {t:"Retention", d:"กำหนดระยะเวลาการเก็บข้อมูล เช่น 7 ปี หรือ 12 เดือน"},
+      {t:"Destruction", d:"ทำลายข้อมูลอย่างปลอดภัย: Wipe, Overwrite, Degauss, Shred, Incinerate"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"ออกบ่อยที่สุด", title:"Hashing ≠ Encryption", body:"<span class='k'>Hashing = One-way</span> (ถอดรหัสกลับไม่ได้) เป้าหมายคือ Integrity ส่วน <span class='k'>Encryption = Two-way</span> (ถอดรหัสกลับได้ด้วย Key) เป้าหมายคือ Confidentiality — เป็นจุดสอบยอดฮิตที่สุดของบทนี้"},
+    {badge:"เปรียบเทียบ", title:"Symmetric vs Asymmetric Encryption", body:"<span class='k'>Symmetric</span> = Key เดียวกัน เร็ว เหมาะกับข้อมูลปริมาณมาก · <span class='k'>Asymmetric</span> = Public+Private key ปลอดภัยกว่าในการแลกเปลี่ยน key แต่ช้ากว่า — ในทางปฏิบัติมักใช้ร่วมกัน: Asymmetric สร้าง Session แล้ว Symmetric เข้ารหัสข้อมูลจริง"},
+    {badge:"ต้องจำ", title:"OTP เป็น Possession Factor ไม่ใช่ Knowledge Factor", body:"เพราะต้อง \"มี\" อุปกรณ์ (App/Token) ถึงจะรับรหัสได้ ต่างจาก Password ที่เป็น Knowledge factor (สิ่งที่ \"รู้\")"},
+    {badge:"จุดหลอก", title:"Password 2 ตัวไม่ใช่ MFA", body:"MFA ต้องมาจาก 2 ปัจจัยที่ <span class='k'>ต่างประเภทกัน</span> เช่น Password (Knowledge) + OTP (Possession) — การใช้ Password ซ้อน Password ไม่นับเป็น MFA"},
+    {badge:"เปรียบเทียบ", title:"Digital Signature = Hash + Encryption รวมกัน", body:"ขั้นตอนคือ Hash ข้อความก่อน แล้วเข้ารหัส Hash นั้นด้วย Private Key ของผู้ส่ง — ทำให้เกิดทั้ง Integrity และ Non-repudiation พร้อมกัน"},
+    {badge:"ต้องจำ", title:"Data Handling มี 4 ขั้นตอนเรียงลำดับ", body:"<span class='k'>Classification → Labeling → Retention → Destruction</span> — ข้อสอบอาจถามลำดับหรือถามว่าขั้นตอนไหนควรทำก่อน-หลัง"}
+  ],
+  cheat: [
+    "Symmetric = <code>เร็ว (Same key)</code> · Asymmetric = <code>ปลอดภัย (Pub+Priv key)</code>",
+    "Hash = <code>Integrity</code> (One-way) · Encryption = <code>Confidentiality</code> (Two-way)",
+    "OTP = Possession factor (ไม่ใช่ Knowledge) · MFA ต้องต่างประเภทกัน",
+    "Digital Signature = Hash + เข้ารหัสด้วย Private Key",
+    "Data Handling: <code>Classify → Label → Retain → Destroy</code>"
+  ]
+},
+// ================= CHAPTER 9 =================
+{
+  en: "Security Operations", th: "การปฏิบัติงานด้านความปลอดภัย", color:"#2DD4BF", emoji:"⚙️",
+  tagline: "งานที่ต้องทำทุกวัน — 4 เสาหลักที่ทำงานร่วมกัน: <b>System Hardening, Logging & Monitoring, Security Policies, Awareness</b>",
+  topics: [
+    {h:"1. System Hardening", icon:"🧰", points:[
+      {t:"Baseline", d:"กำหนดค่าตั้งต้นความปลอดภัยขั้นต่ำที่ทุกระบบต้องมี"},
+      {t:"Patch / Update / Upgrade", d:"Patch = แก้จุดเฉพาะ · Update = ปรับปรุงกว้างขึ้น · Upgrade = ย้ายไปรุ่นใหญ่"},
+      {t:"Vulnerability Management", d:"กระบวนการค้นหา ประเมิน และแก้ไขช่องโหว่อย่างต่อเนื่อง"}
+    ]},
+    {h:"2. Logging & Monitoring", icon:"📝", points:[
+      {t:"Log Sources", d:"รวบรวมจากหลายแหล่ง เช่น Firewall, Server, Application"},
+      {t:"SIEM / Alerts", d:"รวบรวม (Aggregate) + เชื่อมโยง (Correlate) + แจ้งเตือน (Alert) จาก Log ทั้งหมด"},
+      {t:"SOC / NOC", d:"Security Operations Center เฝ้าระวังภัยคุกคาม ส่วน Network Operations Center ดูแลประสิทธิภาพเครือข่าย"}
+    ]},
+    {h:"3. Security Policies", icon:"📄", points:[
+      {t:"AUP", d:"Acceptable Use Policy — กำหนดวิธีการใช้เทคโนโลยีขององค์กรอย่างเหมาะสม"},
+      {t:"BYOD", d:"Bring Your Own Device — นโยบายเกี่ยวกับการใช้อุปกรณ์ส่วนตัวทำงาน"},
+      {t:"Change Management", d:"ควบคุมการเปลี่ยนแปลงระบบผ่าน Document + Test + Approve + Rollback"},
+      {t:"Privacy", d:"นโยบายคุ้มครองข้อมูลลูกค้าและพนักงาน"}
+    ]},
+    {h:"4. Awareness", icon:"🎓", points:[
+      {t:"Social Engineering", d:"ฝึกให้พนักงานรู้เท่าทันกลลวงที่หลอกใช้จิตวิทยา เช่น Phishing"},
+      {t:"Password Protection", d:"สอนวิธีตั้งและดูแลรหัสผ่านอย่างปลอดภัย"},
+      {t:"Role-based Training", d:"ฝึกอบรมตามบทบาทหน้าที่ พร้อม Simulation จำลองสถานการณ์จริง"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"ต้องจำ", title:"Patch / Update / Upgrade ต่างกันอย่างไร", body:"<span class='k'>Patch</span> = แก้จุดเฉพาะเจาะจง (เช่น ปิดช่องโหว่หนึ่งจุด), <span class='k'>Update</span> = ปรับปรุงในวงกว้างขึ้น, <span class='k'>Upgrade</span> = เปลี่ยนไปใช้เวอร์ชันใหญ่ — ข้อสอบชอบให้ยกตัวอย่างแล้วจับคู่คำศัพท์"},
+    {badge:"เปรียบเทียบ", title:"Logging vs Monitoring vs SIEM", body:"<span class='k'>Logging</span> = การบันทึก (Record), <span class='k'>Monitoring</span> = การเฝ้าดู/ตรวจจับ (Watch/Detect), <span class='k'>SIEM</span> = รวบรวม+เชื่อมโยง+แจ้งเตือนจากหลายแหล่งพร้อมกัน — เป็นขั้นบันไดที่ต้องเรียงลำดับให้ถูก"},
+    {badge:"ออกบ่อย", title:"AUP vs BYOD vs Privacy Policy", body:"<span class='k'>AUP</span> = การใช้เทคโนโลยีอย่างเหมาะสมโดยรวม, <span class='k'>BYOD</span> = เฉพาะอุปกรณ์ส่วนตัว, <span class='k'>Privacy</span> = การคุ้มครองข้อมูลลูกค้า — สามนโยบายนี้มักถูกเอามาเปรียบเทียบในข้อสอบ"},
+    {badge:"ต้องจำ", title:"Change Management ต้องมี 4 ขั้นตอนครบ", body:"<span class='k'>Document → Test → Approve → Rollback</span> — ถ้าขาดขั้นตอนใดขั้นตอนหนึ่งไป ถือว่าไม่ใช่กระบวนการ Change Management ที่สมบูรณ์"},
+    {badge:"เปรียบเทียบ", title:"SOC vs NOC", body:"SOC เน้นด้าน<span class='k'>ความปลอดภัย</span> (เฝ้าระวังภัยคุกคาม) ส่วน NOC เน้นด้าน<span class='k'>ประสิทธิภาพเครือข่าย</span> (Uptime, Performance) — บางองค์กรรวมสองหน่วยงานนี้เข้าด้วยกัน"}
+  ],
+  cheat: [
+    "Patch = <code>แก้จุดเฉพาะ</code> · Update = <code>ปรับปรุงกว้าง</code> · Upgrade = <code>ย้ายรุ่นใหญ่</code>",
+    "Logging = <code>Record</code> · Monitoring = <code>Watch/Detect</code> · SIEM = <code>Aggregate+Correlate+Alert</code>",
+    "AUP = การใช้เทคโนโลยี · BYOD = อุปกรณ์ส่วนตัว · Privacy = ข้อมูลลูกค้า",
+    "Change Management = <code>Document+Test+Approve+Rollback</code>",
+    "สูตรจำ: เทคโนโลยี + กระบวนการ + นโยบาย + คน = การป้องกันที่ต่อเนื่อง"
+  ]
+},
+// ================= CHAPTER 10 =================
+{
+  en: "Security in Emergencies", th: "ความปลอดภัยในสถานการณ์ฉุกเฉิน", color:"#F87171", emoji:"🚨",
+  tagline: "เมื่อเหตุการณ์เกิดขึ้นจริง — <b>Incident Response</b> จัดการเหตุเฉพาะหน้า, <b>Business Continuity</b> ให้องค์กรเดินต่อ, <b>Disaster Recovery</b> กู้ระบบ และ <b>Governance</b> กำกับดูแลทั้งหมด",
+  topics: [
+    {h:"Incident Response (IR)", icon:"🧯", points:[
+      {t:"ขั้นตอนหลัก", d:"Detect (ตรวจจับ) → Classify (จัดประเภท) → Contain (ควบคุม) → Respond (ตอบสนอง) → Recover (กู้คืน) → Reflect (ทบทวนบทเรียน)"},
+      {t:"ขอบเขต", d:"จัดการกับเหตุการณ์เฉพาะหน้าที่เกิดขึ้นจริง ณ ขณะนั้น"}
+    ]},
+    {h:"Business Continuity (BC)", icon:"🏃", points:[
+      {t:"BIA", d:"Business Impact Analysis — วิเคราะห์ว่ากระบวนการใดสำคัญที่สุด (Critical Process)"},
+      {t:"Call Tree", d:"โครงสร้างการติดต่อสื่อสารเมื่อเกิดเหตุ เพื่อแจ้งเตือนบุคลากรที่เกี่ยวข้อง"},
+      {t:"เป้าหมาย", d:"ทำให้องค์กรดำเนินธุรกิจต่อได้ (Continue operations) แม้เกิดวิกฤต"}
+    ]},
+    {h:"Disaster Recovery (DR)", icon:"💾", points:[
+      {t:"Backup", d:"สำรองข้อมูลอย่างสม่ำเสมอและต้องทดสอบการ Restore จริง"},
+      {t:"RPO", d:"Recovery Point Objective — ยอมสูญเสียข้อมูลได้มากที่สุดกี่นาที/ชั่วโมง"},
+      {t:"RTO", d:"Recovery Time Objective — ต้องกู้ระบบให้กลับมาใช้งานได้ภายในเวลาเท่าไร"},
+      {t:"MTD", d:"Maximum Tolerable Downtime — เวลาสูงสุดที่ธุรกิจทนหยุดทำงานได้ก่อนเสียหายรุนแรง"},
+      {t:"Failover Site", d:"สถานที่สำรองสำหรับย้ายระบบไปทำงานต่อ"}
+    ]},
+    {h:"Governance", icon:"📚", points:[
+      {t:"ลำดับเอกสาร", d:"Policy → Standard → Procedure → Guideline → Law — กำกับให้ทุกคนทำตามแผนเดียวกัน"},
+      {t:"กฎหมาย/ข้อบังคับที่พบบ่อย", d:"HIPAA, SOX, CCPA, GDPR, PCI DSS, FedRAMP"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"ออกบ่อยที่สุด", title:"IR vs BC vs DR ต้องแยกบทบาทให้ออก", body:"<span class='k'>IR</span> จัดการเหตุ<b>เฉพาะหน้า</b> (ทันที), <span class='k'>BC</span> ทำให้<b>ธุรกิจเดินต่อ</b>ได้ (ภาพรวมองค์กร), <span class='k'>DR</span> กู้<b>ระบบ/เทคโนโลยี</b>กลับมา — เป็นหัวข้อยอดฮิตที่ออกแทบทุกข้อสอบ"},
+    {badge:"เปรียบเทียบ", title:"RPO vs RTO vs MTD", body:"<span class='k'>RPO</span> = ยอมเสียข้อมูลย้อนหลังได้แค่ไหน (มองย้อนหลัง), <span class='k'>RTO</span> = ต้องกู้คืนให้ทันภายในเวลาเท่าไร (มองไปข้างหน้า), <span class='k'>MTD</span> = เวลาสูงสุดที่ธุรกิจทนหยุดได้ทั้งหมด (เพดานบนสุด) — RTO ต้องน้อยกว่า MTD เสมอ"},
+    {badge:"ต้องจำ", title:"IRP Testing มี 4 รูปแบบ", body:"<span class='k'>Tabletop</span> = อภิปรายบนโต๊ะ (ไม่ปฏิบัติจริง), <span class='k'>Simulation</span> = จำลองด้วยระบบทดสอบ, <span class='k'>Functional Exercise</span> = ปฏิบัติบางส่วนจริง, <span class='k'>Real Incident Review</span> = ทบทวนเหตุจริงที่เกิดขึ้นแล้ว"},
+    {badge:"จุดหลอก", title:"Tabletop ≠ Simulation", body:"Tabletop คือการพูดคุยตามสถานการณ์บนกระดาษ ส่วน Simulation คือการจำลองด้วยเครื่องมือใกล้เคียงการปฏิบัติจริงมากกว่า — ข้อสอบชอบเอาสองคำนี้มาสลับกัน"},
+    {badge:"ต้องจำ", title:"กฎหมาย/มาตรฐานที่ต้องรู้จักชื่อ", body:"<span class='k'>HIPAA</span>(สุขภาพ), <span class='k'>SOX</span>(การเงิน), <span class='k'>GDPR/CCPA</span>(ความเป็นส่วนตัว), <span class='k'>PCI DSS</span>(บัตรเครดิต), <span class='k'>FedRAMP</span>(Cloud รัฐบาลสหรัฐฯ) — ข้อสอบอาจถามว่าอุตสาหกรรมไหนต้องปฏิบัติตามข้อบังคับใด"}
+  ],
+  cheat: [
+    "IR = จัดการเหตุ<b>เฉพาะหน้า</b> · BC = <b>องค์กรเดินต่อ</b> · DR = กู้<b>ระบบ</b>",
+    "RPO = เสียข้อมูลได้แค่ไหน · RTO = กู้คืนให้ทันเวลาเท่าไร · MTD = เพดานเวลาหยุดสูงสุด",
+    "IR ขั้นตอน: <code>Detect→Classify→Contain→Respond→Recover→Reflect</code>",
+    "Testing: <code>Tabletop / Simulation / Functional / Real Review</code>",
+    "People first · Prepare before crisis · Test the plan เสมอ"
+  ]
+},
+// ================= CHAPTER 11 =================
+{
+  en: "Cybersecurity as a Whole", th: "ภาพรวมความปลอดภัยไซเบอร์ทั้งระบบ", color:"#818CF8", emoji:"🧩",
+  tagline: "เชื่อมทุกโดเมนให้เป็นระบบเดียว — Mission + CIA กำหนดเป้าหมาย, Defense-in-Depth ป้องกันหลายชั้นแบบปราสาทที่ต้องดูแลทั้งหลัง ไม่ใช่แค่จุดใดจุดหนึ่ง",
+  topics: [
+    {h:"Security as a Whole", icon:"🔗", points:[
+      {t:"หลักการ", d:"ทุกโดเมนที่เรียนมา (Ch.1-10) พึ่งพากันหมด — ไม่มี Control เดียวที่เพียงพอสำหรับป้องกันทุกอย่าง"}
+    ]},
+    {h:"Defense-in-Depth", icon:"🏰", points:[
+      {t:"หลักการ", d:"ป้องกันหลายชั้นซ้อนกันและมีทางสำรอง หากชั้นหนึ่งล้มเหลว ยังมีชั้นอื่นรองรับอยู่"}
+    ]},
+    {h:"Castle Analogy", icon:"🏯", points:[
+      {t:"อุปมา", d:"มองระบบความปลอดภัยเหมือนปราสาทที่ต้องดูแลทั้งหลัง ไม่ใช่แค่ประตูหน้าหรือกำแพงเดียว"}
+    ]},
+    {h:"Mission + CIA", icon:"🎯", points:[
+      {t:"หลักการ", d:"เป้าหมายสูงสุดคือภารกิจ (Mission) ขององค์กร โดยมี CIA เป็นคุณสมบัติที่ Controls ทั้งหมดต้องคุ้มครอง"}
+    ]},
+    {h:"8 โดเมนหลักที่เชื่อมกัน", icon:"🗺️", points:[
+      {t:"Governance", d:"Policy / Ethics / Risk"},
+      {t:"Physical", d:"People / Facility / Environment"},
+      {t:"Access", d:"IAM / MFA / Least Privilege"},
+      {t:"Network", d:"Firewall / Segmentation / VPN"},
+      {t:"Data", d:"Classification / Crypto / Handling"},
+      {t:"Systems", d:"Hardening / Patch / EDR"},
+      {t:"Operations", d:"Logging / SIEM / Awareness"},
+      {t:"Resilience", d:"IR / BC / DR / Backup"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"แนวคิดหลัก", title:"บทนี้ไม่มี Objective ใหม่ แต่เชื่อมทุกบทเข้าด้วยกัน", body:"ข้อสอบมักออกในรูปแบบ Scenario ที่ต้องมองภาพรวมว่าปัญหาหนึ่งอาจต้องแก้ด้วยหลายโดเมนพร้อมกัน ไม่ใช่ Control เดียว"},
+    {badge:"ต้องจำ", title:"10 ประโยคสรุปสำคัญ", body:"<span class='k'>Mission มาก่อนเครื่องมือ</span>, <span class='k'>CIA คือเป้าหมายหลัก</span>, <span class='k'>Policy=Why Standard=What Procedure=How</span>, <span class='k'>Least privilege ลดผลกระทบ</span>, <span class='k'>Logging ทำให้มองเห็น</span>, <span class='k'>Backup ต้องทดสอบ restore</span> — ประโยคเหล่านี้มักถูกนำมาแปลงเป็นคำถามข้อสอบโดยตรง"},
+    {badge:"ออกบ่อย", title:"ไม่มี Control เดียวที่เพียงพอ (No single point of failure)", body:"หากข้อสอบถามว่า \"Control ใดควรใช้เพียงอย่างเดียวเพื่อป้องกันทั้งหมด\" คำตอบที่ถูกต้องคือไม่มี — ต้องใช้ Defense-in-Depth เสมอ"},
+    {badge:"เปรียบเทียบ", title:"People + Process + Technology ต้องสมดุลกัน", body:"เทคโนโลยีเพียงอย่างเดียวไม่พอ ต้องมีกระบวนการ (Process) ที่ถูกต้องและคนที่ได้รับการฝึกอบรม (People) ควบคู่กันเสมอ"}
+  ],
+  cheat: [
+    "8 โดเมน: <code>Governance / Physical / Access / Network / Data / Systems / Operations / Resilience</code>",
+    "Cybersecurity is a service to the mission",
+    "Policy=Why · Standard=What · Procedure=How",
+    "ไม่มี Control เดียวที่พอ — ต้องใช้ Defense-in-Depth เสมอ",
+    "People + Process + Technology ต้องสมดุลกัน"
+  ]
+},
+// ================= CHAPTER 12 =================
+{
+  en: "After the Certification", th: "หลังผ่านการรับรอง", color:"#FB7185", emoji:"🚀",
+  tagline: "จากผู้สอบผ่านสู่มืออาชีพ — Continuous Learning Loop, Thought Leadership และแผนปฏิบัติการ 90 วันสู่สายอาชีพ Cyber",
+  topics: [
+    {h:"Rest & Reflect", icon:"🌿", points:[
+      {t:"พัก", d:"ให้สมองและร่างกายได้พักหลังสอบเสร็จ ก่อนวางแผนขั้นต่อไป"},
+      {t:"ทบทวน", d:"ถามตัวเองว่าอะไรทำได้ดี อะไรยังไม่แม่น แล้วบันทึกบทเรียนจากการเตรียมสอบ"}
+    ]},
+    {h:"Thought Leadership", icon:"💡", points:[
+      {t:"Explain", d:"อธิบายเรื่องยากให้เข้าใจง่าย"},
+      {t:"Analyze", d:"เชื่อมโยงข่าวสารกับหลักการ Security"},
+      {t:"Document", d:"เขียนบทความและบันทึกอย่างสม่ำเสมอ"},
+      {t:"Credit", d:"อ้างอิงแหล่งข้อมูลและตรวจสอบข้อเท็จจริงเสมอ"},
+      {t:"หลักสำคัญ", d:"ความสม่ำเสมอสำคัญกว่าจำนวนผู้ติดตาม"}
+    ]},
+    {h:"Continuous Learning Loop", icon:"🔁", points:[
+      {t:"ขั้นตอน", d:"Plan (วางแผน) → Learn (เรียนรู้) → Practice (ฝึกลงมือทำ) → Teach (สอนคนอื่น) → Review (ทบทวน)"},
+      {t:"สูตร 70-20-10", d:"70% ลงมือทำจริง, 20% เรียนรู้จากคนอื่น, 10% คอร์ส/หนังสือ"},
+      {t:"Time Block", d:"จัดเวลา 30 นาที/วัน หรือ 3 ชั่วโมง/สัปดาห์อย่างสม่ำเสมอ"}
+    ]},
+    {h:"Career Roadmap (5 ขั้นตอน)", icon:"🗺️", points:[
+      {t:"1. Reset", d:"พักสมองและทบทวนเป้าหมาย"},
+      {t:"2. Position", d:"อัปเดตโปรไฟล์และหาจุดขายของตนเอง"},
+      {t:"3. Prove", d:"สร้างผลงานและประสบการณ์จริง (Lab, Portfolio)"},
+      {t:"4. Connect", d:"สร้างเครือข่ายและหาที่ปรึกษา (Mentor)"},
+      {t:"5. Grow", d:"เติบโตต่อเนื่องผ่านการเรียนรู้และผลงานใหม่"}
+    ]},
+    {h:"แผนปฏิบัติการ 90 วัน", icon:"📅", points:[
+      {t:"0–30 วัน", d:"จัดโปรไฟล์ + สรุปทักษะ + เริ่ม Portfolio"},
+      {t:"31–60 วัน", d:"ทำ Lab/CTF + เขียนบทความ + เข้ากลุ่มวิชาชีพ"},
+      {t:"61–90 วัน", d:"สมัครงาน/ฝึกงาน + ขอ Feedback + วางแผนใบรับรองถัดไป"}
+    ]}
+  ],
+  examFocus: [
+    {badge:"แนวคิดหลัก", title:"บทนี้เป็นบทเสริมด้านอาชีพ ไม่ใช่ Exam Objective โดยตรง", body:"เนื้อหาในบทนี้ไม่ได้ Map กับ Exam Objective เหมือนบทอื่น แต่ยังอาจปรากฏเป็นคำถามเชิงแนวคิด (Concept) เกี่ยวกับการพัฒนาตนเองหลังสอบผ่าน"},
+    {badge:"ต้องจำ", title:"สูตร 70-20-10", body:"<span class='k'>70% ลงมือทำ</span> (Practice), <span class='k'>20% เรียนจากคนอื่น</span> (Learn from others), <span class='k'>10% คอร์ส/หนังสือ</span> (Courses/Books) — เป็นหลักการพัฒนาทักษะที่มักถูกอ้างอิงในบริบท Continuous Learning"},
+    {badge:"ต้องจำ", title:"การสอนคนอื่น (Teach) คือการทดสอบความเข้าใจที่ดีที่สุด", body:"หากอธิบายเรื่องหนึ่งให้คนอื่นเข้าใจได้ แสดงว่าตนเองเข้าใจเรื่องนั้นอย่างแท้จริงแล้ว — เป็นหลักการสำคัญของ Continuous Learning Loop"},
+    {badge:"ข้อคิด", title:"อย่าทำทุกอย่างพร้อมกัน — เลือกหนึ่งเป้าหมายหลักต่อเดือน", body:"หลักการบริหารเวลาในการพัฒนาอาชีพหลังสอบผ่าน เน้นความสม่ำเสมอมากกว่าความเร่งรีบทำทุกอย่างพร้อมกัน"}
+  ],
+  cheat: [
+    "สูตร 70-20-10: <code>70% ลงมือทำ · 20% เรียนจากคนอื่น · 10% คอร์ส/หนังสือ</code>",
+    "Career Roadmap: <code>Reset → Position → Prove → Connect → Grow</code>",
+    "90 วัน: <code>0-30 โปรไฟล์ · 31-60 Lab/บทความ · 61-90 สมัครงาน</code>",
+    "การพักไม่ใช่การหยุดพัฒนา แต่เป็นส่วนหนึ่งของการพัฒนาที่มีประสิทธิภาพ",
+    "เลือก \"หนึ่งเป้าหมายหลักต่อเดือน\" ดีกว่าทำทุกอย่างพร้อมกัน"
+  ]
+}
+];
+
+let current = 0;
+const spineList = document.getElementById('spineList');
+const page = document.getElementById('page');
+const main = document.getElementById('main');
+
+function buildSpine(){
+  chapters.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'spine-item';
+    btn.dataset.index = i;
+    btn.innerHTML = `
+      <span class="num">${String(i+1).padStart(2,'0')}</span>
+      <span class="dot"></span>
+      <span class="label">${c.en}<span class="th">${c.th}</span></span>
+    `;
+    btn.addEventListener('click', () => render(i));
+    spineList.appendChild(btn);
+  });
+}
+
+function pointsHtml(points){
+  return points.map(p => `
+    <div class="prow">
+      <span class="term">${p.t}</span><span class="desc inline"> — </span>
+      <span class="desc inline">${p.d}</span>
+    </div>
+  `).join('');
+}
+
+function render(i){
+  current = i;
+  const c = chapters[i];
+
+  document.querySelectorAll('.spine-item').forEach((el, idx) => {
+    el.classList.toggle('active', idx === i);
+  });
+
+  const topicsHtml = c.topics.map(t => `
+    <div class="topic-card">
+      <h3><span class="ic">${t.icon||''}</span>${t.h}</h3>
+      <div class="plist">${pointsHtml(t.points)}</div>
+    </div>
+  `).join('');
+
+  const efHtml = c.examFocus.map(e => `
+    <div class="ef-item">
+      <div class="ef-head"><span class="ef-badge">${e.badge}</span><span class="ef-title">${e.title}</span></div>
+      <div class="ef-body">${e.body}</div>
+    </div>
+  `).join('');
+
+  const cheatHtml = `<ul>${c.cheat.map(x => `<li>${x}</li>`).join('')}</ul>`;
+
+  page.style.setProperty('--accent-c', c.color);
+  page.innerHTML = `
+    <div class="hero">
+      <div class="hero-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="hero-titles">
+        <h2><span class="hero-emoji">${c.emoji}</span> ${c.en}</h2>
+        <div class="th-title">บทที่ ${i+1}: ${c.th}</div>
+      </div>
+    </div>
+    <div class="hero-tagline">${c.tagline}</div>
+
+    <div class="section-label">Mind Map · <span class="th-label">เนื้อหาแต่ละหัวข้อ</span></div>
+    <div class="topic-grid">${topicsHtml}</div>
+
+    <div class="section-label">Exam Focus · <span class="th-label">สิ่งที่ข้อสอบออกบ่อย</span></div>
+    <div class="exam-focus">${efHtml}</div>
+
+    <div class="section-label">Cheat Sheet · <span class="th-label">สรุปย่อ</span></div>
+    <div class="cheat-box">${cheatHtml}</div>
+
+    <div class="footnav">
+      <button class="prev" ${i===0 ? 'disabled':''}>&larr; PREV</button>
+      <button class="next" ${i===chapters.length-1 ? 'disabled':''}>NEXT &rarr;</button>
+    </div>
+  `;
+
+  document.documentElement.style.setProperty('--accent-c', c.color);
+
+  const prevBtn = page.querySelector('.footnav .prev');
+  const nextBtn = page.querySelector('.footnav .next');
+  if(prevBtn) prevBtn.addEventListener('click', () => { if(current>0) render(current-1); });
+  if(nextBtn) nextBtn.addEventListener('click', () => { if(current<chapters.length-1) render(current+1); });
+
+  main.scrollTo({top:0, behavior:'instant'});
+}
+
+buildSpine();
+render(0);
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'ArrowRight' && current < chapters.length-1) render(current+1);
+  if(e.key === 'ArrowLeft' && current > 0) render(current-1);
+});
+</script>
+</body>
+</html>
