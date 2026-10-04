@@ -2,8 +2,26 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISC2 CC — Chapter Index & Study Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>ISC2 CC Mind Map — สรุปเนื้อหาเตรียมสอบ Certified in Cybersecurity 12 บท (5 Domains)</title>
+<meta name="description" content="สรุป Mind Map และประเด็นสำคัญสำหรับเตรียมสอบ ISC2 Certified in Cybersecurity (CC) ครอบคลุม 12 บท แมปตรงตาม 5 Domains ทางการ พร้อมจุดเน้นข้อสอบและ Cheat Sheet สองภาษา (TH/EN)">
+<meta name="keywords" content="ISC2 CC, Certified in Cybersecurity, Mind Map, ISC2 Thai, สรุปสอบ ISC2, Security Principles, Incident Response, Access Controls, Network Security, Security Operations">
+<meta name="author" content="Cgdocx">
+<meta name="theme-color" content="#090d16">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cgdocx.github.io/studyisc2/">
+<meta property="og:title" content="ISC2 CC Mind Map — สรุปเนื้อหาเตรียมสอบ Certified in Cybersecurity">
+<meta property="og:description" content="สรุป Mind Map และประเด็นสำคัญสำหรับเตรียมสอบ ISC2 CC ครอบคลุม 12 บท แมปตรงตาม 5 Domains ทางการ พร้อมแนวข้อสอบและ Cheat Sheet สองภาษา">
+<meta property="og:site_name" content="ISC2 CC Study Portal">
+<meta property="og:locale" content="th_TH">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://cgdocx.github.io/studyisc2/">
+<meta name="twitter:title" content="ISC2 CC Mind Map — สรุปเนื้อหาเตรียมสอบ Certified in Cybersecurity">
+<meta name="twitter:description" content="สรุป Mind Map และประเด็นสำคัญสำหรับเตรียมสอบ ISC2 CC ครอบคลุม 12 บท แมปตรงตาม 5 Domains ทางการ พร้อมแนวข้อสอบและ Cheat Sheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -265,6 +283,84 @@
     .hero-num { font-size: 38px; }
     .hero-titles h2 { font-size: 22px; }
   }
+
+  /* Domain Badge in Spine & Hero */
+  .domain-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+    padding: 3px 8px; border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--line-light);
+    color: var(--text-dim); text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .domain-pill .code { color: var(--accent-c, #06b6d4); }
+  .spine-item .domain-tag {
+    font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+    color: var(--accent-c); background: rgba(255,255,255,0.06);
+    padding: 1px 5px; border-radius: 3px; margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .hero-meta-bar {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;
+  }
+  .domain-meta-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--line-light);
+    border-radius: 6px; padding: 4px 10px;
+    font-size: 11.5px; font-family: var(--font-mono);
+    color: var(--text-dim);
+  }
+  .domain-meta-tag .tag-badge {
+    background: var(--accent-c); color: #090d16; font-weight: 700;
+    padding: 1px 6px; border-radius: 3px; font-size: 10px;
+  }
+  .domain-meta-tag .tag-weight {
+    color: var(--warn); font-weight: 600;
+  }
+
+  /* Skeleton Loading State */
+  .skeleton-loader {
+    display: flex; flex-direction: column; gap: 20px; animation: pulse 1.5s infinite ease-in-out;
+  }
+  @keyframes pulse { 0%{opacity:0.6;} 50%{opacity:0.3;} 100%{opacity:0.6;} }
+  .sk-block {
+    background: var(--bg-card); border-radius: 8px; border: 1px solid var(--line);
+  }
+
+  /* Error State Box */
+  .error-boundary {
+    padding: 32px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 8px; text-align: center; margin-top: 40px;
+  }
+  .error-boundary h3 { color: #f87171; margin-bottom: 10px; font-family: var(--font-heading); }
+  .error-boundary p { color: var(--text-dim); font-size: 13.5px; line-height: 1.6; margin-bottom: 16px; }
+  .error-boundary button {
+    background: #ef4444; color: #fff; border: none; padding: 8px 18px; border-radius: 6px;
+    font-weight: 600; cursor: pointer; font-family: var(--font-mono); font-size: 12px;
+  }
+
+  /* Noscript Fallback */
+  noscript {
+    display: block; padding: 24px; background: #1e1b4b; border: 1px solid #4338ca;
+    color: #e0e7ff; border-radius: 8px; margin: 20px auto; max-width: 900px;
+  }
+  noscript h2 { font-size: 18px; margin-bottom: 8px; }
+  noscript ol { margin-left: 20px; line-height: 1.8; font-size: 13.5px; }
+
+  /* Touch accessibility & Mobile Viewport refinements */
+  @media (max-width: 768px) {
+    .spine-item { min-height: 44px; }
+    .footnav button { min-height: 44px; padding: 12px 20px; font-size: 12px; }
+    .spine-list {
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .spine-item { scroll-snap-align: center; }
+  }
+
 </style>
 </head>
 <body>
@@ -283,7 +379,33 @@
 </nav>
 
 <main id="main">
-  <div class="page" id="page"></div>
+  <noscript>
+    <h2>⚠️ จำเป็นต้องเปิดใช้งาน JavaScript</h2>
+    <p>ระบบ Mind Map สรุป 12 บทของ ISC2 CC จำเป็นต้องใช้ JavaScript ในการแสดงผลแบบ Interactive</p>
+    <p><strong>สารบัญบทเรียนตาม 5 Domains ทางการ:</strong></p>
+    <ol>
+      <li>Domain 1 (26%): Cybersecurity Principles — หลักการรักษาความมั่นคงปลอดภัยไซเบอร์</li>
+      <li>Domain 1 (26%): Risk Management — การจัดการความเสี่ยง</li>
+      <li>Domain 4 (24%): Threats to Security — ภัยคุกคามต่อความปลอดภัย</li>
+      <li>Domain 3 (22%): Physical Access Controls — การควบคุมการเข้าถึงทางกายภาพ</li>
+      <li>Domain 3 (22%): Logical Access Controls — การควบคุมการเข้าถึงเชิงตรรกะ</li>
+      <li>Domain 4 (24%): Computer Networking Fundamentals — พื้นฐานเครือข่ายคอมพิวเตอร์</li>
+      <li>Domain 4 (24%): Network Security Infrastructure — โครงสร้างพื้นฐานความปลอดภัยเครือข่าย</li>
+      <li>Domain 3 (22%): Data and the System — ข้อมูลและระบบ</li>
+      <li>Domain 5 (18%): Security Operations — การปฏิบัติงานด้านความปลอดภัย</li>
+      <li>Domain 2 (10%): Security in Emergencies — ความปลอดภัยในสถานการณ์ฉุกเฉิน</li>
+      <li>Integration (100%): Cybersecurity as a Whole — ภาพรวมความปลอดภัยไซเบอร์ทั้งระบบ</li>
+      <li>Career: After the Certification — แนวทางพัฒนาตนเองหลังผ่านการรับรอง</li>
+    </ol>
+  </noscript>
+  <div class="page" id="page">
+    <div class="skeleton-loader" style="padding: 20px 0;">
+      <div class="sk-block" style="height: 36px; width: 45%;"></div>
+      <div class="sk-block" style="height: 64px; width: 75%;"></div>
+      <div class="sk-block" style="height: 80px; width: 100%;"></div>
+      <div class="sk-block" style="height: 240px; width: 100%;"></div>
+    </div>
+  </div>
 </main>
 
 <script>
@@ -318,6 +440,8 @@ const chapterIcons = [
 const chapters = [
 // ================= CHAPTER 1 =================
 {
+  domainCode: "D1", domainName: "Domain 1: Security Principles", domainWeight: "26%",
+ 
   en: "Cybersecurity Principles", th: "หลักการรักษาความมั่นคงปลอดภัยไซเบอร์", color:"#2DD4BF", emoji:"🛡️",
   tagline: "หัวใจของ <b>Information Assurance</b> คือ CIA Triad (Confidentiality, Integrity, Availability) บวกกับ Privacy และจรรยาบรรณ ISC2: เป็นรากฐานที่ทุกบทถัดไปต่อยอดขึ้นมา",
   topics: [
@@ -358,6 +482,8 @@ const chapters = [
 },
 // ================= CHAPTER 2 =================
 {
+  domainCode: "D1", domainName: "Domain 1: Security Principles", domainWeight: "26%",
+ 
   en: "Risk Management", th: "การจัดการความเสี่ยง", color:"#60A5FA", emoji:"📊",
   tagline: "กระบวนการ <b>ระบุ → ประเมิน → จัดการ</b> ความเสี่ยง ผ่านสูตร Risk = Impact × Likelihood, Security Controls 3 ประเภท และ Governance ที่กำหนดกติกาให้ทั้งองค์กร",
   topics: [
@@ -404,6 +530,8 @@ const chapters = [
 },
 // ================= CHAPTER 3 =================
 {
+  domainCode: "D4", domainName: "Domain 4: Network Security", domainWeight: "24%",
+ 
   en: "Threats to Security", th: "ภัยคุกคามต่อความปลอดภัย", color:"#F472B6", emoji:"🐛",
   tagline: "รู้จักศัตรู — Malware 4 ประเภท, Network Attacks และวิวัฒนาการเครื่องมือตรวจจับ/ป้องกันตั้งแต่ Antivirus จนถึง Penetration Testing",
   topics: [
@@ -452,6 +580,8 @@ const chapters = [
 },
 // ================= CHAPTER 4 =================
 {
+  domainCode: "D3", domainName: "Domain 3: Access Controls Concepts", domainWeight: "22%",
+ 
   en: "Physical Access Controls", th: "การควบคุมการเข้าถึงทางกายภาพ", color:"#FB923C", emoji:"🚪",
   tagline: "ควบคุมโลกจริง — ตั้งแต่ป้าย Badge, ประตู, การออกแบบพื้นที่แบบ CPTED ไปจนถึงกล้องวงจรปิดและเจ้าหน้าที่รักษาความปลอดภัย เป็น <b>แนวป้องกันด่านแรก</b>",
   topics: [
@@ -501,6 +631,8 @@ const chapters = [
 },
 // ================= CHAPTER 5 =================
 {
+  domainCode: "D3", domainName: "Domain 3: Access Controls Concepts", domainWeight: "22%",
+ 
   en: "Logical Access Controls", th: "การควบคุมการเข้าถึงเชิงตรรกะ", color:"#A78BFA", emoji:"🔑",
   tagline: "Software + Policies ที่ควบคุมว่าใครเข้าถึงอะไรได้บ้าง: จำง่าย ๆ <b>DAC = Owner ตัดสินใจ, MAC = ระบบกลางตัดสินใจ, RBAC = Role ตัดสินใจ</b>",
   topics: [
@@ -552,6 +684,8 @@ const chapters = [
 },
 // ================= CHAPTER 6 =================
 {
+  domainCode: "D4", domainName: "Domain 4: Network Security", domainWeight: "24%",
+ 
   en: "Computer Networking Fundamentals", th: "พื้นฐานเครือข่ายคอมพิวเตอร์", color:"#34D399", emoji:"🌐",
   tagline: "ภาษาของเครือข่าย — OSI 7 ชั้น, Ports/Protocols, TCP vs UDP และวิวัฒนาการจาก IPv4 สู่ WPA3 — บทนี้ออกข้อสอบเน้น Ports และ OSI Layer เป็นพิเศษ",
   topics: [
@@ -602,6 +736,8 @@ const chapters = [
 },
 // ================= CHAPTER 7 =================
 {
+  domainCode: "D4", domainName: "Domain 4: Network Security", domainWeight: "24%",
+ 
   en: "Network Security Infrastructure", th: "โครงสร้างพื้นฐานความปลอดภัยเครือข่าย", color:"#FBBF24", emoji:"☁️",
   tagline: "จาก Data Center จริงสู่ Cloud — Defense-in-Depth, DMZ/VLAN/VPN และโมเดล Cloud ทั้ง 4 แบบพร้อม SLA เป็นบทที่ครอบคลุมกว้างที่สุดบทหนึ่ง",
   topics: [
@@ -653,6 +789,8 @@ const chapters = [
 },
 // ================= CHAPTER 8 =================
 {
+  domainCode: "D3", domainName: "Domain 3: Access Controls Concepts", domainWeight: "22%",
+ 
   en: "Data and the System", th: "ข้อมูลและระบบ", color:"#38BDF8", emoji:"🔐",
   tagline: "ปกป้องข้อมูลด้วย Encryption, Hashing และ Authentication พร้อมวงจรชีวิตของข้อมูลตั้งแต่ Classification ถึง Destruction",
   topics: [
@@ -701,6 +839,8 @@ const chapters = [
 },
 // ================= CHAPTER 9 =================
 {
+  domainCode: "D5", domainName: "Domain 5: Security Operations", domainWeight: "18%",
+ 
   en: "Security Operations", th: "การปฏิบัติงานด้านความปลอดภัย", color:"#2DD4BF", emoji:"⚙️",
   tagline: "งานที่ต้องทำทุกวัน — 4 เสาหลักที่ทำงานร่วมกัน: <b>System Hardening, Logging & Monitoring, Security Policies, Awareness</b>",
   topics: [
@@ -743,6 +883,8 @@ const chapters = [
 },
 // ================= CHAPTER 10 =================
 {
+  domainCode: "D2", domainName: "Domain 2: Incident Response, BC & DR Concepts", domainWeight: "10%",
+ 
   en: "Security in Emergencies", th: "ความปลอดภัยในสถานการณ์ฉุกเฉิน", color:"#F87171", emoji:"🚨",
   tagline: "เมื่อเหตุการณ์เกิดขึ้นจริง — <b>Incident Response</b> จัดการเหตุเฉพาะหน้า, <b>Business Continuity</b> ให้องค์กรเดินต่อ, <b>Disaster Recovery</b> กู้ระบบ และ <b>Governance</b> กำกับดูแลทั้งหมด",
   topics: [
@@ -784,6 +926,8 @@ const chapters = [
 },
 // ================= CHAPTER 11 =================
 {
+  domainCode: "ALL", domainName: "Integration: เชื่อมโยงครบทั้ง 5 Domains", domainWeight: "100%",
+ 
   en: "Cybersecurity as a Whole", th: "ภาพรวมการรักษาความมั่นคงปลอดภัยไซเบอร์ทั้งระบบ", color:"#818CF8", emoji:"🧩",
   tagline: "เชื่อมทุกโดเมนให้เป็นระบบเดียว — Mission + CIA กำหนดเป้าหมาย, Defense-in-Depth ป้องกันหลายชั้นแบบปราสาทที่ต้องดูแลทั้งหลัง ไม่ใช่แค่จุดใดจุดหนึ่ง",
   topics: [
@@ -826,6 +970,8 @@ const chapters = [
 },
 // ================= CHAPTER 12 =================
 {
+  domainCode: "POST", domainName: "Professional Development & CPE Roadmap", domainWeight: "Career",
+ 
   en: "After the Certification", th: "หลังผ่านการรับรอง", color:"#FB7185", emoji:"🚀",
   tagline: "จากผู้สอบผ่านสู่มืออาชีพ — Continuous Learning Loop, Technical Leadership และแผนปฏิบัติการ 90 วันสู่สายอาชีพ Cyber",
   topics: [
@@ -874,6 +1020,8 @@ const chapters = [
 }
 ];
 
+
+
 let current = 0;
 const spineList = document.getElementById('spineList');
 const page = document.getElementById('page');
@@ -887,7 +1035,11 @@ function buildSpine(){
     btn.innerHTML = `
       <span class="num">${String(i+1).padStart(2,'0')}</span>
       <span class="dot"></span>
-      <span class="label">${c.en}<span class="th">${c.th}</span></span>
+      <span class="label">
+        ${c.en}
+        <span class="th">${c.th}</span>
+      </span>
+      <span class="domain-tag">${c.domainCode}</span>
     `;
     btn.addEventListener('click', () => render(i));
     spineList.appendChild(btn);
@@ -904,63 +1056,87 @@ function pointsHtml(points){
 }
 
 function render(i){
-  current = i;
-  const c = chapters[i];
+  try {
+    current = i;
+    const c = chapters[i];
+    if(!c) throw new Error("Chapter " + (i+1) + " not found.");
 
-  document.querySelectorAll('.spine-item').forEach((el, idx) => {
-    el.classList.toggle('active', idx === i);
-  });
+    document.querySelectorAll('.spine-item').forEach((el, idx) => {
+      const isActive = idx === i;
+      el.classList.toggle('active', isActive);
+      if(isActive && window.innerWidth <= 768){
+        el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    });
 
-  const topicsHtml = c.topics.map(t => `
-    <div class="topic-card">
-      <h3><span class="ic-glyph"></span>${t.h}</h3>
-      <div class="plist">${pointsHtml(t.points)}</div>
-    </div>
-  `).join('');
-
-  const efHtml = c.examFocus.map(e => `
-    <div class="ef-item">
-      <div class="ef-head"><span class="ef-badge">${e.badge}</span><span class="ef-title">${e.title}</span></div>
-      <div class="ef-body">${e.body}</div>
-    </div>
-  `).join('');
-
-  const cheatHtml = `<ul>${c.cheat.map(x => `<li>${x}</li>`).join('')}</ul>`;
-
-  page.style.setProperty('--accent-c', c.color);
-  page.innerHTML = `
-    <div class="hero">
-      <div class="hero-num">${String(i+1).padStart(2,'0')}</div>
-      <div class="hero-titles">
-        <h2><span class="hero-icon">${chapterIcons[i]}</span> ${c.en}</h2>
-        <div class="th-title">บทที่ ${i+1}: ${c.th}</div>
+    const topicsHtml = c.topics.map(t => `
+      <div class="topic-card">
+        <h3><span class="ic-glyph"></span>${t.h}</h3>
+        <div class="plist">${pointsHtml(t.points)}</div>
       </div>
-    </div>
-    <div class="hero-tagline">${c.tagline}</div>
+    `).join('');
 
-    <div class="section-label">Mind Map — <span class="th-label">เนื้อหาแต่ละหัวข้อ</span></div>
-    <div class="topic-grid">${topicsHtml}</div>
+    const efHtml = c.examFocus.map(e => `
+      <div class="ef-item">
+        <div class="ef-head"><span class="ef-badge">${e.badge}</span><span class="ef-title">${e.title}</span></div>
+        <div class="ef-body">${e.body}</div>
+      </div>
+    `).join('');
 
-    <div class="section-label">Exam Focus — <span class="th-label">ประเด็นสำคัญสำหรับข้อสอบ</span></div>
-    <div class="exam-focus">${efHtml}</div>
+    const cheatHtml = `<ul>${c.cheat.map(x => `<li>${x}</li>`).join('')}</ul>`;
 
-    <div class="section-label">Cheat Sheet — <span class="th-label">สรุปสาระสำคัญแบบเร็ว</span></div>
-    <div class="cheat-box">${cheatHtml}</div>
+    page.style.setProperty('--accent-c', c.color);
+    page.innerHTML = `
+      <div class="hero-meta-bar">
+        <div class="domain-meta-tag">
+          <span class="tag-badge">${c.domainCode}</span>
+          <span>${c.domainName}</span>
+          <span class="tag-weight">สัดส่วนข้อสอบ: ${c.domainWeight}</span>
+        </div>
+      </div>
 
-    <div class="footnav">
-      <button class="prev" ${i===0 ? 'disabled':''}>&larr; ก่อนหน้า</button>
-      <button class="next" ${i===chapters.length-1 ? 'disabled':''}>ถัดไป &rarr;</button>
-    </div>
-  `;
+      <div class="hero">
+        <div class="hero-num">${String(i+1).padStart(2,'0')}</div>
+        <div class="hero-titles">
+          <h2><span class="hero-icon">${chapterIcons[i]}</span> ${c.en}</h2>
+          <div class="th-title">บทที่ ${i+1}: ${c.th}</div>
+        </div>
+      </div>
+      <div class="hero-tagline">${c.tagline}</div>
 
-  document.documentElement.style.setProperty('--accent-c', c.color);
+      <div class="section-label">Mind Map — <span class="th-label">เนื้อหาแต่ละหัวข้อ</span></div>
+      <div class="topic-grid">${topicsHtml}</div>
 
-  const prevBtn = page.querySelector('.footnav .prev');
-  const nextBtn = page.querySelector('.footnav .next');
-  if(prevBtn) prevBtn.addEventListener('click', () => { if(current>0) render(current-1); });
-  if(nextBtn) nextBtn.addEventListener('click', () => { if(current<chapters.length-1) render(current+1); });
+      <div class="section-label">Exam Focus — <span class="th-label">ประเด็นสำคัญสำหรับข้อสอบ</span></div>
+      <div class="exam-focus">${efHtml}</div>
 
-  main.scrollTo({top:0, behavior:'instant'});
+      <div class="section-label">Cheat Sheet — <span class="th-label">สรุปสาระสำคัญแบบเร็ว</span></div>
+      <div class="cheat-box">${cheatHtml}</div>
+
+      <div class="footnav">
+        <button class="prev" ${i===0 ? 'disabled':''}>&larr; ก่อนหน้า</button>
+        <button class="next" ${i===chapters.length-1 ? 'disabled':''}>ถัดไป &rarr;</button>
+      </div>
+    `;
+
+    document.documentElement.style.setProperty('--accent-c', c.color);
+
+    const prevBtn = page.querySelector('.footnav .prev');
+    const nextBtn = page.querySelector('.footnav .next');
+    if(prevBtn) prevBtn.addEventListener('click', () => { if(current>0) render(current-1); });
+    if(nextBtn) nextBtn.addEventListener('click', () => { if(current<chapters.length-1) render(current+1); });
+
+    main.scrollTo({top:0, behavior:'instant'});
+  } catch(err) {
+    console.error("Render error:", err);
+    page.innerHTML = `
+      <div class="error-boundary">
+        <h3>เกิดข้อผิดพลาดในการโหลดเนื้อหาบทเรียน</h3>
+        <p>ไม่สามารถประมวลผลบทที่ ${i+1} ได้ในขณะนี้ (${err.message})</p>
+        <button onclick="render(0)">กลับไปหน้าแรก (บทที่ 1)</button>
+      </div>
+    `;
+  }
 }
 
 buildSpine();
