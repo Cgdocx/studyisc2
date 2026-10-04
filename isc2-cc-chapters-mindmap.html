@@ -250,7 +250,7 @@
     padding-left: 14px; position: relative;
   }
   .topic-card .prow::before {
-    content: "■"; position: absolute; left: 0; color: var(--accent-c); font-size: 8px; top: 4px;
+    content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; background: var(--accent-c); border: 1px solid var(--ink);
   }
   .topic-card .prow .term {
     font-family: var(--font-mono); font-weight: 700; color: var(--ink);
@@ -304,7 +304,7 @@
     padding-left: 20px; position: relative;
   }
   .cheat-box li::before {
-    content: "▶"; position: absolute; left: 0; color: var(--accent-c); font-size: 10px; top: 1px;
+    content: ""; position: absolute; left: 0; top: 9px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid var(--accent-c);
   }
   .cheat-box li b { color: var(--ink); font-weight: 800; }
   .cheat-box li code {
@@ -489,12 +489,12 @@ const chapters = [
     {badge:"ข้อควรระวัง", title:"Ransomware กระทบได้หลายเสาพร้อมกัน", body:"เข้ารหัสไฟล์ = A (เข้าไม่ได้) หรือ I (ถูกเปลี่ยนแปลง) และถ้ามีการขโมยข้อมูลออกไปด้วย (exfiltrate) จะกระทบ C ด้วย: ข้อสอบมักใช้มัลแวร์เรียกค่าไถ่ (Ransomware) เป็นตัวเลือกลวงเพื่อทดสอบความเข้าใจรอบด้าน"},
     {badge:"นิยาม", title:"Information Assurance ไม่ใช่กฎหมายหรือ Control", body:"ข้อสอบมักมีตัวเลือกคู่เทียบที่ลวงว่า IA คือกฎหมายหรือ Technical control: ต้องจำว่า IA คือ <span class='k'>Objective</span> (เป้าหมาย) เท่านั้น"},
     {badge:"เปรียบเทียบ", title:"Privacy กว้างกว่า Confidentiality เสมอ", body:"คำถามมักถามว่าสองคำนี้ต่างกันอย่างไร — Privacy ครอบคลุมทั้ง Control, Possession และ Secrecy ในขณะที่ Confidentiality เป็นแค่มิติ Secrecy ทางเทคนิค"},
-    {badge:"ต้องจำ", title:"4 Canons ต้องเรียงลำดับถูกต้อง", body:"เมื่อ Canon ขัดแย้งกัน ให้ยึดตามลำดับ 1→2→3→4 (ปกป้องสังคมมาก่อนเสมอ) เป็นหลักการที่ข้อสอบชอบทดสอบผ่าน Scenario จริยธรรม"}
+    {badge:"ต้องจำ", title:"4 Canons ต้องเรียงลำดับถูกต้อง", body:"เมื่อ Canon ขัดแย้งกัน ให้ยึดตามลำดับ 1 -> 2 -> 3 -> 4 (ปกป้องสังคมมาก่อนเสมอ) เป็นหลักการที่ข้อสอบชอบทดสอบผ่าน Scenario จริยธรรม"}
   ],
   cheat: [
-    "<b>C</b> = ป้องกันการเปิดเผยข้อมูล → <code>Access Control, Encryption</code>",
-    "<b>I</b> = ป้องกันการแก้ไข/ทำลาย → <code>File Integrity Monitoring, Logging</code>",
-    "<b>A</b> = เข้าถึงได้ตามเวลา → <code>Redundancy, SLA Monitoring</code>",
+    "<b>C</b> = ป้องกันการเปิดเผยข้อมูล  ->  <code>Access Control, Encryption</code>",
+    "<b>I</b> = ป้องกันการแก้ไข/ทำลาย  ->  <code>File Integrity Monitoring, Logging</code>",
+    "<b>A</b> = เข้าถึงได้ตามเวลา  ->  <code>Redundancy, SLA Monitoring</code>",
     "Privacy ≠ Confidentiality — Privacy กว้างกว่าเสมอ",
     "IA = Objective (ไม่ใช่กฎหมาย ไม่ใช่ Control เฉพาะ)"
   ]
@@ -503,18 +503,18 @@ const chapters = [
 {
   domainCode: "D1", domainName: "Domain 1: Security Principles", domainWeight: "26%",
  
-  en: "Risk Management", th: "การจัดการความเสี่ยง", color:"#E85A1F", tagline: "กระบวนการ <b>ระบุ → ประเมิน → จัดการ</b> ความเสี่ยง ผ่านสูตร Risk = Impact × Likelihood, Security Controls 3 ประเภท และ Governance ที่กำหนดกติกาให้ทั้งองค์กร",
+  en: "Risk Management", th: "การจัดการความเสี่ยง", color:"#E85A1F", tagline: "กระบวนการ <b>ระบุ  ->  ประเมิน  ->  จัดการ</b> ความเสี่ยง ผ่านสูตร Risk = Impact × Likelihood, Security Controls 3 ประเภท และ Governance ที่กำหนดกติกาให้ทั้งองค์กร",
   topics: [
     {h:"Risk / Threat / Vulnerability", points:[
       {t:"Risk", d:"มาตรวัดระดับที่ถูกคุกคาม = f(Impact, Likelihood) (ตามนิยาม NIST SP 800-37"},
       {t:"Threat", d:"แหล่งที่มาของอันตราย (Source of danger) เช่น โปรแกรมประสงค์ร้าย (Malware), ผู้โจมตี (Hacker/Attacker), บุคลากรภายใน (Insider), ภัยธรรมชาติ"},
       {t:"Vulnerability", d:"จุดอ่อนในระบบที่ Threat สามารถใช้ประโยชน์ได้ เช่น Unpatched software, Weak password"},
-      {t:"ความสัมพันธ์", d:"Threat exploit Vulnerability → เกิดเหตุ → เกิด Impact ต่อองค์กร"}
+      {t:"ความสัมพันธ์", d:"Threat exploit Vulnerability  ->  เกิดเหตุ  ->  เกิด Impact ต่อองค์กร"}
     ]},
     {h:"Risk Management Process", points:[
       {t:"1. Identification", d:"ระบุว่ามี Threats และ Vulnerabilities อะไรบ้างที่เกี่ยวข้องกับองค์กร"},
-      {t:"2. Assessment", d:"ให้คะแนน Likelihood × Impact → จัด Priority → เลือก Response ที่เหมาะสม"},
-      {t:"3. Treatment", d:"สร้าง Plan → กำหนด Residual Risk ที่เหลือ → มอบหมาย Owner → Review เป็นระยะ"},
+      {t:"2. Assessment", d:"ให้คะแนน Likelihood × Impact  ->  จัด Priority  ->  เลือก Response ที่เหมาะสม"},
+      {t:"3. Treatment", d:"สร้าง Plan  ->  กำหนด Residual Risk ที่เหลือ  ->  มอบหมาย Owner  ->  Review เป็นระยะ"},
       {t:"4 Risk Responses", d:"<b>Avoid</b> หลีกเลี่ยง, <b>Accept</b> ยอมรับ, <b>Reduce/Mitigate</b> ลด, <b>Transfer</b> โอน (เช่นซื้อประกัน)"}
     ]},
     {h:"Security Controls", points:[
@@ -536,7 +536,7 @@ const chapters = [
     {badge:"หัวข้อออกสอบประจำ", title:"4 Risk Responses ต้องจับคู่กับ Scenario ให้ถูก", body:"<span class='k'>ซื้อ Insurance = Transfer</span>, <span class='k'>ติด Firewall = Reduce</span>, <span class='k'>ไม่เปิด Server สู่ Internet = Avoid</span>, <span class='k'>ใช้ระบบเดิมต่อทั้งที่รู้ว่ามีช่องโหว่ = Accept</span>"},
     {badge:"เปรียบเทียบ", title:"Technical vs Administrative vs Physical Controls", body:"โจทย์มักยกตัวอย่างเครื่องมือ/นโยบาย แล้วถามว่าเป็น Control ประเภทไหน เช่น Firewall=Technical, Policy document=Administrative, Lock=Physical"},
     {badge:"ต้องจำ", title:"Residual Risk ไม่มีทางเป็นศูนย์", body:"หลัง Treatment แล้วยังมี Risk ที่เหลืออยู่เสมอ (Residual Risk): องค์กรต้องยอมรับระดับหนึ่งเสมอ ไม่มี Control ใดขจัด Risk ได้ 100%"},
-    {badge:"เปรียบเทียบ", title:"Policy → Standard → Procedure ลำดับต้องไม่สลับ", body:"Policy บอกทำไม (Why), Standard บอกอะไร (What), Procedure บอกอย่างไร (How): ข้อสอบมักเอาคำนิยามมาสลับที่กัน"}
+    {badge:"เปรียบเทียบ", title:"Policy  ->  Standard  ->  Procedure ลำดับต้องไม่สลับ", body:"Policy บอกทำไม (Why), Standard บอกอะไร (What), Procedure บอกอย่างไร (How): ข้อสอบมักเอาคำนิยามมาสลับที่กัน"}
   ],
   cheat: [
     "<code>Risk = Impact × Likelihood</code>",
@@ -565,7 +565,7 @@ const chapters = [
       {t:"Side-Channel", d:"วิเคราะห์ข้อมูลที่รั่วไหลจาก Physical implementation เช่น Power consumption, EM radiation"}
     ]},
     {h:"Detection & Mitigation", points:[
-      {t:"วิวัฒนาการ Antivirus", d:"AV (ใช้ Signature) → NGAV (ใช้ ML/AI) → EDR (Endpoint+AI) → XDR (Endpoint+Network+Cloud)"},
+      {t:"วิวัฒนาการ Antivirus", d:"AV (ใช้ Signature)  ->  NGAV (ใช้ ML/AI)  ->  EDR (Endpoint+AI)  ->  XDR (Endpoint+Network+Cloud)"},
       {t:"Patching & Updates", d:"ปิดช่องโหว่ที่รู้จักแล้วอย่างสม่ำเสมอ เป็นแนวป้องกันพื้นฐานที่สำคัญที่สุด"}
     ]},
     {h:"Firewalls & IDS/IPS", points:[
@@ -631,7 +631,7 @@ const chapters = [
   ],
   examFocus: [
     {badge:"หัวข้อออกสอบประจำ", title:"Turnstile vs Barrier Gate vs Bollard", body:"<span class='k'>Turnstile</span> ควบคุมคนเดินทีละคน, <span class='k'>Barrier Gate</span> ควบคุมรถ, <span class='k'>Bollard</span> เป็นเสาสกัดกันชน: ข้อสอบมักให้จับคู่ภาพหรือ Scenario กับชื่ออุปกรณ์"},
-    {badge:"เปรียบเทียบ", title:"Proximity vs Smart Card vs Biometric", body:"เรียงจากความปลอดภัยน้อยไปมาก: <span class='k'>Proximity (RFID)</span> → <span class='k'>Smart Card (Chip)</span> → <span class='k'>Biometric</span> (ปลอมแปลงยากที่สุดเพราะผูกกับร่างกาย)"},
+    {badge:"เปรียบเทียบ", title:"Proximity vs Smart Card vs Biometric", body:"เรียงจากความปลอดภัยน้อยไปมาก: <span class='k'>Proximity (RFID)</span>  ->  <span class='k'>Smart Card (Chip)</span>  ->  <span class='k'>Biometric</span> (ปลอมแปลงยากที่สุดเพราะผูกกับร่างกาย)"},
     {badge:"ข้อควรระวัง", title:"Cybersecurity software ไม่ใช่ Physical Control", body:"ข้อสอบมักใส่ตัวเลือกคู่เทียบที่ลวงเป็น Technical/Logical control ปนมาในคำถามเกี่ยวกับ Physical controls ต้องแยกให้ออก"},
     {badge:"ต้องจำ", title:"Tailgating คือภัยคุกคามทางกายภาพที่พบบ่อยที่สุด", body:"การแอบตามคนที่มีสิทธิ์เข้าประตู เป็นจุดอ่อนที่ Turnstile และการฝึกอบรมพนักงานช่วยลดความเสี่ยงได้"},
     {badge:"เปรียบเทียบ", title:"4 หลักการ CPTED ต้องจำครบ", body:"Natural Surveillance, Natural Access Control, Territorial Reinforcement, Maintenance — ข้อสอบอาจถามยกตัวอย่างแล้วให้จับคู่หลักการ"},
@@ -667,7 +667,7 @@ const chapters = [
       {t:"ข้อดี-ข้อเสีย", d:"ยืดหยุ่นสูง แต่จัดการยากเมื่อ Scale ใหญ่ขึ้น"}
     ]},
     {h:"MAC — Mandatory Access Control", points:[
-      {t:"หลักการ", d:"Central authority เป็นผู้กำหนดสิทธิ์ ไม่ใช่เจ้าของไฟล์ ใช้ Classification levels (Top Secret → Public)"},
+      {t:"หลักการ", d:"Central authority เป็นผู้กำหนดสิทธิ์ ไม่ใช่เจ้าของไฟล์ ใช้ Classification levels (Top Secret  ->  Public)"},
       {t:"Zero Trust", d:"เข้มงวดที่สุด ใช้ในหน่วยงานรัฐบาล/กลาโหม"},
       {t:"Bell-LaPadula", d:"เน้น Confidentiality — No Read Up, No Write Down"},
       {t:"Biba Model", d:"เน้น Integrity — No Write Up, No Read Down"},
@@ -678,7 +678,7 @@ const chapters = [
       {t:"Core RBAC", d:"พื้นฐาน: Role assignment + Role authorization + Permission authorization"},
       {t:"Hierarchical RBAC", d:"สิทธิ์ Inherit ตามลำดับชั้น: Guest < User < Admin"},
       {t:"Constrained RBAC", d:"เพิ่มข้อจำกัด SOD เข้าไปในระบบ Role"},
-      {t:"Access Matrix", d:"ตาราง Mapping Role → Resource → Actions (r/w/x) ต้อง Update สม่ำเสมอ"}
+      {t:"Access Matrix", d:"ตาราง Mapping Role  ->  Resource  ->  Actions (r/w/x) ต้อง Update สม่ำเสมอ"}
     ]}
   ],
   examFocus: [
@@ -714,7 +714,7 @@ const chapters = [
       {t:"L3 Network", d:"IP, ICMP, IPSec — Routing + IP addressing"},
       {t:"L2 Data Link", d:"ARP, MAC address — Framing + Error control"},
       {t:"L1 Physical", d:"Ethernet, Fiber, Wi-Fi — Raw bits, Cables, Hubs"},
-      {t:"จำง่าย", d:"All People Seem To Need Data Processing (Application→Physical)"}
+      {t:"จำง่าย", d:"All People Seem To Need Data Processing (Application -> Physical)"}
     ]},
     {h:"Ports & Protocols", points:[
       {t:"Well-known", d:"0–1023 (HTTP, SSH, FTP, DNS ฯลฯ)"},
@@ -728,8 +728,8 @@ const chapters = [
     {h:"IPv4, IPv6, Wi-Fi", points:[
       {t:"IPv4", d:"32-bit แบบ dotted-decimal ~4 พันล้าน address"},
       {t:"IPv6", d:"128-bit hex จำนวนมหาศาล ไม่ต้องใช้ NAT"},
-      {t:"NAT / CIDR", d:"NAT แปลง Private IP → Public IP · CIDR ให้ความยืดหยุ่นกว่า Classful addressing"},
-      {t:"Wi-Fi Security", d:"วิวัฒนาการ WEP (ล้าสมัยแล้ว!) → WPA → WPA2 → WPA3 (ปลอดภัยที่สุด)"}
+      {t:"NAT / CIDR", d:"NAT แปลง Private IP  ->  Public IP · CIDR ให้ความยืดหยุ่นกว่า Classful addressing"},
+      {t:"Wi-Fi Security", d:"วิวัฒนาการ WEP (ล้าสมัยแล้ว!)  ->  WPA  ->  WPA2  ->  WPA3 (ปลอดภัยที่สุด)"}
     ]}
   ],
   examFocus: [
@@ -745,7 +745,7 @@ const chapters = [
     "TCP = <code>Reliable</code> · UDP = <code>Fast</code>",
     "WEP = <code>Obsolete!</code> ใช้ WPA3 แทน",
     "OSI (7 ชั้น) ≠ TCP/IP Model (4 ชั้น) — เลขชั้นไม่ตรงกัน!",
-    "MAC = 48-bit Hardware address · NAT = Private→Public IP"
+    "MAC = 48-bit Hardware address · NAT = Private -> Public IP"
   ]
 },
 // ================= CHAPTER 7 =================
@@ -763,7 +763,7 @@ const chapters = [
     {h:"Secure Network Design", points:[
       {t:"Defense-in-Depth (DiD)", d:"ป้องกันหลายชั้นซ้อนกัน เปรียบเหมือนปราสาทที่มีทั้งคูเมือง กำแพง และทหารรักษาการณ์"},
       {t:"Segmentation / Micro-seg", d:"แบ่งเครือข่ายเป็นส่วนย่อยเพื่อจำกัดความเสียหายหากถูกเจาะ"},
-      {t:"DMZ", d:"Buffer zone ระหว่าง Internal ↔ External ใช้วาง Public-facing servers"},
+      {t:"DMZ", d:"Buffer zone ระหว่าง Internal  <->  External ใช้วาง Public-facing servers"},
       {t:"VLAN", d:"แบ่ง Network เสมือนในระดับ Logical โดยไม่ต้องเดินสายใหม่"},
       {t:"VPN", d:"เข้ารหัสการเชื่อมต่อ 3 แบบ: Remote access, Site-to-site, Mobile"},
       {t:"NAC", d:"Network Access Control — ตรวจสอบ Pre/Post-admission รองรับ BYOD และ IoT"}
@@ -793,7 +793,7 @@ const chapters = [
     {badge:"ต้องจำ", title:"Five Nines (99.999%) คือมาตรฐาน SLA ระดับสูง", body:"หมายถึง Downtime เพียง ~5 นาทีต่อปี — มักปรากฏในคำถามเกี่ยวกับ SLA และ Redundancy"}
   ],
   cheat: [
-    "Gas-based suppression → <code>Data Center</code>",
+    "Gas-based suppression  ->  <code>Data Center</code>",
     "IaaS=แป้ง · PaaS=Take&Bake · SaaS=Delivery",
     "DMZ = Buffer zone สำหรับ Public-facing servers",
     "MOU = ไม่ผูกพันกฎหมาย · MOA = ผูกพันกฎหมาย",
@@ -812,7 +812,7 @@ const chapters = [
       {t:"Data at rest / in transit", d:"ข้อมูลที่จัดเก็บ (at rest) และข้อมูลระหว่างส่ง (in transit) ต้องเข้ารหัสทั้งคู่"}
     ]},
     {h:"Hashing & Non-repudiation", points:[
-      {t:"Hashing", d:"One-way function แปลง Data → Fixed-length hash (SHA-256, MD5) — พิสูจน์ Integrity ไม่ใช่ Confidentiality"},
+      {t:"Hashing", d:"One-way function แปลง Data  ->  Fixed-length hash (SHA-256, MD5) — พิสูจน์ Integrity ไม่ใช่ Confidentiality"},
       {t:"Salting", d:"เพิ่มตัวเลขลับเข้าไปกับข้อมูลก่อน Hash เพื่อป้องกัน Reverse engineering"},
       {t:"Non-repudiation", d:"ทำให้ผู้ส่งปฏิเสธไม่ได้ว่าตนเองส่งข้อมูล — ใช้ Digital Signature"},
       {t:"Digital Signature", d:"= Hash message แล้วเข้ารหัส Hash นั้นด้วย Private key ของผู้ส่ง"}
@@ -839,14 +839,14 @@ const chapters = [
     {badge:"ต้องจำ", title:"OTP เป็น Possession Factor ไม่ใช่ Knowledge Factor", body:"เพราะต้อง \"มี\" อุปกรณ์ (App/Token) ถึงจะรับรหัสได้ ต่างจาก Password ที่เป็น Knowledge factor (สิ่งที่ \"รู้\")"},
     {badge:"ข้อควรระวัง", title:"Password 2 ตัวไม่ใช่ MFA", body:"MFA ต้องมาจาก 2 ปัจจัยที่ <span class='k'>ต่างประเภทกัน</span> เช่น Password (Knowledge) + OTP (Possession) — การใช้ Password ซ้อน Password ไม่นับเป็น MFA"},
     {badge:"เปรียบเทียบ", title:"Digital Signature = Hash + Encryption รวมกัน", body:"ขั้นตอนคือ Hash ข้อความก่อน แล้วเข้ารหัส Hash นั้นด้วย Private Key ของผู้ส่ง — ทำให้เกิดทั้ง Integrity และ Non-repudiation พร้อมกัน"},
-    {badge:"ต้องจำ", title:"Data Handling มี 4 ขั้นตอนเรียงลำดับ", body:"<span class='k'>Classification → Labeling → Retention → Destruction</span> — ข้อสอบอาจถามลำดับหรือถามว่าขั้นตอนไหนควรทำก่อน-หลัง"}
+    {badge:"ต้องจำ", title:"Data Handling มี 4 ขั้นตอนเรียงลำดับ", body:"<span class='k'>Classification  ->  Labeling  ->  Retention  ->  Destruction</span> — ข้อสอบอาจถามลำดับหรือถามว่าขั้นตอนไหนควรทำก่อน-หลัง"}
   ],
   cheat: [
     "Symmetric = <code>เร็ว (Same key)</code> · Asymmetric = <code>ปลอดภัย (Pub+Priv key)</code>",
     "Hash = <code>Integrity</code> (One-way) · Encryption = <code>Confidentiality</code> (Two-way)",
     "OTP = Possession factor (ไม่ใช่ Knowledge) · MFA ต้องต่างประเภทกัน",
     "Digital Signature = Hash + เข้ารหัสด้วย Private Key",
-    "Data Handling: <code>Classify → Label → Retain → Destroy</code>"
+    "Data Handling: <code>Classify  ->  Label  ->  Retain  ->  Destroy</code>"
   ]
 },
 // ================= CHAPTER 9 =================
@@ -881,7 +881,7 @@ const chapters = [
     {badge:"ต้องจำ", title:"Patch / Update / Upgrade ต่างกันอย่างไร", body:"<span class='k'>Patch</span> = แก้จุดเฉพาะเจาะจง (เช่น ปิดช่องโหว่หนึ่งจุด), <span class='k'>Update</span> = ปรับปรุงในวงกว้างขึ้น, <span class='k'>Upgrade</span> = เปลี่ยนไปใช้เวอร์ชันใหญ่: ข้อสอบมักให้ยกตัวอย่างแล้วจับคู่คำศัพท์"},
     {badge:"เปรียบเทียบ", title:"Logging vs Monitoring vs SIEM", body:"<span class='k'>Logging</span> = การบันทึก (Record), <span class='k'>Monitoring</span> = การเฝ้าดู/ตรวจจับ (Watch/Detect), <span class='k'>SIEM</span> = รวบรวม+เชื่อมโยง+แจ้งเตือนจากหลายแหล่งพร้อมกัน: เป็นขั้นบันไดที่ต้องเรียงลำดับให้ถูก"},
     {badge:"หัวข้อออกสอบประจำ", title:"AUP vs BYOD vs Privacy Policy", body:"<span class='k'>AUP</span> = การใช้เทคโนโลยีอย่างเหมาะสมโดยรวม, <span class='k'>BYOD</span> = เฉพาะอุปกรณ์ส่วนตัว, <span class='k'>Privacy</span> = การคุ้มครองข้อมูลลูกค้า — สามนโยบายนี้มักถูกเอามาเปรียบเทียบในข้อสอบ"},
-    {badge:"ต้องจำ", title:"Change Management ต้องมี 4 ขั้นตอนครบ", body:"<span class='k'>Document → Test → Approve → Rollback</span> — ถ้าขาดขั้นตอนใดขั้นตอนหนึ่งไป ถือว่าไม่ใช่กระบวนการ Change Management ที่สมบูรณ์"},
+    {badge:"ต้องจำ", title:"Change Management ต้องมี 4 ขั้นตอนครบ", body:"<span class='k'>Document  ->  Test  ->  Approve  ->  Rollback</span> — ถ้าขาดขั้นตอนใดขั้นตอนหนึ่งไป ถือว่าไม่ใช่กระบวนการ Change Management ที่สมบูรณ์"},
     {badge:"เปรียบเทียบ", title:"SOC vs NOC", body:"SOC เน้นด้าน<span class='k'>ความปลอดภัย</span> (เฝ้าระวังภัยคุกคาม) ส่วน NOC เน้นด้าน<span class='k'>ประสิทธิภาพเครือข่าย</span> (Uptime, Performance) — บางองค์กรรวมสองหน่วยงานนี้เข้าด้วยกัน"}
   ],
   cheat: [
@@ -899,7 +899,7 @@ const chapters = [
   en: "Security in Emergencies", th: "ความปลอดภัยในสถานการณ์ฉุกเฉิน", color:"#E85A1F", tagline: "เมื่อเหตุการณ์เกิดขึ้นจริง — <b>Incident Response</b> จัดการเหตุเฉพาะหน้า, <b>Business Continuity</b> ให้องค์กรเดินต่อ, <b>Disaster Recovery</b> กู้ระบบ และ <b>Governance</b> กำกับดูแลทั้งหมด",
   topics: [
     {h:"Incident Response (IR)", points:[
-      {t:"ขั้นตอนหลัก", d:"Detect (ตรวจจับ) → Classify (จัดประเภท) → Contain (ควบคุม) → Respond (ตอบสนอง) → Recover (กู้คืน) → Reflect (ทบทวนบทเรียน)"},
+      {t:"ขั้นตอนหลัก", d:"Detect (ตรวจจับ)  ->  Classify (จัดประเภท)  ->  Contain (ควบคุม)  ->  Respond (ตอบสนอง)  ->  Recover (กู้คืน)  ->  Reflect (ทบทวนบทเรียน)"},
       {t:"ขอบเขต", d:"จัดการกับเหตุการณ์เฉพาะหน้าที่เกิดขึ้นจริง ณ ขณะนั้น"}
     ]},
     {h:"Business Continuity (BC)", points:[
@@ -915,7 +915,7 @@ const chapters = [
       {t:"Failover Site", d:"สถานที่สำรองสำหรับย้ายระบบไปทำงานต่อ"}
     ]},
     {h:"Governance", points:[
-      {t:"ลำดับเอกสาร", d:"Policy → Standard → Procedure → Guideline → Law — กำกับให้ทุกคนทำตามแผนเดียวกัน"},
+      {t:"ลำดับเอกสาร", d:"Policy  ->  Standard  ->  Procedure  ->  Guideline  ->  Law — กำกับให้ทุกคนทำตามแผนเดียวกัน"},
       {t:"กฎหมาย/ข้อบังคับที่พบบ่อย", d:"HIPAA, SOX, CCPA, GDPR, PCI DSS, FedRAMP"}
     ]}
   ],
@@ -929,7 +929,7 @@ const chapters = [
   cheat: [
     "IR = จัดการเหตุ<b>เฉพาะหน้า</b> · BC = <b>องค์กรเดินต่อ</b> · DR = กู้<b>ระบบ</b>",
     "RPO = เสียข้อมูลได้แค่ไหน · RTO = กู้คืนให้ทันเวลาเท่าไร · MTD = เพดานเวลาหยุดสูงสุด",
-    "IR ขั้นตอน: <code>Detect→Classify→Contain→Respond→Recover→Reflect</code>",
+    "IR ขั้นตอน: <code>Detect -> Classify -> Contain -> Respond -> Recover -> Reflect</code>",
     "Testing: <code>Tabletop / Simulation / Functional / Real Review</code>",
     "People first · Prepare before crisis · Test the plan เสมอ"
   ]
@@ -995,7 +995,7 @@ const chapters = [
       {t:"หลักสำคัญ", d:"ความสม่ำเสมอสำคัญกว่าจำนวนผู้ติดตาม"}
     ]},
     {h:"Continuous Learning Loop", points:[
-      {t:"ขั้นตอน", d:"Plan (วางแผน) → Learn (เรียนรู้) → Practice (ฝึกลงมือทำ) → Teach (สอนคนอื่น) → Review (ทบทวน)"},
+      {t:"ขั้นตอน", d:"Plan (วางแผน)  ->  Learn (เรียนรู้)  ->  Practice (ฝึกลงมือทำ)  ->  Teach (สอนคนอื่น)  ->  Review (ทบทวน)"},
       {t:"สูตร 70-20-10", d:"70% ลงมือทำจริง, 20% เรียนรู้จากคนอื่น, 10% คอร์ส/หนังสือ"},
       {t:"Time Block", d:"จัดเวลา 30 นาที/วัน หรือ 3 ชั่วโมง/สัปดาห์อย่างสม่ำเสมอ"}
     ]},
@@ -1020,7 +1020,7 @@ const chapters = [
   ],
   cheat: [
     "สูตร 70-20-10: <code>70% ลงมือทำ · 20% เรียนจากคนอื่น · 10% คอร์ส/หนังสือ</code>",
-    "Career Roadmap: <code>Reset → Position → Prove → Connect → Grow</code>",
+    "Career Roadmap: <code>Reset  ->  Position  ->  Prove  ->  Connect  ->  Grow</code>",
     "90 วัน: <code>0-30 โปรไฟล์ · 31-60 Lab/บทความ · 61-90 สมัครงาน</code>",
     "การพักไม่ใช่การหยุดพัฒนา แต่เป็นส่วนหนึ่งของการพัฒนาที่มีประสิทธิภาพ",
     "เลือก \"หนึ่งเป้าหมายหลักต่อเดือน\" ดีกว่าทำทุกอย่างพร้อมกัน"
@@ -1123,8 +1123,8 @@ function render(i){
       <div class="cheat-box">${cheatHtml}</div>
 
       <div class="footnav">
-        <button class="prev" ${i===0 ? 'disabled':''}>&larr; ก่อนหน้า</button>
-        <button class="next" ${i===chapters.length-1 ? 'disabled':''}>ถัดไป &rarr;</button>
+        <button class="prev" ${i===0 ? 'disabled':''}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="m15 18-6-6 6-6"/></svg>ก่อนหน้า</button>
+        <button class="next" ${i===chapters.length-1 ? 'disabled':''}>ถัดไป<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:6px;"><path d="m9 18 6-6 6-6"/></svg></button>
       </div>
     `;
 
