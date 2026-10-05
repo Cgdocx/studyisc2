@@ -1612,7 +1612,7 @@ function renderQuestionCanvas(q) {
 
   let estHeight = 30;
   if (enTokens.length > 0) {
-    testCtx.font = "600 16px 'Space Grotesk', system-ui, sans-serif";
+    testCtx.font = "600 16px 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif";
     let curLine = "";
     let lineCount = 1;
     enTokens.forEach(t => {
@@ -1627,7 +1627,7 @@ function renderQuestionCanvas(q) {
   }
 
   if (thTokens.length > 0) {
-    testCtx.font = "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif";
+    testCtx.font = "400 15px 'IBM Plex Sans Thai', sans-serif";
     let curLineTh = "";
     let lineCountTh = 1;
     thTokens.forEach(t => {
@@ -1660,14 +1660,14 @@ function renderQuestionCanvas(q) {
 
   if (enTokens.length > 0) {
     ctx.fillStyle = "#0F0F0F"; // Crisp Neo-Brutalist Deep Ink
-    ctx.font = "600 16px 'Space Grotesk', system-ui, sans-serif";
+    ctx.font = "600 16px 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif";
     curY = drawWrappedTokens(ctx, enTokens, 4, curY, width - 16, enLineHeight);
   }
 
   if (thTokens.length > 0) {
     curY += 6;
     ctx.fillStyle = "#2A2A2A"; // Crisp Neo-Brutalist Ink 2
-    ctx.font = "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif";
+    ctx.font = "400 15px 'IBM Plex Sans Thai', sans-serif";
     drawWrappedTokens(ctx, thTokens, 4, curY, width - 16, thLineHeight);
   }
 

@@ -31,7 +31,7 @@
 | เครื่องมือ | รายละเอียด | ไฟล์ |
 |-----------|------------|------|
 | Mind Map สรุป 12 บท | สรุปประเด็นสำคัญ + Cheat Sheet | `index.html` |
-| Flashcard 120+ ใบ | บัตรคำศัพท์พลิกดูคำตอบ แบ่งตาม Domain | `flashcard.html` |
+| Flashcard 100 ใบ | บัตรคำศัพท์พลิกดูคำตอบ แบ่งตาม Domain | `flashcard.html` |
 | Learning Path | เส้นทางเรียน 21 ขั้นตอน + Progress Tracker | `learning-path.html` |
 
 ### Mini Games (8 เกม)
