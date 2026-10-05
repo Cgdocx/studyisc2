@@ -213,7 +213,7 @@ body { background: var(--cream); color: var(--ink); font-family: var(--font-thai
   <div class="hero">
     <div class="eyebrow">Mini Game 1 / 7</div>
     <h1>Term Match จับคู่คำศัพท์</h1>
-    <div class="sub">ลาก term ไปวางบน definition ที่ถูกต้อง -- 3 รอบ รอบละ 8 คู่ ครบ 5 Domains</div>
+    <div class="sub">ลาก term ไปวางบน definition ที่ถูกต้อง — 3 รอบ รอบละ 8 คู่ ครบ 5 Domains</div>
   </div>
 
   <div id="startScreen" class="start-screen">
@@ -253,58 +253,58 @@ body { background: var(--cream); color: var(--ink); font-family: var(--font-thai
 const ALL_PAIRS = [
   // Domain 1: Security Principles
   {t:"CIA Triad", d:"หลักสามเหลี่ยมความปลอดภัย: Confidentiality, Integrity, Availability", dom:1},
-  {t:"Authentication", d:"การพิสูจน์ตัวตน -- ยืนยันว่าผู้ใช้เป็นใคร (Who are you?)", dom:1},
-  {t:"Authorization", d:"การอนุญาตสิทธิ์ -- กำหนดว่าผู้ใช้ทำอะไรได้บ้าง (What can you do?)", dom:1},
-  {t:"Non-repudiation", d:"การห้ามปฏิเสธ -- พิสูจน์ได้ว่าใครเป็นผู้กระทำ ปฏิเสธไม่ได้", dom:1},
-  {t:"Risk Assessment", d:"การประเมินความเสี่ยง -- ระบุภัยคุกคามและผลกระทบต่อทรัพย์สิน", dom:1},
-  {t:"Governance", d:"ธรรมาภิบาล -- นโยบายและกรอบการกำกับดูแลความปลอดภัย", dom:1},
-  {t:"Due Diligence", d:"ความรอบคอบ -- ศึกษาและวิจัยก่อนตัดสินใจ", dom:1},
-  {t:"Due Care", d:"ความระมัดระวัง -- ลงมือปฏิบัติตามมาตรฐานที่เหมาะสม", dom:1},
-  {t:"Threat", d:"ภัยคุกคาม -- เหตุการณ์ที่อาจก่อให้เกิดความเสียหาย", dom:1},
-  {t:"Vulnerability", d:"ช่องโหว่ -- จุดอ่อนที่ภัยคุกคามสามารถใช้ประโยชน์ได้", dom:1},
-  {t:"Least Privilege", d:"สิทธิ์น้อยที่สุด -- ให้สิทธิ์เท่าที่จำเป็นต่อการทำงานเท่านั้น", dom:1},
-  {t:"Defense in Depth", d:"การป้องกันหลายชั้น -- วางมาตรการซ้อนกันหลายระดับ", dom:1},
+  {t:"Authentication", d:"การพิสูจน์ตัวตน — ยืนยันว่าผู้ใช้เป็นใคร (Who are you?)", dom:1},
+  {t:"Authorization", d:"การอนุญาตสิทธิ์ — กำหนดว่าผู้ใช้ทำอะไรได้บ้าง (What can you do?)", dom:1},
+  {t:"Non-repudiation", d:"การห้ามปฏิเสธ — พิสูจน์ได้ว่าใครเป็นผู้กระทำ ปฏิเสธไม่ได้", dom:1},
+  {t:"Risk Assessment", d:"การประเมินความเสี่ยง — ระบุภัยคุกคามและผลกระทบต่อทรัพย์สิน", dom:1},
+  {t:"Governance", d:"ธรรมาภิบาล — นโยบายและกรอบการกำกับดูแลความปลอดภัย", dom:1},
+  {t:"Due Diligence", d:"ความรอบคอบ — ศึกษาและวิจัยก่อนตัดสินใจ", dom:1},
+  {t:"Due Care", d:"ความระมัดระวัง — ลงมือปฏิบัติตามมาตรฐานที่เหมาะสม", dom:1},
+  {t:"Threat", d:"ภัยคุกคาม — เหตุการณ์ที่อาจก่อให้เกิดความเสียหาย", dom:1},
+  {t:"Vulnerability", d:"ช่องโหว่ — จุดอ่อนที่ภัยคุกคามสามารถใช้ประโยชน์ได้", dom:1},
+  {t:"Least Privilege", d:"สิทธิ์น้อยที่สุด — ให้สิทธิ์เท่าที่จำเป็นต่อการทำงานเท่านั้น", dom:1},
+  {t:"Defense in Depth", d:"การป้องกันหลายชั้น — วางมาตรการซ้อนกันหลายระดับ", dom:1},
 
   // Domain 2: BC, DR & IR
-  {t:"BCP", d:"Business Continuity Plan -- แผนรักษาความต่อเนื่องทางธุรกิจเมื่อเกิดเหตุ", dom:2},
-  {t:"DRP", d:"Disaster Recovery Plan -- แผนกู้คืนระบบหลังภัยพิบัติ", dom:2},
-  {t:"RPO", d:"Recovery Point Objective -- ข้อมูลย้อนหลังที่ยอมเสียได้มากสุด", dom:2},
-  {t:"RTO", d:"Recovery Time Objective -- เวลาสูงสุดที่ยอมให้ระบบหยุดทำงานได้", dom:2},
-  {t:"MTBF", d:"Mean Time Between Failures -- ระยะเวลาเฉลี่ยระหว่างความล้มเหลว", dom:2},
-  {t:"MTTR", d:"Mean Time To Repair -- ระยะเวลาเฉลี่ยในการซ่อมแซมระบบ", dom:2},
-  {t:"Incident Response", d:"การตอบสนองเหตุการณ์ -- ขั้นตอนจัดการเมื่อเกิดเหตุละเมิดความปลอดภัย", dom:2},
-  {t:"BIA", d:"Business Impact Analysis -- วิเคราะห์ผลกระทบทางธุรกิจจากการหยุดชะงัก", dom:2},
+  {t:"BCP", d:"Business Continuity Plan — แผนรักษาความต่อเนื่องทางธุรกิจเมื่อเกิดเหตุ", dom:2},
+  {t:"DRP", d:"Disaster Recovery Plan — แผนกู้คืนระบบหลังภัยพิบัติ", dom:2},
+  {t:"RPO", d:"Recovery Point Objective — ข้อมูลย้อนหลังที่ยอมเสียได้มากสุด", dom:2},
+  {t:"RTO", d:"Recovery Time Objective — เวลาสูงสุดที่ยอมให้ระบบหยุดทำงานได้", dom:2},
+  {t:"MTBF", d:"Mean Time Between Failures — ระยะเวลาเฉลี่ยระหว่างความล้มเหลว", dom:2},
+  {t:"MTTR", d:"Mean Time To Repair — ระยะเวลาเฉลี่ยในการซ่อมแซมระบบ", dom:2},
+  {t:"Incident Response", d:"การตอบสนองเหตุการณ์ — ขั้นตอนจัดการเมื่อเกิดเหตุละเมิดความปลอดภัย", dom:2},
+  {t:"BIA", d:"Business Impact Analysis — วิเคราะห์ผลกระทบทางธุรกิจจากการหยุดชะงัก", dom:2},
 
   // Domain 3: Access Controls
-  {t:"DAC", d:"Discretionary Access Control -- เจ้าของข้อมูลกำหนดสิทธิ์เอง", dom:3},
-  {t:"MAC", d:"Mandatory Access Control -- ระบบกำหนดสิทธิ์ตาม label/classification", dom:3},
-  {t:"RBAC", d:"Role-Based Access Control -- กำหนดสิทธิ์ตามบทบาทหน้าที่", dom:3},
-  {t:"MFA", d:"Multi-Factor Authentication -- ยืนยันตัวตนด้วยปัจจัยหลายอย่างร่วมกัน", dom:3},
-  {t:"SSO", d:"Single Sign-On -- เข้าสู่ระบบครั้งเดียวใช้งานได้หลายแอป", dom:3},
-  {t:"Federation", d:"การรวมศูนย์ตัวตนข้ามองค์กร -- trust relationship ระหว่าง IdP", dom:3},
-  {t:"Identity Management", d:"การจัดการอัตลักษณ์ -- สร้าง แก้ไข ลบบัญชีผู้ใช้ตลอดวงจร", dom:3},
-  {t:"PAM", d:"Privileged Access Management -- ควบคุมและตรวจสอบบัญชีที่มีสิทธิ์สูง", dom:3},
+  {t:"DAC", d:"Discretionary Access Control — เจ้าของข้อมูลกำหนดสิทธิ์เอง", dom:3},
+  {t:"MAC", d:"Mandatory Access Control — ระบบกำหนดสิทธิ์ตาม label/classification", dom:3},
+  {t:"RBAC", d:"Role-Based Access Control — กำหนดสิทธิ์ตามบทบาทหน้าที่", dom:3},
+  {t:"MFA", d:"Multi-Factor Authentication — ยืนยันตัวตนด้วยปัจจัยหลายอย่างร่วมกัน", dom:3},
+  {t:"SSO", d:"Single Sign-On — เข้าสู่ระบบครั้งเดียวใช้งานได้หลายแอป", dom:3},
+  {t:"Federation", d:"การรวมศูนย์ตัวตนข้ามองค์กร — trust relationship ระหว่าง IdP", dom:3},
+  {t:"Identity Management", d:"การจัดการอัตลักษณ์ — สร้าง แก้ไข ลบบัญชีผู้ใช้ตลอดวงจร", dom:3},
+  {t:"PAM", d:"Privileged Access Management — ควบคุมและตรวจสอบบัญชีที่มีสิทธิ์สูง", dom:3},
 
   // Domain 4: Network Security
-  {t:"Firewall", d:"อุปกรณ์กรองทราฟฟิกเครือข่ายตาม rule -- อนุญาตหรือบล็อก", dom:4},
-  {t:"IDS", d:"Intrusion Detection System -- ตรวจจับการบุกรุกแล้วแจ้งเตือน", dom:4},
-  {t:"IPS", d:"Intrusion Prevention System -- ตรวจจับและบล็อกการบุกรุกอัตโนมัติ", dom:4},
-  {t:"VPN", d:"Virtual Private Network -- เข้ารหัสการเชื่อมต่อผ่านเครือข่ายสาธารณะ", dom:4},
+  {t:"Firewall", d:"อุปกรณ์กรองทราฟฟิกเครือข่ายตาม rule — อนุญาตหรือบล็อก", dom:4},
+  {t:"IDS", d:"Intrusion Detection System — ตรวจจับการบุกรุกแล้วแจ้งเตือน", dom:4},
+  {t:"IPS", d:"Intrusion Prevention System — ตรวจจับและบล็อกการบุกรุกอัตโนมัติ", dom:4},
+  {t:"VPN", d:"Virtual Private Network — เข้ารหัสการเชื่อมต่อผ่านเครือข่ายสาธารณะ", dom:4},
   {t:"TLS/SSL", d:"โปรโตคอลเข้ารหัสข้อมูลระหว่างส่ง (encryption in transit)", dom:4},
-  {t:"DMZ", d:"Demilitarized Zone -- เครือข่ายกันชนระหว่าง internal กับ internet", dom:4},
-  {t:"NAC", d:"Network Access Control -- ตรวจสอบอุปกรณ์ก่อนอนุญาตเข้าเครือข่าย", dom:4},
-  {t:"VLAN", d:"Virtual LAN -- แบ่ง segment เครือข่ายเสมือนบน switch เดียวกัน", dom:4},
-  {t:"Zero Trust", d:"ไม่เชื่อถือใครโดยปริยาย -- ตรวจสอบทุกครั้งก่อนให้เข้าถึง", dom:4},
+  {t:"DMZ", d:"Demilitarized Zone — เครือข่ายกันชนระหว่าง internal กับ internet", dom:4},
+  {t:"NAC", d:"Network Access Control — ตรวจสอบอุปกรณ์ก่อนอนุญาตเข้าเครือข่าย", dom:4},
+  {t:"VLAN", d:"Virtual LAN — แบ่ง segment เครือข่ายเสมือนบน switch เดียวกัน", dom:4},
+  {t:"Zero Trust", d:"ไม่เชื่อถือใครโดยปริยาย — ตรวจสอบทุกครั้งก่อนให้เข้าถึง", dom:4},
 
   // Domain 5: Security Operations
-  {t:"Encryption", d:"การเข้ารหัส -- แปลงข้อมูลให้อ่านไม่ได้โดยไม่มี key", dom:5},
-  {t:"Hashing", d:"การแฮช -- สร้าง digest ขนาดคงที่จากข้อมูล ย้อนกลับไม่ได้", dom:5},
-  {t:"Digital Signature", d:"ลายเซ็นดิจิทัล -- ยืนยันตัวตนผู้ส่งและความสมบูรณ์ของข้อมูล", dom:5},
-  {t:"PKI", d:"Public Key Infrastructure -- ระบบออกและจัดการใบรับรองดิจิทัล", dom:5},
-  {t:"Change Management", d:"การจัดการการเปลี่ยนแปลง -- ควบคุมขั้นตอนแก้ไขระบบอย่างเป็นระบบ", dom:5},
-  {t:"Patch Management", d:"การจัดการแพตช์ -- อัปเดตซอฟต์แวร์เพื่ออุดช่องโหว่", dom:5},
-  {t:"SIEM", d:"Security Information & Event Management -- รวบรวมและวิเคราะห์ log ด้านความปลอดภัย", dom:5},
-  {t:"DLP", d:"Data Loss Prevention -- ป้องกันข้อมูลรั่วไหลออกนอกองค์กร", dom:5},
+  {t:"Encryption", d:"การเข้ารหัส — แปลงข้อมูลให้อ่านไม่ได้โดยไม่มี key", dom:5},
+  {t:"Hashing", d:"การแฮช — สร้าง digest ขนาดคงที่จากข้อมูล ย้อนกลับไม่ได้", dom:5},
+  {t:"Digital Signature", d:"ลายเซ็นดิจิทัล — ยืนยันตัวตนผู้ส่งและความสมบูรณ์ของข้อมูล", dom:5},
+  {t:"PKI", d:"Public Key Infrastructure — ระบบออกและจัดการใบรับรองดิจิทัล", dom:5},
+  {t:"Change Management", d:"การจัดการการเปลี่ยนแปลง — ควบคุมขั้นตอนแก้ไขระบบอย่างเป็นระบบ", dom:5},
+  {t:"Patch Management", d:"การจัดการแพตช์ — อัปเดตซอฟต์แวร์เพื่ออุดช่องโหว่", dom:5},
+  {t:"SIEM", d:"Security Information & Event Management — รวบรวมและวิเคราะห์ log ด้านความปลอดภัย", dom:5},
+  {t:"DLP", d:"Data Loss Prevention — ป้องกันข้อมูลรั่วไหลออกนอกองค์กร", dom:5},
 ];
 
 const DOMAIN_NAMES = {1:"D1",2:"D2",3:"D3",4:"D4",5:"D5"};
@@ -461,7 +461,7 @@ function checkMatch(termIdx, defEl) {
     termEl.classList.remove('selected');
     const label = document.createElement('span');
     label.className = 'matched-label correct';
-    label.textContent = '// CORRECT -- ' + termEl.textContent.replace(/D[1-5]$/,'').trim();
+    label.textContent = '// CORRECT — ' + termEl.textContent.replace(/D[1-5]$/,'').trim();
     defEl.appendChild(label);
     roundCorrect++; totalCorrect++; matched++;
     document.getElementById('matchedNum').textContent = matched + '/8';
