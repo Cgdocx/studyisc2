@@ -108,6 +108,31 @@ body {
 .th-text { font-family: var(--font-thai); }
 .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 18px 60px; }
 
+
+/* Unified Hero Section (matching landing & index) */
+header.hero-section {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 32px 24px;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 800; letter-spacing: 0.12em;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 8px;
+}
+header.hero-section h1 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3.5vw, 34px); font-weight: 400; line-height: 1.15;
+  text-transform: uppercase; color: var(--ink); margin-bottom: 10px;
+}
+header.hero-section .sub {
+  font-family: var(--font-thai); font-size: 15px; color: var(--ink-2);
+  max-width: 720px; margin: 0 auto; line-height: 1.6;
+}
+
 header.app {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   margin-bottom: 22px; flex-wrap: wrap;
@@ -437,18 +462,14 @@ footer.note { margin-top: 24px; color: var(--muted); font-size: 12px; font-famil
 
 <iframe id="gasFrame" name="gasFrame" title="score-sink"></iframe>
 <div class="wrap">
-  <header class="app">
-    <div class="brand">
-      <div class="logo">CC</div>
-      <div>
-        <h1 id="t-title">ISC2 Certified in Cybersecurity</h1>
-        <p id="t-sub">Practice Quiz · Exam Outline effective 1 Sep 2026</p>
-      </div>
-    </div>
-    <div class="toolbar">
+  <header class="hero-section">
+    <div class="eyebrow">ISC2 CC · PRACTICE QUIZ (THAI OUTLINE)</div>
+    <h1 id="t-title">ISC2 Certified in Cybersecurity</h1>
+    <div class="sub" id="t-sub">Practice Quiz · Exam Outline effective 1 Sep 2026</div>
+    <div class="toolbar" style="margin-top: 18px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
       <div class="seg" id="langSeg" title="Language display">
-        <button type="button" data-mode="en" class="on">EN</button>
-        <button type="button" data-mode="th">TH</button>
+        <button type="button" data-mode="en">EN</button>
+        <button type="button" data-mode="th" class="on">TH</button>
         <button type="button" data-mode="both">EN+TH</button>
       </div>
       <button class="btn hidden" id="btnHome" type="button">Home</button>

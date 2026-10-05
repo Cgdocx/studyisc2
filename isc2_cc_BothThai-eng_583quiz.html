@@ -767,11 +767,16 @@ function renderStart(app){
   }).join('');
 
   app.innerHTML = `
-    ${renderLangToggle(false)}
-    <div class="start-screen">
-      <div class="subheading">${t('createdBy')}</div>
+    <header class="hero-section">
+      <div class="eyebrow">${t('createdBy')}</div>
       <h1>${t('appTitle')}</h1>
-      <div class="tagline">${t('tagline')}</div>
+      <div class="sub">${t('tagline')}</div>
+      <div style="margin-top: 18px; display: flex; justify-content: center;">
+        ${renderLangToggle(false)}
+      </div>
+    </header>
+
+    <div class="start-screen">
 
       <div class="name-row">
         <label>${t('yourNameLabel')}</label>
@@ -885,7 +890,7 @@ function renderQuiz(app){
   let nav = '';
   if(state.answered!==null){
     const isLast = state.current >= total-1;
-    const nextLabel = isBoth ? 'Next Question → / ข้อถัดไป →' : (isLast?(useTh?'ดูผลลัพธ์':'View Results'):(useTh?'ข้อถัดไป →':'Next Question →'));
+    const nextLabel = isBoth ? 'Next Question / ข้อถัดไป' : (isLast?(useTh?'ดูผลลัพธ์':'View Results'):(useTh?'ข้อถัดไป':'Next Question'));
     const lastLabel = isBoth ? 'View Results / ดูผลลัพธ์' : nextLabel;
     nav = `<div class="nav-row"><button class="btn btn-primary" onclick="nextQuestion()">${isLast?lastLabel:nextLabel}</button></div>`;
   }

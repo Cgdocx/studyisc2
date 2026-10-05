@@ -729,9 +729,10 @@ footer {
 </nav>
 
 <div class="app">
-  <section class="hero">
+  <section class="hero hero-section">
+    <div class="eyebrow">ISC2 CC · PRACTICE EXAM 1 (50 QUESTIONS)</div>
     <h1 id="titleEn"></h1>
-    <p class="thai-title" id="titleTh"></p>
+    <p class="thai-title sub" id="titleTh"></p>
     <div class="meta-row">
       <span class="badge" id="questionCountBadge"></span>
       <span class="badge">Source: ISC2 CC Practice Exam 1 (50 questions, even split across all 5 domains)</span>
@@ -1034,10 +1035,10 @@ function renderQuestion(){
     <div class="answers">${answerHtml}</div>
     ${resultHtml}
     <div class="actions">
-      <button class="btn" id="prevBtn" ${pos<=0?'disabled':''}>← Previous / ก่อนหน้า</button>
+      <button class="btn" id="prevBtn" ${pos<=0?'disabled':''}>Previous / ก่อนหน้า</button>
       ${r ? `<button class="btn primary" id="showExplanationBtn">Explanation / คำอธิบาย</button>` :
       `<button class="btn good" id="checkBtn">Check answer / ตรวจคำตอบ</button>`}
-      <button class="btn" id="nextBtn" ${pos>=active.length-1?'disabled':''}>Next / ถัดไป →</button>
+      <button class="btn" id="nextBtn" ${pos>=active.length-1?'disabled':''}>Next / ถัดไป</button>
     </div>
     <div id="explanationArea"></div>`;
   document.querySelectorAll(`input[name="answer-${q.id}"]`).forEach(inp=>inp.addEventListener('change', ()=>{
