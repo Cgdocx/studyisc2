@@ -789,13 +789,13 @@ const QUESTIONS = [
   d: 3, dn: "Access Controls",
   q: "Brute Force Attack คืออะไร และป้องกันได้อย่างไร?",
   qe: "What is a Brute Force Attack and how can it be prevented?",
-  choices: ["การเดารหัสผ่านทีละตัวจนถูก / ป้องกันด้วย account lockout policy","การหลอกให้ผู้ใช้บอกรหัสผ่าน / ป้องกันด้วย awareness training","การดักจับ packet บนเครือข่าย / ป้องกันด้วย encryption","การฉีด SQL command / ป้องกันด้วย input validation"],
+  choices: ["การเดารหัสผ่านทีละตัวจนถูก / ป้องกันด้วย account lockout policy","การหลอกให้ผู้ใช้บอกรหัสผ่าน / ป้องกันด้วย awareness training","การดักจับ packet บนเครือข่าย / ป้องกันด้วย encryption","การโจมตีแบบ SQL Injection command / ป้องกันด้วย input validation"],
   correct: 0,
   explanations: [
     "Brute Force ลองรหัสผ่านทุกรูปแบบจนกว่าจะถูก ป้องกันด้วย account lockout, rate limiting, CAPTCHA, MFA และรหัสผ่านที่ซับซ้อน",
     "การหลอกให้บอกรหัสผ่านคือ Social Engineering/Phishing ไม่ใช่ Brute Force",
     "การดักจับ packet คือ Sniffing/Eavesdropping ไม่ใช่ Brute Force",
-    "การฉีด SQL คือ SQL Injection เป็นคนละประเภทกับ Brute Force"
+    "การโจมตีแบบ SQL Injection คือ SQL Injection เป็นคนละประเภทกับ Brute Force"
   ]
 },
 {
