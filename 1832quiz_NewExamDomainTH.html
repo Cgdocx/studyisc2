@@ -454,6 +454,55 @@ body.strict-exam-active *::after {
   user-select: none !important;
 }
 
+
+/* Anti-Screenshot & Focus-Loss Blur */
+.quiz-card-container {
+  position: relative;
+}
+.card.exam-blur {
+  filter: blur(22px) !important;
+  user-select: none !important;
+  pointer-events: none !important;
+  transition: filter 0.05s ease !important;
+}
+.blur-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: rgba(239, 233, 217, 0.92);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  z-index: 1000;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-align: center;
+  padding: 24px;
+}
+.blur-overlay .badge {
+  background: var(--pink);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border: 1px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  margin-bottom: 12px;
+}
+.blur-overlay h3 {
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+.blur-overlay p {
+  font-family: var(--font-thai);
+  font-size: 13.5px;
+  color: var(--ink-2);
+  text-transform: none;
+  max-width: 480px;
+}
+
 </style>
 </head>
 <body>
@@ -613,7 +662,12 @@ body.strict-exam-active *::after {
       </div>
     </div>
     <div class="progress"><span id="prog"></span></div>
-    <div class="card">
+    <div class="card quiz-card-container" id="quizMainCard">
+      <div id="blurScreenOverlay" class="blur-overlay hidden">
+        <span class="badge">SECURITY BLUR</span>
+        <h3>หน้าจอถูกเบลออัตโนมัติ</h3>
+        <p>ตรวจพบการสลับหน้าต่างหรือเครื่องมือภายนอก แตะหรือคลิกที่นี่เพื่อกลับเข้าสู่หน้าจอข้อสอบ</p>
+      </div>
       <canvas id="qCanvas" class="hidden" style="width:100%;max-width:100%;display:block;margin-bottom:12px;"></canvas>
       <div class="question" id="qText"></div>
       <div class="question-th th-text" id="qTextTh"></div>
@@ -1308,6 +1362,21 @@ function renderQuestionCanvas(q) {
   ctx.scale(dpr, dpr);
   ctx.clearRect(0, 0, width, estHeight);
 
+  // Dynamic Anti-OCR / Anti-VLM Watermark Layer
+  const candidateId = session ? (session.userName || "Candidate") : "ISC2 CC";
+  const nowStr = new Date().toISOString().slice(0, 10);
+  const wmText = `ISC2 CC · ${candidateId} · ${nowStr}`;
+  ctx.save();
+  ctx.rotate(-18 * Math.PI / 180);
+  ctx.fillStyle = "rgba(15, 15, 15, 0.055)"; // High-frequency OCR noise
+  ctx.font = "700 13px 'JetBrains Mono', monospace";
+  for (let x = -width; x < width * 2; x += 220) {
+    for (let y = -estHeight; y < estHeight * 2; y += 46) {
+      ctx.fillText(wmText, x, y);
+    }
+  }
+  ctx.restore();
+
   let curY = 22;
 
   if (enTokens.length > 0) {
@@ -1728,16 +1797,88 @@ document.addEventListener("contextmenu", (e) => {
   e.preventDefault();
 });
 
+function triggerIntegrityToast(msg) {
+  const toast = document.getElementById("integrityWarningToast");
+  if (toast) {
+    if (msg) toast.firstElementChild.textContent = msg;
+    toast.classList.remove("hidden");
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => toast.classList.add("hidden"), 3500);
+  }
+}
+
+function handleExamBlur() {
+  if (session && session.strictIntegrity && !document.getElementById("screen-quiz").classList.contains("hidden")) {
+    const card = document.getElementById("quizMainCard");
+    const overlay = document.getElementById("blurScreenOverlay");
+    if (card) card.classList.add("exam-blur");
+    if (overlay) overlay.classList.remove("hidden");
+  }
+}
+
+function handleExamFocus() {
+  if (session && session.strictIntegrity && !document.getElementById("screen-quiz").classList.contains("hidden")) {
+    const card = document.getElementById("quizMainCard");
+    const overlay = document.getElementById("blurScreenOverlay");
+    if (card) card.classList.remove("exam-blur");
+    if (overlay) overlay.classList.add("hidden");
+  }
+}
+
+window.addEventListener("blur", () => {
+  if (session && session.strictIntegrity && !document.getElementById("screen-quiz").classList.contains("hidden")) {
+    handleExamBlur();
+  }
+});
+
+window.addEventListener("focus", () => {
+  handleExamFocus();
+});
+
+const overlayEl = document.getElementById("blurScreenOverlay");
+if (overlayEl) {
+  overlayEl.addEventListener("click", () => handleExamFocus());
+}
+
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden && session && session.strictIntegrity && !document.getElementById("screen-quiz").classList.contains("hidden")) {
-    session.tabSwitches = (session.tabSwitches || 0) + 1;
-    const toast = document.getElementById("integrityWarningToast");
-    const countEl = document.getElementById("tabSwitchCount");
-    if (toast && countEl) {
-      countEl.textContent = session.tabSwitches;
-      toast.classList.remove("hidden");
-      setTimeout(() => toast.classList.add("hidden"), 3500);
+  if (session && session.strictIntegrity && !document.getElementById("screen-quiz").classList.contains("hidden")) {
+    if (document.hidden) {
+      handleExamBlur();
+      session.tabSwitches = (session.tabSwitches || 0) + 1;
+      const countEl = document.getElementById("tabSwitchCount");
+      if (countEl) countEl.textContent = session.tabSwitches;
+      triggerIntegrityToast(`⚠️ ตรวจพบการสลับหน้าต่างหรือแท็บเบราว์เซอร์ (ครั้งที่ ${session.tabSwitches})`);
+    } else {
+      setTimeout(handleExamFocus, 200);
     }
+  }
+});
+
+// Intercept Screenshot Shortcuts
+window.addEventListener("keyup", (e) => {
+  if (session && session.strictIntegrity && e.key === "PrintScreen") {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText("");
+      }
+    } catch (_) {}
+    triggerIntegrityToast("⚠️ ไม่อนุญาตให้ใช้คำสั่ง PrintScreen ระหว่างสอบ");
+  }
+});
+
+window.addEventListener("keydown", (e) => {
+  if (!session || !session.strictIntegrity || document.getElementById("screen-quiz").classList.contains("hidden")) return;
+  
+  // Win+Shift+S, Cmd+Shift+3/4
+  if ((e.metaKey || e.ctrlKey) && e.shiftKey && ["s", "S", "3", "4"].includes(e.key)) {
+    e.preventDefault();
+    triggerIntegrityToast("⚠️ ตรวจพบปุ่มลัดจับภาพหน้าจอ (Screen Capture Blocked)");
+  }
+  
+  // Print dialog block (Ctrl+P / Cmd+P)
+  if ((e.metaKey || e.ctrlKey) && (e.key === "p" || e.key === "P")) {
+    e.preventDefault();
+    triggerIntegrityToast("⚠️ ไม่อนุญาตให้สั่งพิมพ์ (Print) หน้าข้อสอบ");
   }
 });
 
