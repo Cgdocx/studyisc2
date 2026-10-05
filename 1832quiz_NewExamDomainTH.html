@@ -767,11 +767,14 @@ function shuffle(arr) {
   return a;
 }
 
+const QUIZ_SCHEMA_VERSION = "2026.1";
+
 function saveActiveSession() {
   if (!session || !session.items || !session.items.length) return;
   if (session.i >= session.items.length) return;
   try {
     const state = {
+      v: QUIZ_SCHEMA_VERSION,
       userName: session.userName,
       mode: session.mode,
       limit: session.limit,
@@ -782,7 +785,9 @@ function saveActiveSession() {
       timestamp: Date.now()
     };
     localStorage.setItem("cc_1832_saved_session", JSON.stringify(state));
-  } catch (e) {}
+  } catch (e) {
+    // Graceful fallback for Private/Incognito or storage-restricted mode
+  }
 }
 
 function checkSavedSession() {
@@ -792,7 +797,11 @@ function checkSavedSession() {
     if (!banner) return;
     if (!raw) { banner.classList.add("hidden"); return; }
     const st = JSON.parse(raw);
-    if (!st.itemIndices || !st.itemIndices.length) { banner.classList.add("hidden"); return; }
+    if (!st || st.v !== QUIZ_SCHEMA_VERSION || !st.itemIndices || !st.itemIndices.length) {
+      try { localStorage.removeItem("cc_1832_saved_session"); } catch(e){}
+      banner.classList.add("hidden");
+      return;
+    }
     const desc = document.getElementById("resumeDesc");
     const currentQ = (st.i || 0) + 1;
     const totalQ = st.itemIndices.length;
@@ -809,7 +818,10 @@ function resumeSession() {
     const raw = localStorage.getItem("cc_1832_saved_session");
     if (!raw) return;
     const st = JSON.parse(raw);
-    if (!st.itemIndices || !st.itemIndices.length) return;
+    if (!st || st.v !== QUIZ_SCHEMA_VERSION || !st.itemIndices || !st.itemIndices.length) {
+      try { localStorage.removeItem("cc_1832_saved_session"); } catch(e){}
+      return;
+    }
     const items = st.itemIndices.map(idx => bank[idx]).filter(Boolean);
     if (!items.length) return;
     session = {
