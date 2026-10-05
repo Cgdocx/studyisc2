@@ -588,6 +588,140 @@ body.strict-exam-active *::after {
   box-shadow: 1px 1px 0 var(--ink);
 }
 
+
+/* ===== 8-BIT CYBER COMPANION WIDGET ===== */
+.companion-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 990;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.companion-bubble {
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 8px 14px;
+  max-width: 220px;
+  font-family: var(--font-thai);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+  border-radius: 4px;
+  pointer-events: auto;
+  position: relative;
+  animation: companionFloat 3s ease-in-out infinite alternate;
+}
+.companion-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: 12px;
+  right: -9px;
+  width: 0; height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 9px solid var(--ink);
+}
+.companion-avatar-card {
+  background: var(--cream-2);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto;
+  cursor: pointer;
+  border-radius: 4px;
+  user-select: none;
+  background-color: var(--yellow);
+  transition: transform 0.1s ease;
+}
+.companion-avatar-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+.companion-avatar-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.companion-sprite {
+  font-size: 38px;
+  line-height: 1;
+  display: inline-block;
+  image-rendering: pixelated;
+  transition: transform 0.15s ease;
+}
+.companion-sprite.bounce {
+  animation: companionJump 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.companion-sprite.shake {
+  animation: companionShake 0.4s ease-in-out;
+}
+.companion-meta {
+  margin-top: 6px;
+  text-align: center;
+}
+.companion-name {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.companion-streak {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  background: var(--ink);
+  color: var(--white);
+  padding: 1px 6px;
+  border-radius: 2px;
+  margin-top: 3px;
+  display: inline-block;
+}
+
+@keyframes companionJump {
+  0% { transform: translateY(0) scale(1, 1); }
+  35% { transform: translateY(-16px) scale(0.9, 1.15); }
+  65% { transform: translateY(-20px) scale(1.1, 0.95); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes companionShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px) rotate(-6deg); }
+  75% { transform: translateX(6px) rotate(6deg); }
+}
+@keyframes companionFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-4px); }
+}
+
+@media (max-width: 640px) {
+  .companion-widget {
+    bottom: 12px;
+    right: 12px;
+    gap: 6px;
+  }
+  .companion-bubble {
+    max-width: 160px;
+    font-size: 11.5px;
+    padding: 6px 10px;
+  }
+  .companion-sprite {
+    font-size: 28px;
+  }
+  .companion-avatar-card {
+    padding: 6px 8px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1049,6 +1183,7 @@ function resumeSession() {
     document.getElementById("screen-home").classList.add("hidden");
     document.getElementById("screen-result").classList.add("hidden");
     document.getElementById("screen-quiz").classList.remove("hidden");
+  const cWidget = document.getElementById("companionWidget"); if (cWidget) { cWidget.classList.remove("hidden"); initCompanion(); }
     document.getElementById("btnHome").classList.remove("hidden");
     renderQuestion(true);
   } catch (e) {
@@ -1280,6 +1415,8 @@ function startPearsonVueSimulation() {
   document.getElementById("screen-result").classList.add("hidden");
   document.getElementById("screen-quiz").classList.remove("hidden");
   document.getElementById("btnHome").classList.remove("hidden");
+  const cWidget = document.getElementById("companionWidget");
+  if (cWidget) { cWidget.classList.remove("hidden"); initCompanion(); }
   renderQuestion();
   saveActiveSession();
 }
@@ -1529,6 +1666,118 @@ function renderQuestionCanvas(q) {
   ctx.restore();
 }
 
+
+// ===== 8-BIT CYBER COMPANION LOGIC (BYTE THE CYBER CAT) =====
+const COMPANION_DATA = {
+  streak: 0,
+  level: 1,
+  dialogueTimer: null,
+  evolutionStages: [
+    { minLevel: 1, sprite: "🐱", name: "BYTE (KITTEN)", bg: "var(--yellow)" },
+    { minLevel: 3, sprite: "🦊", name: "FOX BYTE", bg: "var(--orange)" },
+    { minLevel: 5, sprite: "🦁", name: "CYBER LION", bg: "#BBF7D0" },
+    { minLevel: 8, sprite: "🤖", name: "MECHA GUARDIAN", bg: "var(--pink)" },
+    { minLevel: 12, sprite: "👑", name: "CYBER OVERLORD", bg: "var(--accent)" }
+  ],
+  correctQuotes: [
+    "สุดยอด! ข้อนี้แม่นมาก ✨",
+    "คอมโบมาแล้ว! ลุยต่อเลย 🔥",
+    "CISSP/CC ระดับเทพ 🛡️",
+    "ความรู้แน่นปึ้ก! คำตอบนี้เฉียบคม",
+    "คะแนนพุ่งกระฉูด! ไปต่อเลย"
+  ],
+  wrongQuotes: [
+    "ไม่เป็นไรนะ จำหลักการข้อนี้ไว้ทบทวน!",
+    "ข้อสอบชอบหลอกจุดนี้ ระวังเลยนะ",
+    "ล้มแล้วลุกใหม่ ข้อต่อไปเอาคืน!",
+    "เกือบถูกแล้ว อ่านทวนอีกนิดนะ สู้ ๆ",
+    "เดี๋ยวระบบบันทึกลงคลังข้อผิดให้ ไม่ต้องห่วง"
+  ],
+  clickQuotes: [
+    "เหมียว! กำลังตั้งใจอ่านโจทย์อยู่ใช่ไหม?",
+    "สมาธิดีมาก ข้อนี้ไม่ยากเกินความสามารถ",
+    "คลิกที่หนูทำไมเนี่ย! รีบตอบข้อสอบเร็วเข้า 555",
+    "เป้าหมาย 70% อยู่แค่เอื้อม ลุยยย!",
+    "พักหายใจ 2 วินาที แล้วลุยข้อต่อไป!"
+  ]
+};
+
+function initCompanion() {
+  const widget = document.getElementById("companionWidget");
+  if (!widget) return;
+  COMPANION_DATA.streak = 0;
+  COMPANION_DATA.level = 1;
+  updateCompanionUI("ยินดีที่ได้ร่วมทาง! ลุยไปด้วยกันนะ 🐱", false, false);
+}
+
+function updateCompanionUI(speechText, isCorrectAnim, isWrongAnim) {
+  const widget = document.getElementById("companionWidget");
+  const spriteEl = document.getElementById("companionSprite");
+  const nameEl = document.getElementById("companionName");
+  const streakEl = document.getElementById("companionStreak");
+  const speechEl = document.getElementById("companionSpeech");
+  const cardEl = document.getElementById("companionCard");
+  if (!widget) return;
+
+  // Determine stage by level
+  let currentStage = COMPANION_DATA.evolutionStages[0];
+  for (let s of COMPANION_DATA.evolutionStages) {
+    if (COMPANION_DATA.level >= s.minLevel) currentStage = s;
+  }
+
+  if (spriteEl) spriteEl.textContent = currentStage.sprite;
+  if (nameEl) nameEl.textContent = `${currentStage.name} Lv.${COMPANION_DATA.level}`;
+  if (streakEl) streakEl.textContent = `🔥 ${COMPANION_DATA.streak} STREAK`;
+  if (cardEl) cardEl.style.backgroundColor = currentStage.bg;
+
+  if (speechText && speechEl) {
+    speechEl.textContent = speechText;
+    clearTimeout(COMPANION_DATA.dialogueTimer);
+    COMPANION_DATA.dialogueTimer = setTimeout(() => {
+      if (speechEl) speechEl.textContent = `พร้อมลุยข้อ ${session ? (session.i + 1) : 1} แล้ว!`;
+    }, 4500);
+  }
+
+  if (spriteEl) {
+    spriteEl.classList.remove("bounce", "shake");
+    if (isCorrectAnim) {
+      void spriteEl.offsetWidth;
+      spriteEl.classList.add("bounce");
+    } else if (isWrongAnim) {
+      void spriteEl.offsetWidth;
+      spriteEl.classList.add("shake");
+    }
+  }
+}
+
+function onCompanionAnswer(isCorrect) {
+  if (isCorrect) {
+    COMPANION_DATA.streak++;
+    if (COMPANION_DATA.streak % 3 === 0) {
+      COMPANION_DATA.level++;
+    }
+    const qList = COMPANION_DATA.correctQuotes;
+    const quote = qList[Math.floor(Math.random() * qList.length)];
+    const bonus = COMPANION_DATA.streak >= 3 ? ` (Streak x${COMPANION_DATA.streak}!)` : "";
+    updateCompanionUI(quote + bonus, true, false);
+  } else {
+    COMPANION_DATA.streak = 0;
+    const qList = COMPANION_DATA.wrongQuotes;
+    const quote = qList[Math.floor(Math.random() * qList.length)];
+    updateCompanionUI(quote, false, true);
+  }
+}
+
+const compCard = document.getElementById("companionCard");
+if (compCard) {
+  compCard.addEventListener("click", () => {
+    const list = COMPANION_DATA.clickQuotes;
+    const q = list[Math.floor(Math.random() * list.length)];
+    updateCompanionUI(q, true, false);
+  });
+}
+
+
 function renderQuestion(keepTimer) {
   if (session) session.qStartTime = Date.now();
   const q = current();
@@ -1593,6 +1842,10 @@ function pick(idx) {
     }
   }
   document.getElementById("btnNext").disabled = false;
+  const qCurrent = current();
+  const isCorrect = (idx === qCurrent.a);
+  onCompanionAnswer(isCorrect);
+
   if (session.mode === "practice") {
     stopTimer();
     reveal(idx);
@@ -1648,6 +1901,7 @@ function skipQ() {
   saveActiveSession();
 }
 function finish() {
+  const cWidget = document.getElementById("companionWidget"); if (cWidget) cWidget.classList.add("hidden");
   stopTimer();
   try { localStorage.removeItem("cc_1832_saved_session"); } catch(e){}
   const items = session.items;
@@ -1847,6 +2101,7 @@ function review() {
   box.scrollIntoView({behavior:"smooth"});
 }
 function goHome() {
+  const cWidget = document.getElementById("companionWidget"); if (cWidget) cWidget.classList.add("hidden");
   stopTimer();
   document.body.classList.remove("strict-exam-active");
   document.getElementById("screen-quiz").classList.add("hidden");
@@ -2236,6 +2491,21 @@ if ('serviceWorker' in navigator) {
       <button class="btn primary" id="btnReenterFullscreen" type="button" style="padding:12px 28px;font-size:14px;background:var(--ink);color:var(--white);">
         ⛶ ล็อกเต็มหน้าจอและสอบต่อ
       </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- 8-Bit Cyber Companion: Byte the Cyber Cat -->
+<div id="companionWidget" class="companion-widget hidden">
+  <div id="companionBubble" class="companion-bubble">
+    <span id="companionSpeech">ลุยเลย! ค่อย ๆ อ่านโจทย์นะ</span>
+  </div>
+  <div id="companionCard" class="companion-avatar-card" title="คลิกเพื่อทักทาย Byte">
+    <div id="companionSprite" class="companion-sprite">🐱</div>
+    <div class="companion-meta">
+      <div id="companionName" class="companion-name">BYTE Lv.1</div>
+      <div id="companionStreak" class="companion-streak">🔥 0 STREAK</div>
     </div>
   </div>
 </div>
