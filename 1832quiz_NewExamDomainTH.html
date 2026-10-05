@@ -386,6 +386,11 @@ select, input[type="text"] {
 }
 .choice .en { font-family: var(--font-body); line-height: 1.45; }
 .choice .th { display: block; color: var(--ink-2); font-size: 14px; margin-top: 5px; font-family: var(--font-thai); }
+.choice.selected {
+  background: var(--yellow) !important;
+  border-color: var(--ink) !important;
+  box-shadow: 3px 3px 0 var(--ink) !important;
+}
 .choice.correct {
   background: #BBF7D0 !important;
   border-color: var(--ink) !important;
@@ -1831,6 +1836,10 @@ function renderQuestion(keepTimer) {
   next.disabled = session.mode === "practice" ? chosen === null : false;
   next.textContent = session.i === n - 1 ? t().finish : t().next;
   if (chosen !== null && session.mode === "practice") reveal(chosen);
+  if (chosen !== null && session.mode !== "practice") {
+    const buttons = [...document.querySelectorAll("#qChoices .choice")];
+    buttons.forEach((b, i) => b.classList.toggle("selected", i === chosen));
+  }
   if (!keepTimer) startTimer();
 }
 function pick(idx) {
@@ -1853,6 +1862,11 @@ function pick(idx) {
   if (session.mode === "practice") {
     stopTimer();
     reveal(idx);
+  } else {
+    const buttons = [...document.querySelectorAll("#qChoices .choice")];
+    buttons.forEach((b, i) => {
+      b.classList.toggle("selected", i === idx);
+    });
   }
   saveActiveSession();
 }
