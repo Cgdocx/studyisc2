@@ -1184,7 +1184,7 @@ function resumeSession() {
     document.getElementById("screen-home").classList.add("hidden");
     document.getElementById("screen-result").classList.add("hidden");
     document.getElementById("screen-quiz").classList.remove("hidden");
-  const cWidget = document.getElementById("companionWidget"); if (cWidget) { cWidget.classList.remove("hidden"); initCompanion(); }
+  const cWidget = document.getElementById("companionWidget"); if (cWidget) { if ((st.mode || "exam") === "exam") { cWidget.classList.add("hidden"); } else { cWidget.classList.remove("hidden"); initCompanion(); } }
     document.getElementById("btnHome").classList.remove("hidden");
     renderQuestion(true);
   } catch (e) {
@@ -1417,7 +1417,7 @@ function startPearsonVueSimulation() {
   document.getElementById("screen-quiz").classList.remove("hidden");
   document.getElementById("btnHome").classList.remove("hidden");
   const cWidget = document.getElementById("companionWidget");
-  if (cWidget) { cWidget.classList.remove("hidden"); initCompanion(); }
+  if (cWidget) { cWidget.classList.add("hidden"); }
   renderQuestion();
   saveActiveSession();
 }
@@ -1500,6 +1500,8 @@ function startQuiz() {
   document.getElementById("screen-result").classList.add("hidden");
   document.getElementById("screen-quiz").classList.remove("hidden");
   document.getElementById("btnHome").classList.remove("hidden");
+  const cWidget = document.getElementById("companionWidget");
+  if (cWidget) { if (session.mode === "practice") { cWidget.classList.remove("hidden"); initCompanion(); } else { cWidget.classList.add("hidden"); } }
   renderQuestion();
   saveActiveSession();
 }
@@ -1752,6 +1754,7 @@ function updateCompanionUI(speechText, isCorrectAnim, isWrongAnim) {
 }
 
 function onCompanionAnswer(isCorrect) {
+  if (session && session.mode !== "practice") return;
   if (isCorrect) {
     COMPANION_DATA.streak++;
     if (COMPANION_DATA.streak % 3 === 0) {
