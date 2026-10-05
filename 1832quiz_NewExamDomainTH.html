@@ -983,6 +983,7 @@ function saveActiveSession() {
       reasons: session.reasons,
       itemIndices: session.items.map(it => bank.indexOf(it)),
       integrityStrikes: session.integrityStrikes || 0,
+      timeLeft: typeof session.left === "number" ? session.left : session.limit,
       timestamp: Date.now()
     };
     localStorage.setItem("cc_1832_saved_session", JSON.stringify(state));
@@ -1033,7 +1034,7 @@ function resumeSession() {
       limit: st.limit || 0,
       answers: st.answers || Array(items.length).fill(null),
       reasons: st.reasons || Array(items.length).fill(""),
-      left: 0,
+      left: typeof st.timeLeft === "number" ? st.timeLeft : (st.limit || 0),
       endedEarly: false,
       strictIntegrity: true,
       integrityStrikes: st.integrityStrikes || 0
@@ -1049,7 +1050,7 @@ function resumeSession() {
     document.getElementById("screen-result").classList.add("hidden");
     document.getElementById("screen-quiz").classList.remove("hidden");
     document.getElementById("btnHome").classList.remove("hidden");
-    renderQuestion();
+    renderQuestion(true);
   } catch (e) {
     console.error("Resume failed:", e);
   }
@@ -1197,21 +1198,45 @@ function exportWeaknessJson() {
     examIntegrityMetrics: {
       strictModeActive: !!session.strictIntegrity,
       tabSwitchCount: session.tabSwitches || 0,
+      integrityStrikes: session.integrityStrikes || 0,
+      disqualified: !!session.disqualified,
       suspiciousFastAnswerCount: session.suspiciousFastAnswers || 0
     }
   };
 
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  const dateStr = new Date().toISOString().slice(0, 10);
-  const cleanName = (session.userName || "Candidate").replace(/\s+/g, "_");
-  a.download = "ISC2_CC_Weakness_Analysis_" + cleanName + "_" + dateStr + ".json";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  // Compute Cryptographic SHA-256 Hash of core exam results
+  const signatureData = `${payload.candidateName}|${payload.totalQuestions}|${payload.correctCount}|${payload.overallScorePercent}|${payload.overallVerdict}|${payload.examIntegrityMetrics.integrityStrikes}|${payload.examIntegrityMetrics.disqualified}|${payload.exportDate}`;
+  
+  const finishDownload = (sigHex) => {
+    payload.cryptographicIntegrity = {
+      algorithm: "SHA-256",
+      signatureData: signatureData,
+      signatureHash: sigHex || "UNAVAILABLE"
+    };
+
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    const dateStr = new Date().toISOString().slice(0, 10);
+    const cleanName = (session.userName || "Candidate").replace(/\s+/g, "_");
+    a.download = "ISC2_CC_Weakness_Analysis_" + cleanName + "_" + dateStr + ".json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  if (window.crypto && window.crypto.subtle && window.crypto.subtle.digest) {
+    const enc = new TextEncoder();
+    window.crypto.subtle.digest("SHA-256", enc.encode(signatureData)).then(buf => {
+      const hashArray = Array.from(new Uint8Array(buf));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+      finishDownload(hashHex);
+    }).catch(() => finishDownload(null));
+  } else {
+    finishDownload(null);
+  }
 }
 
 
@@ -1355,7 +1380,7 @@ function fmtTime(sec) {
 function stopTimer() {
   if (tickId) { clearInterval(tickId); tickId = null; }
 }
-function startTimer() {
+function startTimer(keepTimer) {
   stopTimer();
   const box = document.getElementById("timerBox");
   if (!session.limit) {
@@ -1363,13 +1388,17 @@ function startTimer() {
     box.classList.remove("warn", "dead");
     return;
   }
-  session.left = session.limit;
+  session.left = (keepTimer && typeof session.left === "number" && session.left > 0) ? session.left : session.limit;
   document.getElementById("timerVal").textContent = fmtTime(session.left);
   box.classList.remove("warn", "dead");
   tickId = setInterval(() => {
     session.left -= 1;
     document.getElementById("timerVal").textContent = fmtTime(session.left);
     box.classList.toggle("warn", session.left <= 20 && session.left > 0);
+    // Persist remaining time into storage periodically
+    if (session.left % 5 === 0) {
+      saveActiveSession();
+    }
     if (session.left <= 0) {
       box.classList.add("dead");
       onTimeout();
