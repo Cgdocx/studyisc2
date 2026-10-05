@@ -20,6 +20,7 @@
     --ink: #0F0F0F;
     --ink-2: #2A2A2A;
     --white: #FFFFFF;
+    --red: #D12438;
     --font-display: 'Archivo Black', 'IBM Plex Sans Thai', sans-serif;
     --font-body: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
     --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
@@ -186,6 +187,67 @@
     background: var(--yellow); color: var(--ink);
     transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink);
   }
+
+  .start-here {
+    position: relative;
+    display: grid; grid-template-columns: 1fr auto; gap: 18px 28px; align-items: center;
+    background: var(--yellow);
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    padding: 30px 26px 24px;
+    margin-bottom: 36px;
+  }
+  .start-tag {
+    position: absolute; top: -14px; left: 18px;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--ink); color: var(--yellow);
+    padding: 3px 12px; border: 2px solid var(--ink);
+  }
+  .start-body h2 {
+    font-family: var(--font-display); font-size: clamp(18px, 2.6vw, 22px); font-weight: 400;
+    line-height: 1.2; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .start-body p { font-family: var(--font-thai); font-size: 13.5px; line-height: 1.7; color: var(--ink-2); margin-bottom: 12px; }
+  .start-steps { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .start-steps li {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-thai); font-size: 12.5px; font-weight: 700;
+    background: var(--white); border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+    padding: 4px 10px 4px 4px;
+  }
+  .start-steps li b {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+    background: var(--ink); color: var(--yellow); padding: 1px 6px;
+  }
+  .start-actions { display: flex; flex-direction: column; gap: 10px; min-width: 230px; }
+  .start-btn {
+    display: block; text-align: center; text-decoration: none;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 12px 18px; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+    background: var(--white); color: var(--ink);
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  }
+  .start-btn.primary { background: var(--ink); color: var(--yellow); }
+  .start-btn:hover { background: var(--orange); color: var(--white); transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+
+  .section-label {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    font-family: var(--font-display); font-size: 18px; font-weight: 400; text-transform: uppercase;
+    margin: 8px 0 18px;
+  }
+  .section-label span {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+    background: var(--orange); color: var(--white); border: 2px solid var(--ink);
+    box-shadow: 2px 2px 0 var(--ink); padding: 3px 8px;
+  }
+  .grid + .section-label { margin-top: 40px; }
+
+  @media (max-width: 720px) {
+    .start-here { grid-template-columns: 1fr; padding: 28px 18px 20px; }
+    .start-actions { min-width: 0; }
+  }
 </style>
 </head>
 <body>
@@ -207,14 +269,89 @@
 
 <div class="container">
   <header class="hero">
-    <div class="eyebrow">PORTAL // PRACTICE EXAMS & MIND MAPS</div>
+    <div class="eyebrow">PORTAL // LEARN &gt; PRACTICE &gt; EXAM</div>
     <h1>ISC2 CC EXAM PORTAL</h1>
     <div class="hero-th">ศูนย์รวมคลังข้อสอบและผังความคิดสรุปเนื้อหาเตรียมสอบมาตรฐานสากล</div>
     <p class="sub">รวบรวมแบบทดสอบคัดสรรพร้อมเฉลยละเอียด สรุปเนื้อหาตาม Exam Outline ทางการ ครบ 5 โดเมน สำหรับผู้เตรียมสอบใบรับรอง ISC2 Certified in Cybersecurity</p>
   </header>
 
+  <section class="start-here" aria-labelledby="startHereTitle">
+    <div class="start-tag">เริ่มที่นี่</div>
+    <div class="start-body">
+      <h2 id="startHereTitle">มือใหม่ : เริ่มจาก Learning Path</h2>
+      <p>ทำตามลำดับนี้แล้วไม่หลง ระบบจำความคืบหน้าไว้ในเครื่องนี้ให้อัตโนมัติ</p>
+      <ol class="start-steps">
+        <li><b>1</b>Learning Path</li>
+        <li><b>2</b>บทเรียน Domain 1</li>
+        <li><b>3</b>Flashcard</li>
+        <li><b>4</b>ข้อสอบสั้น</li>
+        <li><b>5</b>สอบเต็มชุด</li>
+      </ol>
+    </div>
+    <div class="start-actions">
+      <a href="learning-path.html" class="start-btn primary">เปิด Learning Path</a>
+      <a href="lesson-domain-1.html" class="start-btn">เริ่มบทเรียน Domain 1</a>
+    </div>
+  </section>
+
+  <div class="section-label"><span>STEP 1</span>เรียน : ทำความเข้าใจเนื้อหา</div>
   <div class="grid">
-    <!-- Card 1 -->
+    <div class="card" style="--badge-bg: var(--yellow); --btn-bg: var(--ink); --btn-color: var(--cream);">
+      <div>
+        <div class="card-head">
+          <span class="card-badge">ROADMAP // 21 STEPS</span>
+          <h2>LEARNING PATH</h2>
+          <div class="card-sub-th">เส้นทางเรียน 21 ขั้น จากศูนย์จนพร้อมสอบ</div>
+        </div>
+        <p>เส้นทางเรียนแนะนำ 21 ขั้นตอน ตั้งแต่เริ่มต้นจนพร้อมสอบ ติดตามความคืบหน้าด้วย Progress Tracker บอกได้เลยว่าขั้นถัดไปต้องทำอะไร</p>
+      </div>
+      <div>
+        <div class="card-meta"><span>21 STEPS</span><span>4 PHASES</span><span>TRACK PROGRESS</span></div>
+        <a href="learning-path.html" class="card-btn">เริ่มเส้นทาง</a>
+      </div>
+    </div>
+    <div class="card" style="--badge-bg: var(--green); --btn-bg: var(--green); --btn-color: var(--white);">
+      <div>
+        <div class="card-head">
+          <span class="card-badge" style="color: #fff;">BEGINNER FRIENDLY</span>
+          <h2>LESSONS 5 DOMAINS</h2>
+          <div class="card-sub-th">บทเรียนมือใหม่ ครบ 5 โดเมน</div>
+        </div>
+        <p>บทเรียนสำหรับมือใหม่ อธิบายด้วยภาษาง่ายๆ เปรียบเทียบชีวิตจริง มี Visual Diagram และ Real-World Scenarios</p>
+      </div>
+      <div>
+        <div class="card-meta"><span>5 DOMAINS</span><span>ANALOGIES + SVG</span><span>CHEAT SHEET</span></div>
+        <a href="lesson-domain-1.html" class="card-btn">เริ่มเรียน</a>
+      </div>
+    </div>
+    <div class="card" style="--badge-bg: var(--pink); --btn-bg: var(--pink); --btn-color: var(--ink);">
+      <div>
+        <div class="card-head">
+          <span class="card-badge">FLASHCARD // 100 CARDS</span>
+          <h2>FLASHCARDS</h2>
+          <div class="card-sub-th">บัตรคำศัพท์ 100 ใบ แยกตามโดเมน</div>
+        </div>
+        <p>บัตรคำศัพท์ 100 ใบ พลิกดูคำตอบ แบ่งตาม Domain กด "รู้แล้ว" หรือ "ยังไม่รู้" แล้วติดตามความคืบหน้าได้</p>
+      </div>
+      <div>
+        <div class="card-meta"><span>100 CARDS</span><span>5 DOMAINS</span><span>TRACK PROGRESS</span></div>
+        <a href="flashcard.html" class="card-btn">เริ่มฝึก</a>
+      </div>
+    </div>
+    <div class="card" style="--badge-bg: var(--orange); --btn-bg: var(--orange); --btn-color: var(--white);">
+      <div>
+        <div class="card-head">
+          <span class="card-badge" style="color: #fff;">MINI GAMES // 8 GAMES</span>
+          <h2>MINI GAMES</h2>
+          <div class="card-sub-th">เกมฝึกทักษะ 8 รูปแบบ ทวนแบบสนุก</div>
+        </div>
+        <p>เกมฝึกทักษะ 8 รูปแบบ: จับคู่ จัดหมวด ถูกผิด แข่งเวลา เรียงลำดับ เติมคำ ปกป้องปราสาท นักสืบฟิชชิ่ง</p>
+      </div>
+      <div>
+        <div class="card-meta"><span>8 GAMES</span><span>ALL DOMAINS</span></div>
+        <a href="games.html" class="card-btn">เล่นเกม</a>
+      </div>
+    </div>
     <div class="card" style="--badge-bg: var(--green); --btn-bg: var(--green); --btn-color: var(--white);">
       <div>
         <div class="card-head">
@@ -226,11 +363,69 @@
       </div>
       <div>
         <div class="card-meta"><span>12 CHAPTERS</span><span>TH / EN</span><span>CHEATSHEET</span></div>
-        <a href="index.html" class="card-btn">OPEN MIND MAP</a>
+        <a href="index.html" class="card-btn">เปิด Mind Map</a>
       </div>
     </div>
+  </div>
 
-    <!-- Card 2 -->
+  <div class="section-label"><span>STEP 2</span>ฝึกและสอบ : วัดความพร้อม</div>
+  <div class="grid">
+    <div class="card" style="--badge-bg: var(--red); --btn-bg: var(--red); --btn-color: var(--white);">
+      <div>
+        <div class="card-head">
+          <span class="card-badge" style="color: #fff;">WHY WRONG? // 60 Q</span>
+          <h2>QUIZ EXPLAINED</h2>
+          <div class="card-sub-th">อธิบายทำไมผิด 60 ข้อ พร้อมเหตุผลทุกตัวเลือก</div>
+        </div>
+        <p>แบบทดสอบ 60 ข้อ พร้อมคำอธิบายทุกตัวเลือก ทั้งข้อถูกและข้อผิด ช่วยให้เข้าใจลึกซึ้งว่าทำไมแต่ละตัวเลือกถูกหรือผิด</p>
+      </div>
+      <div>
+        <div class="card-meta"><span>60 QUESTIONS</span><span>FULL EXPLANATIONS</span></div>
+        <a href="quiz-explained.html" class="card-btn">เริ่มอธิบาย</a>
+      </div>
+    </div>
+    <div class="card" style="--badge-bg: var(--green); --btn-bg: var(--green); --btn-color: var(--white);">
+      <div>
+        <div class="card-head">
+          <span class="card-badge" style="color: #fff;">PRACTICE EXAM // 50 Q</span>
+          <h2>NCSA MOCK 50</h2>
+          <div class="card-sub-th">ชุด 50 ข้อ จำลองแนวข้อสอบ สกมช.</div>
+        </div>
+        <p>ชุดข้อสอบจำลอง 50 ข้อ แนวเดียวกับการทดสอบของ สกมช. ไม่มีระบบติดตามภายนอก ปลอดภัย รวดเร็ว พร้อมสรุปผลทันที</p>
+      </div>
+      <div>
+        <div class="card-meta"><span>50 QUESTIONS</span><span>MOCK TEST</span><span>NCSA STYLE</span></div>
+        <a href="isc2_cc_exam1NCSA_bi_no-track-50q.html" class="card-btn">เริ่มสอบ</a>
+      </div>
+    </div>
+    <div class="card" style="--badge-bg: var(--pink); --btn-bg: var(--pink); --btn-color: var(--white);">
+      <div>
+        <div class="card-head">
+          <span class="card-badge" style="color: #fff;">PRACTICE EXAM // 583 Q</span>
+          <h2>DUAL THAI-ENGLISH</h2>
+          <div class="card-sub-th">ชุด 583 ข้อ เทียบสองภาษา ไทย อังกฤษ</div>
+        </div>
+        <p>ข้อสอบสองภาษาคู่ขนาน เหมาะสำหรับฝึกความคุ้นเคยกับคำศัพท์เฉพาะทางภาษาอังกฤษ พร้อมคำแปลไทยและเหตุผลประกอบ</p>
+      </div>
+      <div>
+        <div class="card-meta"><span>583 QUESTIONS</span><span>BILINGUAL</span><span>FLASHCARDS</span></div>
+        <a href="isc2_cc_BothThai-eng_583quiz.html" class="card-btn">เริ่มสอบ</a>
+      </div>
+    </div>
+    <div class="card" style="--badge-bg: var(--yellow); --btn-bg: var(--ink); --btn-color: var(--cream);">
+      <div>
+        <div class="card-head">
+          <span class="card-badge">PRACTICE EXAM // 548 Q</span>
+          <h2>5 DOMAINS PRACTICE</h2>
+          <div class="card-sub-th">ชุด 548 ข้อ แยกฝึกตาม 5 โดเมน</div>
+        </div>
+        <p>ชุดข้อสอบแบบเจาะลึกเฉพาะโดเมน เลือกลุยโดเมนที่ต้องการเสริมความมั่นใจ สลับดูคำแปลไทยและอังกฤษได้ทันที</p>
+      </div>
+      <div>
+        <div class="card-meta"><span>548 QUESTIONS</span><span>5 DOMAINS</span><span>DUAL TH/EN</span></div>
+        <a href="isc2_cc_exam548_5Domain_dualTh-Eng.html" class="card-btn">เริ่มสอบ</a>
+      </div>
+    </div>
     <div class="card" style="--badge-bg: var(--orange); --btn-bg: var(--orange); --btn-color: var(--white);">
       <div>
         <div class="card-head">
@@ -242,119 +437,7 @@
       </div>
       <div>
         <div class="card-meta"><span>1,832 QUESTIONS</span><span>5 DOMAINS</span><span>THAI</span></div>
-        <a href="1832quiz_NewExamDomainTH.html" class="card-btn">START EXAM</a>
-      </div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="card" style="--badge-bg: var(--pink); --btn-bg: var(--pink); --btn-color: var(--white);">
-      <div>
-        <div class="card-head">
-          <span class="card-badge" style="color: #fff;">PRACTICE EXAM // 583 Q</span>
-          <h2>DUAL THAI-ENGLISH</h2>
-          <div class="card-sub-th">ชุด 583 ข้อ เทียบสองภาษา ไทย-อังกฤษ</div>
-        </div>
-        <p>ข้อสอบสองภาษาคู่ขนาน เหมาะสำหรับฝึกความคุ้นเคยกับคำศัพท์เฉพาะทางภาษาอังกฤษ พร้อมคำแปลไทยและเหตุผลประกอบ</p>
-      </div>
-      <div>
-        <div class="card-meta"><span>583 QUESTIONS</span><span>BILINGUAL</span><span>FLASHCARDS</span></div>
-        <a href="isc2_cc_BothThai-eng_583quiz.html" class="card-btn">START EXAM</a>
-      </div>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="card" style="--badge-bg: var(--yellow); --btn-bg: var(--ink); --btn-color: var(--cream);">
-      <div>
-        <div class="card-head">
-          <span class="card-badge">PRACTICE EXAM // 548 Q</span>
-          <h2>5 DOMAINS PRACTICE</h2>
-          <div class="card-sub-th">ชุด 548 ข้อ แยกฝึกตาม 5 โดเมน</div>
-        </div>
-        <p>ชุดข้อสอบแบบเจาะลึกเฉพาะโดเมน เลือกลุยโดเมนที่ต้องการเสริมความมั่นใจ สลับดูคำแปลไทย-อังกฤษได้ทันที</p>
-      </div>
-      <div>
-        <div class="card-meta"><span>548 QUESTIONS</span><span>5 DOMAINS</span><span>DUAL TH/EN</span></div>
-        <a href="isc2_cc_exam548_5Domain_dualTh-Eng.html" class="card-btn">START EXAM</a>
-      </div>
-    </div>
-
-    <!-- Card 5 -->
-    <div class="card" style="--badge-bg: var(--green); --btn-bg: var(--green); --btn-color: var(--white);">
-      <div>
-        <div class="card-head">
-          <span class="card-badge" style="color: #fff;">PRACTICE EXAM // 50 Q</span>
-          <h2>NCSA SIMULATION</h2>
-          <div class="card-sub-th">ชุด 50 ข้อ มาตรฐานจำลอง สกมช.</div>
-        </div>
-        <p>ชุดข้อสอบจำลองเสมือนจริง 50 ข้อ มาตรฐานการทดสอบระดับประเทศ ไม่มีระบบติดตามภายนอก ปลอดภัย รวดเร็ว พร้อมสรุปผลทันที</p>
-      </div>
-      <div>
-        <div class="card-meta"><span>50 QUESTIONS</span><span>MOCK TEST</span><span>OFFICIAL NCSA</span></div>
-        <a href="isc2_cc_exam1NCSA_bi_no-track-50q.html" class="card-btn">START EXAM</a>
-      </div>
-    </div>
-    <!-- Card 6: Quiz Explained -->
-    <div class="card" style="--accent-bg: var(--red); --btn-bg: var(--red); --btn-color: var(--white);">
-      <div>
-        <span class="card-badge">WHY WRONG?</span>
-        <h2>อธิบายทำไมผิด (60 ข้อ)</h2>
-        <p>แบบทดสอบ 60 ข้อ พร้อมคำอธิบายทุกตัวเลือก ทั้งข้อถูกและข้อผิด ช่วยให้เข้าใจลึกซึ้งว่าทำไมแต่ละตัวเลือกถูกหรือผิด</p>
-      </div>
-      <div>
-        <div class="card-meta"><span>60 QUESTIONS</span><span>FULL EXPLANATIONS</span></div>
-        <a href="quiz-explained.html" class="card-btn">เริ่มทำแบบทดสอบ &rarr;</a>
-      </div>
-    </div>
-
-    <!-- Card 7: Lessons -->
-    <div class="card" style="--accent-bg: var(--green); --btn-bg: var(--green); --btn-color: var(--white);">
-      <div>
-        <span class="card-badge">BEGINNER FRIENDLY</span>
-        <h2>บทเรียน 5 Domains</h2>
-        <p>บทเรียนสำหรับมือใหม่ อธิบายด้วยภาษาง่ายๆ เปรียบเทียบชีวิตจริง มี Visual Diagram และ Real-World Scenarios</p>
-      </div>
-      <div>
-        <div class="card-meta"><span>5 DOMAINS</span><span>ANALOGIES + SVG</span></div>
-        <a href="lesson-domain-1.html" class="card-btn">เริ่มเรียน &rarr;</a>
-      </div>
-    </div>
-
-    <!-- Card 8: Flashcard -->
-    <div class="card" style="--accent-bg: var(--pink); --btn-bg: var(--pink); --btn-color: var(--ink);">
-      <div>
-        <span class="card-badge">100 CARDS</span>
-        <h2>Flashcard บัตรคำศัพท์</h2>
-        <p>บัตรคำศัพท์ 100 ใบ พลิกดูคำตอบ แบ่งตาม Domain กด "รู้แล้ว/ยังไม่รู้" ติดตามความคืบหน้าได้</p>
-      </div>
-      <div>
-        <div class="card-meta"><span>100 CARDS</span><span>TRACK PROGRESS</span></div>
-        <a href="flashcard.html" class="card-btn">เริ่มฝึก &rarr;</a>
-      </div>
-    </div>
-
-    <!-- Card 9: Mini Games -->
-    <div class="card" style="--accent-bg: var(--orange); --btn-bg: var(--orange); --btn-color: var(--white);">
-      <div>
-        <span class="card-badge">8 GAMES</span>
-        <h2>Mini Games</h2>
-        <p>เกมฝึกทักษะ 8 รูปแบบ: จับคู่, จัดหมวด, ถูกผิด, แข่งเวลา, เรียงลำดับ, เติมคำ, ปกป้องปราสาท, นักสืบฟิชชิ่ง</p>
-      </div>
-      <div>
-        <div class="card-meta"><span>8 GAMES</span><span>ALL DOMAINS</span></div>
-        <a href="games.html" class="card-btn">เล่นเกม &rarr;</a>
-      </div>
-    </div>
-
-    <!-- Card 10: Learning Path -->
-    <div class="card" style="--accent-bg: var(--yellow); --btn-bg: var(--ink); --btn-color: var(--cream);">
-      <div>
-        <span class="card-badge">ROADMAP</span>
-        <h2>Learning Path</h2>
-        <p>เส้นทางเรียนแนะนำ 21 ขั้นตอน ตั้งแต่เริ่มต้นจนพร้อมสอบ ติดตามความคืบหน้าด้วย Progress Tracker</p>
-      </div>
-      <div>
-        <div class="card-meta"><span>21 STEPS</span><span>4 PHASES</span></div>
-        <a href="learning-path.html" class="card-btn">เริ่มเส้นทาง &rarr;</a>
+        <a href="1832quiz_NewExamDomainTH.html" class="card-btn">เริ่มสอบ</a>
       </div>
     </div>
   </div>
