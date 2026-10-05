@@ -442,6 +442,14 @@ footer.note { margin-top: 24px; color: var(--muted); font-size: 12px; font-famil
   }
   #printArea .miss h3 { font-size: 14px; margin-bottom: 6px; }
 }
+
+body.strict-exam-active, body.strict-exam-active #screen-quiz, body.strict-exam-active #screen-quiz * {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
 </style>
 </head>
 <body>
@@ -548,6 +556,13 @@ footer.note { margin-top: 24px; color: var(--muted); font-size: 12px; font-famil
         <select id="qMode">
           <option value="practice">Practice (instant feedback)</option>
           <option value="exam">Exam (review at the end)</option>
+        </select>
+      </div>
+            <div class="field">
+        <label id="t-integrity">Strict Exam Integrity</label>
+        <select id="qIntegrity">
+          <option value="on" selected>Enabled (Anti-AI & Copy Protection)</option>
+          <option value="off">Disabled (Study Friendly)</option>
         </select>
       </div>
       <div class="field">
@@ -1015,7 +1030,12 @@ function exportWeaknessJson() {
     overallVerdict: s.passed ? "PASS" : "FAIL",
     domainBreakdown: domainStats,
     totalMissedQuestions: missedDetails.length,
-    missedQuestionsList: missedDetails
+    missedQuestionsList: missedDetails,
+    examIntegrityMetrics: {
+      strictModeActive: !!session.strictIntegrity,
+      tabSwitchCount: session.tabSwitches || 0,
+      suspiciousFastAnswerCount: session.suspiciousFastAnswers || 0
+    }
   };
 
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
@@ -1059,8 +1079,13 @@ function startPearsonVueSimulation() {
     reasons: Array(selectedItems.length).fill(""),
     left: 0,
     endedEarly: false,
-    isPearsonVue: true
+    isPearsonVue: true,
+    strictIntegrity: true,
+    tabSwitches: 0,
+    suspiciousFastAnswers: 0,
+    qStartTime: Date.now()
   };
+  document.body.classList.add("strict-exam-active");
   
   document.getElementById("screen-home").classList.add("hidden");
   document.getElementById("screen-result").classList.add("hidden");
@@ -1127,6 +1152,7 @@ function startQuiz() {
   const want = document.getElementById("qCount").value;
   let items = shuffle(pool);
   if (want !== "all") items = items.slice(0, Math.min(+want, items.length));
+  const integrityVal = document.getElementById("qIntegrity") ? document.getElementById("qIntegrity").value : "on";
   session = {
     items,
     i: 0,
@@ -1136,8 +1162,13 @@ function startQuiz() {
     answers: Array(items.length).fill(null),
     reasons: Array(items.length).fill(""),
     left: 0,
-    endedEarly: false
+    endedEarly: false,
+    strictIntegrity: integrityVal === "on",
+    tabSwitches: 0,
+    suspiciousFastAnswers: 0,
+    qStartTime: Date.now()
   };
+  if (session.strictIntegrity) document.body.classList.add("strict-exam-active");
   document.getElementById("screen-home").classList.add("hidden");
   document.getElementById("screen-result").classList.add("hidden");
   document.getElementById("screen-quiz").classList.remove("hidden");
@@ -1182,6 +1213,7 @@ function startTimer() {
   }, 1000);
 }
 function renderQuestion(keepTimer) {
+  if (session) session.qStartTime = Date.now();
   const q = current();
   const n = session.items.length;
   document.getElementById("qDomain").textContent = "Domain " + q.d + " · " + domainName(q.d);
@@ -1226,6 +1258,13 @@ function pick(idx) {
   if (session.answers[session.i] !== null && session.reasons[session.i] === "timeout") return;
   session.answers[session.i] = idx;
   session.reasons[session.i] = "answered";
+  if (session.strictIntegrity) {
+    const latency = Date.now() - (session.qStartTime || Date.now());
+    const qLen = ((current() && current().q) || "").length;
+    if (qLen > 140 && latency < 1800) {
+      session.suspiciousFastAnswers = (session.suspiciousFastAnswers || 0) + 1;
+    }
+  }
   document.getElementById("btnNext").disabled = false;
   if (session.mode === "practice") {
     stopTimer();
@@ -1327,6 +1366,11 @@ function finish() {
   document.getElementById("resPassLine").textContent = t().passing;
   let detail = t().answered(correct, total, skipped, timed);
   if (session.endedEarly) detail += " · " + t().endedEarly;
+  document.body.classList.remove("strict-exam-active");
+  if (session.strictIntegrity) {
+    detail += " · สลับหน้าต่าง: " + (session.tabSwitches || 0) + " ครั้ง";
+    if (session.suspiciousFastAnswers > 0) detail += " · ตอบเร็วผิดปกติ: " + session.suspiciousFastAnswers + " ข้อ";
+  }
   document.getElementById("resDetail").textContent = detail;
   const bars = document.getElementById("resBars");
   bars.innerHTML = "";
@@ -1467,6 +1511,7 @@ function review() {
 }
 function goHome() {
   stopTimer();
+  document.body.classList.remove("strict-exam-active");
   document.getElementById("screen-quiz").classList.add("hidden");
   document.getElementById("screen-result").classList.add("hidden");
   document.getElementById("screen-home").classList.remove("hidden");
@@ -1508,6 +1553,38 @@ document.getElementById("btnClearMistakes").onclick = () => {
 };
 checkMistakeBank();
 document.getElementById("btnEnd").onclick = endNow;
+
+// Strict Exam Integrity: Anti-Copy Zero-Width Tokenizer Poisoning & Visibility Tracking
+document.addEventListener("copy", (e) => {
+  if (!session || !session.strictIntegrity || document.getElementById("screen-quiz").classList.contains("hidden")) return;
+  e.preventDefault();
+  const sel = window.getSelection().toString();
+  if (!sel) return;
+  // Inject Zero-Width Space (​) and Zero-Width Non-Joiner (‌) to poison LLM tokenization
+  const poisoned = sel.split("").map(ch => ch + (Math.random() > 0.4 ? "\u200B" : "\u200C")).join("");
+  if (e.clipboardData) {
+    e.clipboardData.setData("text/plain", poisoned);
+  }
+});
+
+document.addEventListener("contextmenu", (e) => {
+  if (!session || !session.strictIntegrity || document.getElementById("screen-quiz").classList.contains("hidden")) return;
+  e.preventDefault();
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden && session && session.strictIntegrity && !document.getElementById("screen-quiz").classList.contains("hidden")) {
+    session.tabSwitches = (session.tabSwitches || 0) + 1;
+    const toast = document.getElementById("integrityWarningToast");
+    const countEl = document.getElementById("tabSwitchCount");
+    if (toast && countEl) {
+      countEl.textContent = session.tabSwitches;
+      toast.classList.remove("hidden");
+      setTimeout(() => toast.classList.add("hidden"), 3500);
+    }
+  }
+});
+
 document.addEventListener("keydown", e => {
   if (document.getElementById("screen-quiz").classList.contains("hidden")) return;
   const map = {
@@ -1593,6 +1670,9 @@ if ('serviceWorker' in navigator) {
 <div id="pwaUpdateToast" class="card hidden" style="position:fixed;bottom:20px;right:20px;z-index:9999;box-shadow:0 10px 25px rgba(0,0,0,0.5);border:1px solid var(--accent);background:#1e293b;color:#f8fafc;padding:12px 18px;display:flex;align-items:center;gap:12px;border-radius:8px;">
   <span style="font-size:14px;">มีเนื้อหา/คลังข้อสอบเวอร์ชันใหม่</span>
   <button class="btn primary" id="btnPwaRefresh" style="padding:4px 12px;font-size:12px;background:#1F8A4C;border-color:#1F8A4C;">อัปเดตเลย</button>
+</div>
+<div id="integrityWarningToast" class="card hidden" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9999;background:#ef4444;color:#fff;padding:8px 18px;border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,0.4);font-size:13px;display:flex;align-items:center;gap:8px;font-weight:600;">
+  <span>⚠️ ตรวจพบการสลับหน้าต่างหรือแท็บเบราว์เซอร์ (ครั้งที่ <span id="tabSwitchCount">0</span>)</span>
 </div>
 </body>
 </html>
