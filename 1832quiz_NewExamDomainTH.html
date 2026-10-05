@@ -492,42 +492,48 @@ body.strict-exam-active *::after {
   </header>
 
   <section id="screen-home" class="hero">
-    <div id="resumeBanner" class="card hidden" style="margin-bottom:16px;border-left:4px solid var(--accent);background:rgba(31,138,76,0.08);padding:14px 18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+    <div id="resumeBanner" class="card hidden" style="margin-bottom: 18px; border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); background: var(--cream-2); padding: 16px 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
         <div>
-          <strong id="resumeTitle" style="color:var(--accent);font-size:15px;">พบแบบทดสอบที่ทำค้างไว้</strong>
-          <div id="resumeDesc" style="font-size:13px;color:var(--muted);margin-top:2px;">ทำค้างอยู่ที่ข้อ 1/100</div>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <button class="btn primary" id="btnResume" type="button" style="padding:6px 14px;font-size:13px;">ทำต่อจากจุดเดิม</button>
-          <button class="btn" id="btnDiscardResume" type="button" style="padding:6px 14px;font-size:13px;">ล้างข้อมูล</button>
-        </div>
-      </div>
-    </div>
-    <div id="mistakeBanner" class="card hidden" style="margin-bottom:16px;border-left:4px solid #d97706;background:rgba(217,119,6,0.08);padding:14px 18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-        <div>
-          <strong id="mistakeTitle" style="color:#d97706;font-size:15px;">คลังข้อที่เคยตอบผิด (Spaced Repetition)</strong>
-          <div id="mistakeDesc" style="font-size:13px;color:var(--muted);margin-top:2px;">มีข้อสอบที่บันทึกไว้รอทบทวน 0 ข้อ</div>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <button class="btn" id="btnPracticeMistakes" type="button" style="padding:6px 14px;font-size:13px;background:#d97706;color:#fff;border-color:#d97706;">ฝึกทำข้อที่เคยผิด</button>
-          <button class="btn" id="btnClearMistakes" type="button" style="padding:6px 14px;font-size:13px;">ล้างคลังข้อผิด</button>
-        </div>
-      </div>
-    </div>
-        <div class="card" style="margin-bottom:16px;background:linear-gradient(135deg, rgba(31,138,76,0.12), rgba(15,23,42,0.6));border:1px solid rgba(31,138,76,0.3);padding:14px 18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-        <div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <strong style="color:var(--accent);font-size:16px;">จำลองสอบจริง Pearson VUE (100 ข้อ / 120 นาที)</strong>
-            <span class="pill" style="font-size:11px;padding:2px 8px;background:rgba(31,138,76,0.2);">Official Outline</span>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="pill" style="background: var(--yellow); color: var(--ink); font-family: var(--font-mono); font-size: 11px; font-weight: 700; padding: 2px 8px; border: 1px solid var(--ink); box-shadow: 2px 2px 0 var(--ink); text-transform: uppercase;">Saved Session</span>
+            <strong id="resumeTitle" style="color: var(--ink); font-family: var(--font-display); font-size: 16px; text-transform: uppercase;">พบแบบทดสอบที่ทำค้างไว้</strong>
           </div>
-          <div style="font-size:13px;color:var(--muted);margin-top:4px;">
+          <div id="resumeDesc" style="font-size: 13.5px; color: var(--ink-2); margin-top: 4px;">ทำค้างอยู่ที่ข้อ 1/100</div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn primary" id="btnResume" type="button" style="padding: 8px 16px; font-size: 13px;">ทำต่อจากจุดเดิม</button>
+          <button class="btn" id="btnDiscardResume" type="button" style="padding: 8px 16px; font-size: 13px;">ล้างข้อมูล</button>
+        </div>
+      </div>
+    </div>
+    <div id="mistakeBanner" class="card hidden" style="margin-bottom: 18px; border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); background: #FEF3C7; padding: 16px 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="pill" style="background: var(--orange); color: var(--white); font-family: var(--font-mono); font-size: 11px; font-weight: 700; padding: 2px 8px; border: 1px solid var(--ink); box-shadow: 2px 2px 0 var(--ink); text-transform: uppercase;">Active Recall</span>
+            <strong id="mistakeTitle" style="color: var(--ink); font-family: var(--font-display); font-size: 16px; text-transform: uppercase;">คลังข้อที่เคยตอบผิด (Spaced Repetition)</strong>
+          </div>
+          <div id="mistakeDesc" style="font-size: 13.5px; color: var(--ink-2); margin-top: 4px;">มีข้อสอบที่บันทึกไว้รอทบทวน 0 ข้อ</div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn primary" id="btnPracticeMistakes" type="button" style="padding: 8px 16px; font-size: 13px; background: var(--orange); color: var(--white);">ฝึกทำข้อที่เคยผิด</button>
+          <button class="btn" id="btnClearMistakes" type="button" style="padding: 8px 16px; font-size: 13px;">ล้างคลังข้อผิด</button>
+        </div>
+      </div>
+    </div>
+        <div class="card pearson-card" style="margin-bottom: 20px; background: var(--white); border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); padding: 18px 22px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="pill" style="background: var(--green); color: var(--white); font-family: var(--font-mono); font-size: 11px; font-weight: 700; padding: 2px 8px; border: 1px solid var(--ink); box-shadow: 2px 2px 0 var(--ink); text-transform: uppercase;">Official Outline</span>
+            <strong style="color: var(--ink); font-family: var(--font-display); font-size: 16px; text-transform: uppercase;">จำลองสอบจริง Pearson VUE (100 ข้อ / 120 นาที)</strong>
+          </div>
+          <div style="font-size: 13.5px; color: var(--ink-2); margin-top: 6px; line-height: 1.5;">
             สุ่มข้อสอบตามสัดส่วนข้อสอบทางการ: D1 (26q), D2 (10q), D3 (22q), D4 (24q), D5 (18q) · ห้ามย้อนกลับ (Linear Flow)
           </div>
         </div>
-        <button class="btn primary" id="btnPearsonVue" type="button" style="padding:8px 18px;font-size:14px;background:#1F8A4C;border-color:#1F8A4C;">
+        <button class="btn primary" id="btnPearsonVue" type="button" style="padding: 10px 22px; font-size: 14px; background: var(--green); color: var(--white);">
           เริ่มจำลองสอบจริง
         </button>
       </div>
@@ -629,11 +635,11 @@ body.strict-exam-active *::after {
       <p id="resDetail" style="color:var(--muted);margin:6px 0 12px"></p>
       <div class="barlist" id="resBars"></div>
       <p class="send-note" id="resSend">Saving result…</p>
-      <div class="nav" style="justify-content:center;flex-wrap:wrap;gap:8px;">
+      <div class="nav" style="justify-content:center;flex-wrap:wrap;gap:10px;margin-top:16px;">
         <button class="btn" id="btnReview" type="button">Review answers</button>
         <button class="btn" id="btnPrint" type="button">Print incorrect</button>
-        <button class="btn" id="btnExportJson" type="button" style="border-color:#0284c7;color:#0284c7;">Export Analysis JSON</button>
-        <button class="btn primary hidden" id="btnRetryMissed" type="button" style="background:#d97706;border-color:#d97706;">ฝึกทำเฉพาะข้อที่ผิด (<span id="missedBadge">0</span>)</button>
+        <button class="btn" id="btnExportJson" type="button" style="background:var(--white);">Export Analysis JSON</button>
+        <button class="btn primary hidden" id="btnRetryMissed" type="button" style="background:var(--orange);color:var(--white);">ฝึกทำเฉพาะข้อที่ผิด (<span id="missedBadge">0</span>)</button>
         <button class="btn primary" id="btnAgain" type="button">New quiz</button>
       </div>
     </div>
@@ -1303,17 +1309,16 @@ function renderQuestionCanvas(q) {
   ctx.clearRect(0, 0, width, estHeight);
 
   let curY = 22;
-  const isDark = !document.body.classList.contains("light");
 
   if (enTokens.length > 0) {
-    ctx.fillStyle = isDark ? "#f1f5f9" : "#0f172a";
+    ctx.fillStyle = "#0F0F0F"; // Crisp Neo-Brutalist Deep Ink
     ctx.font = "600 16px 'Space Grotesk', system-ui, sans-serif";
     curY = drawWrappedTokens(ctx, enTokens, 4, curY, width - 16, enLineHeight);
   }
 
   if (thTokens.length > 0) {
     curY += 6;
-    ctx.fillStyle = isDark ? "#94a3b8" : "#475569";
+    ctx.fillStyle = "#2A2A2A"; // Crisp Neo-Brutalist Ink 2
     ctx.font = "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif";
     drawWrappedTokens(ctx, thTokens, 4, curY, width - 16, thLineHeight);
   }
@@ -1818,11 +1823,11 @@ if ('serviceWorker' in navigator) {
 }
 
 </script>
-<div id="pwaUpdateToast" class="card hidden" style="position:fixed;bottom:20px;right:20px;z-index:9999;box-shadow:0 10px 25px rgba(0,0,0,0.5);border:1px solid var(--accent);background:#1e293b;color:#f8fafc;padding:12px 18px;display:flex;align-items:center;gap:12px;border-radius:8px;">
-  <span style="font-size:14px;">มีเนื้อหา/คลังข้อสอบเวอร์ชันใหม่</span>
-  <button class="btn primary" id="btnPwaRefresh" style="padding:4px 12px;font-size:12px;background:#1F8A4C;border-color:#1F8A4C;">อัปเดตเลย</button>
+<div id="pwaUpdateToast" class="card hidden" style="position:fixed;bottom:20px;right:20px;z-index:9999;box-shadow:4px 4px 0 var(--ink);border:3px solid var(--ink);background:var(--yellow);color:var(--ink);padding:12px 18px;display:flex;align-items:center;gap:12px;font-family:var(--font-mono);font-weight:700;">
+  <span style="font-size:13px;">⚡ มีคลังข้อสอบเวอร์ชันใหม่</span>
+  <button class="btn primary" id="btnPwaRefresh" style="padding:6px 14px;font-size:12px;background:var(--ink);color:var(--white);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);">อัปเดตทันที</button>
 </div>
-<div id="integrityWarningToast" class="card hidden" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9999;background:#ef4444;color:#fff;padding:8px 18px;border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,0.4);font-size:13px;display:flex;align-items:center;gap:8px;font-weight:600;">
+<div id="integrityWarningToast" class="card hidden" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9999;background:var(--pink);color:var(--white);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:10px 20px;font-size:13.5px;display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-weight:700;">
   <span>⚠️ ตรวจพบการสลับหน้าต่างหรือแท็บเบราว์เซอร์ (ครั้งที่ <span id="tabSwitchCount">0</span>)</span>
 </div>
 </body>
