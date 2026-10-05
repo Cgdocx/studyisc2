@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISC2 CC Rapid Fire — ถูกหรือผิด 60 วินาที</title>
+<meta name="description" content="เกม True/False แบบจับเวลา 60 วินาที ทดสอบความรู้ ISC2 CC ทั้ง 5 Domains">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --text: #0F0F0F;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F;
+  --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+.creative-global-nav {
+  position: sticky; top: 0; z-index: 10000;
+  background: var(--cream); border-bottom: 3px solid var(--ink);
+  font-family: var(--font-thai);
+}
+.cg-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 18px; gap: 12px; flex-wrap: wrap;
+}
+.cg-brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-display); font-size: 15px;
+  border: 2px solid var(--ink); background: var(--white);
+  padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase;
+}
+.cg-brand .cg-badge {
+  background: var(--yellow); color: var(--ink);
+  padding: 1px 6px; font-size: 11px; font-family: var(--font-mono); font-weight: 800;
+  border: 1px solid var(--ink);
+}
+.cg-links { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cg-link {
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 6px 12px; background: var(--white);
+  border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  white-space: nowrap;
+}
+.cg-link:hover { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
+.cg-link.active { background: var(--orange); color: var(--white); }
+@media (max-width: 768px) {
+  .cg-nav-inner { padding: 8px 10px; }
+  .cg-links { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; width: 100%; -webkit-overflow-scrolling: touch; }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--cream); color: var(--ink); font-family: var(--font-thai); min-height: 100vh; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
+
+.game-header {
+  text-align: center; margin-bottom: 32px; padding: 28px 20px;
+  background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+}
+.game-header .eyebrow {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+  letter-spacing: 0.12em; color: var(--orange); text-transform: uppercase; margin-bottom: 6px;
+}
+.game-header h1 {
+  font-family: var(--font-display); font-size: 32px; text-transform: uppercase; line-height: 1.1; margin-bottom: 8px;
+}
+.game-header .sub { font-size: 15px; color: var(--ink-2); line-height: 1.5; }
+
+.hud {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  margin-bottom: 24px; flex-wrap: wrap;
+}
+.hud-box {
+  background: var(--white); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  padding: 10px 16px; text-align: center; flex: 1; min-width: 100px;
+}
+.hud-label { font-family: var(--font-mono); font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--muted); }
+.hud-value { font-family: var(--font-display); font-size: 28px; margin-top: 2px; }
+.hud-value.timer { color: var(--red); }
+.hud-value.streak { color: var(--orange); }
+
+.statement-card {
+  background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+  padding: 36px 28px; text-align: center; margin-bottom: 24px; min-height: 160px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: background 0.15s ease;
+}
+.statement-card.flash-correct { background: var(--green-dim); }
+.statement-card.flash-wrong { background: var(--red-dim); }
+.statement-text { font-size: 20px; font-weight: 600; line-height: 1.6; }
+.statement-domain {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  color: var(--muted); margin-top: 12px; text-transform: uppercase;
+}
+.statement-explain {
+  margin-top: 10px; font-size: 14px; color: var(--green2); font-weight: 600;
+  opacity: 0; transition: opacity 0.2s;
+}
+.statement-explain.show { opacity: 1; }
+
+.btn-row { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; }
+.game-btn {
+  font-family: var(--font-display); font-size: 22px; text-transform: uppercase;
+  padding: 16px 40px; border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+  cursor: pointer; transition: transform 0.1s, box-shadow 0.1s;
+  min-width: 140px;
+}
+.game-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+.game-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+.game-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: 4px 4px 0 var(--ink); }
+.btn-true { background: var(--green); color: var(--white); }
+.btn-false { background: var(--red); color: var(--white); }
+
+.start-btn, .restart-btn {
+  display: block; margin: 24px auto; font-family: var(--font-display); font-size: 18px;
+  text-transform: uppercase; padding: 16px 48px; background: var(--ink); color: var(--cream);
+  border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--orange); cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.start-btn:hover, .restart-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--orange); }
+
+.multiplier-badge {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0);
+  font-family: var(--font-display); font-size: 64px; color: var(--orange);
+  pointer-events: none; z-index: 9999; transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0;
+}
+.multiplier-badge.pop { transform: translate(-50%,-50%) scale(1.2); opacity: 1; }
+
+.results-card {
+  background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+  padding: 32px 24px; text-align: center; display: none;
+}
+.results-card h2 { font-family: var(--font-display); font-size: 28px; text-transform: uppercase; margin-bottom: 16px; }
+.results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 20px 0; }
+.result-stat {
+  background: var(--cream); border: 2px solid var(--ink); padding: 14px 10px;
+}
+.result-stat .val { font-family: var(--font-display); font-size: 32px; }
+.result-stat .lbl { font-family: var(--font-mono); font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+.new-record { color: var(--orange); font-family: var(--font-mono); font-size: 13px; font-weight: 800; margin-top: 10px; }
+
+@media (max-width: 600px) {
+  .game-header h1 { font-size: 24px; }
+  .statement-text { font-size: 17px; }
+  .game-btn { font-size: 18px; padding: 14px 28px; min-width: 110px; }
+  .hud-value { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="isc2-cc-landing.html" class="cg-brand"><span class="cg-badge">ISC2 CC</span><span>STUDY HUB</span></a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link">MIND MAP</a>
+      <a href="1832quiz_NewExamDomainTH.html" class="cg-link">1,832 ข้อ</a>
+      <a href="isc2_cc_BothThai-eng_583quiz.html" class="cg-link">583 ข้อ</a>
+      <a href="isc2_cc_exam548_5Domain_dualTh-Eng.html" class="cg-link">548 ข้อ</a>
+      <a href="isc2_cc_exam1NCSA_bi_no-track-50q.html" class="cg-link">50 ข้อ</a>
+      <a href="games.html" class="cg-link active">MINI GAMES</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="game-header">
+    <div class="eyebrow">Mini Game / Speed</div>
+    <h1>Rapid Fire</h1>
+    <div class="sub">ถูกหรือผิด? ตอบให้มากที่สุดภายใน 60 วินาที -- Streak ยิ่งยาว คะแนนยิ่งทวีคูณ</div>
+  </div>
+
+  <div id="startScreen">
+    <div class="statement-card">
+      <div class="statement-text">กดปุ่มด้านล่างเพื่อเริ่มเกม</div>
+      <div class="statement-domain">80+ คำถามครอบคลุม 5 DOMAINS</div>
+    </div>
+    <button class="start-btn" onclick="startGame()">START GAME</button>
+  </div>
+
+  <div id="gameScreen" style="display:none;">
+    <div class="hud">
+      <div class="hud-box"><div class="hud-label">เวลา</div><div class="hud-value timer" id="timer">60</div></div>
+      <div class="hud-box"><div class="hud-label">คะแนน</div><div class="hud-value" id="score">0</div></div>
+      <div class="hud-box"><div class="hud-label">Streak</div><div class="hud-value streak" id="streak">0</div></div>
+      <div class="hud-box"><div class="hud-label">ตัวคูณ</div><div class="hud-value" id="multiplier">x1</div></div>
+    </div>
+    <div class="statement-card" id="statementCard">
+      <div class="statement-text" id="statementText"></div>
+      <div class="statement-domain" id="statementDomain"></div>
+      <div class="statement-explain" id="statementExplain"></div>
+    </div>
+    <div class="btn-row">
+      <button class="game-btn btn-true" id="btnTrue" onclick="answer(true)">ถูก</button>
+      <button class="game-btn btn-false" id="btnFalse" onclick="answer(false)">ผิด</button>
+    </div>
+  </div>
+
+  <div class="results-card" id="resultsScreen">
+    <h2>หมดเวลา!</h2>
+    <div class="results-grid">
+      <div class="result-stat"><div class="val" id="finalScore">0</div><div class="lbl">คะแนนรวม</div></div>
+      <div class="result-stat"><div class="val" id="finalCorrect">0</div><div class="lbl">ตอบถูก</div></div>
+      <div class="result-stat"><div class="val" id="finalWrong">0</div><div class="lbl">ตอบผิด</div></div>
+      <div class="result-stat"><div class="val" id="finalStreak">0</div><div class="lbl">Streak สูงสุด</div></div>
+    </div>
+    <div id="recordMsg" class="new-record" style="display:none;"></div>
+    <div style="margin-top:8px;font-family:var(--font-mono);font-size:12px;color:var(--muted);">HIGH SCORE: <span id="highScore">0</span></div>
+    <button class="restart-btn" onclick="startGame()">PLAY AGAIN</button>
+  </div>
+</div>
+
+<div class="multiplier-badge" id="multiBadge"></div>
+
+<script>
+const STATEMENTS = [
+  // Domain 1: Security Principles
+  {s:"CIA Triad ประกอบด้วย Confidentiality, Integrity, Availability",a:true,d:"D1: Security Principles",e:"CIA Triad คือหลักการพื้นฐานของ Information Security"},
+  {s:"Non-repudiation หมายถึงการปฏิเสธว่าไม่ได้กระทำได้",a:false,d:"D1: Security Principles",e:"Non-repudiation คือการทำให้ไม่สามารถปฏิเสธการกระทำได้"},
+  {s:"Authentication คือการยืนยันตัวตนของผู้ใช้",a:true,d:"D1: Security Principles",e:"Authentication = กระบวนการพิสูจน์ว่าคุณเป็นใคร"},
+  {s:"Authorization เกิดขึ้นก่อน Authentication เสมอ",a:false,d:"D1: Security Principles",e:"Authentication ต้องมาก่อนเสมอ จึงจะ Authorize ได้"},
+  {s:"Privacy เป็นส่วนหนึ่งของ Confidentiality",a:true,d:"D1: Security Principles",e:"Privacy คือการปกป้องข้อมูลส่วนบุคคลซึ่งอยู่ภายใต้ Confidentiality"},
+  {s:"Vulnerability คือจุดอ่อนในระบบที่อาจถูกโจมตีได้",a:true,d:"D1: Security Principles",e:"Vulnerability = weakness ที่ Threat สามารถ exploit ได้"},
+  {s:"Threat คือจุดอ่อนในระบบ",a:false,d:"D1: Security Principles",e:"Threat คือสิ่งที่อาจก่อให้เกิดอันตราย ไม่ใช่จุดอ่อน (นั่นคือ Vulnerability)"},
+  {s:"Risk = Threat x Vulnerability x Impact",a:true,d:"D1: Security Principles",e:"สูตรประเมินความเสี่ยงพื้นฐาน"},
+  {s:"Principle of Least Privilege ให้สิทธิ์สูงสุดแก่ทุกคน",a:false,d:"D1: Security Principles",e:"Least Privilege = ให้สิทธิ์น้อยที่สุดเท่าที่จำเป็น"},
+  {s:"Defense in Depth ใช้การป้องกันหลายชั้นซ้อนกัน",a:true,d:"D1: Security Principles",e:"หลายชั้น ถ้าชั้นหนึ่งพลาด ชั้นอื่นยังป้องกันอยู่"},
+  {s:"Due Diligence คือการทำตามหน้าที่ประจำวัน",a:false,d:"D1: Security Principles",e:"Due Diligence = การสอบทานตรวจสอบ, Due Care = การปฏิบัติตามหน้าที่"},
+  {s:"Separation of Duties ป้องกันไม่ให้คนเดียวทำงานสำคัญครบทุกขั้นตอน",a:true,d:"D1: Security Principles",e:"แยกหน้าที่เพื่อป้องกัน fraud และ error"},
+  {s:"AES เป็น Asymmetric Encryption",a:false,d:"D1: Security Principles",e:"AES เป็น Symmetric Encryption ใช้ key เดียวกันทั้งเข้ารหัสและถอดรหัส"},
+  {s:"Hashing เป็น One-way Function",a:true,d:"D1: Security Principles",e:"Hash แปลงข้อมูลเป็นค่าคงที่ ไม่สามารถย้อนกลับได้"},
+  {s:"RSA เป็น Symmetric Encryption Algorithm",a:false,d:"D1: Security Principles",e:"RSA เป็น Asymmetric ใช้ Public Key และ Private Key คู่กัน"},
+  {s:"Digital Signature ใช้ Private Key ของผู้ส่งในการเซ็น",a:true,d:"D1: Security Principles",e:"ผู้ส่งเซ็นด้วย Private Key ผู้รับตรวจด้วย Public Key"},
+  {s:"SHA-256 เป็น Encryption Algorithm",a:false,d:"D1: Security Principles",e:"SHA-256 เป็น Hashing Algorithm ไม่ใช่ Encryption"},
+  {s:"Zero Trust ถือว่า Network ภายในไว้ใจได้เสมอ",a:false,d:"D1: Security Principles",e:"Zero Trust = Never Trust, Always Verify ไม่ไว้ใจแม้แต่ภายใน"},
+
+  // Domain 2: BC, DR & Incident Response
+  {s:"BCP คือแผนเพื่อให้ธุรกิจดำเนินต่อได้ในสถานการณ์ฉุกเฉิน",a:true,d:"D2: BC/DR/IR",e:"Business Continuity Plan = แผนรักษาการดำเนินธุรกิจต่อเนื่อง"},
+  {s:"DRP เน้นการกู้คืนระบบ IT หลังเกิดภัยพิบัติ",a:true,d:"D2: BC/DR/IR",e:"Disaster Recovery Plan เน้น IT Recovery โดยเฉพาะ"},
+  {s:"RPO คือระยะเวลาสูงสุดที่ยอมให้ข้อมูลสูญหาย",a:true,d:"D2: BC/DR/IR",e:"Recovery Point Objective = ข้อมูลย้อนหลังกี่ชั่วโมงที่รับได้"},
+  {s:"RTO คือปริมาณข้อมูลที่ยอมให้สูญหายได้",a:false,d:"D2: BC/DR/IR",e:"RTO = Recovery Time Objective คือเวลาสูงสุดที่ระบบต้องกลับมาทำงาน"},
+  {s:"Hot Site พร้อมใช้งานได้ทันทีเมื่อเกิดภัยพิบัติ",a:true,d:"D2: BC/DR/IR",e:"Hot Site = fully equipped, สามารถ switch ได้เร็วที่สุด"},
+  {s:"Cold Site มีอุปกรณ์พร้อมใช้งานทันที",a:false,d:"D2: BC/DR/IR",e:"Cold Site = มีแค่สถานที่ ต้องนำอุปกรณ์ไปติดตั้งเอง"},
+  {s:"Warm Site คือจุดกึ่งกลางระหว่าง Hot Site และ Cold Site",a:true,d:"D2: BC/DR/IR",e:"Warm Site มีอุปกรณ์บางส่วน แต่ต้อง configure ก่อนใช้"},
+  {s:"BIA ใช้วิเคราะห์ผลกระทบต่อธุรกิจเมื่อระบบหยุดทำงาน",a:true,d:"D2: BC/DR/IR",e:"Business Impact Analysis = วิเคราะห์ว่าอะไรสำคัญสูงสุด"},
+  {s:"ขั้นตอนแรกของ Incident Response คือ Eradication",a:false,d:"D2: BC/DR/IR",e:"ขั้นตอนแรกคือ Preparation ตามด้วย Detection/Identification"},
+  {s:"Containment คือการจำกัดขอบเขตความเสียหายของ Incident",a:true,d:"D2: BC/DR/IR",e:"Containment = หยุดการแพร่กระจายก่อนจะลุกลาม"},
+  {s:"Lessons Learned เป็นขั้นตอนสุดท้ายของ Incident Response",a:true,d:"D2: BC/DR/IR",e:"Post-Incident / Lessons Learned = สรุปบทเรียนเพื่อปรับปรุง"},
+  {s:"MTBF วัดเวลาเฉลี่ยในการซ่อมแซมระบบ",a:false,d:"D2: BC/DR/IR",e:"MTBF = Mean Time Between Failures (เวลาเฉลี่ยระหว่างความเสียหาย), MTTR วัดเวลาซ่อม"},
+  {s:"Tabletop Exercise เป็นการซ้อมแผนแบบใช้สถานการณ์จำลองบนโต๊ะ",a:true,d:"D2: BC/DR/IR",e:"Tabletop = discussion-based exercise ไม่ได้ลงมือจริง"},
+  {s:"Full Interruption Test ไม่มีความเสี่ยงต่อระบบจริง",a:false,d:"D2: BC/DR/IR",e:"Full Interruption Test จะตัดระบบจริง มีความเสี่ยงสูงที่สุด"},
+
+  // Domain 3: Access Controls Concepts
+  {s:"RBAC กำหนดสิทธิ์ตาม Role ของผู้ใช้",a:true,d:"D3: Access Controls",e:"Role-Based Access Control = สิทธิ์ผูกกับบทบาท ไม่ใช่ตัวบุคคล"},
+  {s:"DAC อนุญาตให้เจ้าของข้อมูลกำหนดสิทธิ์การเข้าถึงเอง",a:true,d:"D3: Access Controls",e:"Discretionary Access Control = เจ้าของตัดสินใจ"},
+  {s:"MAC ใช้ Label/Classification กำหนดสิทธิ์",a:true,d:"D3: Access Controls",e:"Mandatory Access Control = ระบบกำหนดตาม Security Label"},
+  {s:"Multi-Factor Authentication ใช้รหัสผ่านสองตัว",a:false,d:"D3: Access Controls",e:"MFA ต้องใช้ปัจจัยต่างประเภทกัน เช่น Something you know + have"},
+  {s:"Biometrics เป็น Something You Have",a:false,d:"D3: Access Controls",e:"Biometrics = Something You Are เช่น ลายนิ้วมือ ม่านตา"},
+  {s:"Single Sign-On (SSO) ให้ผู้ใช้ login ครั้งเดียวเข้าได้หลายระบบ",a:true,d:"D3: Access Controls",e:"SSO ลดจำนวนครั้งที่ต้อง login"},
+  {s:"PAM ใช้จัดการบัญชีที่มีสิทธิ์สูง",a:true,d:"D3: Access Controls",e:"Privileged Access Management = ควบคุม admin/root accounts"},
+  {s:"MAC Address Filtering เป็น Strong Authentication",a:false,d:"D3: Access Controls",e:"MAC Address ปลอมได้ง่าย (spoofing) จึงไม่ถือเป็น strong auth"},
+  {s:"Account Lockout ป้องกันการโจมตีแบบ Brute Force",a:true,d:"D3: Access Controls",e:"ล็อคบัญชีหลังใส่รหัสผิดหลายครั้ง"},
+  {s:"Federation ช่วยให้องค์กรต่างกันแชร์ Identity ข้ามระบบได้",a:true,d:"D3: Access Controls",e:"Federated Identity = trust ข้ามองค์กร เช่น SAML, OAuth"},
+  {s:"Token-based Authentication ต้องเชื่อมต่อกับ Server ตลอดเวลา",a:false,d:"D3: Access Controls",e:"Token (เช่น JWT) ตรวจสอบได้โดยไม่ต้อง query server ทุกครั้ง"},
+  {s:"Kerberos ใช้ Ticket สำหรับ Authentication",a:true,d:"D3: Access Controls",e:"Kerberos ใช้ TGT และ Service Ticket ในการพิสูจน์ตัวตน"},
+  {s:"Password Policy ควรบังคับเปลี่ยนรหัสผ่านทุก 30 วัน",a:false,d:"D3: Access Controls",e:"NIST SP 800-63B แนะนำไม่ต้องบังคับเปลี่ยนเป็นประจำ เว้นแต่มีเหตุ"},
+  {s:"Principle of Least Privilege ใช้ได้กับ Access Control ทุกประเภท",a:true,d:"D3: Access Controls",e:"Least Privilege เป็นหลักการสากลในการจำกัดสิทธิ์"},
+
+  // Domain 4: Network Security
+  {s:"Firewall ทำงานที่ Layer 7 เท่านั้น",a:false,d:"D4: Network Security",e:"Firewall ทำงานได้หลาย Layer: packet filter (L3/4), WAF (L7)"},
+  {s:"IDS สามารถ Block Traffic ได้โดยอัตโนมัติ",a:false,d:"D4: Network Security",e:"IDS ตรวจจับและแจ้งเตือนเท่านั้น IPS ถึงจะ block ได้"},
+  {s:"VPN สร้าง Encrypted Tunnel ผ่าน Public Network",a:true,d:"D4: Network Security",e:"VPN เข้ารหัสการสื่อสารผ่าน Internet"},
+  {s:"NAT แปลง IP Address ระหว่าง Private และ Public",a:true,d:"D4: Network Security",e:"Network Address Translation แปลง IP เพื่อออก Internet"},
+  {s:"HTTPS ใช้ Port 80 เป็นค่า Default",a:false,d:"D4: Network Security",e:"HTTPS ใช้ Port 443, HTTP ใช้ Port 80"},
+  {s:"DMZ วางอยู่ระหว่าง Internal Network กับ Internet",a:true,d:"D4: Network Security",e:"Demilitarized Zone = พื้นที่กึ่งเชื่อถือ สำหรับ public-facing servers"},
+  {s:"VLAN แบ่ง Broadcast Domain ใน Physical Switch เดียวกันได้",a:true,d:"D4: Network Security",e:"Virtual LAN แยก network segment แบบ logical"},
+  {s:"WPA3 ปลอดภัยน้อยกว่า WPA2",a:false,d:"D4: Network Security",e:"WPA3 ปลอดภัยกว่า มี SAE handshake แทน PSK"},
+  {s:"TLS เป็น Protocol ที่ใช้เข้ารหัส Web Traffic",a:true,d:"D4: Network Security",e:"TLS (Transport Layer Security) เข้ารหัสการสื่อสาร HTTPS"},
+  {s:"DNS ทำหน้าที่แปลง IP Address เป็น Domain Name",a:false,d:"D4: Network Security",e:"DNS แปลง Domain Name เป็น IP Address (forward lookup)"},
+  {s:"SSH ใช้สำหรับ Remote Access แบบเข้ารหัส",a:true,d:"D4: Network Security",e:"Secure Shell = encrypted remote terminal access"},
+  {s:"Telnet ส่งข้อมูลแบบ Encrypted",a:false,d:"D4: Network Security",e:"Telnet ส่ง plaintext ไม่เข้ารหัส ควรใช้ SSH แทน"},
+  {s:"SIEM รวบรวมและวิเคราะห์ Log จากหลายแหล่ง",a:true,d:"D4: Network Security",e:"Security Information and Event Management = ศูนย์รวม log analysis"},
+  {s:"Port Scanning เป็นเทคนิคที่ใช้ในการ Reconnaissance",a:true,d:"D4: Network Security",e:"Scan port เพื่อหาว่า service อะไรเปิดอยู่"},
+  {s:"DoS Attack มุ่งทำลาย Confidentiality ของข้อมูล",a:false,d:"D4: Network Security",e:"DoS โจมตี Availability ทำให้ระบบใช้งานไม่ได้"},
+  {s:"IPSec ทำงานที่ Network Layer (Layer 3)",a:true,d:"D4: Network Security",e:"IPSec เข้ารหัสที่ Layer 3 ของ OSI Model"},
+
+  // Domain 5: Security Operations
+  {s:"Encryption at Rest ปกป้องข้อมูลที่เก็บอยู่ใน Storage",a:true,d:"D5: Security Operations",e:"Data at Rest = ข้อมูลที่เก็บอยู่เฉยๆ ใน disk/database"},
+  {s:"Data Masking แสดงข้อมูลจริงทั้งหมดแก่ผู้ใช้ทุกคน",a:false,d:"D5: Security Operations",e:"Data Masking ซ่อน/ปิดบังข้อมูลบางส่วน เช่น XXXX-1234"},
+  {s:"Change Management ควบคุมการเปลี่ยนแปลงระบบอย่างเป็นระบบ",a:true,d:"D5: Security Operations",e:"ป้องกันการเปลี่ยนแปลงที่ไม่ได้รับอนุมัติ"},
+  {s:"Patch Management ไม่จำเป็นต้องทดสอบก่อนติดตั้ง",a:false,d:"D5: Security Operations",e:"ต้อง test patch ก่อน deploy เสมอ เพื่อป้องกันปัญหา compatibility"},
+  {s:"Hardening คือการลด Attack Surface ของระบบ",a:true,d:"D5: Security Operations",e:"ปิด service ที่ไม่จำเป็น ลบ default account ฯลฯ"},
+  {s:"Log Review เป็นส่วนหนึ่งของ Security Monitoring",a:true,d:"D5: Security Operations",e:"ตรวจสอบ log เพื่อหาสิ่งผิดปกติ"},
+  {s:"Antivirus ตรวจจับ Malware ได้ 100% ทุกชนิด",a:false,d:"D5: Security Operations",e:"ไม่มี Antivirus ใดตรวจจับได้ 100% โดยเฉพาะ Zero-day"},
+  {s:"Data Classification แบ่งข้อมูลตามระดับความสำคัญ",a:true,d:"D5: Security Operations",e:"เช่น Public, Internal, Confidential, Top Secret"},
+  {s:"Physical Security ไม่เกี่ยวข้องกับ Information Security",a:false,d:"D5: Security Operations",e:"Physical Security เป็นชั้นป้องกันสำคัญ ถ้าเข้าถึงตัวเครื่องได้ ทุกอย่างจบ"},
+  {s:"Social Engineering โจมตีจุดอ่อนของมนุษย์",a:true,d:"D5: Security Operations",e:"หลอกคน ไม่ใช่หลอกระบบ เช่น Phishing, Pretexting"},
+  {s:"Whaling คือ Phishing ที่มุ่งเป้าผู้บริหารระดับสูง",a:true,d:"D5: Security Operations",e:"Whale = ปลาใหญ่ = CEO/CFO เป้าหมายใหญ่"},
+  {s:"Backup แบบ Incremental สำรองข้อมูลทั้งหมดทุกครั้ง",a:false,d:"D5: Security Operations",e:"Incremental สำรองเฉพาะส่วนที่เปลี่ยนแปลง Full Backup ถึงจะสำรองทั้งหมด"},
+  {s:"Configuration Management ช่วยให้ระบบมี Baseline ที่ปลอดภัย",a:true,d:"D5: Security Operations",e:"กำหนด baseline config แล้ว monitor deviation"},
+  {s:"Vulnerability Scanning ใช้โจมตีระบบจริง",a:false,d:"D5: Security Operations",e:"Scanning แค่ตรวจหาช่องโหว่ Penetration Testing ถึงจะโจมตีจริง"},
+  {s:"Penetration Testing จำลองการโจมตีจริงเพื่อทดสอบระบบ",a:true,d:"D5: Security Operations",e:"Pentest = ethical hacking เพื่อหาจุดอ่อนก่อนผู้โจมตีจริง"},
+  {s:"Security Awareness Training ควรจัดเป็นประจำทุกปี",a:true,d:"D5: Security Operations",e:"ฝึกอบรมเป็นประจำเพื่อให้พนักงานตระหนักถึงภัยคุกคามใหม่"},
+  {s:"Data Retention Policy กำหนดว่าต้องเก็บข้อมูลไว้ตลอดไป",a:false,d:"D5: Security Operations",e:"Retention Policy กำหนดว่าเก็บนานเท่าไหร่แล้วทำลาย"},
+  {s:"DLP ป้องกันข้อมูลรั่วไหลออกจากองค์กร",a:true,d:"D5: Security Operations",e:"Data Loss Prevention ตรวจจับและป้องกันการส่งข้อมูลสำคัญออก"},
+];
+
+let timer, timeLeft, score, correct, wrong, streakCount, maxStreak, currentIdx, shuffled, answering;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i+1)); [a[i],a[j]] = [a[j],a[i]]; }
+  return a;
+}
+
+function getMultiplier() {
+  if (streakCount >= 10) return 3;
+  if (streakCount >= 5) return 2;
+  return 1;
+}
+
+function showMultiplierPop(m) {
+  const el = document.getElementById('multiBadge');
+  el.textContent = 'x' + m + '!';
+  el.classList.add('pop');
+  setTimeout(() => el.classList.remove('pop'), 600);
+}
+
+function updateHUD() {
+  document.getElementById('timer').textContent = timeLeft;
+  document.getElementById('score').textContent = score;
+  document.getElementById('streak').textContent = streakCount;
+  document.getElementById('multiplier').textContent = 'x' + getMultiplier();
+}
+
+function showStatement() {
+  if (currentIdx >= shuffled.length) shuffled = shuffle(STATEMENTS);
+  if (currentIdx >= shuffled.length) currentIdx = 0;
+  const st = shuffled[currentIdx];
+  document.getElementById('statementText').textContent = st.s;
+  document.getElementById('statementDomain').textContent = st.d;
+  const explainEl = document.getElementById('statementExplain');
+  explainEl.textContent = '';
+  explainEl.classList.remove('show');
+  document.getElementById('statementCard').className = 'statement-card';
+  document.getElementById('btnTrue').disabled = false;
+  document.getElementById('btnFalse').disabled = false;
+  answering = false;
+}
+
+function answer(val) {
+  if (answering || timeLeft <= 0) return;
+  answering = true;
+  const st = shuffled[currentIdx];
+  const isCorrect = val === st.a;
+  const card = document.getElementById('statementCard');
+  const explainEl = document.getElementById('statementExplain');
+
+  document.getElementById('btnTrue').disabled = true;
+  document.getElementById('btnFalse').disabled = true;
+
+  if (isCorrect) {
+    correct++;
+    streakCount++;
+    if (streakCount > maxStreak) maxStreak = streakCount;
+    const m = getMultiplier();
+    score += 10 * m;
+    card.classList.add('flash-correct');
+    explainEl.textContent = '  ' + st.e;
+    if (streakCount === 5 || streakCount === 10) showMultiplierPop(m);
+  } else {
+    wrong++;
+    streakCount = 0;
+    card.classList.add('flash-wrong');
+    explainEl.textContent = '  ' + st.e;
+  }
+  explainEl.classList.add('show');
+  updateHUD();
+
+  setTimeout(() => {
+    currentIdx++;
+    showStatement();
+  }, 800);
+}
+
+function endGame() {
+  clearInterval(timer);
+  document.getElementById('gameScreen').style.display = 'none';
+  const results = document.getElementById('resultsScreen');
+  results.style.display = 'block';
+  document.getElementById('finalScore').textContent = score;
+  document.getElementById('finalCorrect').textContent = correct;
+  document.getElementById('finalWrong').textContent = wrong;
+  document.getElementById('finalStreak').textContent = maxStreak;
+
+  let hs = 0;
+  try { hs = parseInt(localStorage.getItem('rf_highscore') || '0', 10); } catch(e){}
+  const recordMsg = document.getElementById('recordMsg');
+  if (score > hs) {
+    try { localStorage.setItem('rf_highscore', score); } catch(e){}
+    hs = score;
+    recordMsg.textContent = 'NEW HIGH SCORE!';
+    recordMsg.style.display = 'block';
+  } else {
+    recordMsg.style.display = 'none';
+  }
+  document.getElementById('highScore').textContent = hs;
+}
+
+function startGame() {
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('resultsScreen').style.display = 'none';
+  document.getElementById('gameScreen').style.display = 'block';
+
+  timeLeft = 60; score = 0; correct = 0; wrong = 0; streakCount = 0; maxStreak = 0; currentIdx = 0;
+  shuffled = shuffle(STATEMENTS);
+  updateHUD();
+  showStatement();
+
+  timer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('timer').textContent = timeLeft;
+    if (timeLeft <= 10) document.getElementById('timer').style.color = 'var(--red)';
+    if (timeLeft <= 0) endGame();
+  }, 1000);
+}
+
+document.addEventListener('keydown', e => {
+  if (answering || timeLeft <= 0) return;
+  if (document.getElementById('gameScreen').style.display === 'none') return;
+  if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') answer(true);
+  if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') answer(false);
+});
+</script>
+</body>
+</html>

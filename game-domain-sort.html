@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISC2 CC — Domain Sort จัดหมวดหมู่โดเมน</title>
+<meta name="description" content="เกมจัดหมวดหมู่ concept ลงใน 5 Domains ของ ISC2 CC ฝึกจำแนกว่าหัวข้อไหนอยู่โดเมนไหน">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #EFE9D9; --cream-2: #E4DCC4;
+  --green: #1F8A4C; --green2: #136636; --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8; --orange: #E85A1F; --yellow: #F5C518;
+  --ink: #0F0F0F; --ink-2: #2A2A2A; --white: #FFFFFF;
+  --bg: #EFE9D9; --bg2: #E4DCC4; --card: #FFFFFF; --card2: #F7F4EB;
+  --line: #0F0F0F; --text: #0F0F0F; --muted: #4A4A4A;
+  --red: #D12438; --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F; --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F; --radius: 0px;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --d1: #E85A1F; --d2: #1F8A4C; --d3: #F06CA8; --d4: #3B82F6; --d5: #8B5CF6;
+}
+.creative-global-nav {
+  position: sticky; top: 0; z-index: 10000;
+  background: var(--cream); border-bottom: 3px solid var(--ink); font-family: var(--font-thai);
+}
+.cg-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 18px; gap: 12px; flex-wrap: wrap;
+}
+.cg-brand {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink);
+  font-family: var(--font-display); font-size: 15px;
+  border: 2px solid var(--ink); background: var(--white);
+  padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink); text-transform: uppercase;
+}
+.cg-brand .cg-badge { background: var(--yellow); color: var(--ink); padding: 1px 6px; font-size: 11px; font-family: var(--font-mono); font-weight: 800; border: 1px solid var(--ink); }
+.cg-links { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cg-link {
+  text-decoration: none; color: var(--ink); font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 6px 12px; background: var(--white);
+  border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.1s, box-shadow 0.1s, background 0.1s; white-space: nowrap;
+}
+.cg-link:hover { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
+.cg-link.active { background: var(--orange); color: var(--white); }
+@media (max-width: 768px) { .cg-nav-inner { padding: 8px 10px; } .cg-links { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; width: 100%; } }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--cream); color: var(--ink); font-family: var(--font-thai); min-height: 100vh; }
+
+.wrap { max-width: 1000px; margin: 0 auto; padding: 32px 18px 80px; }
+
+.hero {
+  text-align: center; margin-bottom: 24px; padding: 24px 20px;
+  background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+}
+.hero .eyebrow { font-family: var(--font-mono); font-size: 12px; font-weight: 800; letter-spacing: 0.12em; color: var(--orange); text-transform: uppercase; margin-bottom: 6px; }
+.hero h1 { font-family: var(--font-display); font-size: 30px; text-transform: uppercase; line-height: 1.1; margin-bottom: 8px; }
+.hero .sub { font-size: 14px; color: var(--ink-2); line-height: 1.5; }
+@media (max-width: 600px) { .hero h1 { font-size: 22px; } .wrap { padding: 16px 12px 60px; } }
+
+.scoreboard {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;
+}
+.score-item {
+  background: var(--white); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  padding: 6px 14px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; text-transform: uppercase; text-align: center;
+}
+.score-item .val { font-size: 20px; color: var(--green); }
+.score-item.wrong .val { color: var(--red); }
+.score-item.timer .val { color: var(--orange); }
+.score-item.streak .val { color: var(--pink); }
+
+.concept-zone {
+  min-height: 120px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 24px;
+}
+.concept-card {
+  background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+  padding: 20px 32px; font-family: var(--font-mono); font-size: 18px; font-weight: 700;
+  text-align: center; cursor: grab; user-select: none; -webkit-user-select: none;
+  transition: transform 0.15s, box-shadow 0.15s; touch-action: none;
+  max-width: 90%;
+}
+.concept-card .hint {
+  display: block; font-family: var(--font-thai); font-size: 12px; font-weight: 500;
+  color: var(--muted); margin-top: 6px;
+}
+.concept-card.dragging { opacity: 0.5; transform: scale(0.95); }
+.concept-card.correct-flash { background: var(--green-dim); border-color: var(--green); }
+.concept-card.wrong-flash { background: var(--red-dim); border-color: var(--red); animation: shake 0.4s ease; }
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+.buckets {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+}
+@media (max-width: 700px) {
+  .buckets { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 450px) {
+  .buckets { grid-template-columns: repeat(2, 1fr); }
+  .concept-card { font-size: 15px; padding: 14px 20px; }
+}
+
+.bucket {
+  padding: 16px 8px; text-align: center;
+  border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+  cursor: pointer; transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
+  min-height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.bucket:hover, .bucket.hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); filter: brightness(1.05); }
+.bucket .bnum { font-family: var(--font-display); font-size: 28px; color: var(--white); line-height: 1; }
+.bucket .bname-en { font-family: var(--font-mono); font-size: 10px; font-weight: 800; color: rgba(255,255,255,.85); margin-top: 4px; text-transform: uppercase; }
+.bucket .bname-th { font-family: var(--font-thai); font-size: 11px; font-weight: 600; color: rgba(255,255,255,.9); margin-top: 2px; }
+
+.bucket[data-d="1"] { background: var(--d1); }
+.bucket[data-d="2"] { background: var(--d2); }
+.bucket[data-d="3"] { background: var(--d3); }
+.bucket[data-d="4"] { background: var(--d4); }
+.bucket[data-d="5"] { background: var(--d5); }
+
+.btn {
+  display: inline-block; text-align: center; cursor: pointer;
+  background: var(--ink); color: var(--cream);
+  font-family: var(--font-mono); font-size: 14px; font-weight: 800;
+  padding: 14px 28px; border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+  text-transform: uppercase; transition: transform 0.1s, background 0.1s;
+}
+.btn:hover { background: var(--yellow); color: var(--ink); transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+.btn.green { background: var(--green); color: var(--white); }
+.btn.green:hover { background: var(--yellow); color: var(--ink); }
+
+.center { text-align: center; }
+.hidden { display: none !important; }
+
+.start-screen { text-align: center; margin-top: 40px; }
+.start-screen p { font-size: 16px; margin-bottom: 24px; line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+.round-summary {
+  background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+  padding: 32px; text-align: center; margin: 24px auto; max-width: 550px;
+}
+.round-summary h2 { font-family: var(--font-display); font-size: 24px; text-transform: uppercase; margin-bottom: 12px; }
+.round-summary .stat { font-family: var(--font-mono); font-size: 16px; margin-bottom: 6px; }
+.round-summary .stat .g { color: var(--green); }
+.round-summary .stat .r { color: var(--red); }
+.round-summary .stat .p { color: var(--pink); }
+
+.result-list { text-align: left; margin: 16px auto; max-width: 400px; }
+.result-item {
+  display: flex; gap: 8px; align-items: center; padding: 4px 0;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  border-bottom: 1px solid var(--cream-2);
+}
+.result-item .ri-icon { width: 20px; text-align: center; font-size: 14px; }
+.result-item .ri-term { flex: 1; }
+.result-item .ri-dom { font-size: 10px; padding: 2px 6px; color: var(--white); border-radius: 2px; }
+.result-item.ri-correct .ri-icon { color: var(--green); }
+.result-item.ri-wrong .ri-icon { color: var(--red); }
+</style>
+</head>
+<body>
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="index.html" class="cg-brand"><span class="cg-badge">ISC2 CC</span><span>STUDY HUB</span></a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link">MIND MAP</a>
+      <a href="1832quiz_NewExamDomainTH.html" class="cg-link">1,832 ข้อ</a>
+      <a href="isc2_cc_BothThai-eng_583quiz.html" class="cg-link">583 ข้อ</a>
+      <a href="isc2_cc_exam548_5Domain_dualTh-Eng.html" class="cg-link">548 ข้อ</a>
+      <a href="isc2_cc_exam1NCSA_bi_no-track-50q.html" class="cg-link">50 ข้อ</a>
+      <a href="isc2-cc-landing.html" class="cg-link">รวมชุดข้อสอบ</a>
+      <a href="games.html" class="cg-link active">MINI GAMES</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Mini Game 2 / 7</div>
+    <h1>Domain Sort จัดหมวดหมู่</h1>
+    <div class="sub">concept โผล่มา -- เลือก (หรือลาก) ใส่ Domain ที่ถูกต้อง -- 4 รอบ รอบละ 10</div>
+  </div>
+
+  <div id="startScreen" class="start-screen">
+    <p>concept จะปรากฏทีละใบ ให้แตะ (หรือลาก) ลงถังโดเมนที่ถูกต้อง<br>ทั้งหมด 4 รอบ รอบละ 10 concept<br>จับเวลาและนับ streak!</p>
+    <button class="btn green" onclick="startGame()">เริ่มเกม</button>
+  </div>
+
+  <div id="gameUI" class="hidden">
+    <div class="scoreboard">
+      <div class="score-item"><div>ROUND</div><div class="val" id="roundNum">1/4</div></div>
+      <div class="score-item"><div>CORRECT</div><div class="val" id="correctNum">0</div></div>
+      <div class="score-item wrong"><div>WRONG</div><div class="val" id="wrongNum">0</div></div>
+      <div class="score-item streak"><div>STREAK</div><div class="val" id="streakNum">0</div></div>
+      <div class="score-item timer"><div>TIME</div><div class="val" id="timerNum">0s</div></div>
+      <div class="score-item"><div>Q</div><div class="val" id="qNum">0/10</div></div>
+    </div>
+
+    <div class="concept-zone" id="conceptZone"></div>
+
+    <div class="buckets" id="buckets">
+      <div class="bucket" data-d="1" onclick="pickDomain(1)">
+        <div class="bnum">D1</div>
+        <div class="bname-en">Security Principles</div>
+        <div class="bname-th">หลักการรักษาความปลอดภัย</div>
+      </div>
+      <div class="bucket" data-d="2" onclick="pickDomain(2)">
+        <div class="bnum">D2</div>
+        <div class="bname-en">BC, DR & IR</div>
+        <div class="bname-th">ความต่อเนื่องทางธุรกิจ</div>
+      </div>
+      <div class="bucket" data-d="3" onclick="pickDomain(3)">
+        <div class="bnum">D3</div>
+        <div class="bname-en">Access Controls</div>
+        <div class="bname-th">การควบคุมการเข้าถึง</div>
+      </div>
+      <div class="bucket" data-d="4" onclick="pickDomain(4)">
+        <div class="bnum">D4</div>
+        <div class="bname-en">Network Security</div>
+        <div class="bname-th">ความปลอดภัยเครือข่าย</div>
+      </div>
+      <div class="bucket" data-d="5" onclick="pickDomain(5)">
+        <div class="bnum">D5</div>
+        <div class="bname-en">Security Operations</div>
+        <div class="bname-th">การปฏิบัติการรักษาความปลอดภัย</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="roundSummary" class="round-summary hidden">
+    <h2 id="summaryTitle">สรุปรอบ</h2>
+    <div class="stat">ถูก: <span class="g" id="sumCorrect">0</span> / ผิด: <span class="r" id="sumWrong">0</span></div>
+    <div class="stat">Best Streak: <span class="p" id="sumStreak">0</span></div>
+    <div class="stat" id="sumTime"></div>
+    <div class="result-list" id="resultList"></div>
+    <br>
+    <button class="btn green" id="nextBtn" onclick="nextRound()">รอบถัดไป</button>
+  </div>
+</div>
+
+<script>
+const CONCEPTS = [
+  // Domain 1: Security Principles (12)
+  {t:"CIA Triad", h:"Confidentiality, Integrity, Availability", d:1},
+  {t:"Risk Assessment", h:"ประเมินภัยคุกคามและผลกระทบ", d:1},
+  {t:"Governance", h:"นโยบายกำกับดูแลความปลอดภัย", d:1},
+  {t:"Due Diligence", h:"ศึกษาวิจัยก่อนตัดสินใจ", d:1},
+  {t:"Due Care", h:"ปฏิบัติตามมาตรฐานที่เหมาะสม", d:1},
+  {t:"Least Privilege", h:"ให้สิทธิ์เท่าที่จำเป็น", d:1},
+  {t:"Defense in Depth", h:"ป้องกันหลายชั้นซ้อนกัน", d:1},
+  {t:"Non-repudiation", h:"ปฏิเสธการกระทำไม่ได้", d:1},
+  {t:"Threat", h:"เหตุการณ์ที่อาจก่อความเสียหาย", d:1},
+  {t:"Vulnerability", h:"จุดอ่อนที่ถูกใช้ประโยชน์ได้", d:1},
+  {t:"Risk Acceptance", h:"ยอมรับความเสี่ยงที่เหลือ", d:1},
+  {t:"Risk Mitigation", h:"ลดความเสี่ยงด้วยมาตรการควบคุม", d:1},
+
+  // Domain 2: BC, DR & IR (10)
+  {t:"BCP", h:"แผนความต่อเนื่องทางธุรกิจ", d:2},
+  {t:"DRP", h:"แผนกู้คืนระบบหลังภัยพิบัติ", d:2},
+  {t:"RPO", h:"ข้อมูลย้อนหลังที่ยอมเสียได้", d:2},
+  {t:"RTO", h:"เวลาสูงสุดที่ระบบหยุดได้", d:2},
+  {t:"MTBF", h:"เวลาเฉลี่ยระหว่างความล้มเหลว", d:2},
+  {t:"MTTR", h:"เวลาเฉลี่ยในการซ่อมแซม", d:2},
+  {t:"Incident Response", h:"จัดการเหตุละเมิดความปลอดภัย", d:2},
+  {t:"BIA", h:"วิเคราะห์ผลกระทบทางธุรกิจ", d:2},
+  {t:"Hot Site", h:"ศูนย์สำรองพร้อมใช้ทันที", d:2},
+  {t:"Cold Site", h:"สถานที่สำรองเปล่า ต้องติดตั้งก่อน", d:2},
+
+  // Domain 3: Access Controls (10)
+  {t:"DAC", h:"เจ้าของกำหนดสิทธิ์เอง", d:3},
+  {t:"MAC", h:"ระบบกำหนดสิทธิ์ตาม classification", d:3},
+  {t:"RBAC", h:"สิทธิ์ตามบทบาทหน้าที่", d:3},
+  {t:"MFA", h:"ยืนยันตัวตนหลายปัจจัย", d:3},
+  {t:"SSO", h:"เข้าระบบครั้งเดียวใช้หลายแอป", d:3},
+  {t:"Federation", h:"trust ข้ามองค์กรระหว่าง IdP", d:3},
+  {t:"PAM", h:"จัดการบัญชีสิทธิ์สูง", d:3},
+  {t:"Biometrics", h:"ยืนยันตัวตนด้วยลักษณะทางกาย", d:3},
+  {t:"Kerberos", h:"โปรโตคอล authentication ผ่าน ticket", d:3},
+  {t:"Access Control List", h:"รายการควบคุมสิทธิ์เข้าถึง", d:3},
+
+  // Domain 4: Network Security (10)
+  {t:"Firewall", h:"กรองทราฟฟิกตาม rule", d:4},
+  {t:"IDS", h:"ตรวจจับการบุกรุก แจ้งเตือน", d:4},
+  {t:"IPS", h:"ตรวจจับและบล็อกการบุกรุก", d:4},
+  {t:"VPN", h:"เข้ารหัสผ่านเครือข่ายสาธารณะ", d:4},
+  {t:"TLS/SSL", h:"เข้ารหัสข้อมูลระหว่างส่ง", d:4},
+  {t:"DMZ", h:"เครือข่ายกันชน internal/internet", d:4},
+  {t:"NAC", h:"ตรวจอุปกรณ์ก่อนเข้าเครือข่าย", d:4},
+  {t:"VLAN", h:"แบ่ง segment เสมือนบน switch", d:4},
+  {t:"Zero Trust", h:"ไม่เชื่อถือใคร ตรวจสอบทุกครั้ง", d:4},
+  {t:"WAF", h:"Web Application Firewall", d:4},
+
+  // Domain 5: Security Operations (10)
+  {t:"Encryption", h:"เข้ารหัสข้อมูลด้วย key", d:5},
+  {t:"Hashing", h:"สร้าง digest ย้อนกลับไม่ได้", d:5},
+  {t:"Digital Signature", h:"ยืนยันตัวตนและความสมบูรณ์", d:5},
+  {t:"PKI", h:"ระบบใบรับรองดิจิทัล", d:5},
+  {t:"Change Management", h:"ควบคุมการเปลี่ยนแปลงระบบ", d:5},
+  {t:"Patch Management", h:"อัปเดตอุดช่องโหว่", d:5},
+  {t:"SIEM", h:"รวบรวมและวิเคราะห์ log", d:5},
+  {t:"DLP", h:"ป้องกันข้อมูลรั่วไหล", d:5},
+  {t:"Hardening", h:"ลด attack surface ของระบบ", d:5},
+  {t:"Logging & Monitoring", h:"บันทึกและเฝ้าระวังกิจกรรม", d:5},
+];
+
+const D_COLORS = {1:'var(--d1)',2:'var(--d2)',3:'var(--d3)',4:'var(--d4)',5:'var(--d5)'};
+const D_NAMES = {1:'D1: Security Principles',2:'D2: BC/DR/IR',3:'D3: Access Controls',4:'D4: Network Security',5:'D5: Security Ops'};
+
+let pool, rounds, currentRound, totalCorrect, totalWrong, roundCorrect, roundWrong;
+let streak, bestStreak, questionIdx, roundData, roundResults;
+let timerInterval, startTime;
+let locked = false;
+
+function shuffle(a) { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+function startGame() {
+  pool = shuffle([...CONCEPTS]);
+  rounds = [pool.slice(0,10), pool.slice(10,20), pool.slice(20,30), pool.slice(30,40)];
+  currentRound = 0; totalCorrect = 0; totalWrong = 0;
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('roundSummary').classList.add('hidden');
+  document.getElementById('gameUI').classList.remove('hidden');
+  loadRound();
+}
+
+function loadRound() {
+  roundCorrect = 0; roundWrong = 0; streak = 0; bestStreak = 0;
+  questionIdx = 0; roundResults = [];
+  roundData = rounds[currentRound];
+  locked = false;
+  document.getElementById('roundNum').textContent = (currentRound+1)+'/4';
+  updateScores();
+  startTime = Date.now();
+  clearInterval(timerInterval);
+  timerInterval = setInterval(updateTimer, 200);
+  showConcept();
+}
+
+function updateTimer() {
+  const s = Math.floor((Date.now() - startTime) / 1000);
+  document.getElementById('timerNum').textContent = s + 's';
+}
+
+function updateScores() {
+  document.getElementById('correctNum').textContent = totalCorrect;
+  document.getElementById('wrongNum').textContent = totalWrong;
+  document.getElementById('streakNum').textContent = streak;
+  document.getElementById('qNum').textContent = questionIdx + '/10';
+}
+
+function showConcept() {
+  if (questionIdx >= 10) { endRound(); return; }
+  const c = roundData[questionIdx];
+  const zone = document.getElementById('conceptZone');
+  zone.innerHTML = '';
+  const card = document.createElement('div');
+  card.className = 'concept-card';
+  card.id = 'currentCard';
+  card.innerHTML = c.t + '<span class="hint">' + c.h + '</span>';
+
+  card.draggable = true;
+  card.addEventListener('dragstart', (e) => { e.dataTransfer.effectAllowed = 'move'; card.classList.add('dragging'); });
+  card.addEventListener('dragend', () => card.classList.remove('dragging'));
+  zone.appendChild(card);
+
+  document.querySelectorAll('.bucket').forEach(b => {
+    b.ondragover = (e) => { e.preventDefault(); };
+    b.ondragenter = (e) => { e.preventDefault(); b.classList.add('hover'); };
+    b.ondragleave = () => b.classList.remove('hover');
+    b.ondrop = (e) => { e.preventDefault(); b.classList.remove('hover'); pickDomain(parseInt(b.dataset.d)); };
+  });
+}
+
+function pickDomain(d) {
+  if (locked) return;
+  locked = true;
+  const c = roundData[questionIdx];
+  const card = document.getElementById('currentCard');
+  const correct = (d === c.d);
+
+  roundResults.push({term: c.t, expected: c.d, got: d, correct});
+
+  if (correct) {
+    card.classList.add('correct-flash');
+    roundCorrect++; totalCorrect++; streak++;
+    if (streak > bestStreak) bestStreak = streak;
+  } else {
+    card.classList.add('wrong-flash');
+    roundWrong++; totalWrong++; streak = 0;
+  }
+
+  questionIdx++;
+  updateScores();
+
+  setTimeout(() => {
+    locked = false;
+    showConcept();
+  }, correct ? 400 : 800);
+}
+
+function endRound() {
+  clearInterval(timerInterval);
+  const elapsed = Math.floor((Date.now() - startTime) / 1000);
+  document.getElementById('gameUI').classList.add('hidden');
+  const summary = document.getElementById('roundSummary');
+  summary.classList.remove('hidden');
+
+  const isFinal = currentRound >= 3;
+  document.getElementById('summaryTitle').textContent = isFinal ? 'จบเกม!' : 'สรุปรอบที่ ' + (currentRound+1);
+  document.getElementById('sumCorrect').textContent = roundCorrect;
+  document.getElementById('sumWrong').textContent = roundWrong;
+  document.getElementById('sumStreak').textContent = bestStreak;
+  document.getElementById('sumTime').textContent = 'Time: ' + elapsed + 's';
+  document.getElementById('nextBtn').textContent = isFinal ? 'เล่นใหม่' : 'รอบถัดไป';
+
+  if (isFinal) {
+    const totalPct = Math.round(totalCorrect / (totalCorrect + totalWrong) * 100);
+    document.getElementById('sumTime').textContent = 'รอบนี้: ' + elapsed + 's | รวม: ' + totalCorrect + '/' + (totalCorrect+totalWrong) + ' (' + totalPct + '%)';
+  }
+
+  const list = document.getElementById('resultList');
+  list.innerHTML = '';
+  roundResults.forEach(r => {
+    const el = document.createElement('div');
+    el.className = 'result-item ' + (r.correct ? 'ri-correct' : 'ri-wrong');
+    const icon = r.correct ? '&#10003;' : '&#10007;';
+    const domColor = D_COLORS[r.expected].replace('var(','').replace(')','');
+    let html = '<span class="ri-icon">' + icon + '</span>';
+    html += '<span class="ri-term">' + r.term + '</span>';
+    html += '<span class="ri-dom" style="background:' + D_COLORS[r.expected] + '">' + D_NAMES[r.expected] + '</span>';
+    if (!r.correct) {
+      html += '<span class="ri-dom" style="background:var(--red);margin-left:4px;font-size:9px">you: D' + r.got + '</span>';
+    }
+    el.innerHTML = html;
+    list.appendChild(el);
+  });
+}
+
+function nextRound() {
+  if (currentRound >= 3) { startGame(); return; }
+  currentRound++;
+  document.getElementById('roundSummary').classList.add('hidden');
+  document.getElementById('gameUI').classList.remove('hidden');
+  loadRound();
+}
+</script>
+</body>
+</html>

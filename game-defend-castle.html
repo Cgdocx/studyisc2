@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Defend the Castle — ปกป้องปราสาท | ISC2 CC Mini Game</title>
+<meta name="description" content="เกมจำลองสถานการณ์ Security Analyst ปกป้องปราสาทจากภัยคุกคาม เรียนรู้ Security Controls ผ่านการเล่นเกม">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --text: #0F0F0F;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F;
+  --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+.creative-global-nav {
+  position: sticky; top: 0; z-index: 10000;
+  background: var(--cream);
+  border-bottom: 3px solid var(--ink);
+  font-family: var(--font-thai);
+}
+.cg-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 18px; gap: 12px; flex-wrap: wrap;
+}
+.cg-brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-display); font-size: 15px;
+  border: 2px solid var(--ink); background: var(--white);
+  padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase;
+}
+.cg-brand .cg-badge {
+  background: var(--yellow); color: var(--ink);
+  padding: 1px 6px; font-size: 11px; font-family: var(--font-mono); font-weight: 800;
+  border: 1px solid var(--ink);
+}
+.cg-links {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.cg-link {
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 6px 12px; background: var(--white);
+  border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  white-space: nowrap;
+}
+.cg-link:hover {
+  background: var(--yellow);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.cg-link.active {
+  background: var(--orange);
+  color: var(--white);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+@media (max-width: 768px) {
+  .cg-nav-inner { padding: 8px 10px; }
+  .cg-links { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; width: 100%; -webkit-overflow-scrolling: touch; }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-thai);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 16px 80px;
+}
+
+/* Castle visual */
+.castle-area {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.castle-svg {
+  width: 180px; height: 160px;
+  transition: filter 0.3s;
+}
+.castle-svg.damaged { filter: hue-rotate(-40deg) saturate(1.5); }
+.castle-svg.critical { filter: hue-rotate(-80deg) saturate(2) brightness(0.8); animation: shake 0.4s infinite; }
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* Stats bar */
+.stats-bar {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.stat-box {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 10px 18px;
+  text-align: center;
+  min-width: 100px;
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 800;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+}
+.stat-value.hp { color: var(--green); }
+.stat-value.hp.warn { color: var(--orange); }
+.stat-value.hp.danger { color: var(--red); }
+
+/* HP Bar */
+.hp-bar-wrap {
+  max-width: 400px; margin: 0 auto 24px;
+  background: var(--cream-2);
+  border: 2px solid var(--ink);
+  height: 28px;
+  position: relative;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.hp-bar-fill {
+  height: 100%;
+  background: var(--green);
+  transition: width 0.5s ease, background 0.3s;
+}
+.hp-bar-fill.warn { background: var(--orange); }
+.hp-bar-fill.danger { background: var(--red); }
+.hp-bar-text {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+  color: var(--ink);
+}
+
+/* Threat card */
+.threat-card {
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.threat-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.severity-badge {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 800;
+  padding: 3px 10px;
+  border: 1.5px solid var(--ink);
+  text-transform: uppercase;
+}
+.severity-badge.high { background: var(--red); color: var(--white); }
+.severity-badge.medium { background: var(--orange); color: var(--white); }
+.severity-badge.low { background: var(--yellow); color: var(--ink); }
+.threat-round {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 700;
+  color: var(--muted);
+}
+.threat-text {
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 600;
+}
+.threat-domain {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px; color: var(--muted);
+}
+
+/* Choices */
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .choices { grid-template-columns: 1fr; }
+}
+.choice-btn {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 14px 16px;
+  font-family: var(--font-thai);
+  font-size: 14px; font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+}
+.choice-btn:hover:not(:disabled) {
+  background: var(--yellow);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.choice-btn:disabled { cursor: default; opacity: 0.7; }
+.choice-btn.correct {
+  background: var(--green) !important;
+  color: var(--white);
+  transform: none;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.choice-btn.wrong {
+  background: var(--red) !important;
+  color: var(--white);
+  transform: none;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* Explanation */
+.explanation {
+  background: var(--card2);
+  border: 2px solid var(--ink);
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  font-size: 14px; line-height: 1.7;
+  display: none;
+}
+.explanation.show { display: block; }
+.explanation .exp-title {
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.explanation.correct-exp .exp-title { color: var(--green); }
+.explanation.wrong-exp .exp-title { color: var(--red); }
+
+.next-btn {
+  display: none;
+  background: var(--ink);
+  color: var(--cream);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink-2);
+  padding: 14px 32px;
+  font-family: var(--font-mono);
+  font-size: 13px; font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin: 0 auto;
+  transition: transform 0.1s, background 0.1s;
+}
+.next-btn.show { display: block; }
+.next-btn:hover {
+  background: var(--green);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+/* Screens */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* Start screen */
+.start-card {
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 40px 32px;
+  text-align: center;
+}
+.start-card h1 {
+  font-family: var(--font-display);
+  font-size: 32px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.start-card .sub {
+  font-size: 15px; color: var(--ink-2);
+  line-height: 1.7; margin-bottom: 24px;
+  max-width: 500px; margin-left: auto; margin-right: auto;
+}
+.start-btn {
+  background: var(--green);
+  color: var(--white);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 16px 48px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.start-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+/* Game Over */
+.gameover-card {
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 40px 32px;
+  text-align: center;
+}
+.gameover-card h2 {
+  font-family: var(--font-display);
+  font-size: 28px; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.gameover-card .final-stats {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  margin: 20px 0;
+}
+.final-stat {
+  background: var(--cream-2);
+  border: 2px solid var(--ink);
+  padding: 12px 20px;
+  text-align: center;
+}
+.final-stat .fs-label {
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 800;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.final-stat .fs-value {
+  font-family: var(--font-display);
+  font-size: 32px;
+}
+.retry-btn {
+  background: var(--orange);
+  color: var(--white);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 14px 40px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.retry-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+/* Shield flash */
+@keyframes shieldFlash {
+  0% { opacity: 0; }
+  20% { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+.shield-flash {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none; border-radius: 50%;
+}
+</style>
+</head>
+<body>
+
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="isc2-cc-landing.html" class="cg-brand">
+      <span class="cg-badge">ISC2 CC</span>
+      <span class="cg-title">STUDY HUB</span>
+    </a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link">MIND MAP 12 บท</a>
+      <a href="1832quiz_NewExamDomainTH.html" class="cg-link">ชุด 1,832 ข้อ</a>
+      <a href="isc2_cc_BothThai-eng_583quiz.html" class="cg-link">ชุด 583 ข้อ</a>
+      <a href="isc2_cc_exam548_5Domain_dualTh-Eng.html" class="cg-link">ชุด 548 ข้อ</a>
+      <a href="isc2_cc_exam1NCSA_bi_no-track-50q.html" class="cg-link">ชุด 50 ข้อ</a>
+      <a href="games.html" class="cg-link active">MINI GAMES</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- START SCREEN -->
+  <div id="startScreen" class="screen active">
+    <div class="start-card">
+      <svg class="castle-svg" viewBox="0 0 180 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="30" y="60" width="120" height="100" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="3"/>
+        <rect x="20" y="40" width="30" height="30" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="3"/>
+        <rect x="75" y="30" width="30" height="40" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="3"/>
+        <rect x="130" y="40" width="30" height="30" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="3"/>
+        <!-- Battlements -->
+        <rect x="20" y="32" width="10" height="12" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="40" y="32" width="10" height="12" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="75" y="20" width="10" height="14" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="95" y="20" width="10" height="14" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="130" y="32" width="10" height="12" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="150" y="32" width="10" height="12" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <!-- Gate -->
+        <rect x="72" y="110" width="36" height="50" rx="18" fill="var(--ink-2)" stroke="var(--ink)" stroke-width="3"/>
+        <!-- Shield -->
+        <path d="M90 75 L105 82 L105 100 L90 110 L75 100 L75 82 Z" fill="var(--green)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="90" y="96" text-anchor="middle" font-family="var(--font-mono)" font-size="14" font-weight="800" fill="var(--white)">S</text>
+      </svg>
+      <h1>Defend the Castle</h1>
+      <div class="sub">
+        คุณคือ Security Analyst ผู้ปกป้องปราสาท<br>
+        ภัยคุกคามจะโจมตีเข้ามาทีละระลอก -- เลือก Security Control ที่ถูกต้องเพื่อป้องกัน<br>
+        ตอบถูก = บล็อกภัยสำเร็จ (+10 คะแนน) | ตอบผิด = ปราสาทเสียหาย (HP ลด)<br>
+        เป้าหมาย: รอดให้ครบ 20 ระลอก!
+      </div>
+      <button class="start-btn" onclick="startGame()">เริ่มปกป้องปราสาท</button>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="gameScreen" class="screen">
+    <div class="castle-area">
+      <svg id="castleIcon" class="castle-svg" viewBox="0 0 180 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="30" y="60" width="120" height="100" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="3"/>
+        <rect x="20" y="40" width="30" height="30" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="3"/>
+        <rect x="75" y="30" width="30" height="40" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="3"/>
+        <rect x="130" y="40" width="30" height="30" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="3"/>
+        <rect x="20" y="32" width="10" height="12" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="40" y="32" width="10" height="12" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="75" y="20" width="10" height="14" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="95" y="20" width="10" height="14" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="130" y="32" width="10" height="12" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="150" y="32" width="10" height="12" fill="var(--cream-2)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="72" y="110" width="36" height="50" rx="18" fill="var(--ink-2)" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M90 75 L105 82 L105 100 L90 110 L75 100 L75 82 Z" fill="var(--green)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="90" y="96" text-anchor="middle" font-family="var(--font-mono)" font-size="14" font-weight="800" fill="var(--white)">S</text>
+      </svg>
+    </div>
+
+    <div class="hp-bar-wrap">
+      <div id="hpBarFill" class="hp-bar-fill" style="width:100%"></div>
+      <div id="hpBarText" class="hp-bar-text">HP 100 / 100</div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-box">
+        <div class="stat-label">ROUND</div>
+        <div class="stat-value" id="roundNum">1</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">SCORE</div>
+        <div class="stat-value" id="scoreNum" style="color:var(--green)">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">HP</div>
+        <div class="stat-value hp" id="hpNum">100</div>
+      </div>
+    </div>
+
+    <div id="threatCard" class="threat-card">
+      <div class="threat-header">
+        <span id="severityBadge" class="severity-badge high">HIGH</span>
+        <span id="threatRound" class="threat-round">ROUND 1 / 20</span>
+      </div>
+      <div id="threatText" class="threat-text"></div>
+      <div id="threatDomain" class="threat-domain"></div>
+    </div>
+
+    <div id="choices" class="choices"></div>
+
+    <div id="explanation" class="explanation">
+      <div class="exp-title" id="expTitle"></div>
+      <div id="expText"></div>
+    </div>
+
+    <button id="nextBtn" class="next-btn" onclick="nextRound()">ระลอกถัดไป &rarr;</button>
+  </div>
+
+  <!-- GAME OVER SCREEN -->
+  <div id="endScreen" class="screen">
+    <div class="gameover-card">
+      <h2 id="endTitle">GAME OVER</h2>
+      <p id="endMessage" style="font-size:16px; color:var(--ink-2); margin-bottom:8px;"></p>
+      <div class="final-stats">
+        <div class="final-stat">
+          <div class="fs-label">SCORE</div>
+          <div class="fs-value" id="finalScore" style="color:var(--green)">0</div>
+        </div>
+        <div class="final-stat">
+          <div class="fs-label">ROUNDS</div>
+          <div class="fs-value" id="finalRounds">0</div>
+        </div>
+        <div class="final-stat">
+          <div class="fs-label">HP</div>
+          <div class="fs-value" id="finalHP">0</div>
+        </div>
+        <div class="final-stat">
+          <div class="fs-label">ACCURACY</div>
+          <div class="fs-value" id="finalAcc">0%</div>
+        </div>
+      </div>
+      <button class="retry-btn" onclick="startGame()">เล่นอีกครั้ง</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const THREATS = [
+  {
+    text: "พนักงานได้รับอีเมลมี link น่าสงสัย ขอให้กรอก credentials เข้าระบบ",
+    severity: "high", damage: 20, domain: "Domain 1: Security Principles",
+    correct: 0,
+    choices: ["Security Awareness Training", "Firewall Rule", "Antivirus Scan", "Data Encryption"],
+    explanation: "Security Awareness Training สอนพนักงานให้รู้จักอีเมล Phishing และไม่กรอกข้อมูลในลิงก์ที่ไม่น่าเชื่อถือ Firewall และ Antivirus ไม่สามารถป้องกันการที่ผู้ใช้กรอกข้อมูลเองได้"
+  },
+  {
+    text: "พบว่า Server สำคัญมี Unpatched Vulnerability (CVE ระดับ Critical)",
+    severity: "high", damage: 25, domain: "Domain 5: Security Operations",
+    correct: 0,
+    choices: ["Patch Management", "Password Policy", "VLAN Segmentation", "Multi-Factor Authentication"],
+    explanation: "Patch Management คือกระบวนการอัปเดตซอฟต์แวร์เพื่อปิดช่องโหว่ที่รู้จัก (Known Vulnerability) การแก้ Password หรือเพิ่ม MFA ไม่ได้แก้ช่องโหว่ของตัว Software"
+  },
+  {
+    text: "อดีตพนักงานที่ลาออกไปแล้ว 2 สัปดาห์ ยังสามารถเข้าถึงระบบได้อยู่",
+    severity: "high", damage: 20, domain: "Domain 3: Access Controls Concepts",
+    correct: 0,
+    choices: ["Account Deprovisioning", "Intrusion Detection System", "Data Encryption", "Backup & Recovery"],
+    explanation: "Account Deprovisioning (การยกเลิกสิทธิ์บัญชี) ต้องทำทันทีเมื่อพนักงานลาออก เป็นส่วนหนึ่งของ Identity Lifecycle Management ป้องกัน Insider Threat จากอดีตพนักงาน"
+  },
+  {
+    text: "Malware กำลังแพร่กระจายจากเครื่องหนึ่งไปยังเครื่องอื่นในเครือข่ายภายใน",
+    severity: "high", damage: 25, domain: "Domain 4: Network Security",
+    correct: 0,
+    choices: ["Network Segmentation", "Single Sign-On (SSO)", "Change Management", "Business Continuity Plan"],
+    explanation: "Network Segmentation แบ่งเครือข่ายเป็นส่วนย่อย ป้องกัน Lateral Movement ของ Malware ทำให้แพร่กระจายได้จำกัดวง SSO และ Change Management ไม่หยุดการแพร่กระจายของ Malware"
+  },
+  {
+    text: "ผู้ใช้หลายคนใช้รหัสผ่าน '123456' ในทุกระบบขององค์กร",
+    severity: "medium", damage: 15, domain: "Domain 3: Access Controls Concepts",
+    correct: 0,
+    choices: ["Password Policy + MFA", "Firewall Rule", "Data Loss Prevention", "VLAN Segmentation"],
+    explanation: "Password Policy บังคับความซับซ้อนของรหัสผ่าน และ MFA เพิ่มชั้นป้องกันอีกขั้น แม้รหัสผ่านถูกเดาได้ก็เข้าระบบไม่ได้ถ้าไม่มี Factor ที่สอง"
+  },
+  {
+    text: "ข้อมูลลูกค้าถูกคัดลอกออกผ่าน USB Drive โดยไม่ได้รับอนุญาต",
+    severity: "high", damage: 20, domain: "Domain 5: Security Operations",
+    correct: 0,
+    choices: ["DLP + USB Policy", "Intrusion Detection System", "Patch Management", "Multi-Factor Authentication"],
+    explanation: "Data Loss Prevention (DLP) ตรวจจับและป้องกันการส่งข้อมูลออก ร่วมกับ USB Policy ที่ควบคุมการใช้อุปกรณ์ภายนอก IDS ตรวจจับการบุกรุกเครือข่าย ไม่ได้ดู USB"
+  },
+  {
+    text: "DDoS Attack กำลังทำให้ Web Server หลักขององค์กรล่ม ลูกค้าเข้าไม่ได้",
+    severity: "high", damage: 25, domain: "Domain 4: Network Security",
+    correct: 0,
+    choices: ["DDoS Mitigation / CDN", "Data Encryption", "Role-Based Access Control", "Backup & Recovery"],
+    explanation: "DDoS Mitigation กรอง Traffic ที่ผิดปกติ และ CDN กระจายโหลด ลด Impact จากการโจมตี Encryption หรือ RBAC ไม่ช่วยเรื่อง Availability ของ Server"
+  },
+  {
+    text: "พบ Unauthorized Wireless Access Point ติดตั้งอยู่ในสำนักงาน (Rogue AP)",
+    severity: "medium", damage: 15, domain: "Domain 4: Network Security",
+    correct: 0,
+    choices: ["Rogue AP Detection / NAC", "VPN Tunnel", "Hashing Algorithm", "Business Impact Analysis"],
+    explanation: "Rogue AP Detection สแกนหา Access Point ที่ไม่ได้รับอนุญาต และ NAC (Network Access Control) บล็อกอุปกรณ์ที่ไม่ผ่านการตรวจสอบ VPN ไม่แก้ปัญหา AP ปลอม"
+  },
+  {
+    text: "Log ระบบแสดงว่ามีผู้พยายาม Login ผิดพลาดหลายร้อยครั้งภายใน 1 นาที",
+    severity: "high", damage: 20, domain: "Domain 3: Access Controls Concepts",
+    correct: 0,
+    choices: ["Account Lockout Policy", "Data Classification", "Incident Recovery", "Security Audit"],
+    explanation: "Account Lockout Policy ล็อคบัญชีหลัง Login ผิดหลายครั้ง ป้องกัน Brute Force Attack โดยตรง Data Classification และ Audit ไม่หยุดการโจมตีแบบ Real-time"
+  },
+  {
+    text: "ทีม Developer เข้าถึง Production Database ได้โดยตรง ทั้งที่ไม่จำเป็นต้องใช้",
+    severity: "medium", damage: 15, domain: "Domain 3: Access Controls Concepts",
+    correct: 0,
+    choices: ["Least Privilege / RBAC", "Encryption at Rest", "Disaster Recovery Plan", "Penetration Testing"],
+    explanation: "หลัก Least Privilege ให้สิทธิ์เท่าที่จำเป็นเท่านั้น RBAC กำหนดสิทธิ์ตาม Role ไม่ใช่ตัวบุคคล Developer ไม่จำเป็นต้องเข้าถึง Production Data โดยตรง"
+  },
+  {
+    text: "องค์กรไม่มีแผนรับมือเหตุการณ์ (Incident Response Plan) เมื่อเกิดเหตุจริงจึงสับสน",
+    severity: "medium", damage: 15, domain: "Domain 2: BC, DR & IR",
+    correct: 0,
+    choices: ["Incident Response Plan", "Firewall Upgrade", "Data Encryption", "Access Review"],
+    explanation: "Incident Response Plan กำหนดขั้นตอนที่ชัดเจนเมื่อเกิดเหตุ: Detection, Analysis, Containment, Eradication, Recovery, Lessons Learned ไม่มีแผน = ตอบสนองช้าและสับสน"
+  },
+  {
+    text: "Backup ข้อมูลไม่เคยถูกทดสอบ เมื่อ Ransomware โจมตีจึงกู้คืนไม่ได้",
+    severity: "high", damage: 25, domain: "Domain 2: BC, DR & IR",
+    correct: 0,
+    choices: ["Backup Testing / DR Drill", "Strong Password", "Network Monitoring", "Physical Security"],
+    explanation: "การมี Backup อย่างเดียวไม่พอ ต้องทดสอบ (Backup Testing) และซ้อมแผน DR (Disaster Recovery Drill) เป็นประจำ เพื่อให้แน่ใจว่ากู้คืนได้จริงเมื่อต้องการ"
+  },
+  {
+    text: "ไม่มีการเข้ารหัสข้อมูลบัตรเครดิตลูกค้าที่เก็บใน Database",
+    severity: "high", damage: 20, domain: "Domain 1: Security Principles",
+    correct: 0,
+    choices: ["Encryption at Rest", "IDS/IPS", "Change Management", "Security Awareness"],
+    explanation: "Encryption at Rest เข้ารหัสข้อมูลที่จัดเก็บ ป้องกันแม้ Database ถูกเข้าถึงโดยไม่ได้รับอนุญาต จำเป็นสำหรับข้อมูลที่อยู่ภายใต้ PCI-DSS"
+  },
+  {
+    text: "พนักงานทำ Laptop สำหรับงานหายที่สนามบิน มีข้อมูลองค์กรอยู่ภายใน",
+    severity: "medium", damage: 15, domain: "Domain 1: Security Principles",
+    correct: 0,
+    choices: ["Full Disk Encryption + Remote Wipe", "Firewall", "IDS", "Patch Management"],
+    explanation: "Full Disk Encryption ทำให้ข้อมูลอ่านไม่ได้แม้ถอด Hard Disk ออก Remote Wipe ลบข้อมูลจากระยะไกล ป้องกัน Data Breach จากอุปกรณ์สูญหาย"
+  },
+  {
+    text: "เว็บไซต์องค์กรถูกเปลี่ยนหน้าแรก (Website Defacement) แสดงข้อความแฮ็กเกอร์",
+    severity: "high", damage: 20, domain: "Domain 5: Security Operations",
+    correct: 0,
+    choices: ["WAF + File Integrity Monitoring", "VPN", "MFA", "BCP"],
+    explanation: "WAF (Web Application Firewall) กรองการโจมตีเว็บ File Integrity Monitoring ตรวจจับการเปลี่ยนแปลงไฟล์ที่ไม่ได้รับอนุญาต ทั้งสองป้องกันและตรวจจับ Defacement"
+  },
+  {
+    text: "ไม่มีการจำแนกระดับความลับของข้อมูล ทุกคนเข้าถึงทุกไฟล์ได้เหมือนกัน",
+    severity: "medium", damage: 15, domain: "Domain 1: Security Principles",
+    correct: 0,
+    choices: ["Data Classification + Labeling", "Network Segmentation", "Patch Management", "IDS"],
+    explanation: "Data Classification จำแนกข้อมูลเป็นระดับ (Public, Internal, Confidential, Restricted) เพื่อกำหนดการป้องกันที่เหมาะสม เป็นรากฐานของ Access Control ที่ดี"
+  },
+  {
+    text: "มีคนแอบเข้ามาในอาคารสำนักงานตาม (Tailgating) พนักงานที่แตะบัตรเข้า",
+    severity: "medium", damage: 15, domain: "Domain 1: Security Principles",
+    correct: 0,
+    choices: ["Mantrap / Anti-Tailgating", "Encryption", "Firewall", "SIEM"],
+    explanation: "Mantrap (ห้องกั้นสองชั้น) บังคับให้เข้าทีละคน ป้องกัน Tailgating ได้โดยตรง เป็นมาตรการ Physical Security ที่สำคัญ"
+  },
+  {
+    text: "องค์กรใช้ Cloud Storage โดยไม่มี Policy ควบคุม พนักงานแชร์ไฟล์สาธารณะ",
+    severity: "medium", damage: 15, domain: "Domain 5: Security Operations",
+    correct: 0,
+    choices: ["Cloud Security Policy + CASB", "Antivirus", "Physical Lock", "Password Rotation"],
+    explanation: "Cloud Security Policy กำหนดกฎการใช้งาน Cloud CASB (Cloud Access Security Broker) บังคับ Policy และตรวจสอบการแชร์ข้อมูลใน Cloud Service"
+  },
+  {
+    text: "ระบบ Log กระจายอยู่หลาย Server ไม่มีศูนย์กลาง เมื่อเกิดเหตุตรวจสอบลำบาก",
+    severity: "low", damage: 10, domain: "Domain 5: Security Operations",
+    correct: 0,
+    choices: ["SIEM (Centralized Logging)", "MFA", "Encryption", "Backup"],
+    explanation: "SIEM (Security Information and Event Management) รวบรวม Log จากทุกระบบมาที่เดียว วิเคราะห์ Correlation และแจ้งเตือนอัตโนมัติ ช่วยตรวจสอบเหตุการณ์ได้เร็ว"
+  },
+  {
+    text: "พนักงานใช้ Public Wi-Fi ที่ร้านกาแฟเข้าถึงระบบงานโดยไม่ผ่าน VPN",
+    severity: "medium", damage: 15, domain: "Domain 4: Network Security",
+    correct: 0,
+    choices: ["VPN Policy (Always-On VPN)", "IDS", "Data Classification", "Patch Management"],
+    explanation: "VPN เข้ารหัส Traffic ทั้งหมดแม้อยู่บน Public Wi-Fi ป้องกัน Man-in-the-Middle Attack Always-On VPN บังคับให้เชื่อมต่อ VPN อัตโนมัติก่อนเข้าระบบ"
+  }
+];
+
+let hp, score, round, correctCount, shuffled, answered;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateHP() {
+  const el = document.getElementById('hpNum');
+  const bar = document.getElementById('hpBarFill');
+  const barText = document.getElementById('hpBarText');
+  const castle = document.getElementById('castleIcon');
+  el.textContent = hp;
+  bar.style.width = Math.max(0, hp) + '%';
+  barText.textContent = 'HP ' + hp + ' / 100';
+  el.className = 'stat-value hp';
+  bar.className = 'hp-bar-fill';
+  castle.className = 'castle-svg';
+  if (hp <= 30) {
+    el.classList.add('danger');
+    bar.classList.add('danger');
+    castle.classList.add('critical');
+  } else if (hp <= 50) {
+    el.classList.add('warn');
+    bar.classList.add('warn');
+    castle.classList.add('damaged');
+  }
+}
+
+function startGame() {
+  hp = 100; score = 0; round = 0; correctCount = 0; answered = false;
+  shuffled = shuffle(THREATS).slice(0, 20);
+  showScreen('gameScreen');
+  updateHP();
+  document.getElementById('scoreNum').textContent = '0';
+  loadRound();
+}
+
+function loadRound() {
+  if (round >= shuffled.length || hp <= 0) { endGame(); return; }
+  answered = false;
+  const t = shuffled[round];
+  document.getElementById('roundNum').textContent = round + 1;
+  document.getElementById('threatRound').textContent = 'ROUND ' + (round + 1) + ' / ' + shuffled.length;
+  document.getElementById('threatText').textContent = t.text;
+  document.getElementById('threatDomain').textContent = t.domain;
+
+  const badge = document.getElementById('severityBadge');
+  badge.textContent = t.severity.toUpperCase();
+  badge.className = 'severity-badge ' + t.severity;
+
+  const choicesEl = document.getElementById('choices');
+  const indices = [0, 1, 2, 3];
+  const shuffledIdx = shuffle(indices);
+  const correctNewIdx = shuffledIdx.indexOf(t.correct);
+
+  choicesEl.innerHTML = '';
+  shuffledIdx.forEach((origIdx, btnIdx) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = t.choices[origIdx];
+    btn.onclick = () => handleChoice(btnIdx, correctNewIdx, origIdx === t.correct, t);
+    choicesEl.appendChild(btn);
+  });
+
+  document.getElementById('explanation').className = 'explanation';
+  document.getElementById('nextBtn').className = 'next-btn';
+}
+
+function handleChoice(btnIdx, correctIdx, isCorrect, threat) {
+  if (answered) return;
+  answered = true;
+  const btns = document.querySelectorAll('.choice-btn');
+  btns.forEach(b => b.disabled = true);
+  btns[correctIdx].classList.add('correct');
+
+  const exp = document.getElementById('explanation');
+  const expTitle = document.getElementById('expTitle');
+  const expText = document.getElementById('expText');
+
+  if (isCorrect) {
+    score += 10;
+    correctCount++;
+    document.getElementById('scoreNum').textContent = score;
+    exp.className = 'explanation correct-exp show';
+    expTitle.textContent = 'BLOCKED! +10 POINTS';
+    expText.textContent = threat.explanation;
+  } else {
+    btns[btnIdx].classList.add('wrong');
+    hp = Math.max(0, hp - threat.damage);
+    updateHP();
+    exp.className = 'explanation wrong-exp show';
+    expTitle.textContent = 'HIT! -' + threat.damage + ' HP';
+    expText.textContent = threat.explanation;
+  }
+
+  document.getElementById('nextBtn').className = 'next-btn show';
+  if (hp <= 0) {
+    document.getElementById('nextBtn').textContent = 'ดูผลลัพธ์';
+  }
+}
+
+function nextRound() {
+  round++;
+  if (round >= shuffled.length || hp <= 0) { endGame(); return; }
+  loadRound();
+  document.getElementById('nextBtn').textContent = 'ระลอกถัดไป →';
+}
+
+function endGame() {
+  showScreen('endScreen');
+  const survived = hp > 0;
+  document.getElementById('endTitle').textContent = survived ? 'MISSION COMPLETE!' : 'CASTLE FALLEN!';
+  document.getElementById('endTitle').style.color = survived ? 'var(--green)' : 'var(--red)';
+  document.getElementById('endMessage').textContent = survived
+    ? 'ปราสาทปลอดภัย! คุณปกป้องได้สำเร็จครบ ' + round + ' ระลอก'
+    : 'ปราสาทถูกทำลาย! คุณรอดได้ ' + round + ' ระลอก';
+  document.getElementById('finalScore').textContent = score;
+  document.getElementById('finalRounds').textContent = round;
+  document.getElementById('finalHP').textContent = Math.max(0, hp);
+  document.getElementById('finalAcc').textContent = round > 0 ? Math.round(correctCount / round * 100) + '%' : '0%';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISC2 CC Domain 4 — Network Security (ความปลอดภัยเครือข่าย)</title>
+<meta name="description" content="บทเรียนเตรียมสอบ ISC2 CC Domain 4: Network Security อธิบายง่ายด้วยภาพเปรียบเทียบชีวิตจริง พร้อมแผนภาพเครือข่าย และ Cheat Sheet สองภาษา">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #EFE9D9; --cream-2: #E4DCC4;
+  --green: #1F8A4C; --green2: #136636; --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8; --orange: #E85A1F; --yellow: #F5C518;
+  --ink: #0F0F0F; --ink-2: #2A2A2A; --white: #FFFFFF;
+  --bg: #EFE9D9; --bg2: #E4DCC4; --card: #FFFFFF; --card2: #F7F4EB;
+  --line: #0F0F0F; --text: #0F0F0F; --muted: #4A4A4A;
+  --red: #D12438; --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F; --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F; --radius: 0px;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+.creative-global-nav { position:sticky;top:0;z-index:10000;background:var(--cream);border-bottom:3px solid var(--ink);font-family:var(--font-thai); }
+.cg-nav-inner { max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 18px;gap:12px;flex-wrap:wrap; }
+.cg-brand { display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font-family:var(--font-display);font-size:15px;border:2px solid var(--ink);background:var(--white);padding:4px 10px;box-shadow:3px 3px 0 var(--ink);text-transform:uppercase; }
+.cg-brand .cg-badge { background:var(--yellow);color:var(--ink);padding:1px 6px;font-size:11px;font-family:var(--font-mono);font-weight:800;border:1px solid var(--ink); }
+.cg-links { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+.cg-link { text-decoration:none;color:var(--ink);font-family:var(--font-mono);font-size:11px;font-weight:700;padding:6px 12px;background:var(--white);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);transition:transform .1s,box-shadow .1s,background .1s;white-space:nowrap; }
+.cg-link:hover { background:var(--yellow);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink); }
+.cg-link.active { background:var(--orange);color:var(--white); }
+@media(max-width:768px){ .cg-nav-inner{padding:8px 10px;} .cg-links{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;width:100%;-webkit-overflow-scrolling:touch;} }
+
+* { box-sizing:border-box;margin:0;padding:0; }
+body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min-height:100vh;-webkit-font-smoothing:antialiased; }
+.wrap { max-width:860px;margin:0 auto;padding:40px 24px 80px; }
+
+.hero { text-align:center;margin-bottom:40px;padding:32px 24px;background:var(--white);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink); }
+.hero .eyebrow { font-family:var(--font-mono);font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--orange);text-transform:uppercase;margin-bottom:6px; }
+.hero h1 { font-family:var(--font-display);font-size:32px;text-transform:uppercase;line-height:1.1;margin-bottom:10px; }
+.hero .sub { font-size:15px;color:var(--ink-2);line-height:1.7;max-width:640px;margin:0 auto; }
+
+.scenario { background:var(--pink);border:3px solid var(--ink);box-shadow:var(--shadow);padding:24px;margin-bottom:36px;position:relative;color:var(--ink); }
+.scenario::before { content:'REAL-WORLD SCENARIO';font-family:var(--font-mono);font-size:11px;font-weight:800;background:var(--ink);color:var(--pink);padding:2px 10px;position:absolute;top:-12px;left:16px; }
+.scenario p { font-size:15px;line-height:1.8; }
+
+.section { background:var(--white);border:3px solid var(--ink);box-shadow:var(--shadow);padding:28px 24px;margin-bottom:28px; }
+.section h2 { font-family:var(--font-display);font-size:22px;text-transform:uppercase;margin-bottom:6px; }
+.section .en { font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--orange);margin-bottom:16px;display:block; }
+.section p, .section li { font-size:15px;line-height:1.8; }
+.section ul { padding-left:20px;margin:12px 0; }
+.section li { margin-bottom:6px; }
+
+.analogy { background:var(--green-dim);border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;font-size:14px;line-height:1.7; }
+.analogy strong { color:var(--green2); }
+
+.term { display:inline-block;font-family:var(--font-mono);font-size:13px;font-weight:700;background:var(--cream-2);border:1.5px solid var(--ink);padding:1px 7px;margin:0 2px; }
+
+.diagram-wrap { background:var(--card2);border:3px solid var(--ink);box-shadow:var(--shadow);padding:20px;margin:28px 0;text-align:center;overflow-x:auto; }
+.diagram-wrap .caption { font-family:var(--font-mono);font-size:11px;font-weight:800;text-transform:uppercase;color:var(--muted);margin-top:12px; }
+
+.cheat { width:100%;border-collapse:collapse;margin:20px 0;font-size:14px; }
+.cheat th { background:var(--ink);color:var(--cream);font-family:var(--font-mono);font-size:12px;font-weight:800;text-transform:uppercase;padding:10px 14px;text-align:left; }
+.cheat td { padding:10px 14px;border-bottom:2px solid var(--cream-2); }
+.cheat tr:nth-child(even) td { background:var(--card2); }
+
+.nav-bottom { display:flex;gap:12px;flex-wrap:wrap;margin-top:40px; }
+.nav-bottom a { flex:1;min-width:200px;text-align:center;padding:14px;background:var(--ink);color:var(--cream);font-family:var(--font-mono);font-size:13px;font-weight:800;text-decoration:none;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);text-transform:uppercase;transition:transform .1s,background .1s; }
+.nav-bottom a:hover { background:var(--yellow);color:var(--ink);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink); }
+
+@media(max-width:600px){
+  .hero h1{font-size:24px;} .wrap{padding:24px 16px 60px;} .section{padding:20px 16px;}
+  .cheat{font-size:12px;} .cheat th,.cheat td{padding:8px 10px;}
+}
+</style>
+</head>
+<body>
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="index.html" class="cg-brand"><span class="cg-badge">ISC2 CC</span><span>STUDY HUB</span></a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link">MIND MAP</a>
+      <a href="learning-path.html" class="cg-link">LEARNING PATH</a>
+      <a href="games.html" class="cg-link">MINI GAMES</a>
+      <a href="isc2-cc-landing.html" class="cg-link">QUIZ PORTAL</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Domain 4 of 5 &middot; Beginner Lesson</div>
+    <h1>Network Security</h1>
+    <div class="sub">ความปลอดภัยเครือข่าย &mdash; ปกป้องข้อมูลที่วิ่งไปมาระหว่างคอมพิวเตอร์<br>อธิบายง่ายๆ เหมือน รปภ. หมู่บ้าน</div>
+  </header>
+
+  <!-- SCENARIO -->
+  <div class="scenario">
+    <p>แฮกเกอร์นั่งอยู่ในร้านกาแฟ เปิดโน้ตบุ๊คดักจับข้อมูลผ่าน Wi-Fi สาธารณะ ลูกค้าที่กรอกเลขบัตรเครดิตซื้อของออนไลน์ ข้อมูลถูกดักอ่านทั้งหมด เพราะ Wi-Fi ไม่เข้ารหัส และเว็บไซต์ไม่ใช้ HTTPS นี่คือเหตุผลที่ Network Security สำคัญมาก</p>
+  </div>
+
+  <!-- NETWORK DIAGRAM -->
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 800 320" style="max-width:760px;width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg">
+      <!-- Internet Cloud -->
+      <ellipse cx="100" cy="80" rx="80" ry="45" fill="#E4DCC4" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="100" y="75" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="14" fill="#0F0F0F">INTERNET</text>
+      <text x="100" y="95" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#4A4A4A">โลกภายนอก</text>
+
+      <!-- Arrow to Firewall -->
+      <line x1="180" y1="80" x2="230" y2="80" stroke="#0F0F0F" stroke-width="3"/>
+      <polygon points="228,72 244,80 228,88" fill="#0F0F0F"/>
+
+      <!-- Firewall -->
+      <rect x="245" y="45" width="100" height="70" fill="#D12438" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="295" y="72" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="12" fill="#FFF">FIREWALL</text>
+      <text x="295" y="92" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#EFE9D9">รปภ. ประตูหลัก</text>
+
+      <!-- Arrow to DMZ -->
+      <line x1="345" y1="60" x2="400" y2="40" stroke="#0F0F0F" stroke-width="2"/>
+      <polygon points="396,32 410,38 398,46" fill="#0F0F0F"/>
+
+      <!-- DMZ -->
+      <rect x="410" y="10" width="150" height="65" fill="#F5C518" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="485" y="35" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="13" fill="#0F0F0F">DMZ</text>
+      <text x="485" y="55" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#2A2A2A">เขตกันชน (Web Server)</text>
+
+      <!-- Arrow to IDS/IPS -->
+      <line x1="345" y1="90" x2="400" y2="130" stroke="#0F0F0F" stroke-width="2"/>
+      <polygon points="396,124 410,132 400,138" fill="#0F0F0F"/>
+
+      <!-- IDS/IPS -->
+      <rect x="410" y="100" width="150" height="65" fill="#E85A1F" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="485" y="125" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="13" fill="#FFF">IDS / IPS</text>
+      <text x="485" y="148" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#EFE9D9">กล้องวงจรปิด / ยามจับผู้ร้าย</text>
+
+      <!-- Arrow to Internal Network -->
+      <line x1="560" y1="132" x2="620" y2="200" stroke="#0F0F0F" stroke-width="2"/>
+      <polygon points="616,194 626,206 614,206" fill="#0F0F0F"/>
+
+      <!-- Internal Network -->
+      <rect x="560" y="210" width="220" height="90" fill="#1F8A4C" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="670" y="240" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="14" fill="#FFF">INTERNAL NETWORK</text>
+      <text x="670" y="262" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="11" fill="#E4DCC4">เครือข่ายภายใน (VLAN)</text>
+      <text x="670" y="282" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#E4DCC4">PC, Server, Printer</text>
+
+      <!-- VPN Tunnel -->
+      <rect x="50" y="220" width="130" height="55" fill="#F06CA8" stroke="#0F0F0F" stroke-width="3" stroke-dasharray="8,4"/>
+      <text x="115" y="245" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="12" fill="#0F0F0F">VPN TUNNEL</text>
+      <text x="115" y="262" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#2A2A2A">อุโมงค์ลับเข้ารหัส</text>
+
+      <!-- VPN to Internet -->
+      <line x1="115" y1="220" x2="100" y2="125" stroke="#F06CA8" stroke-width="2" stroke-dasharray="6,3"/>
+
+      <!-- VPN to Internal -->
+      <line x1="180" y1="247" x2="560" y2="247" stroke="#F06CA8" stroke-width="2" stroke-dasharray="6,3"/>
+
+      <!-- NAC label -->
+      <rect x="380" y="260" width="80" height="30" fill="#E4DCC4" stroke="#0F0F0F" stroke-width="2"/>
+      <text x="420" y="280" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="10" fill="#0F0F0F">NAC</text>
+    </svg>
+    <div class="caption">Network Architecture: Internet &rarr; Firewall &rarr; DMZ / IDS&middot;IPS &rarr; Internal Network (with VPN &amp; NAC)</div>
+  </div>
+
+  <!-- SECTION 1: OSI Model -->
+  <div class="section">
+    <h2>OSI Model แบบเข้าใจง่าย</h2>
+    <span class="en">Open Systems Interconnection &mdash; 7 Layers</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ: ส่งจดหมายหาเพื่อน</strong><br>
+      7. <strong>Application</strong> = เขียนจดหมาย (เนื้อหาที่คุณต้องการส่ง)<br>
+      6. <strong>Presentation</strong> = ใส่ซอง เข้ารหัสถ้าเป็นความลับ (แปลงรูปแบบข้อมูล)<br>
+      5. <strong>Session</strong> = ไปที่ไปรษณีย์ เปิดบริการส่ง (เปิด/ปิดการเชื่อมต่อ)<br>
+      4. <strong>Transport</strong> = เลือกส่ง EMS รับประกัน (TCP) หรือไปรษณีย์ธรรมดา (UDP)<br>
+      3. <strong>Network</strong> = เขียนที่อยู่ผู้รับ (IP Address, Routing)<br>
+      2. <strong>Data Link</strong> = บุรุษไปรษณีย์ส่งถึงบ้าน (MAC Address, Switch)<br>
+      1. <strong>Physical</strong> = ถนนที่รถไปรษณีย์วิ่ง (สายเคเบิล, Wi-Fi, สัญญาณไฟฟ้า)
+    </div>
+
+    <p><strong>จำง่ายๆ:</strong> ชั้นบนสุด = ใกล้คน (Application) ชั้นล่างสุด = ใกล้สาย (Physical)</p>
+  </div>
+
+  <!-- SECTION 2: TCP/IP -->
+  <div class="section">
+    <h2>TCP/IP Basics</h2>
+    <span class="en">Transmission Control Protocol / Internet Protocol</span>
+
+    <div class="analogy">
+      <strong>TCP vs UDP:</strong><br>
+      - <strong>TCP</strong> = ส่งพัสดุ EMS มีเลข Tracking ผู้รับต้องเซ็นรับ ถ้าหายส่งใหม่ (เชื่อถือได้ แต่ช้ากว่า)<br>
+      - <strong>UDP</strong> = โยนจดหมายใส่ตู้ไปรษณีย์ ไม่รู้ถึงหรือเปล่า (เร็ว แต่ไม่รับประกัน เช่น Video Call, Gaming)
+    </div>
+
+    <ul>
+      <li><span class="term">TCP</span> &mdash; Connection-oriented, 3-way handshake (SYN, SYN-ACK, ACK), ใช้กับ HTTP, Email, FTP</li>
+      <li><span class="term">UDP</span> &mdash; Connectionless, ไม่มีการตรวจสอบ ใช้กับ DNS, VoIP, Streaming</li>
+      <li><span class="term">IP Address</span> &mdash; "ที่อยู่" ของอุปกรณ์ในเครือข่าย (IPv4: 192.168.1.1 / IPv6: ยาวกว่า)</li>
+      <li><span class="term">Port</span> &mdash; "เลขห้อง" ของบริการ เช่น Port 80 = HTTP, 443 = HTTPS, 22 = SSH</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 3: Firewall -->
+  <div class="section">
+    <h2>Firewall</h2>
+    <span class="en">กำแพงไฟ &mdash; ด่านตรวจเครือข่าย</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ: รปภ. หน้าประตูหมู่บ้าน</strong><br>
+      มีรายชื่อว่าใครเข้าได้ ใครห้ามเข้า (Allow/Deny List)<br>
+      ตรวจทุกคนที่จะเข้า-ออก ถ้าไม่อยู่ในรายชื่ออนุญาต ไม่ให้ผ่าน
+    </div>
+
+    <ul>
+      <li><span class="term">Packet Filtering</span> &mdash; ตรวจแค่ "ซองจดหมาย" (IP, Port) ไม่เปิดอ่านเนื้อหา &mdash; เร็วแต่ไม่ละเอียด</li>
+      <li><span class="term">Stateful Inspection</span> &mdash; จำ "บทสนทนา" ได้ ตรวจว่า Packet นี้เป็นส่วนหนึ่งของ Connection ที่อนุญาตหรือไม่</li>
+      <li><span class="term">Next-Gen Firewall (NGFW)</span> &mdash; ตรวจถึงระดับ Application ดูว่าเป็น Facebook, YouTube หรือ Malware</li>
+      <li><span class="term">WAF</span> (Web Application Firewall) &mdash; เฉพาะทางสำหรับเว็บ กัน SQL Injection, XSS</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 4: IDS vs IPS -->
+  <div class="section">
+    <h2>IDS vs IPS</h2>
+    <span class="en">Intrusion Detection System vs Intrusion Prevention System</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ:</strong><br>
+      - <strong>IDS</strong> = กล้องวงจรปิด &mdash; เห็นขโมย แจ้งเตือน แต่จับเองไม่ได้ (Passive, detect only)<br>
+      - <strong>IPS</strong> = รปภ. ติดอาวุธ &mdash; เห็นขโมยก็จับเลย บล็อค Traffic ทันที (Active, block + alert)
+    </div>
+
+    <ul>
+      <li><span class="term">Signature-based</span> &mdash; จับจากลายเซ็นที่รู้จัก เหมือนภาพคนร้ายที่ติดบอร์ด (รู้จัก = จับได้ ไม่รู้จัก = รอด)</li>
+      <li><span class="term">Anomaly-based</span> &mdash; จับจากพฤติกรรมผิดปกติ เช่น Login 100 ครั้งใน 1 นาที (จับ Zero-day ได้ แต่อาจ False Positive)</li>
+      <li><span class="term">Heuristic-based</span> &mdash; ใช้กฎ + AI วิเคราะห์รูปแบบ</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 5: VPN -->
+  <div class="section">
+    <h2>VPN (Virtual Private Network)</h2>
+    <span class="en">อุโมงค์ลับเข้ารหัส</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ:</strong> ปกติคุณขับรถบนถนนสาธารณะ ทุกคนเห็นรถคุณ (Internet ปกติ)<br>
+      VPN คือสร้างอุโมงค์ลับให้รถคุณวิ่ง ข้างนอกมองไม่เห็นว่าใครอยู่ข้างใน ไปไหน ขนอะไร (เข้ารหัส Traffic ทั้งหมด)
+    </div>
+
+    <ul>
+      <li><span class="term">Site-to-Site VPN</span> &mdash; เชื่อมสำนักงาน 2 แห่ง เหมือนสร้างอุโมงค์ระหว่าง 2 อาคาร</li>
+      <li><span class="term">Remote Access VPN</span> &mdash; พนักงาน WFH เชื่อมเข้าออฟฟิศจากที่บ้าน</li>
+      <li><span class="term">IPsec</span> &mdash; โปรโตคอลเข้ารหัสที่ Layer 3 (Network Layer)</li>
+      <li><span class="term">TLS/SSL VPN</span> &mdash; ทำงานผ่าน Browser ไม่ต้องลง Software พิเศษ</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 6: DMZ, NAC, VLAN -->
+  <div class="section">
+    <h2>DMZ, NAC, VLAN</h2>
+    <span class="en">เครื่องมือแบ่งส่วนเครือข่าย</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ: โรงพยาบาล</strong><br>
+      - <strong>DMZ</strong> = ล็อบบี้ต้อนรับ คนนอกเข้าได้ แต่เข้าห้องผ่าตัดไม่ได้ (เขตกันชนระหว่าง Internet กับ Internal Network)<br>
+      - <strong>VLAN</strong> = แยกตึกผู้ป่วย ตึกแพทย์ ตึกธุรการ ไม่ให้ปะปนกัน (แบ่ง Network เสมือน)<br>
+      - <strong>NAC</strong> = เช็คว่าเครื่องที่จะเชื่อมต่อ Healthy ไหม มี Antivirus, Update หรือยัง ถ้าไม่ผ่าน ไม่ให้เข้า
+    </div>
+
+    <ul>
+      <li><span class="term">DMZ</span> (Demilitarized Zone) &mdash; วาง Public-facing Server (Web, Email) ไว้ตรงนี้ ถ้าถูกเจาะ ยังไม่ถึง Internal</li>
+      <li><span class="term">VLAN</span> (Virtual LAN) &mdash; แบ่ง Network ด้วย Switch โดยไม่ต้องแยกสายจริง ลด Broadcast Storm</li>
+      <li><span class="term">NAC</span> (Network Access Control) &mdash; ตรวจสุขภาพอุปกรณ์ก่อนอนุญาตเข้าเครือข่าย</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 7: Wireless Security -->
+  <div class="section">
+    <h2>Wireless Security</h2>
+    <span class="en">ความปลอดภัย Wi-Fi</span>
+
+    <div class="analogy">
+      <strong>วิวัฒนาการ Wi-Fi Security:</strong><br>
+      <span class="term">WEP</span> (อย่าใช้!) = ล็อคบ้านด้วยกุญแจพลาสติก หักง่ายมาก<br>
+      <span class="term">WPA2</span> (ดี) = ล็อคบ้านด้วยกุญแจเหล็ก + Deadbolt<br>
+      <span class="term">WPA3</span> (ดีที่สุด) = ล็อคบ้านด้วยกุญแจ Digital + สแกนนิ้ว
+    </div>
+
+    <ul>
+      <li><strong>WPA2-Enterprise</strong> &mdash; ใช้ RADIUS Server ยืนยันตัวตน เหมาะกับองค์กร</li>
+      <li><strong>WPA2-Personal</strong> &mdash; ใช้ Pre-Shared Key (PSK) = รหัสผ่าน Wi-Fi ที่บ้าน</li>
+      <li><strong>WPA3-SAE</strong> &mdash; ป้องกัน Dictionary Attack แม้รหัสผ่านง่ายก็เจาะยากขึ้น</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 8: Zero Trust -->
+  <div class="section">
+    <h2>Zero Trust</h2>
+    <span class="en">"ไม่ไว้ใจใครเลย" ต้องพิสูจน์ตัวทุกครั้ง</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ:</strong> แบบเก่า = คนในบ้านไว้ใจหมด (Trust but Verify)<br>
+      Zero Trust = แม้คนในบ้านก็ต้องสแกนบัตรทุกครั้งที่เปิดประตู "Never Trust, Always Verify"
+    </div>
+
+    <ul>
+      <li>ไม่ว่าจะอยู่ใน Network ภายในหรือภายนอก ต้องพิสูจน์ตัวตนเสมอ</li>
+      <li>ใช้ Micro-segmentation แบ่งเครือข่ายเป็นส่วนเล็กๆ</li>
+      <li>Least Privilege Access ทุกจุด</li>
+      <li>ตรวจสอบ + Log ทุก Request แบบ Real-time</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 9: Common Attacks -->
+  <div class="section">
+    <h2>Common Network Attacks</h2>
+    <span class="en">การโจมตีเครือข่ายที่พบบ่อย</span>
+
+    <ul>
+      <li><span class="term">Man-in-the-Middle (MITM)</span> &mdash; แฮกเกอร์แอบนั่งกลาง ดักฟังข้อมูลระหว่างคุณกับเซิร์ฟเวอร์ เหมือนมีคนแอบเปิดอ่านจดหมายก่อนส่งต่อ <strong>ป้องกัน:</strong> ใช้ HTTPS, VPN</li>
+      <li><span class="term">DoS / DDoS</span> &mdash; ส่ง Traffic ท่วมจนระบบล่ม เหมือนจ้างคน 1 ล้านคนโทรเข้า Call Center พร้อมกัน <strong>ป้องกัน:</strong> DDoS Mitigation, CDN, Rate Limiting</li>
+      <li><span class="term">ARP Spoofing</span> &mdash; หลอกว่า "ฉันคือ Gateway" เพื่อดักจับ Traffic ใน LAN <strong>ป้องกัน:</strong> Dynamic ARP Inspection, Static ARP</li>
+      <li><span class="term">DNS Poisoning</span> &mdash; เปลี่ยนชี้ทาง DNS ให้คุณไปเว็บปลอม <strong>ป้องกัน:</strong> DNSSEC</li>
+      <li><span class="term">Rogue AP</span> &mdash; ตั้ง Wi-Fi ปลอมล่อเหยื่อ <strong>ป้องกัน:</strong> Wireless IDS, NAC</li>
+    </ul>
+  </div>
+
+  <!-- CHEAT SHEET -->
+  <div class="section">
+    <h2>Cheat Sheet สรุป Domain 4</h2>
+    <span class="en">Quick Reference Table</span>
+    <table class="cheat">
+      <thead>
+        <tr><th>Term (EN)</th><th>ความหมาย (TH)</th><th>จำง่ายๆ</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Firewall</td><td>กำแพงไฟกรอง Traffic</td><td>รปภ. ตรวจคนเข้า-ออก</td></tr>
+        <tr><td>IDS</td><td>ระบบตรวจจับการบุกรุก</td><td>กล้องวงจรปิด (ดูอย่างเดียว)</td></tr>
+        <tr><td>IPS</td><td>ระบบป้องกันการบุกรุก</td><td>ยามจับผู้ร้าย (บล็อคได้)</td></tr>
+        <tr><td>VPN</td><td>เครือข่ายส่วนตัวเสมือน</td><td>อุโมงค์ลับเข้ารหัส</td></tr>
+        <tr><td>DMZ</td><td>เขตกันชน</td><td>ล็อบบี้โรงพยาบาล</td></tr>
+        <tr><td>VLAN</td><td>แบ่ง LAN เสมือน</td><td>แยกตึกไม่ให้ปะปน</td></tr>
+        <tr><td>NAC</td><td>ตรวจสุขภาพก่อนเข้า Network</td><td>เช็คว่า Update หรือยัง</td></tr>
+        <tr><td>Zero Trust</td><td>ไม่ไว้ใจใคร ต้องพิสูจน์ทุกครั้ง</td><td>สแกนบัตรทุกประตู</td></tr>
+        <tr><td>WPA2/WPA3</td><td>มาตรฐานเข้ารหัส Wi-Fi</td><td>ล็อคบ้าน (WPA3 = ดีสุด)</td></tr>
+        <tr><td>MITM</td><td>แฮกเกอร์ดักกลาง</td><td>แอบอ่านจดหมาย</td></tr>
+        <tr><td>DDoS</td><td>Traffic ท่วมจนล่ม</td><td>โทรท่วม Call Center</td></tr>
+        <tr><td>TCP</td><td>ส่งข้อมูลรับประกัน</td><td>EMS มี Tracking</td></tr>
+        <tr><td>UDP</td><td>ส่งข้อมูลไม่รับประกัน</td><td>ไปรษณีย์ธรรมดา</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="nav-bottom">
+    <a href="lesson-domain-3.html">&larr; Domain 3: Access Controls</a>
+    <a href="learning-path.html">Learning Path</a>
+    <a href="lesson-domain-5.html">Domain 5: Security Operations &rarr;</a>
+  </div>
+</div>
+</body>
+</html>

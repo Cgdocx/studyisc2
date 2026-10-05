@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domain 1: Security Principles — บทเรียน ISC2 CC สำหรับผู้เริ่มต้น</title>
+<meta name="description" content="เรียนรู้หลักการรักษาความปลอดภัยไซเบอร์ (Security Principles) แบบเข้าใจง่าย เปรียบเทียบชีวิตจริง สำหรับเตรียมสอบ ISC2 CC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --text: #0F0F0F;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F;
+  --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* === GLOBAL NAV === */
+.creative-global-nav {
+  position: sticky; top: 0; z-index: 10000;
+  background: var(--cream);
+  border-bottom: 3px solid var(--ink);
+  font-family: var(--font-thai);
+}
+.cg-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 18px; gap: 12px; flex-wrap: wrap;
+}
+.cg-brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-display); font-size: 15px;
+  border: 2px solid var(--ink); background: var(--white);
+  padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase;
+}
+.cg-brand .cg-badge {
+  background: var(--yellow); color: var(--ink);
+  padding: 1px 6px; font-size: 11px; font-family: var(--font-mono); font-weight: 800;
+  border: 1px solid var(--ink);
+}
+.cg-links {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.cg-link {
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 6px 12px; background: var(--white);
+  border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  white-space: nowrap;
+}
+.cg-link:hover {
+  background: var(--yellow);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.cg-link.active {
+  background: var(--orange);
+  color: var(--white);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+@media (max-width: 768px) {
+  .cg-nav-inner { padding: 8px 10px; }
+  .cg-links { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; width: 100%; -webkit-overflow-scrolling: touch; }
+}
+
+/* === BASE === */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-thai);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--yellow); color: var(--ink); }
+
+.wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+/* === HERO === */
+.lesson-hero {
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 32px 28px;
+  margin-bottom: 36px;
+}
+.lesson-hero .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 800; letter-spacing: 0.12em;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 6px;
+}
+.lesson-hero h1 {
+  font-family: var(--font-display);
+  font-size: 32px; text-transform: uppercase; line-height: 1.1; margin-bottom: 12px;
+}
+.lesson-hero .sub {
+  font-size: 15px; color: var(--ink-2); line-height: 1.7;
+}
+
+/* === SCENARIO BOX === */
+.scenario-box {
+  background: var(--card2);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 22px 24px;
+  margin-bottom: 36px;
+  position: relative;
+}
+.scenario-box .tag {
+  position: absolute; top: -12px; left: 16px;
+  background: var(--red); color: var(--white);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  padding: 3px 10px; border: 1.5px solid var(--ink);
+  text-transform: uppercase;
+}
+.scenario-box p {
+  font-size: 14px; line-height: 1.8; margin-top: 8px;
+}
+.scenario-box .moral {
+  margin-top: 14px; padding-top: 14px; border-top: 2px dashed var(--ink);
+  font-weight: 600; color: var(--green);
+}
+
+/* === SECTION === */
+.section {
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 28px 26px;
+  margin-bottom: 28px;
+}
+.section h2 {
+  font-family: var(--font-display);
+  font-size: 22px; text-transform: uppercase; margin-bottom: 16px;
+  padding-bottom: 10px; border-bottom: 3px solid var(--ink);
+}
+.section h3 {
+  font-family: var(--font-display);
+  font-size: 16px; text-transform: uppercase; margin: 20px 0 10px;
+  color: var(--green);
+}
+.section p, .section li {
+  font-size: 15px; line-height: 1.8;
+}
+.section ul, .section ol {
+  padding-left: 22px; margin: 10px 0;
+}
+.section li { margin-bottom: 6px; }
+
+/* === ANALOGY BOX === */
+.analogy {
+  background: linear-gradient(135deg, #FFF8E1, #FFF3CD);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 16px 20px;
+  margin: 16px 0;
+  position: relative;
+}
+.analogy::before {
+  content: 'ANALOGY';
+  position: absolute; top: -10px; left: 14px;
+  background: var(--yellow); color: var(--ink);
+  font-family: var(--font-mono); font-size: 10px; font-weight: 800;
+  padding: 2px 8px; border: 1.5px solid var(--ink);
+}
+.analogy p {
+  font-size: 14px; line-height: 1.7; font-style: italic;
+}
+
+/* === VOCAB BOX === */
+.vocab {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin: 14px 0;
+}
+.vocab-item {
+  background: var(--cream-2);
+  border: 2px solid var(--ink);
+  padding: 10px 14px;
+}
+.vocab-item .term {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 800;
+  color: var(--green);
+}
+.vocab-item .def {
+  font-size: 13px; line-height: 1.5; margin-top: 4px;
+}
+@media (max-width: 600px) {
+  .vocab { grid-template-columns: 1fr; }
+}
+
+/* === SVG DIAGRAM === */
+.diagram-wrap {
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 24px 16px;
+  margin-bottom: 28px;
+  text-align: center;
+}
+.diagram-wrap .diagram-title {
+  font-family: var(--font-display);
+  font-size: 18px; text-transform: uppercase; margin-bottom: 16px;
+}
+.diagram-wrap svg {
+  max-width: 100%; height: auto;
+}
+
+/* === CHEAT SHEET === */
+.cheat-sheet {
+  background: var(--ink);
+  color: var(--cream);
+  border: 3px solid var(--ink);
+  padding: 24px 26px;
+  margin-bottom: 28px;
+}
+.cheat-sheet h2 {
+  font-family: var(--font-display);
+  font-size: 20px; text-transform: uppercase; margin-bottom: 16px;
+  color: var(--yellow);
+}
+.cheat-sheet table {
+  width: 100%; border-collapse: collapse;
+}
+.cheat-sheet th {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  text-align: left; padding: 8px 10px;
+  color: var(--yellow); border-bottom: 2px solid var(--muted);
+  text-transform: uppercase;
+}
+.cheat-sheet td {
+  font-size: 13px; padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+  line-height: 1.5;
+}
+.cheat-sheet tr:last-child td { border-bottom: none; }
+
+/* === NAV LINKS === */
+.lesson-nav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 36px;
+}
+.lesson-nav a {
+  flex: 1; min-width: 200px;
+  display: block; text-align: center;
+  background: var(--ink); color: var(--cream);
+  text-decoration: none; font-family: var(--font-mono); font-size: 13px; font-weight: 800;
+  padding: 14px 18px; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase; transition: transform 0.1s ease, background 0.1s ease;
+}
+.lesson-nav a:hover {
+  background: var(--yellow); color: var(--ink);
+  transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink);
+}
+
+@media (max-width: 600px) {
+  .lesson-hero h1 { font-size: 24px; }
+  .wrap { padding: 20px 14px 60px; }
+  .section { padding: 20px 18px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="index.html" class="cg-brand">
+      <span class="cg-badge">ISC2 CC</span>
+      <span>STUDY HUB</span>
+    </a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link">MIND MAP</a>
+      <a href="learning-path.html" class="cg-link">LEARNING PATH</a>
+      <a href="lesson-domain-1.html" class="cg-link active">DOMAIN 1</a>
+      <a href="lesson-domain-2.html" class="cg-link">DOMAIN 2</a>
+      <a href="games.html" class="cg-link">MINI GAMES</a>
+      <a href="isc2-cc-landing.html" class="cg-link">QUIZZES</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="lesson-hero">
+    <div class="eyebrow">Domain 1 of 5 -- Beginner Lesson</div>
+    <h1>Security Principles</h1>
+    <p class="sub">หลักการรักษาความปลอดภัย -- พื้นฐานที่ทุกอย่างเริ่มต้น เข้าใจง่ายเหมือนเรื่องในชีวิตประจำวัน</p>
+  </header>
+
+  <!-- REAL-WORLD SCENARIO -->
+  <div class="scenario-box">
+    <span class="tag">Real-World Case</span>
+    <p>ปี 2017 บริษัท Equifax ซึ่งเป็นบริษัทจัดอันดับเครดิตรายใหญ่ของสหรัฐ ถูกแฮกจนข้อมูลส่วนบุคคลของคนกว่า 147 ล้านคนรั่วไหล สาเหตุหลักคือไม่ได้อัปเดตแพตช์ช่องโหว่ที่รู้อยู่แล้วมานานหลายเดือน</p>
+    <p>เหตุการณ์นี้แสดงให้เห็นว่า หลักการพื้นฐานทุกข้อใน Domain 1 นี้ล้วนสำคัญ ตั้งแต่การรักษาความลับของข้อมูล (Confidentiality) ไปจนถึง Due Care ในการดูแลระบบ</p>
+    <p class="moral">บทเรียน: แค่รู้ว่ามีช่องโหว่ยังไม่พอ ต้อง "ลงมือแก้" ด้วย นั่นคือหัวใจของ Due Care</p>
+  </div>
+
+  <!-- CIA TRIAD DIAGRAM -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">CIA Triad -- สามเสาหลักความปลอดภัย</div>
+    <svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg" style="max-width:460px;">
+      <!-- Triangle -->
+      <polygon points="250,40 80,320 420,320" fill="none" stroke="#0F0F0F" stroke-width="3"/>
+      <!-- C circle -->
+      <circle cx="250" cy="65" r="44" fill="#1F8A4C" stroke="#0F0F0F" stroke-width="2.5"/>
+      <text x="250" y="58" text-anchor="middle" fill="#FFF" font-family="'Archivo Black',sans-serif" font-size="13">C</text>
+      <text x="250" y="76" text-anchor="middle" fill="#EFE9D9" font-family="'IBM Plex Sans Thai',sans-serif" font-size="9" font-weight="600">ความลับ</text>
+      <!-- I circle -->
+      <circle cx="95" cy="310" r="44" fill="#E85A1F" stroke="#0F0F0F" stroke-width="2.5"/>
+      <text x="95" y="303" text-anchor="middle" fill="#FFF" font-family="'Archivo Black',sans-serif" font-size="13">I</text>
+      <text x="95" y="321" text-anchor="middle" fill="#EFE9D9" font-family="'IBM Plex Sans Thai',sans-serif" font-size="9" font-weight="600">ความถูกต้อง</text>
+      <!-- A circle -->
+      <circle cx="405" cy="310" r="44" fill="#F5C518" stroke="#0F0F0F" stroke-width="2.5"/>
+      <text x="405" y="303" text-anchor="middle" fill="#0F0F0F" font-family="'Archivo Black',sans-serif" font-size="13">A</text>
+      <text x="405" y="321" text-anchor="middle" fill="#0F0F0F" font-family="'IBM Plex Sans Thai',sans-serif" font-size="9" font-weight="600">ความพร้อมใช้</text>
+      <!-- Labels outside -->
+      <text x="250" y="16" text-anchor="middle" fill="#1F8A4C" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700">CONFIDENTIALITY</text>
+      <text x="28" y="348" text-anchor="start" fill="#E85A1F" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700">INTEGRITY</text>
+      <text x="472" y="348" text-anchor="end" fill="#0F0F0F" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700">AVAILABILITY</text>
+      <!-- Analogies inside triangle -->
+      <text x="250" y="160" text-anchor="middle" fill="#4A4A4A" font-family="'IBM Plex Sans Thai',sans-serif" font-size="11">กุญแจบ้าน</text>
+      <text x="180" y="270" text-anchor="middle" fill="#4A4A4A" font-family="'IBM Plex Sans Thai',sans-serif" font-size="11">ซีลพัสดุ</text>
+      <text x="320" y="270" text-anchor="middle" fill="#4A4A4A" font-family="'IBM Plex Sans Thai',sans-serif" font-size="11">ร้าน 24 ชม.</text>
+    </svg>
+  </div>
+
+  <!-- SECTION 1: CIA TRIAD -->
+  <div class="section">
+    <h2>1. CIA Triad -- สามเสาหลัก</h2>
+    <p>ทุกอย่างในโลกความปลอดภัยไซเบอร์หมุนรอบสามสิ่งนี้:</p>
+
+    <h3>Confidentiality (ความลับ)</h3>
+    <p>ข้อมูลต้องเข้าถึงได้เฉพาะคนที่ได้รับอนุญาตเท่านั้น ใครไม่มีสิทธิ์ ไม่ควรเห็น</p>
+    <div class="analogy">
+      <p>เหมือน "กุญแจบ้าน" -- มีแค่เจ้าของบ้านกับคนที่ได้รับกุญแจเท่านั้นที่เปิดประตูเข้าไปได้ คนอื่นยืนดูจากข้างนอกได้อย่างเดียว</p>
+    </div>
+
+    <h3>Integrity (ความถูกต้องครบถ้วน)</h3>
+    <p>ข้อมูลต้องไม่ถูกแก้ไข เปลี่ยนแปลง หรือปลอมแปลงโดยไม่ได้รับอนุญาต ถ้ามีการเปลี่ยน ต้องตรวจจับได้</p>
+    <div class="analogy">
+      <p>เหมือน "ซีลพัสดุ" -- ถ้าซีลไม่ฉีก แปลว่าไม่มีใครเปิดดู ถ้าซีลขาด รู้ทันทีว่ามีคนแกะ</p>
+    </div>
+
+    <h3>Availability (ความพร้อมใช้งาน)</h3>
+    <p>ข้อมูลและระบบต้องพร้อมให้คนที่มีสิทธิ์เข้าถึงได้เสมอเมื่อต้องการ</p>
+    <div class="analogy">
+      <p>เหมือน "ร้านสะดวกซื้อ 24 ชม." -- เปิดให้บริการตลอด ไม่ว่าจะดึกแค่ไหน ลูกค้าก็ซื้อของได้</p>
+    </div>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">Confidentiality</div>
+        <div class="def">การรักษาความลับของข้อมูล เข้าถึงได้เฉพาะผู้ที่ได้รับอนุญาต</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Integrity</div>
+        <div class="def">การรักษาความถูกต้องครบถ้วนของข้อมูล ไม่ถูกเปลี่ยนแปลงโดยไม่ได้รับอนุญาต</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Availability</div>
+        <div class="def">ข้อมูลและระบบพร้อมใช้งานสำหรับผู้มีสิทธิ์เสมอ</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">CIA Triad</div>
+        <div class="def">สามเสาหลักของ Information Security ทุกมาตรการรักษาความปลอดภัยเริ่มจากนี้</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: AAA -->
+  <div class="section">
+    <h2>2. Authentication, Authorization, Accounting (AAA)</h2>
+    <p>สามขั้นตอนที่เกิดขึ้นทุกครั้งที่คนเข้าใช้ระบบ:</p>
+
+    <h3>Authentication (การพิสูจน์ตัวตน)</h3>
+    <p>ยืนยันว่า "คุณเป็นใคร" จริงตามที่อ้าง</p>
+    <div class="analogy">
+      <p>เหมือน "แสดงบัตรประชาชน" -- ก่อนเข้าตึก รปภ. ขอดูบัตรเพื่อยืนยันว่าคุณคือคนที่บอก</p>
+    </div>
+
+    <h3>Authorization (การกำหนดสิทธิ์)</h3>
+    <p>หลังจากรู้ว่าคุณเป็นใครแล้ว ระบบตรวจว่า "คุณมีสิทธิ์ทำอะไรได้บ้าง"</p>
+    <div class="analogy">
+      <p>เหมือน "สิทธิ์เข้าห้อง" -- พนักงานเข้าออฟฟิศได้ แต่ไม่ใช่ทุกคนที่จะเข้าห้อง Server ได้</p>
+    </div>
+
+    <h3>Accounting (การบันทึกร่องรอย)</h3>
+    <p>บันทึกทุกการกระทำไว้ เพื่อตรวจสอบย้อนหลังว่าใครทำอะไรเมื่อไร</p>
+    <div class="analogy">
+      <p>เหมือน "กล้องวงจรปิด" -- ถึงคุณจะเข้าตึกได้ แต่ทุกอย่างถูกบันทึกไว้เสมอ</p>
+    </div>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">Authentication</div>
+        <div class="def">การพิสูจน์ตัวตน -- "คุณเป็นใคร?"</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Authorization</div>
+        <div class="def">การกำหนดสิทธิ์ -- "คุณทำอะไรได้บ้าง?"</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Accounting</div>
+        <div class="def">การบันทึกร่องรอย -- "คุณทำอะไรไปแล้ว?"</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Non-repudiation</div>
+        <div class="def">ผู้ส่งปฏิเสธไม่ได้ว่าไม่ได้ส่ง เช่น Digital Signature</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Risk Concepts -->
+  <div class="section">
+    <h2>3. Risk Concepts -- แนวคิดเรื่องความเสี่ยง</h2>
+    <p>ก่อนจะป้องกันอะไรได้ ต้องเข้าใจ "ความเสี่ยง" ก่อน ซึ่งประกอบด้วยสามส่วนหลัก:</p>
+
+    <h3>Threat (ภัยคุกคาม)</h3>
+    <p>สิ่งที่อาจก่อให้เกิดอันตราย เช่น แฮกเกอร์ มัลแวร์ น้ำท่วม ไฟไหม้</p>
+    <div class="analogy">
+      <p>เหมือน "โจร" -- มีโจรอยู่ในละแวกก็ถือว่ามีภัยคุกคาม แม้จะยังไม่ได้มาบ้านเรา</p>
+    </div>
+
+    <h3>Vulnerability (จุดอ่อน)</h3>
+    <p>จุดอ่อนหรือช่องโหว่ที่ภัยคุกคามสามารถใช้ประโยชน์ได้</p>
+    <div class="analogy">
+      <p>เหมือน "หน้าต่างไม่ลงกลอน" -- ถึงบ้านจะแข็งแรง แต่ถ้าลืมล็อกหน้าต่าง โจรก็เข้าได้</p>
+    </div>
+
+    <h3>Asset (ทรัพย์สิน)</h3>
+    <p>สิ่งที่มีค่าและต้องการปกป้อง เช่น ข้อมูลลูกค้า ระบบ Server เงินในบัญชี</p>
+
+    <h3>Risk = Threat x Vulnerability x Asset Value</h3>
+    <p>ความเสี่ยง = โอกาสที่ภัยคุกคามจะใช้ช่องโหว่ทำอันตรายต่อทรัพย์สินของเรา ยิ่งมีโจรเยอะ (Threat สูง) ลืมล็อกบ่อย (Vulnerability สูง) และของมีค่าเยอะ (Asset Value สูง) ความเสี่ยงก็ยิ่งสูง</p>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">Threat</div>
+        <div class="def">ภัยคุกคามที่อาจก่อให้เกิดความเสียหาย</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Vulnerability</div>
+        <div class="def">จุดอ่อน/ช่องโหว่ในระบบ</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Asset</div>
+        <div class="def">ทรัพย์สินที่มีค่าและต้องปกป้อง</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Risk</div>
+        <div class="def">ความเสี่ยง = Threat x Vulnerability x Asset Value</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: Risk Treatment -->
+  <div class="section">
+    <h2>4. Risk Treatment -- วิธีจัดการความเสี่ยง</h2>
+    <p>เมื่อรู้ว่ามีความเสี่ยงแล้ว มี 4 วิธีจัดการ:</p>
+
+    <h3>Avoid (หลีกเลี่ยง)</h3>
+    <p>เลิกทำกิจกรรมที่ก่อให้เกิดความเสี่ยงนั้นไปเลย</p>
+    <div class="analogy">
+      <p>เหมือน "ไม่ไปซอยมืด" -- กลัวโดนปล้น ก็อย่าเดินซอยนั้น</p>
+    </div>
+
+    <h3>Mitigate (บรรเทา/ลดความเสี่ยง)</h3>
+    <p>ใช้มาตรการลดโอกาสหรือลดผลกระทบ เช่น ติดตั้ง Firewall ใช้ MFA</p>
+    <div class="analogy">
+      <p>เหมือน "ติดกล้องวงจรปิด + ล็อกประตู" -- ยังอยู่บ้านเดิม แต่เพิ่มการป้องกัน</p>
+    </div>
+
+    <h3>Transfer (โอนความเสี่ยง)</h3>
+    <p>โอนภาระความเสียหายให้คนอื่น เช่น ซื้อประกันภัย จ้าง MSSP</p>
+    <div class="analogy">
+      <p>เหมือน "ทำประกันบ้าน" -- ถ้าไฟไหม้ บริษัทประกันจ่ายแทน</p>
+    </div>
+
+    <h3>Accept (ยอมรับ)</h3>
+    <p>รับรู้ว่ามีความเสี่ยง แต่เลือกที่จะไม่ทำอะไรเพิ่ม เพราะต้นทุนป้องกันแพงกว่าความเสียหาย</p>
+    <div class="analogy">
+      <p>เหมือน "รู้ว่าฝนอาจตก แต่ไม่พกร่ม" -- ยอมรับว่าเปียกได้ เพราะไม่อยากถือร่มหนักๆ</p>
+    </div>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">Risk Avoidance</div>
+        <div class="def">หลีกเลี่ยงกิจกรรมที่มีความเสี่ยง</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Risk Mitigation</div>
+        <div class="def">ลดโอกาสหรือผลกระทบของความเสี่ยง</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Risk Transfer</div>
+        <div class="def">โอนภาระให้บุคคลที่สาม เช่น ซื้อประกัน</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Risk Acceptance</div>
+        <div class="def">ยอมรับความเสี่ยงที่เหลืออยู่</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: Security Governance -->
+  <div class="section">
+    <h2>5. Security Governance -- การกำกับดูแล</h2>
+    <p>องค์กรต้องมี "กฎ" เป็นลำดับชั้น เพื่อให้ทุกคนปฏิบัติตาม:</p>
+
+    <h3>Policy (นโยบาย)</h3>
+    <p>กฎระดับสูงสุด กำหนดทิศทางกว้างๆ อนุมัติโดยผู้บริหาร</p>
+
+    <h3>Standard (มาตรฐาน)</h3>
+    <p>ข้อกำหนดเฉพาะที่ต้องปฏิบัติตาม เช่น "รหัสผ่านต้องยาว 12 ตัวขึ้นไป"</p>
+
+    <h3>Procedure (ขั้นตอนปฏิบัติ)</h3>
+    <p>คู่มือแบบ step-by-step ว่าต้องทำอย่างไร</p>
+
+    <h3>Guideline (แนวทาง)</h3>
+    <p>คำแนะนำที่ไม่บังคับ แต่ควรทำตาม</p>
+
+    <div class="analogy">
+      <p>เปรียบเทียบกับกฎหมายไทย: Policy = รัฐธรรมนูญ, Standard = พ.ร.บ., Procedure = กฎกระทรวง/คู่มือปฏิบัติ, Guideline = คำแนะนำจากหน่วยงาน</p>
+    </div>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">Policy</div>
+        <div class="def">นโยบายระดับสูง กำหนดทิศทาง "ต้องทำอะไร"</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Standard</div>
+        <div class="def">มาตรฐานบังคับ กำหนดว่า "ต้องทำแค่ไหน"</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Procedure</div>
+        <div class="def">ขั้นตอนปฏิบัติ "ทำอย่างไร" แบบ step-by-step</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Guideline</div>
+        <div class="def">แนวทางแนะนำ ไม่บังคับ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: Defense in Depth -->
+  <div class="section">
+    <h2>6. Defense in Depth -- การป้องกันหลายชั้น</h2>
+    <p>อย่าพึ่งพาการป้องกันเพียงอย่างเดียว ใช้หลายชั้นซ้อนกัน ถ้าชั้นหนึ่งถูกเจาะ ยังมีชั้นถัดไปรอรับ</p>
+
+    <div class="analogy">
+      <p>เหมือน "ปราสาทยุคกลาง" -- มีคูน้ำ (Network Security) กำแพงชั้นนอก (Firewall) ประตูหนา (Access Control) ทหารยาม (IDS/IPS) และห้องนิรภัย (Encryption) ศัตรูต้องผ่านทุกชั้นถึงจะเข้าถึงสมบัติได้</p>
+    </div>
+
+    <p>ชั้นการป้องกันที่พบบ่อย:</p>
+    <ul>
+      <li><strong>Physical:</strong> ล็อกประตู กล้องวงจรปิด การ์ดผ่าน</li>
+      <li><strong>Technical:</strong> Firewall, Antivirus, Encryption, MFA</li>
+      <li><strong>Administrative:</strong> Policy, Training, Background Check</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 7: Due Diligence vs Due Care -->
+  <div class="section">
+    <h2>7. Due Diligence vs Due Care</h2>
+    <p>สองคำนี้คู่กัน แต่ต่างกัน:</p>
+
+    <h3>Due Diligence (ความรอบคอบ)</h3>
+    <p>"รู้" -- ทำการศึกษา วิเคราะห์ ประเมินความเสี่ยงอย่างละเอียด</p>
+    <div class="analogy">
+      <p>เหมือน "ตรวจบ้านก่อนซื้อ" -- จ้างช่างมาเช็คว่าบ้านมีปัญหาตรงไหน</p>
+    </div>
+
+    <h3>Due Care (ความเอาใจใส่)</h3>
+    <p>"ลงมือทำ" -- นำสิ่งที่รู้ไปปฏิบัติจริง แก้ปัญหาที่พบ</p>
+    <div class="analogy">
+      <p>เหมือน "ซ่อมบ้านตามที่ช่างบอก" -- รู้ว่าหลังคารั่วแล้วก็ต้องซ่อม</p>
+    </div>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">Due Diligence</div>
+        <div class="def">"รู้" -- ศึกษา วิจัย ประเมินความเสี่ยงก่อนตัดสินใจ</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Due Care</div>
+        <div class="def">"ทำ" -- ลงมือปฏิบัติตามที่รู้ แก้ไขปัญหาที่พบ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: Least Privilege, SoD, Need to Know -->
+  <div class="section">
+    <h2>8. หลักการควบคุมสิทธิ์</h2>
+
+    <h3>Least Privilege (สิทธิ์น้อยที่สุด)</h3>
+    <p>ให้สิทธิ์เข้าถึงเท่าที่จำเป็นต่อการทำงานเท่านั้น ไม่มากกว่านั้น</p>
+    <div class="analogy">
+      <p>เหมือน "กุญแจห้อง" -- พนักงานบัญชีได้กุญแจแค่ห้องบัญชี ไม่จำเป็นต้องได้กุญแจห้อง Server</p>
+    </div>
+
+    <h3>Separation of Duties (แบ่งแยกหน้าที่)</h3>
+    <p>ไม่ให้คนเดียวทำทุกขั้นตอน เพื่อป้องกันการทุจริต</p>
+    <div class="analogy">
+      <p>เหมือน "ระบบเบิกเงิน" -- คนขอเบิก กับ คนอนุมัติ ต้องคนละคน</p>
+    </div>
+
+    <h3>Need to Know (จำเป็นต้องรู้)</h3>
+    <p>แม้จะมี Security Clearance สูงพอ แต่ถ้าไม่จำเป็นต้องรู้ข้อมูลนั้นเพื่อทำงาน ก็ไม่ให้เข้าถึง</p>
+    <div class="analogy">
+      <p>เหมือน "หมอรักษาเฉพาะคนไข้ของตัวเอง" -- หมอคนอื่นเข้าดูประวัติคนไข้ที่ไม่ได้รักษาไม่ได้</p>
+    </div>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">Least Privilege</div>
+        <div class="def">ให้สิทธิ์ขั้นต่ำที่จำเป็นต่อการทำงาน</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Separation of Duties</div>
+        <div class="def">แบ่งงานให้หลายคนทำ ป้องกัน fraud</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Need to Know</div>
+        <div class="def">เข้าถึงข้อมูลได้เฉพาะเมื่อจำเป็นต่องาน</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Privilege Creep</div>
+        <div class="def">สิทธิ์สะสมมากขึ้นเรื่อยๆ จากการย้ายตำแหน่งโดยไม่ถอนสิทธิ์เก่า</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHEAT SHEET -->
+  <div class="cheat-sheet">
+    <h2>Cheat Sheet -- Domain 1</h2>
+    <table>
+      <thead>
+        <tr><th>Concept</th><th>จำง่ายๆ</th><th>Analogy</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Confidentiality</td><td>คนไม่มีสิทธิ์ห้ามดู</td><td>กุญแจบ้าน</td></tr>
+        <tr><td>Integrity</td><td>ห้ามแก้ไขโดยไม่อนุญาต</td><td>ซีลพัสดุ</td></tr>
+        <tr><td>Availability</td><td>ต้องใช้ได้เสมอ</td><td>ร้าน 24 ชม.</td></tr>
+        <tr><td>Authentication</td><td>คุณเป็นใคร?</td><td>แสดงบัตร</td></tr>
+        <tr><td>Authorization</td><td>คุณทำอะไรได้?</td><td>สิทธิ์เข้าห้อง</td></tr>
+        <tr><td>Accounting</td><td>บันทึกทุกอย่าง</td><td>กล้องวงจรปิด</td></tr>
+        <tr><td>Risk Avoid</td><td>ไม่ทำเลย</td><td>ไม่ไปซอยมืด</td></tr>
+        <tr><td>Risk Mitigate</td><td>ลดโอกาส/ผลกระทบ</td><td>ติดกล้อง+ล็อก</td></tr>
+        <tr><td>Risk Transfer</td><td>ให้คนอื่นรับแทน</td><td>ทำประกัน</td></tr>
+        <tr><td>Risk Accept</td><td>ยอมรับ</td><td>ไม่พกร่ม</td></tr>
+        <tr><td>Least Privilege</td><td>ให้สิทธิ์แค่ที่จำเป็น</td><td>กุญแจเฉพาะห้อง</td></tr>
+        <tr><td>Separation of Duties</td><td>แบ่งงานหลายคน</td><td>คนเบิก =/= คนอนุมัติ</td></tr>
+        <tr><td>Defense in Depth</td><td>ป้องกันหลายชั้น</td><td>ปราสาทหลายกำแพง</td></tr>
+        <tr><td>Due Diligence</td><td>ศึกษาก่อน (รู้)</td><td>ตรวจบ้าน</td></tr>
+        <tr><td>Due Care</td><td>ลงมือทำ (แก้)</td><td>ซ่อมบ้าน</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="lesson-nav">
+    <a href="learning-path.html">Learning Path</a>
+    <a href="flashcards.html">Flashcards</a>
+    <a href="lesson-domain-2.html">Domain 2: BC, DR &amp; IR --&gt;</a>
+  </div>
+
+</div>
+</body>
+</html>

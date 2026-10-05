@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISC2 CC — Fill the Gap Game</title>
+<meta name="description" content="เกมเติมคำในช่องว่าง ฝึกจำศัพท์และแนวคิดสำคัญ ISC2 CC Certified in Cybersecurity">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --text: #0F0F0F;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F;
+  --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+.creative-global-nav {
+  position: sticky; top: 0; z-index: 10000;
+  background: var(--cream);
+  border-bottom: 3px solid var(--ink);
+  font-family: var(--font-thai);
+}
+.cg-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 18px; gap: 12px; flex-wrap: wrap;
+}
+.cg-brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-display); font-size: 15px;
+  border: 2px solid var(--ink); background: var(--white);
+  padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase;
+}
+.cg-brand .cg-badge {
+  background: var(--yellow); color: var(--ink);
+  padding: 1px 6px; font-size: 11px; font-family: var(--font-mono); font-weight: 800;
+  border: 1px solid var(--ink);
+}
+.cg-links {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.cg-link {
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 6px 12px; background: var(--white);
+  border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  white-space: nowrap;
+}
+.cg-link:hover {
+  background: var(--yellow);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.cg-link.active {
+  background: var(--orange);
+  color: var(--white);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+@media (max-width: 768px) {
+  .cg-nav-inner { padding: 8px 10px; }
+  .cg-links { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; width: 100%; -webkit-overflow-scrolling: touch; }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-thai);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+.hero {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 28px 20px;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 800; letter-spacing: 0.12em;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 6px;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 400; line-height: 1.15;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.hero .sub {
+  font-size: 14px; color: var(--ink-2); line-height: 1.6;
+}
+
+.progress-bar-wrap {
+  background: var(--cream-2);
+  border: 2px solid var(--ink);
+  height: 28px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--green);
+  transition: width 0.4s ease;
+}
+.progress-bar-text {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+  color: var(--ink); mix-blend-mode: difference;
+  filter: invert(1);
+}
+
+.score-row {
+  display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.score-badge {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 13px; font-weight: 800;
+  padding: 4px 12px;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.score-badge.correct-badge { background: var(--green-dim); }
+.score-badge.wrong-badge { background: var(--red-dim); }
+.score-badge.total-badge { background: var(--yellow); }
+
+.question-card {
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 28px 24px;
+  margin-bottom: 20px;
+}
+.q-domain {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 800;
+  color: var(--orange); text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.q-sentence {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.q-blank {
+  display: inline-block;
+  min-width: 140px;
+  border-bottom: 3px solid var(--orange);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  color: var(--orange);
+  padding: 0 8px;
+}
+.q-blank.filled-correct { border-color: var(--green); color: var(--green); }
+.q-blank.filled-wrong { border-color: var(--red); color: var(--red); text-decoration: line-through; }
+
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.choice-btn {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 14px; font-weight: 700;
+  background: var(--card2);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease;
+  text-align: center;
+}
+.choice-btn:hover:not(:disabled) {
+  background: var(--yellow);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.choice-btn:disabled { cursor: default; opacity: 0.7; }
+.choice-btn.selected-correct {
+  background: var(--green); color: var(--white);
+  transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink);
+}
+.choice-btn.selected-wrong {
+  background: var(--red); color: var(--white);
+}
+.choice-btn.reveal-correct {
+  background: var(--green-dim);
+  border-color: var(--green);
+}
+
+.explain-text {
+  display: none;
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--cream-2);
+  border: 2px solid var(--ink);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.explain-text.show { display: block; }
+
+.next-btn-wrap {
+  display: none;
+  margin-top: 16px;
+}
+.next-btn-wrap.show { display: block; }
+.btn {
+  display: inline-block; text-align: center;
+  background: var(--ink); color: var(--cream);
+  text-decoration: none; font-family: var(--font-mono); font-size: 13px; font-weight: 800;
+  padding: 12px 24px; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase; cursor: pointer;
+  transition: transform 0.1s ease, background 0.1s ease;
+}
+.btn:hover {
+  background: var(--yellow); color: var(--ink);
+  transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink);
+}
+.btn.green { background: var(--green); color: var(--white); }
+.btn.green:hover { background: var(--green2); color: var(--white); }
+
+.final-screen {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.final-screen.show { display: block; }
+.final-screen h2 {
+  font-family: var(--font-display);
+  font-size: 32px; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.final-score {
+  font-family: var(--font-mono);
+  font-size: 48px; font-weight: 800;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+.final-detail {
+  font-size: 15px; color: var(--ink-2); margin-bottom: 24px; line-height: 1.7;
+}
+
+.summary-table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+.summary-table th, .summary-table td {
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  font-size: 13px;
+}
+.summary-table th {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-mono);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.summary-table .row-correct { background: var(--green-dim); }
+.summary-table .row-wrong { background: var(--red-dim); }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 22px; }
+  .wrap { padding: 20px 14px 60px; }
+  .choices { grid-template-columns: 1fr; }
+  .q-sentence { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="index.html" class="cg-brand">
+      <span class="cg-badge">ISC2 CC</span>
+      <span>STUDY HUB</span>
+    </a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link">MIND MAP 12 บท</a>
+      <a href="1832quiz_NewExamDomainTH.html" class="cg-link">ชุด 1,832 ข้อ</a>
+      <a href="isc2_cc_BothThai-eng_583quiz.html" class="cg-link">ชุด 583 ข้อ</a>
+      <a href="isc2_cc_exam548_5Domain_dualTh-Eng.html" class="cg-link">ชุด 548 ข้อ</a>
+      <a href="isc2_cc_exam1NCSA_bi_no-track-50q.html" class="cg-link">ชุด 50 ข้อ</a>
+      <a href="isc2-cc-landing.html" class="cg-link">รวมชุดข้อสอบ</a>
+      <a href="games.html" class="cg-link active">MINI GAMES</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">MINI GAME / FILL THE GAP</div>
+    <h1>เติมคำในช่องว่าง</h1>
+    <div class="sub">เลือกคำศัพท์ที่ถูกต้องเพื่อเติมในช่องว่าง ฝึกจำแนวคิดสำคัญของ ISC2 CC ทั้ง 5 Domains</div>
+  </header>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+    <div class="progress-bar-text" id="progressText">0 / 35</div>
+  </div>
+
+  <div class="score-row">
+    <span class="score-badge correct-badge" id="correctCount">ถูก: 0</span>
+    <span class="score-badge wrong-badge" id="wrongCount">ผิด: 0</span>
+  </div>
+
+  <div id="gameArea"></div>
+  <div class="final-screen" id="finalScreen">
+    <h2>สรุปผลคะแนน</h2>
+    <div class="final-score" id="finalScore"></div>
+    <div class="final-detail" id="finalDetail"></div>
+    <div id="summaryWrap"></div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn green" onclick="restartGame()">เล่นใหม่</button>
+      <a href="games.html" class="btn">กลับหน้าเกม</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    domain: "Domain 1: Security Principles",
+    sentence: "_______ คือหลักการที่ว่า ข้อมูลต้องไม่ถูกเปลี่ยนแปลงโดยไม่ได้รับอนุญาต",
+    answer: "Integrity",
+    choices: ["Integrity", "Availability", "Confidentiality", "Authentication"],
+    explain: "Integrity หมายถึงความถูกต้องครบถ้วนของข้อมูล ต้องไม่ถูกแก้ไขโดยไม่ได้รับอนุญาต ต่างจาก Confidentiality (การรักษาความลับ) และ Availability (ความพร้อมใช้งาน)"
+  },
+  {
+    domain: "Domain 1: Security Principles",
+    sentence: "_______ คือหลักการที่ข้อมูลต้องเข้าถึงได้โดยผู้ที่มีสิทธิ์เมื่อต้องการใช้งาน",
+    answer: "Availability",
+    choices: ["Availability", "Integrity", "Non-repudiation", "Confidentiality"],
+    explain: "Availability ทำให้มั่นใจว่าระบบและข้อมูลพร้อมใช้งานเมื่อผู้ใช้ที่ได้รับอนุญาตต้องการ"
+  },
+  {
+    domain: "Domain 1: Security Principles",
+    sentence: "_______ คือหลักการที่ข้อมูลต้องถูกเก็บเป็นความลับจากผู้ที่ไม่มีสิทธิ์",
+    answer: "Confidentiality",
+    choices: ["Confidentiality", "Privacy", "Integrity", "Accountability"],
+    explain: "Confidentiality ป้องกันการเปิดเผยข้อมูลแก่ผู้ไม่มีสิทธิ์ ใช้วิธีเช่น encryption และ access control"
+  },
+  {
+    domain: "Domain 1: Security Principles",
+    sentence: "หลัก _______ กำหนดให้ผู้ใช้ได้รับสิทธิ์เข้าถึงเฉพาะสิ่งที่จำเป็นต่อการทำงานเท่านั้น",
+    answer: "Least Privilege",
+    choices: ["Least Privilege", "Need to Know", "Separation of Duties", "Defense in Depth"],
+    explain: "Least Privilege ให้สิทธิ์น้อยที่สุดเท่าที่จำเป็น ลดความเสี่ยงหากบัญชีถูกบุกรุก"
+  },
+  {
+    domain: "Domain 1: Security Principles",
+    sentence: "_______ คือการที่ผู้กระทำไม่สามารถปฏิเสธว่าตนไม่ได้ทำสิ่งนั้น",
+    answer: "Non-repudiation",
+    choices: ["Non-repudiation", "Authentication", "Authorization", "Accountability"],
+    explain: "Non-repudiation ใช้ digital signature เป็นหลักฐานว่าผู้ส่งส่งข้อมูลจริง ปฏิเสธไม่ได้"
+  },
+  {
+    domain: "Domain 1: Security Principles",
+    sentence: "แนวคิด _______ ใช้มาตรการรักษาความปลอดภัยหลายชั้นซ้อนกัน",
+    answer: "Defense in Depth",
+    choices: ["Defense in Depth", "Least Privilege", "Zero Trust", "Security by Design"],
+    explain: "Defense in Depth วางมาตรการป้องกันหลายชั้น ถ้าชั้นหนึ่งถูกเจาะ ชั้นถัดไปยังป้องกันอยู่"
+  },
+  {
+    domain: "Domain 1: Security Principles",
+    sentence: "_______ คือการประเมินว่าภัยคุกคามและช่องโหว่จะส่งผลกระทบต่อองค์กรมากน้อยเพียงใด",
+    answer: "Risk Assessment",
+    choices: ["Risk Assessment", "Vulnerability Scan", "Penetration Test", "Security Audit"],
+    explain: "Risk Assessment ประเมินโอกาสและผลกระทบของภัยคุกคามที่อาจเกิดขึ้น เพื่อจัดลำดับความสำคัญ"
+  },
+  {
+    domain: "Domain 1: Security Principles",
+    sentence: "การ _______ ความเสี่ยงคือการยอมรับความเสี่ยงนั้นโดยไม่ดำเนินมาตรการเพิ่มเติม",
+    answer: "Accept",
+    choices: ["Accept", "Mitigate", "Transfer", "Avoid"],
+    explain: "Risk Acceptance คือการตัดสินใจยอมรับความเสี่ยงเพราะต้นทุนการป้องกันสูงกว่าผลกระทบ หรือความเสี่ยงอยู่ในระดับที่ยอมรับได้"
+  },
+  {
+    domain: "Domain 2: BC, DR & IR",
+    sentence: "_______ หมายถึงระยะเวลาสูงสุดที่ระบบสามารถหยุดทำงานได้ก่อนเกิดผลกระทบร้ายแรง",
+    answer: "RTO",
+    choices: ["RTO", "RPO", "MTBF", "MTTR"],
+    explain: "RTO (Recovery Time Objective) คือเวลาสูงสุดที่ยอมให้ระบบหยุดทำงานได้ เช่น RTO 4 ชั่วโมง หมายถึงต้องกู้ระบบภายใน 4 ชั่วโมง"
+  },
+  {
+    domain: "Domain 2: BC, DR & IR",
+    sentence: "_______ คือปริมาณข้อมูลสูงสุดที่ยอมให้สูญหายได้ วัดเป็นช่วงเวลา",
+    answer: "RPO",
+    choices: ["RPO", "RTO", "SLA", "BIA"],
+    explain: "RPO (Recovery Point Objective) เช่น RPO 1 ชั่วโมง หมายถึงยอมเสียข้อมูลได้ไม่เกิน 1 ชั่วโมงก่อนเหตุการณ์"
+  },
+  {
+    domain: "Domain 2: BC, DR & IR",
+    sentence: "_______ คือกระบวนการวิเคราะห์ว่ากระบวนการธุรกิจใดสำคัญที่สุดต่อองค์กร",
+    answer: "BIA",
+    choices: ["BIA", "BCP", "DRP", "SLA"],
+    explain: "BIA (Business Impact Analysis) ระบุว่ากระบวนการไหนสำคัญที่สุด หยุดแล้วเสียหายเท่าไร เป็นขั้นตอนแรกของ BCP"
+  },
+  {
+    domain: "Domain 2: BC, DR & IR",
+    sentence: "_______ เป็นแผนที่มุ่งเน้นการกู้คืนระบบ IT หลังเหตุภัยพิบัติ",
+    answer: "DRP",
+    choices: ["DRP", "BCP", "IRP", "COOP"],
+    explain: "DRP (Disaster Recovery Plan) เน้นกู้คืนระบบสารสนเทศ ส่วน BCP ครอบคลุมธุรกิจทั้งหมด"
+  },
+  {
+    domain: "Domain 2: BC, DR & IR",
+    sentence: "ขั้นตอนแรกของ Incident Response ตาม NIST คือ _______",
+    answer: "Preparation",
+    choices: ["Preparation", "Detection", "Containment", "Eradication"],
+    explain: "Preparation คือเตรียมทีม เครื่องมือ และแผนรับมือไว้ล่วงหน้า เป็นรากฐานของ IR ทั้งหมด"
+  },
+  {
+    domain: "Domain 2: BC, DR & IR",
+    sentence: "_______ site คือศูนย์สำรองที่มีอุปกรณ์ครบพร้อมใช้งานทันที",
+    answer: "Hot",
+    choices: ["Hot", "Warm", "Cold", "Mobile"],
+    explain: "Hot site มีอุปกรณ์และข้อมูลพร้อมใช้ทันที Warm site มีอุปกรณ์แต่ต้องโหลดข้อมูล Cold site มีแค่สถานที่"
+  },
+  {
+    domain: "Domain 3: Access Controls",
+    sentence: "_______ เป็นการควบคุมการเข้าถึงที่กำหนดสิทธิ์ตามบทบาทหน้าที่",
+    answer: "RBAC",
+    choices: ["RBAC", "DAC", "MAC", "ABAC"],
+    explain: "RBAC (Role-Based Access Control) ให้สิทธิ์ตาม role เช่น admin, user, manager ง่ายต่อการจัดการในองค์กรใหญ่"
+  },
+  {
+    domain: "Domain 3: Access Controls",
+    sentence: "_______ เป็นการควบคุมที่เจ้าของข้อมูลมีอำนาจกำหนดสิทธิ์เอง",
+    answer: "DAC",
+    choices: ["DAC", "MAC", "RBAC", "Rule-Based"],
+    explain: "DAC (Discretionary Access Control) เจ้าของไฟล์ตัดสินใจเองว่าจะแชร์ให้ใคร เช่นระบบ permission ใน Windows/Linux"
+  },
+  {
+    domain: "Domain 3: Access Controls",
+    sentence: "_______ เป็นระบบที่ใช้ label ความลับ (เช่น Top Secret, Secret) ในการกำหนดสิทธิ์",
+    answer: "MAC",
+    choices: ["MAC", "DAC", "RBAC", "ABAC"],
+    explain: "MAC (Mandatory Access Control) ใช้ security labels กำหนดสิทธิ์โดยระบบ ผู้ใช้เปลี่ยนไม่ได้ ใช้ในงานทหารและรัฐบาล"
+  },
+  {
+    domain: "Domain 3: Access Controls",
+    sentence: "_______ คือการใช้ปัจจัยตั้งแต่ 2 ประเภทขึ้นไปในการพิสูจน์ตัวตน",
+    answer: "MFA",
+    choices: ["MFA", "SSO", "2FA", "Biometrics"],
+    explain: "MFA (Multi-Factor Authentication) ใช้ปัจจัยต่างประเภทกัน เช่น password (something you know) + OTP (something you have)"
+  },
+  {
+    domain: "Domain 3: Access Controls",
+    sentence: "_______ คือระบบที่ให้ผู้ใช้ login ครั้งเดียวแล้วเข้าถึงหลายระบบได้",
+    answer: "SSO",
+    choices: ["SSO", "MFA", "LDAP", "OAuth"],
+    explain: "SSO (Single Sign-On) ลดจำนวนครั้งที่ต้อง login เพิ่มความสะดวก แต่ถ้าบัญชี SSO ถูกเจาะจะเข้าถึงทุกระบบ"
+  },
+  {
+    domain: "Domain 3: Access Controls",
+    sentence: "ปัจจัยพิสูจน์ตัวตนประเภท something you _______ ได้แก่ลายนิ้วมือ ม่านตา ใบหน้า",
+    answer: "are",
+    choices: ["are", "know", "have", "do"],
+    explain: "Something you are คือ biometrics (ลายนิ้วมือ, ม่านตา, ใบหน้า) / Something you know คือ password / Something you have คือ token, smart card"
+  },
+  {
+    domain: "Domain 4: Network Security",
+    sentence: "_______ ทำหน้าที่กรองทราฟิกระหว่างเครือข่ายตามกฎที่กำหนด",
+    answer: "Firewall",
+    choices: ["Firewall", "IDS", "Router", "Switch"],
+    explain: "Firewall กรอง traffic ขาเข้า-ออกตามกฎ (rules/policies) เช่น allow/deny ตาม port, IP, protocol"
+  },
+  {
+    domain: "Domain 4: Network Security",
+    sentence: "_______ ตรวจจับทราฟิกที่น่าสงสัยและแจ้งเตือน แต่ไม่บล็อก",
+    answer: "IDS",
+    choices: ["IDS", "IPS", "Firewall", "WAF"],
+    explain: "IDS (Intrusion Detection System) ตรวจจับและแจ้งเตือนเท่านั้น ต่างจาก IPS ที่บล็อกได้ด้วย"
+  },
+  {
+    domain: "Domain 4: Network Security",
+    sentence: "_______ ตรวจจับและบล็อกทราฟิกอันตรายได้อัตโนมัติ",
+    answer: "IPS",
+    choices: ["IPS", "IDS", "SIEM", "NAC"],
+    explain: "IPS (Intrusion Prevention System) ทำงานเชิงรุก ตรวจจับและบล็อก traffic อันตรายได้ทันที"
+  },
+  {
+    domain: "Domain 4: Network Security",
+    sentence: "_______ คือโซนเครือข่ายกึ่งสาธารณะที่วางเซิร์ฟเวอร์ที่ต้องเข้าถึงจากอินเทอร์เน็ต",
+    answer: "DMZ",
+    choices: ["DMZ", "VLAN", "VPN", "Subnet"],
+    explain: "DMZ (Demilitarized Zone) วาง web server, mail server ไว้ระหว่างเครือข่ายภายในกับอินเทอร์เน็ต ป้องกันการเข้าถึงเครือข่ายภายในโดยตรง"
+  },
+  {
+    domain: "Domain 4: Network Security",
+    sentence: "_______ เข้ารหัสการเชื่อมต่อเพื่อให้เข้าถึงเครือข่ายองค์กรจากระยะไกลอย่างปลอดภัย",
+    answer: "VPN",
+    choices: ["VPN", "SSL", "SSH", "DMZ"],
+    explain: "VPN (Virtual Private Network) สร้าง encrypted tunnel สำหรับเข้าถึงเครือข่ายองค์กรจากภายนอก"
+  },
+  {
+    domain: "Domain 4: Network Security",
+    sentence: "โปรโตคอล _______ ทำงานที่ port 443 และเข้ารหัสการสื่อสารบนเว็บ",
+    answer: "HTTPS",
+    choices: ["HTTPS", "HTTP", "FTP", "SSH"],
+    explain: "HTTPS ใช้ TLS/SSL เข้ารหัสบน port 443 ป้องกันการดักจับข้อมูลระหว่างเบราว์เซอร์กับเว็บเซิร์ฟเวอร์"
+  },
+  {
+    domain: "Domain 4: Network Security",
+    sentence: "_______ แบ่งเครือข่ายทางลอจิคัลโดยไม่ต้องแยกสายกายภาพ",
+    answer: "VLAN",
+    choices: ["VLAN", "VPN", "DMZ", "NAT"],
+    explain: "VLAN (Virtual LAN) แบ่งเครือข่ายเป็นกลุ่มๆ ใน switch เดียวกัน ลดขนาด broadcast domain และเพิ่มความปลอดภัย"
+  },
+  {
+    domain: "Domain 5: Security Operations",
+    sentence: "_______ รวบรวมและวิเคราะห์ log จากหลายแหล่งเพื่อตรวจจับภัยคุกคาม",
+    answer: "SIEM",
+    choices: ["SIEM", "IDS", "SOC", "DLP"],
+    explain: "SIEM (Security Information and Event Management) รวม log จาก firewall, server, IDS ฯลฯ มาวิเคราะห์และแจ้งเตือนเหตุการณ์ผิดปกติ"
+  },
+  {
+    domain: "Domain 5: Security Operations",
+    sentence: "_______ ป้องกันไม่ให้ข้อมูลสำคัญรั่วไหลออกนอกองค์กร",
+    answer: "DLP",
+    choices: ["DLP", "IPS", "WAF", "SIEM"],
+    explain: "DLP (Data Loss Prevention) ตรวจจับและบล็อกการส่งข้อมูลสำคัญออกทาง email, USB, cloud ฯลฯ"
+  },
+  {
+    domain: "Domain 5: Security Operations",
+    sentence: "การทำ _______ คือการเก็บสำเนาข้อมูลไว้เพื่อกู้คืนเมื่อเกิดเหตุ",
+    answer: "Backup",
+    choices: ["Backup", "Archive", "Snapshot", "Replication"],
+    explain: "Backup คือสำเนาข้อมูลสำหรับกู้คืน ต่างจาก Archive (เก็บถาวร) และ Replication (สำเนาแบบ real-time)"
+  },
+  {
+    domain: "Domain 5: Security Operations",
+    sentence: "_______ backup เก็บเฉพาะข้อมูลที่เปลี่ยนแปลงตั้งแต่ full backup ครั้งล่าสุด",
+    answer: "Differential",
+    choices: ["Differential", "Incremental", "Full", "Mirror"],
+    explain: "Differential เก็บข้อมูลที่เปลี่ยนนับจาก full backup ล่าสุด / Incremental เก็บเฉพาะที่เปลี่ยนนับจาก backup ครั้งก่อนหน้า"
+  },
+  {
+    domain: "Domain 5: Security Operations",
+    sentence: "_______ คือกระบวนการติดตั้งอัพเดตเพื่อแก้ไขช่องโหว่ในซอฟต์แวร์",
+    answer: "Patch Management",
+    choices: ["Patch Management", "Change Management", "Configuration Management", "Release Management"],
+    explain: "Patch Management คือการจัดการติดตั้ง security patch อย่างเป็นระบบ ทดสอบก่อนนำขึ้นจริง"
+  },
+  {
+    domain: "Domain 5: Security Operations",
+    sentence: "_______ คือการเข้ารหัสข้อมูลขณะจัดเก็บอยู่ในดิสก์หรือฐานข้อมูล",
+    answer: "Encryption at rest",
+    choices: ["Encryption at rest", "Encryption in transit", "Hashing", "Tokenization"],
+    explain: "Encryption at rest ป้องกันข้อมูลหากดิสก์หรืออุปกรณ์ถูกขโมย / Encryption in transit ป้องกันขณะส่งผ่านเครือข่าย"
+  },
+  {
+    domain: "Domain 1: Security Principles",
+    sentence: "_______ คือการแยกหน้าที่เพื่อไม่ให้คนคนเดียวควบคุมกระบวนการทั้งหมดได้",
+    answer: "Separation of Duties",
+    choices: ["Separation of Duties", "Least Privilege", "Job Rotation", "Dual Control"],
+    explain: "Separation of Duties แบ่งงานเพื่อป้องกัน fraud เช่น คนอนุมัติจ่ายเงินกับคนโอนเงินต้องคนละคน"
+  }
+];
+
+let currentQ = 0;
+let correctTotal = 0;
+let wrongTotal = 0;
+let answered = false;
+let results = [];
+let shuffledQuestions = [];
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  shuffledQuestions = shuffleArray(QUESTIONS);
+  currentQ = 0;
+  correctTotal = 0;
+  wrongTotal = 0;
+  results = [];
+  answered = false;
+  renderQuestion();
+  updateUI();
+}
+
+function renderQuestion() {
+  const q = shuffledQuestions[currentQ];
+  const shuffledChoices = shuffleArray(q.choices);
+  answered = false;
+
+  const area = document.getElementById('gameArea');
+  area.innerHTML = `
+    <div class="question-card">
+      <div class="q-domain">${q.domain}</div>
+      <p class="q-sentence">${q.sentence.replace('_______', '<span class="q-blank" id="blankSpan">?</span>')}</p>
+      <div class="choices" id="choicesDiv">
+        ${shuffledChoices.map((c, i) => `
+          <button class="choice-btn" data-choice="${c}" onclick="selectAnswer('${c.replace(/'/g, "\\'")}')">${c}</button>
+        `).join('')}
+      </div>
+      <div class="explain-text" id="explainText">${q.explain}</div>
+      <div class="next-btn-wrap" id="nextBtnWrap">
+        <button class="btn green" onclick="nextQuestion()">${currentQ < shuffledQuestions.length - 1 ? 'ข้อถัดไป' : 'ดูสรุปผล'}</button>
+      </div>
+    </div>
+  `;
+}
+
+function selectAnswer(chosen) {
+  if (answered) return;
+  answered = true;
+
+  const q = shuffledQuestions[currentQ];
+  const isCorrect = chosen === q.answer;
+  const blank = document.getElementById('blankSpan');
+  const buttons = document.querySelectorAll('.choice-btn');
+
+  blank.textContent = q.answer;
+
+  if (isCorrect) {
+    correctTotal++;
+    blank.classList.add('filled-correct');
+  } else {
+    wrongTotal++;
+    blank.classList.add('filled-wrong');
+    blank.textContent = chosen;
+    setTimeout(() => {
+      blank.textContent = q.answer;
+      blank.classList.remove('filled-wrong');
+      blank.classList.add('filled-correct');
+    }, 800);
+  }
+
+  results.push({ question: q.sentence, answer: q.answer, chosen, correct: isCorrect, domain: q.domain });
+
+  buttons.forEach(btn => {
+    btn.disabled = true;
+    const val = btn.dataset.choice;
+    if (val === q.answer) btn.classList.add(isCorrect ? 'selected-correct' : 'reveal-correct');
+    if (val === chosen && !isCorrect) btn.classList.add('selected-wrong');
+  });
+
+  document.getElementById('explainText').classList.add('show');
+  document.getElementById('nextBtnWrap').classList.add('show');
+  updateUI();
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= shuffledQuestions.length) {
+    showFinal();
+    return;
+  }
+  renderQuestion();
+  updateUI();
+}
+
+function updateUI() {
+  const total = shuffledQuestions.length;
+  const pct = Math.round((currentQ + (answered ? 1 : 0)) / total * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${currentQ + (answered ? 1 : 0)} / ${total}`;
+  document.getElementById('correctCount').textContent = `ถูก: ${correctTotal}`;
+  document.getElementById('wrongCount').textContent = `ผิด: ${wrongTotal}`;
+}
+
+function showFinal() {
+  document.getElementById('gameArea').style.display = 'none';
+  document.querySelector('.progress-bar-wrap').style.display = 'none';
+  document.querySelector('.score-row').style.display = 'none';
+
+  const total = shuffledQuestions.length;
+  const pct = Math.round(correctTotal / total * 100);
+
+  document.getElementById('finalScore').textContent = pct + '%';
+  document.getElementById('finalDetail').innerHTML =
+    `ถูก ${correctTotal} จาก ${total} ข้อ (ผิด ${wrongTotal} ข้อ)`;
+
+  let tableHTML = '<table class="summary-table"><thead><tr><th>#</th><th>Domain</th><th>คำตอบที่ถูก</th><th>คำตอบของคุณ</th></tr></thead><tbody>';
+  results.forEach((r, i) => {
+    const cls = r.correct ? 'row-correct' : 'row-wrong';
+    tableHTML += `<tr class="${cls}"><td>${i + 1}</td><td style="font-size:11px">${r.domain}</td><td>${r.answer}</td><td>${r.chosen}</td></tr>`;
+  });
+  tableHTML += '</tbody></table>';
+  document.getElementById('summaryWrap').innerHTML = tableHTML;
+  document.getElementById('finalScreen').classList.add('show');
+}
+
+function restartGame() {
+  document.getElementById('finalScreen').classList.remove('show');
+  document.getElementById('gameArea').style.display = '';
+  document.querySelector('.progress-bar-wrap').style.display = '';
+  document.querySelector('.score-row').style.display = '';
+  startGame();
+}
+
+startGame();
+</script>
+</body>
+</html>

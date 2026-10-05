@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domain 2: BC, DR &amp; Incident Response — บทเรียน ISC2 CC สำหรับผู้เริ่มต้น</title>
+<meta name="description" content="เรียนรู้ Business Continuity, Disaster Recovery และ Incident Response แบบเข้าใจง่าย เปรียบเทียบชีวิตจริง สำหรับเตรียมสอบ ISC2 CC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --text: #0F0F0F;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F;
+  --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+.creative-global-nav {
+  position: sticky; top: 0; z-index: 10000;
+  background: var(--cream);
+  border-bottom: 3px solid var(--ink);
+  font-family: var(--font-thai);
+}
+.cg-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 18px; gap: 12px; flex-wrap: wrap;
+}
+.cg-brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-display); font-size: 15px;
+  border: 2px solid var(--ink); background: var(--white);
+  padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase;
+}
+.cg-brand .cg-badge {
+  background: var(--yellow); color: var(--ink);
+  padding: 1px 6px; font-size: 11px; font-family: var(--font-mono); font-weight: 800;
+  border: 1px solid var(--ink);
+}
+.cg-links { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cg-link {
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 6px 12px; background: var(--white);
+  border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  white-space: nowrap;
+}
+.cg-link:hover {
+  background: var(--yellow);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.cg-link.active { background: var(--orange); color: var(--white); box-shadow: 2px 2px 0 var(--ink); }
+@media (max-width: 768px) {
+  .cg-nav-inner { padding: 8px 10px; }
+  .cg-links { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; width: 100%; -webkit-overflow-scrolling: touch; }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--cream); color: var(--ink);
+  font-family: var(--font-thai); min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--yellow); color: var(--ink); }
+.wrap { max-width: 820px; margin: 0 auto; padding: 32px 20px 80px; }
+
+.lesson-hero {
+  background: var(--white); border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink); padding: 32px 28px; margin-bottom: 36px;
+}
+.lesson-hero .eyebrow {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+  letter-spacing: 0.12em; color: var(--orange); text-transform: uppercase; margin-bottom: 6px;
+}
+.lesson-hero h1 {
+  font-family: var(--font-display); font-size: 30px;
+  text-transform: uppercase; line-height: 1.1; margin-bottom: 12px;
+}
+.lesson-hero .sub { font-size: 15px; color: var(--ink-2); line-height: 1.7; }
+
+.scenario-box {
+  background: var(--card2); border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink); padding: 22px 24px; margin-bottom: 36px; position: relative;
+}
+.scenario-box .tag {
+  position: absolute; top: -12px; left: 16px;
+  background: var(--red); color: var(--white);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  padding: 3px 10px; border: 1.5px solid var(--ink); text-transform: uppercase;
+}
+.scenario-box p { font-size: 14px; line-height: 1.8; margin-top: 8px; }
+.scenario-box .moral {
+  margin-top: 14px; padding-top: 14px; border-top: 2px dashed var(--ink);
+  font-weight: 600; color: var(--green);
+}
+
+.section {
+  background: var(--white); border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink); padding: 28px 26px; margin-bottom: 28px;
+}
+.section h2 {
+  font-family: var(--font-display); font-size: 22px; text-transform: uppercase;
+  margin-bottom: 16px; padding-bottom: 10px; border-bottom: 3px solid var(--ink);
+}
+.section h3 {
+  font-family: var(--font-display); font-size: 16px; text-transform: uppercase;
+  margin: 20px 0 10px; color: var(--green);
+}
+.section p, .section li { font-size: 15px; line-height: 1.8; }
+.section ul, .section ol { padding-left: 22px; margin: 10px 0; }
+.section li { margin-bottom: 6px; }
+
+.analogy {
+  background: linear-gradient(135deg, #FFF8E1, #FFF3CD);
+  border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  padding: 16px 20px; margin: 16px 0; position: relative;
+}
+.analogy::before {
+  content: 'ANALOGY'; position: absolute; top: -10px; left: 14px;
+  background: var(--yellow); color: var(--ink);
+  font-family: var(--font-mono); font-size: 10px; font-weight: 800;
+  padding: 2px 8px; border: 1.5px solid var(--ink);
+}
+.analogy p { font-size: 14px; line-height: 1.7; font-style: italic; }
+
+.vocab { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+.vocab-item { background: var(--cream-2); border: 2px solid var(--ink); padding: 10px 14px; }
+.vocab-item .term { font-family: var(--font-mono); font-size: 13px; font-weight: 800; color: var(--green); }
+.vocab-item .def { font-size: 13px; line-height: 1.5; margin-top: 4px; }
+@media (max-width: 600px) { .vocab { grid-template-columns: 1fr; } }
+
+.diagram-wrap {
+  background: var(--white); border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink); padding: 24px 16px; margin-bottom: 28px; text-align: center;
+}
+.diagram-wrap .diagram-title {
+  font-family: var(--font-display); font-size: 18px; text-transform: uppercase; margin-bottom: 16px;
+}
+.diagram-wrap svg { max-width: 100%; height: auto; }
+
+.cheat-sheet {
+  background: var(--ink); color: var(--cream);
+  border: 3px solid var(--ink); padding: 24px 26px; margin-bottom: 28px;
+}
+.cheat-sheet h2 {
+  font-family: var(--font-display); font-size: 20px; text-transform: uppercase;
+  margin-bottom: 16px; color: var(--yellow);
+}
+.cheat-sheet table { width: 100%; border-collapse: collapse; }
+.cheat-sheet th {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  text-align: left; padding: 8px 10px; color: var(--yellow);
+  border-bottom: 2px solid var(--muted); text-transform: uppercase;
+}
+.cheat-sheet td {
+  font-size: 13px; padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.15); line-height: 1.5;
+}
+.cheat-sheet tr:last-child td { border-bottom: none; }
+
+.lesson-nav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 36px;
+}
+.lesson-nav a {
+  flex: 1; min-width: 200px; display: block; text-align: center;
+  background: var(--ink); color: var(--cream); text-decoration: none;
+  font-family: var(--font-mono); font-size: 13px; font-weight: 800;
+  padding: 14px 18px; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase; transition: transform 0.1s ease, background 0.1s ease;
+}
+.lesson-nav a:hover {
+  background: var(--yellow); color: var(--ink);
+  transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink);
+}
+
+@media (max-width: 600px) {
+  .lesson-hero h1 { font-size: 22px; }
+  .wrap { padding: 20px 14px 60px; }
+  .section { padding: 20px 18px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="index.html" class="cg-brand">
+      <span class="cg-badge">ISC2 CC</span>
+      <span>STUDY HUB</span>
+    </a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link">MIND MAP</a>
+      <a href="learning-path.html" class="cg-link">LEARNING PATH</a>
+      <a href="lesson-domain-1.html" class="cg-link">DOMAIN 1</a>
+      <a href="lesson-domain-2.html" class="cg-link active">DOMAIN 2</a>
+      <a href="games.html" class="cg-link">MINI GAMES</a>
+      <a href="isc2-cc-landing.html" class="cg-link">QUIZZES</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="lesson-hero">
+    <div class="eyebrow">Domain 2 of 5 -- Beginner Lesson</div>
+    <h1>Business Continuity, Disaster Recovery &amp; Incident Response</h1>
+    <p class="sub">เมื่อเรื่องร้ายเกิดขึ้น องค์กรต้องมีแผนรับมือ ฟื้นตัว และเรียนรู้จากมัน</p>
+  </header>
+
+  <!-- REAL-WORLD SCENARIO -->
+  <div class="scenario-box">
+    <span class="tag">Real-World Case</span>
+    <p>ปี 2554 (2011) น้ำท่วมใหญ่ในประเทศไทย ศูนย์ข้อมูลและโรงงานผลิตฮาร์ดดิสก์ในนิคมอุตสาหกรรมจมอยู่ใต้น้ำนานหลายสัปดาห์ บริษัทที่มี Disaster Recovery Plan สามารถย้ายการทำงานไปยังศูนย์สำรองได้ภายในไม่กี่ชั่วโมง ในขณะที่บริษัทที่ไม่มีแผน ต้องหยุดกิจการนานหลายเดือน บางรายปิดตัวถาวร</p>
+    <p class="moral">บทเรียน: ภัยพิบัติไม่ถามก่อนมา องค์กรที่มีแผน BCP/DRP จะฟื้นตัวได้เร็ว องค์กรที่ไม่มีอาจไม่ฟื้นเลย</p>
+  </div>
+
+  <!-- IR LIFECYCLE DIAGRAM -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Incident Response Lifecycle (NIST)</div>
+    <svg viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" style="max-width:500px;">
+      <!-- Circular arrows implied by layout -->
+      <!-- Step boxes arranged in a cycle -->
+      <!-- 1. Preparation -->
+      <rect x="190" y="10" width="140" height="50" fill="#1F8A4C" stroke="#0F0F0F" stroke-width="2"/>
+      <text x="260" y="32" text-anchor="middle" fill="#FFF" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700">1. PREPARATION</text>
+      <text x="260" y="48" text-anchor="middle" fill="#EFE9D9" font-family="'IBM Plex Sans Thai',sans-serif" font-size="9">เตรียมพร้อม</text>
+      <!-- Arrow down-right -->
+      <line x1="330" y1="42" x2="380" y2="85" stroke="#0F0F0F" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+      <!-- 2. Detection -->
+      <rect x="360" y="80" width="150" height="50" fill="#E85A1F" stroke="#0F0F0F" stroke-width="2"/>
+      <text x="435" y="102" text-anchor="middle" fill="#FFF" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700">2. DETECTION &amp; ANALYSIS</text>
+      <text x="435" y="118" text-anchor="middle" fill="#EFE9D9" font-family="'IBM Plex Sans Thai',sans-serif" font-size="9">ตรวจจับและวิเคราะห์</text>
+      <!-- Arrow down -->
+      <line x1="435" y1="130" x2="435" y2="155" stroke="#0F0F0F" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+      <!-- 3. Containment -->
+      <rect x="360" y="155" width="150" height="50" fill="#D12438" stroke="#0F0F0F" stroke-width="2"/>
+      <text x="435" y="177" text-anchor="middle" fill="#FFF" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700">3. CONTAINMENT</text>
+      <text x="435" y="193" text-anchor="middle" fill="#EFE9D9" font-family="'IBM Plex Sans Thai',sans-serif" font-size="9">จำกัดวง</text>
+      <!-- Arrow down-left -->
+      <line x1="380" y1="210" x2="330" y2="240" stroke="#0F0F0F" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+      <!-- 4. Eradication -->
+      <rect x="190" y="235" width="140" height="50" fill="#F06CA8" stroke="#0F0F0F" stroke-width="2"/>
+      <text x="260" y="257" text-anchor="middle" fill="#0F0F0F" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700">4. ERADICATION</text>
+      <text x="260" y="273" text-anchor="middle" fill="#0F0F0F" font-family="'IBM Plex Sans Thai',sans-serif" font-size="9">กำจัดสาเหตุ</text>
+      <!-- Arrow left -->
+      <line x1="190" y1="260" x2="150" y2="210" stroke="#0F0F0F" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+      <!-- 5. Recovery -->
+      <rect x="10" y="155" width="140" height="50" fill="#F5C518" stroke="#0F0F0F" stroke-width="2"/>
+      <text x="80" y="177" text-anchor="middle" fill="#0F0F0F" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700">5. RECOVERY</text>
+      <text x="80" y="193" text-anchor="middle" fill="#0F0F0F" font-family="'IBM Plex Sans Thai',sans-serif" font-size="9">ฟื้นฟูระบบ</text>
+      <!-- Arrow up -->
+      <line x1="80" y1="155" x2="80" y2="130" stroke="#0F0F0F" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+      <!-- 6. Lessons Learned -->
+      <rect x="10" y="80" width="140" height="50" fill="#EFE9D9" stroke="#0F0F0F" stroke-width="2"/>
+      <text x="80" y="100" text-anchor="middle" fill="#0F0F0F" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700">6. LESSONS LEARNED</text>
+      <text x="80" y="118" text-anchor="middle" fill="#4A4A4A" font-family="'IBM Plex Sans Thai',sans-serif" font-size="9">ถอดบทเรียน</text>
+      <!-- Arrow up-right back to 1 -->
+      <line x1="140" y1="85" x2="190" y2="42" stroke="#0F0F0F" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="5,3"/>
+
+      <defs>
+        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#0F0F0F"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- SECTION 1: BCP vs DRP -->
+  <div class="section">
+    <h2>1. BCP vs DRP -- แผนต่อเนื่อง vs แผนกู้คืน</h2>
+
+    <h3>BCP -- Business Continuity Plan</h3>
+    <p>แผนที่ทำให้ธุรกิจสามารถ "ดำเนินต่อไปได้" แม้เกิดเหตุการณ์ร้ายแรง เน้นที่กระบวนการทำงาน คน และการดำเนินธุรกิจ</p>
+    <div class="analogy">
+      <p>เหมือน "แผนอพยพ" ของตึก -- ไฟไหม้ชั้น 3 พนักงานย้ายไปทำงานชั้น 10 ได้ทันที ธุรกิจไม่หยุด</p>
+    </div>
+
+    <h3>DRP -- Disaster Recovery Plan</h3>
+    <p>แผนที่เน้น "กู้คืนระบบ IT และข้อมูล" ให้กลับมาทำงานได้หลังเกิดภัยพิบัติ เป็นส่วนหนึ่งของ BCP</p>
+    <div class="analogy">
+      <p>เหมือน "แผนซ่อมบ้าน" -- บ้านถูกน้ำท่วม ต้องซ่อมไฟ ซ่อมน้ำ ซ่อมเฟอร์นิเจอร์ให้กลับมาอยู่ได้</p>
+    </div>
+
+    <p><strong>จำง่ายๆ:</strong> BCP = ทำยังไงให้ธุรกิจไม่หยุด, DRP = ทำยังไงให้ระบบ IT กลับมา</p>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">BCP</div>
+        <div class="def">Business Continuity Plan -- แผนรักษาความต่อเนื่องทางธุรกิจ</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">DRP</div>
+        <div class="def">Disaster Recovery Plan -- แผนกู้คืนระบบหลังภัยพิบัติ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: BIA -->
+  <div class="section">
+    <h2>2. BIA -- Business Impact Analysis</h2>
+    <p>ก่อนจะวางแผนรับมือ ต้องรู้ก่อนว่า "ถ้าระบบล่ม ใครเดือดร้อนที่สุด?" BIA คือการวิเคราะห์ผลกระทบทางธุรกิจ</p>
+
+    <p>BIA ตอบคำถามเหล่านี้:</p>
+    <ul>
+      <li>กระบวนการไหนสำคัญที่สุด? (Critical Business Functions)</li>
+      <li>ถ้าหยุดทำงาน เสียหายเท่าไร? (Financial Impact)</li>
+      <li>หยุดได้นานแค่ไหนก่อนจะเจ็บหนัก? (Maximum Tolerable Downtime)</li>
+      <li>ต้องการทรัพยากรอะไรบ้างในการฟื้นฟู?</li>
+    </ul>
+
+    <div class="analogy">
+      <p>เหมือน "เช็คร่างกาย" ก่อนทำประกัน -- หมอต้องรู้ว่าอวัยวะไหนอ่อนแอ ถึงจะออกแบบแผนรักษาได้ถูก</p>
+    </div>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">BIA</div>
+        <div class="def">การวิเคราะห์ผลกระทบทางธุรกิจ รู้ว่าอะไรสำคัญที่สุด</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Critical Business Function</div>
+        <div class="def">กระบวนการที่องค์กรขาดไม่ได้ ต้องฟื้นก่อน</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: RPO vs RTO -->
+  <div class="section">
+    <h2>3. RPO vs RTO -- สองตัวเลขสำคัญ</h2>
+
+    <h3>RPO -- Recovery Point Objective</h3>
+    <p>"ยอมเสียข้อมูลได้กี่ชั่วโมง?" ถ้า RPO = 4 ชั่วโมง แปลว่าต้อง backup อย่างน้อยทุก 4 ชั่วโมง เพราะยอมเสียข้อมูลได้ไม่เกินนั้น</p>
+    <div class="analogy">
+      <p>เหมือน "เซฟเกม" -- ถ้าเซฟทุก 4 ชั่วโมง แล้วเกมแครช คุณเสียความก้าวหน้าไม่เกิน 4 ชั่วโมง</p>
+    </div>
+
+    <h3>RTO -- Recovery Time Objective</h3>
+    <p>"ระบบต้องกลับมาภายในกี่ชั่วโมง?" ถ้า RTO = 2 ชั่วโมง แปลว่าหลังเกิดเหตุ ระบบต้องพร้อมใช้งานภายใน 2 ชั่วโมง</p>
+    <div class="analogy">
+      <p>เหมือน "เวลาซ่อมรถ" -- ช่างบอกว่าจะซ่อมเสร็จใน 2 ชั่วโมง คุณต้องกลับมาใช้รถได้ตามนั้น</p>
+    </div>
+
+    <p><strong>จำง่ายๆ:</strong> RPO ดูย้อนหลัง (เสียข้อมูลได้เท่าไร), RTO ดูไปข้างหน้า (กลับมาได้เร็วแค่ไหน)</p>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">RPO</div>
+        <div class="def">Recovery Point Objective -- ยอมเสียข้อมูลได้ไม่เกินกี่ชั่วโมง</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">RTO</div>
+        <div class="def">Recovery Time Objective -- ระบบต้องกลับมาใช้ได้ภายในกี่ชั่วโมง</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">MTBF</div>
+        <div class="def">Mean Time Between Failures -- เวลาเฉลี่ยระหว่างการเสีย (ยิ่งนาน ยิ่งดี)</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">MTTR</div>
+        <div class="def">Mean Time To Repair -- เวลาเฉลี่ยในการซ่อม (ยิ่งสั้น ยิ่งดี)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: IR Lifecycle -->
+  <div class="section">
+    <h2>4. Incident Response Lifecycle</h2>
+    <p>เมื่อเกิดเหตุการณ์ด้านความปลอดภัย (Security Incident) ต้องทำตาม 6 ขั้นตอนตามลำดับ:</p>
+
+    <h3>1. Preparation (เตรียมพร้อม)</h3>
+    <p>เตรียมทีม เครื่องมือ แผน และฝึกซ้อมล่วงหน้า ก่อนเกิดเหตุ</p>
+    <div class="analogy">
+      <p>เหมือน "ซ้อมหนีไฟ" -- ทำตอนไม่มีไฟไหม้ เพื่อเวลาเกิดจริงจะได้ไม่ตกใจ</p>
+    </div>
+
+    <h3>2. Detection &amp; Analysis (ตรวจจับและวิเคราะห์)</h3>
+    <p>ตรวจพบว่ามีเหตุผิดปกติเกิดขึ้น แล้ววิเคราะห์ว่าร้ายแรงแค่ไหน</p>
+    <div class="analogy">
+      <p>เหมือน "เตือนไฟไหม้ดัง" -- สัญญาณเตือนดัง ต้องไปดูก่อนว่าเป็นไฟไหม้จริงหรือแค่ปิ้งขนมปังไหม้</p>
+    </div>
+
+    <h3>3. Containment (จำกัดวง)</h3>
+    <p>หยุดไม่ให้ปัญหาลุกลาม จำกัดความเสียหายให้อยู่ในวงแคบที่สุด</p>
+    <div class="analogy">
+      <p>เหมือน "กั้นฝายน้ำ" -- น้ำท่วมมา ต้องกั้นไม่ให้ไหลไปท่วมบ้านข้างๆ</p>
+    </div>
+
+    <h3>4. Eradication (กำจัดสาเหตุ)</h3>
+    <p>กำจัดต้นตอของปัญหา เช่น ลบ Malware ปิดช่องโหว่</p>
+    <div class="analogy">
+      <p>เหมือน "ดับไฟที่ต้นเพลิง" -- ไม่ใช่แค่ราดน้ำตรงที่ลุกอยู่ แต่ต้องหาจุดที่ไฟเริ่มแล้วดับตรงนั้น</p>
+    </div>
+
+    <h3>5. Recovery (ฟื้นฟู)</h3>
+    <p>นำระบบกลับมาทำงานตามปกติ ตรวจสอบว่าปลอดภัยแล้ว</p>
+
+    <h3>6. Lessons Learned (ถอดบทเรียน)</h3>
+    <p>ประชุมหลังเหตุการณ์ วิเคราะห์ว่าเกิดอะไร ทำไมถึงเกิด และปรับปรุงแผนให้ดีขึ้น</p>
+    <div class="analogy">
+      <p>เหมือน "ดูรีเพลย์หลังแข่ง" -- ทีมฟุตบอลดูวิดีโอหลังเกมเพื่อปรับกลยุทธ์ครั้งหน้า</p>
+    </div>
+  </div>
+
+  <!-- SECTION 5: Types of Disasters -->
+  <div class="section">
+    <h2>5. ประเภทภัยพิบัติ</h2>
+    <p>ภัยพิบัติที่องค์กรต้องเตรียมรับมือแบ่งเป็น 3 ประเภท:</p>
+
+    <h3>Natural Disasters (ภัยธรรมชาติ)</h3>
+    <p>น้ำท่วม แผ่นดินไหว พายุ ไฟป่า สึนามิ -- ควบคุมไม่ได้ แต่เตรียมรับมือได้</p>
+
+    <h3>Man-made Disasters (ภัยจากมนุษย์)</h3>
+    <p>การโจมตีทางไซเบอร์ การก่อวินาศกรรม ไฟฟ้าดับจากอุบัติเหตุ การรั่วไหลของสารเคมี</p>
+
+    <h3>Technical Disasters (ภัยจากเทคนิค)</h3>
+    <p>Hardware เสีย ระบบล่ม Software bug ข้อมูลเสียหาย</p>
+
+    <div class="analogy">
+      <p>ไม่ว่าสาเหตุจะเป็นอะไร ผลลัพธ์เหมือนกัน: ธุรกิจหยุดชะงัก ดังนั้น BCP/DRP ต้องครอบคลุมทุกประเภท</p>
+    </div>
+  </div>
+
+  <!-- SECTION 6: Backup Strategies -->
+  <div class="section">
+    <h2>6. Backup Strategies -- กลยุทธ์สำรองข้อมูล</h2>
+
+    <h3>Full Backup (สำรองทั้งหมด)</h3>
+    <p>คัดลอกข้อมูลทุกอย่างทุกครั้ง ใช้เวลาและพื้นที่มาก แต่กู้คืนเร็วที่สุด</p>
+    <div class="analogy">
+      <p>เหมือน "ถ่ายเอกสารทั้งเล่มทุกวัน" -- ใช้กระดาษเยอะ แต่หาเอกสารง่าย</p>
+    </div>
+
+    <h3>Incremental Backup (สำรองเฉพาะที่เปลี่ยน)</h3>
+    <p>สำรองเฉพาะข้อมูลที่เปลี่ยนแปลงตั้งแต่ backup ครั้งล่าสุด (full หรือ incremental) ประหยัดพื้นที่ แต่กู้คืนช้ากว่าเพราะต้องเรียงต่อหลายชิ้น</p>
+    <div class="analogy">
+      <p>เหมือน "จดเฉพาะหน้าที่แก้ไข" -- จดน้อย แต่ตอนจะรวมเล่มต้องหาหลายแผ่นมาต่อกัน</p>
+    </div>
+
+    <h3>Differential Backup (สำรองส่วนต่างจาก Full)</h3>
+    <p>สำรองข้อมูลที่เปลี่ยนแปลงตั้งแต่ Full Backup ครั้งล่าสุด ไฟล์ใหญ่กว่า Incremental แต่กู้คืนเร็วกว่า</p>
+    <div class="analogy">
+      <p>เหมือน "จดทุกหน้าที่แก้ไขนับจากต้นฉบับ" -- ไฟล์ใหญ่ขึ้นทุกวัน แต่ต้องการแค่ 2 ชิ้นในการกู้คืน (Full + Differential ล่าสุด)</p>
+    </div>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">Full Backup</div>
+        <div class="def">สำรองทั้งหมด ใช้พื้นที่มาก กู้คืนเร็ว</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Incremental</div>
+        <div class="def">สำรองเฉพาะที่เปลี่ยนจาก backup ครั้งล่าสุด</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Differential</div>
+        <div class="def">สำรองเฉพาะที่เปลี่ยนจาก Full ล่าสุด</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: Testing Types -->
+  <div class="section">
+    <h2>7. Testing Types -- ประเภทการทดสอบแผน</h2>
+    <p>มีแผนแล้วต้องทดสอบด้วย เรียงจากเบาไปหนัก:</p>
+
+    <h3>1. Tabletop Exercise (ซ้อมบนโต๊ะ)</h3>
+    <p>ประชุมพูดคุยจำลองสถานการณ์ "ถ้าเกิดเหตุแบบนี้ เราจะทำอย่างไร?" ไม่มีการทำจริง</p>
+    <div class="analogy">
+      <p>เหมือน "อ่านคู่มือดับเพลิงด้วยกัน" -- นั่งคุยกันว่าจะทำอะไรก่อนหลัง</p>
+    </div>
+
+    <h3>2. Walkthrough (ซ้อมเดินผ่าน)</h3>
+    <p>ทีมเดินผ่านแต่ละขั้นตอนของแผน ตรวจสอบว่าแต่ละขั้นทำได้จริงไหม</p>
+
+    <h3>3. Simulation (จำลองสถานการณ์)</h3>
+    <p>จำลองเหตุการณ์จริงบางส่วน เช่น ทดสอบ failover ไปยัง backup site</p>
+
+    <h3>4. Full Interruption Test (ทดสอบแบบเต็มรูปแบบ)</h3>
+    <p>ปิดระบบหลักจริงๆ แล้วทดสอบกู้คืน เสี่ยงที่สุด แต่ให้ผลจริงที่สุด</p>
+    <div class="analogy">
+      <p>เหมือน "ถอดปลั๊กจริง" แล้วดูว่า generator ขึ้นมาทันไหม -- ถ้าใช้ได้ก็สบายใจ ถ้าไม่ได้ก็รู้ก่อนเกิดเหตุจริง</p>
+    </div>
+
+    <div class="vocab">
+      <div class="vocab-item">
+        <div class="term">Tabletop</div>
+        <div class="def">ซ้อมพูดคุย ไม่ทำจริง เสี่ยงต่ำสุด</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Walkthrough</div>
+        <div class="def">เดินผ่านขั้นตอน ตรวจสอบความพร้อม</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Simulation</div>
+        <div class="def">จำลองเหตุการณ์จริงบางส่วน</div>
+      </div>
+      <div class="vocab-item">
+        <div class="term">Full Interruption</div>
+        <div class="def">ปิดระบบจริง ทดสอบกู้คืนจริง เสี่ยงสูงสุด</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BCP/DRP RELATIONSHIP DIAGRAM -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">BCP / DRP / BIA Relationship</div>
+    <svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" style="max-width:460px;">
+      <!-- BCP outer box -->
+      <rect x="10" y="10" width="460" height="240" rx="0" fill="none" stroke="#1F8A4C" stroke-width="3"/>
+      <text x="30" y="38" fill="#1F8A4C" font-family="'Archivo Black',sans-serif" font-size="14">BCP (Business Continuity Plan)</text>
+      <text x="30" y="56" fill="#4A4A4A" font-family="'IBM Plex Sans Thai',sans-serif" font-size="11">แผนรักษาความต่อเนื่องทางธุรกิจ</text>
+
+      <!-- BIA box inside -->
+      <rect x="30" y="72" width="200" height="80" fill="#FFF8E1" stroke="#E85A1F" stroke-width="2"/>
+      <text x="130" y="96" text-anchor="middle" fill="#E85A1F" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700">BIA</text>
+      <text x="130" y="114" text-anchor="middle" fill="#4A4A4A" font-family="'IBM Plex Sans Thai',sans-serif" font-size="10">วิเคราะห์ผลกระทบทางธุรกิจ</text>
+      <text x="130" y="132" text-anchor="middle" fill="#4A4A4A" font-family="'IBM Plex Sans Thai',sans-serif" font-size="9">RPO / RTO / MTBF / MTTR</text>
+
+      <!-- DRP box inside -->
+      <rect x="250" y="72" width="200" height="80" fill="#FDEDF4" stroke="#F06CA8" stroke-width="2"/>
+      <text x="350" y="96" text-anchor="middle" fill="#D12438" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700">DRP</text>
+      <text x="350" y="114" text-anchor="middle" fill="#4A4A4A" font-family="'IBM Plex Sans Thai',sans-serif" font-size="10">แผนกู้คืนระบบ IT</text>
+      <text x="350" y="132" text-anchor="middle" fill="#4A4A4A" font-family="'IBM Plex Sans Thai',sans-serif" font-size="9">Backup / Failover / Recovery</text>
+
+      <!-- Arrow from BIA to DRP -->
+      <line x1="230" y1="112" x2="250" y2="112" stroke="#0F0F0F" stroke-width="2" marker-end="url(#arrowhead2)"/>
+
+      <!-- IR box inside -->
+      <rect x="30" y="168" width="420" height="65" fill="#EFE9D9" stroke="#0F0F0F" stroke-width="2"/>
+      <text x="240" y="192" text-anchor="middle" fill="#0F0F0F" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700">INCIDENT RESPONSE</text>
+      <text x="240" y="212" text-anchor="middle" fill="#4A4A4A" font-family="'IBM Plex Sans Thai',sans-serif" font-size="10">Preparation -- Detection -- Containment -- Eradication -- Recovery -- Lessons Learned</text>
+
+      <defs>
+        <marker id="arrowhead2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#0F0F0F"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- CHEAT SHEET -->
+  <div class="cheat-sheet">
+    <h2>Cheat Sheet -- Domain 2</h2>
+    <table>
+      <thead>
+        <tr><th>Concept</th><th>จำง่ายๆ</th><th>Analogy</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>BCP</td><td>ธุรกิจต้องไม่หยุด</td><td>แผนอพยพ</td></tr>
+        <tr><td>DRP</td><td>กู้คืนระบบ IT</td><td>แผนซ่อมบ้าน</td></tr>
+        <tr><td>BIA</td><td>วิเคราะห์ว่าอะไรสำคัญสุด</td><td>เช็คร่างกาย</td></tr>
+        <tr><td>RPO</td><td>ยอมเสียข้อมูลได้กี่ ชม.</td><td>เซฟเกม</td></tr>
+        <tr><td>RTO</td><td>ระบบต้องกลับมาภายในกี่ ชม.</td><td>เวลาซ่อมรถ</td></tr>
+        <tr><td>MTBF</td><td>เวลาเฉลี่ยระหว่างเสีย</td><td>ยิ่งนาน ยิ่งดี</td></tr>
+        <tr><td>MTTR</td><td>เวลาเฉลี่ยในการซ่อม</td><td>ยิ่งสั้น ยิ่งดี</td></tr>
+        <tr><td>Full Backup</td><td>สำรองทุกอย่าง</td><td>ถ่ายเอกสารทั้งเล่ม</td></tr>
+        <tr><td>Incremental</td><td>สำรองเฉพาะที่เปลี่ยน</td><td>จดเฉพาะหน้าที่แก้</td></tr>
+        <tr><td>Differential</td><td>สำรองส่วนต่างจาก Full</td><td>จดทุกหน้าที่แก้จากต้นฉบับ</td></tr>
+        <tr><td>Tabletop</td><td>ซ้อมพูดคุย</td><td>อ่านคู่มือด้วยกัน</td></tr>
+        <tr><td>Full Interruption</td><td>ทดสอบปิดระบบจริง</td><td>ถอดปลั๊กจริง</td></tr>
+        <tr><td>Preparation</td><td>IR ขั้น 1: เตรียมพร้อม</td><td>ซ้อมหนีไฟ</td></tr>
+        <tr><td>Containment</td><td>IR ขั้น 3: จำกัดวง</td><td>กั้นฝายน้ำ</td></tr>
+        <tr><td>Lessons Learned</td><td>IR ขั้น 6: ถอดบทเรียน</td><td>ดูรีเพลย์หลังแข่ง</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="lesson-nav">
+    <a href="lesson-domain-1.html">&lt;-- Domain 1: Security Principles</a>
+    <a href="flashcards.html">Flashcards</a>
+    <a href="learning-path.html">Learning Path</a>
+  </div>
+
+</div>
+</body>
+</html>

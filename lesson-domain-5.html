@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISC2 CC Domain 5 — Security Operations (การปฏิบัติการรักษาความปลอดภัย)</title>
+<meta name="description" content="บทเรียนเตรียมสอบ ISC2 CC Domain 5: Security Operations อธิบายง่ายด้วยภาพเปรียบเทียบชีวิตจริง พร้อมแผนภาพ Encryption และ Cheat Sheet สองภาษา">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #EFE9D9; --cream-2: #E4DCC4;
+  --green: #1F8A4C; --green2: #136636; --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8; --orange: #E85A1F; --yellow: #F5C518;
+  --ink: #0F0F0F; --ink-2: #2A2A2A; --white: #FFFFFF;
+  --bg: #EFE9D9; --bg2: #E4DCC4; --card: #FFFFFF; --card2: #F7F4EB;
+  --line: #0F0F0F; --text: #0F0F0F; --muted: #4A4A4A;
+  --red: #D12438; --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F; --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F; --radius: 0px;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+.creative-global-nav { position:sticky;top:0;z-index:10000;background:var(--cream);border-bottom:3px solid var(--ink);font-family:var(--font-thai); }
+.cg-nav-inner { max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 18px;gap:12px;flex-wrap:wrap; }
+.cg-brand { display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font-family:var(--font-display);font-size:15px;border:2px solid var(--ink);background:var(--white);padding:4px 10px;box-shadow:3px 3px 0 var(--ink);text-transform:uppercase; }
+.cg-brand .cg-badge { background:var(--yellow);color:var(--ink);padding:1px 6px;font-size:11px;font-family:var(--font-mono);font-weight:800;border:1px solid var(--ink); }
+.cg-links { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+.cg-link { text-decoration:none;color:var(--ink);font-family:var(--font-mono);font-size:11px;font-weight:700;padding:6px 12px;background:var(--white);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);transition:transform .1s,box-shadow .1s,background .1s;white-space:nowrap; }
+.cg-link:hover { background:var(--yellow);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink); }
+.cg-link.active { background:var(--orange);color:var(--white); }
+@media(max-width:768px){ .cg-nav-inner{padding:8px 10px;} .cg-links{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;width:100%;-webkit-overflow-scrolling:touch;} }
+
+* { box-sizing:border-box;margin:0;padding:0; }
+body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min-height:100vh;-webkit-font-smoothing:antialiased; }
+.wrap { max-width:860px;margin:0 auto;padding:40px 24px 80px; }
+
+.hero { text-align:center;margin-bottom:40px;padding:32px 24px;background:var(--white);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink); }
+.hero .eyebrow { font-family:var(--font-mono);font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--orange);text-transform:uppercase;margin-bottom:6px; }
+.hero h1 { font-family:var(--font-display);font-size:32px;text-transform:uppercase;line-height:1.1;margin-bottom:10px; }
+.hero .sub { font-size:15px;color:var(--ink-2);line-height:1.7;max-width:640px;margin:0 auto; }
+
+.scenario { background:var(--green);border:3px solid var(--ink);box-shadow:var(--shadow);padding:24px;margin-bottom:36px;position:relative;color:var(--white); }
+.scenario::before { content:'REAL-WORLD SCENARIO';font-family:var(--font-mono);font-size:11px;font-weight:800;background:var(--ink);color:var(--green);padding:2px 10px;position:absolute;top:-12px;left:16px; }
+.scenario p { font-size:15px;line-height:1.8; }
+
+.section { background:var(--white);border:3px solid var(--ink);box-shadow:var(--shadow);padding:28px 24px;margin-bottom:28px; }
+.section h2 { font-family:var(--font-display);font-size:22px;text-transform:uppercase;margin-bottom:6px; }
+.section .en { font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--orange);margin-bottom:16px;display:block; }
+.section p, .section li { font-size:15px;line-height:1.8; }
+.section ul { padding-left:20px;margin:12px 0; }
+.section li { margin-bottom:6px; }
+
+.analogy { background:var(--green-dim);border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;font-size:14px;line-height:1.7; }
+.analogy strong { color:var(--green2); }
+
+.term { display:inline-block;font-family:var(--font-mono);font-size:13px;font-weight:700;background:var(--cream-2);border:1.5px solid var(--ink);padding:1px 7px;margin:0 2px; }
+
+.diagram-wrap { background:var(--card2);border:3px solid var(--ink);box-shadow:var(--shadow);padding:20px;margin:28px 0;text-align:center;overflow-x:auto; }
+.diagram-wrap .caption { font-family:var(--font-mono);font-size:11px;font-weight:800;text-transform:uppercase;color:var(--muted);margin-top:12px; }
+
+.cheat { width:100%;border-collapse:collapse;margin:20px 0;font-size:14px; }
+.cheat th { background:var(--ink);color:var(--cream);font-family:var(--font-mono);font-size:12px;font-weight:800;text-transform:uppercase;padding:10px 14px;text-align:left; }
+.cheat td { padding:10px 14px;border-bottom:2px solid var(--cream-2); }
+.cheat tr:nth-child(even) td { background:var(--card2); }
+
+.nav-bottom { display:flex;gap:12px;flex-wrap:wrap;margin-top:40px; }
+.nav-bottom a { flex:1;min-width:200px;text-align:center;padding:14px;background:var(--ink);color:var(--cream);font-family:var(--font-mono);font-size:13px;font-weight:800;text-decoration:none;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);text-transform:uppercase;transition:transform .1s,background .1s; }
+.nav-bottom a:hover { background:var(--yellow);color:var(--ink);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink); }
+
+@media(max-width:600px){
+  .hero h1{font-size:24px;} .wrap{padding:24px 16px 60px;} .section{padding:20px 16px;}
+  .cheat{font-size:12px;} .cheat th,.cheat td{padding:8px 10px;}
+}
+</style>
+</head>
+<body>
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="index.html" class="cg-brand"><span class="cg-badge">ISC2 CC</span><span>STUDY HUB</span></a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link">MIND MAP</a>
+      <a href="learning-path.html" class="cg-link">LEARNING PATH</a>
+      <a href="games.html" class="cg-link">MINI GAMES</a>
+      <a href="isc2-cc-landing.html" class="cg-link">QUIZ PORTAL</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Domain 5 of 5 &middot; Beginner Lesson</div>
+    <h1>Security Operations</h1>
+    <div class="sub">การปฏิบัติการรักษาความปลอดภัย &mdash; เข้ารหัส เฝ้าระวัง จัดการเปลี่ยนแปลง<br>อธิบายง่ายๆ เหมือนทีมรักษาความปลอดภัยประจำตึก</div>
+  </header>
+
+  <!-- SCENARIO -->
+  <div class="scenario">
+    <p>ตี 3 ทีม SOC (Security Operations Center) ตรวจพบว่ามีคนใช้บัญชี admin login จากต่างประเทศ เจ้าของบัญชีตัวจริงยืนยันว่าไม่ได้ทำ ทีมจึงล็อคบัญชีทันที ตรวจ Log ย้อนหลัง พบว่ารหัสผ่านถูกเดาได้เพราะไม่มี MFA และไม่เคยเปลี่ยนรหัสผ่านมา 2 ปี SIEM ช่วยให้ตรวจจับและตอบสนองได้ภายใน 15 นาที</p>
+  </div>
+
+  <!-- ENCRYPTION DIAGRAM -->
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 800 340" style="max-width:760px;width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg">
+      <!-- Title: Symmetric -->
+      <text x="400" y="25" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="14" fill="#0F0F0F">SYMMETRIC ENCRYPTION (กุญแจเดียวกัน)</text>
+
+      <!-- Plaintext -->
+      <rect x="30" y="50" width="130" height="55" fill="#F5C518" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="95" y="75" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="11" fill="#0F0F0F">PLAINTEXT</text>
+      <text x="95" y="92" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#2A2A2A">ข้อความเดิม</text>
+
+      <!-- Arrow + Key -->
+      <line x1="160" y1="77" x2="240" y2="77" stroke="#0F0F0F" stroke-width="2"/>
+      <polygon points="238,70 254,77 238,84" fill="#0F0F0F"/>
+      <text x="200" y="65" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#E85A1F" font-weight="700">KEY A</text>
+
+      <!-- Encrypt Box -->
+      <rect x="255" y="50" width="110" height="55" fill="#E85A1F" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="310" y="75" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="11" fill="#FFF">ENCRYPT</text>
+      <text x="310" y="92" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#EFE9D9">เข้ารหัส</text>
+
+      <!-- Arrow -->
+      <line x1="365" y1="77" x2="420" y2="77" stroke="#0F0F0F" stroke-width="2"/>
+      <polygon points="418,70 434,77 418,84" fill="#0F0F0F"/>
+
+      <!-- Ciphertext -->
+      <rect x="435" y="50" width="130" height="55" fill="#D12438" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="500" y="75" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="11" fill="#FFF">CIPHERTEXT</text>
+      <text x="500" y="92" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#EFE9D9">ข้อความเข้ารหัส</text>
+
+      <!-- Arrow + Same Key -->
+      <line x1="565" y1="77" x2="630" y2="77" stroke="#0F0F0F" stroke-width="2"/>
+      <polygon points="628,70 644,77 628,84" fill="#0F0F0F"/>
+      <text x="600" y="65" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#E85A1F" font-weight="700">KEY A</text>
+
+      <!-- Decrypt Box -->
+      <rect x="645" y="50" width="110" height="55" fill="#1F8A4C" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="700" y="75" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="11" fill="#FFF">DECRYPT</text>
+      <text x="700" y="92" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#E4DCC4">ถอดรหัส</text>
+
+      <!-- Divider -->
+      <line x1="20" y1="135" x2="780" y2="135" stroke="#0F0F0F" stroke-width="2" stroke-dasharray="8,4"/>
+
+      <!-- Title: Asymmetric -->
+      <text x="400" y="165" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="14" fill="#0F0F0F">ASYMMETRIC ENCRYPTION (กุญแจคู่: Public + Private)</text>
+
+      <!-- Plaintext -->
+      <rect x="30" y="190" width="130" height="55" fill="#F5C518" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="95" y="215" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="11" fill="#0F0F0F">PLAINTEXT</text>
+      <text x="95" y="232" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#2A2A2A">ข้อความเดิม</text>
+
+      <!-- Arrow + Public Key -->
+      <line x1="160" y1="217" x2="240" y2="217" stroke="#0F0F0F" stroke-width="2"/>
+      <polygon points="238,210 254,217 238,224" fill="#0F0F0F"/>
+      <text x="200" y="205" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#F06CA8" font-weight="700">PUBLIC KEY</text>
+
+      <!-- Encrypt Box -->
+      <rect x="255" y="190" width="110" height="55" fill="#F06CA8" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="310" y="215" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="11" fill="#0F0F0F">ENCRYPT</text>
+      <text x="310" y="232" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#2A2A2A">ล็อคด้วยแม่กุญแจ</text>
+
+      <!-- Arrow -->
+      <line x1="365" y1="217" x2="420" y2="217" stroke="#0F0F0F" stroke-width="2"/>
+      <polygon points="418,210 434,217 418,224" fill="#0F0F0F"/>
+
+      <!-- Ciphertext -->
+      <rect x="435" y="190" width="130" height="55" fill="#D12438" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="500" y="215" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="11" fill="#FFF">CIPHERTEXT</text>
+      <text x="500" y="232" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#EFE9D9">ข้อความเข้ารหัส</text>
+
+      <!-- Arrow + Private Key -->
+      <line x1="565" y1="217" x2="630" y2="217" stroke="#0F0F0F" stroke-width="2"/>
+      <polygon points="628,210 644,217 628,224" fill="#0F0F0F"/>
+      <text x="600" y="205" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#1F8A4C" font-weight="700">PRIVATE KEY</text>
+
+      <!-- Decrypt Box -->
+      <rect x="645" y="190" width="110" height="55" fill="#1F8A4C" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="700" y="215" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="11" fill="#FFF">DECRYPT</text>
+      <text x="700" y="232" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="10" fill="#E4DCC4">ไขด้วยกุญแจลับ</text>
+
+      <!-- Note -->
+      <rect x="200" y="270" width="400" height="50" fill="#E4DCC4" stroke="#0F0F0F" stroke-width="2"/>
+      <text x="400" y="292" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="12" fill="#0F0F0F" font-weight="600">Symmetric = เร็ว, กุญแจเดียว (AES, 3DES)</text>
+      <text x="400" y="310" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="12" fill="#0F0F0F" font-weight="600">Asymmetric = ช้ากว่า, กุญแจคู่ (RSA, ECC)</text>
+    </svg>
+    <div class="caption">Symmetric vs Asymmetric Encryption Flow</div>
+  </div>
+
+  <!-- SECTION 1: Encryption -->
+  <div class="section">
+    <h2>Encryption (การเข้ารหัส)</h2>
+    <span class="en">Symmetric vs Asymmetric</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ:</strong><br>
+      - <strong>Symmetric</strong> = คุณกับเพื่อนมีกุญแจเหมือนกัน 1 ดอก ใช้ล็อคและไขตู้เดียวกัน ปัญหา: ต้องส่งกุญแจให้เพื่อนอย่างปลอดภัย<br>
+      - <strong>Asymmetric</strong> = คุณมีแม่กุญแจ (Public Key) แจกให้ทุกคนล็อคของส่งมา แต่มีแค่คุณคนเดียวที่มีกุญแจไข (Private Key)
+    </div>
+
+    <ul>
+      <li><span class="term">AES</span> (Advanced Encryption Standard) &mdash; Symmetric, มาตรฐานปัจจุบัน ใช้ทั่วโลก (128/192/256 bit)</li>
+      <li><span class="term">3DES</span> &mdash; Symmetric เก่า กำลังถูกเลิกใช้</li>
+      <li><span class="term">RSA</span> &mdash; Asymmetric, ใช้กันมาก สำหรับแลกเปลี่ยน Key และ Digital Signature</li>
+      <li><span class="term">ECC</span> (Elliptic Curve Cryptography) &mdash; Asymmetric, Key สั้นกว่า RSA แต่แข็งแรงเท่ากัน</li>
+    </ul>
+
+    <p><strong>ในทางปฏิบัติ:</strong> ใช้ Asymmetric แลกเปลี่ยน Key ก่อน แล้วใช้ Symmetric เข้ารหัสข้อมูลจริง (เร็วกว่า) &mdash; วิธีนี้เรียกว่า Hybrid Encryption และ TLS/HTTPS ใช้วิธีนี้</p>
+  </div>
+
+  <!-- SECTION 2: Hashing -->
+  <div class="section">
+    <h2>Hashing (การแฮช)</h2>
+    <span class="en">ลายนิ้วมือของข้อมูล</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ:</strong> ลายนิ้วมือคน &mdash; คนละคนมีลายนิ้วมือต่างกัน ดูลายนิ้วมือแล้วรู้ว่าเป็นใคร แต่ดูลายนิ้วมือแล้วสร้างคนขึ้นมาใหม่ไม่ได้ (One-way function)
+    </div>
+
+    <ul>
+      <li>Hash ไม่ใช่ Encryption &mdash; ย้อนกลับไม่ได้ (irreversible)</li>
+      <li>ใช้ตรวจสอบว่าข้อมูลถูกแก้ไขหรือไม่ (Integrity check)</li>
+      <li>ใช้เก็บรหัสผ่าน &mdash; เก็บ Hash แทนรหัสจริง ถ้า DB หลุด แฮกเกอร์ได้แค่ Hash</li>
+      <li><span class="term">SHA-256</span> &mdash; มาตรฐานปัจจุบัน (Secure Hash Algorithm)</li>
+      <li><span class="term">MD5</span> &mdash; เก่า ไม่ปลอดภัยแล้ว (Collision attack ได้)</li>
+      <li><span class="term">Salt</span> &mdash; เพิ่มค่าสุ่มก่อน Hash เพื่อป้องกัน Rainbow Table Attack</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 3: Digital Signatures & PKI -->
+  <div class="section">
+    <h2>Digital Signatures และ PKI</h2>
+    <span class="en">ลายเซ็นดิจิทัล และ Public Key Infrastructure</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ Digital Signature:</strong><br>
+      เหมือนประทับตราครั่งบนจดหมายสมัยก่อน &mdash; รู้ว่าใครส่ง (Authentication) และยังไม่ถูกเปิด (Integrity) ผู้ส่งปฏิเสธไม่ได้ว่าไม่ได้ส่ง (Non-repudiation)
+    </div>
+
+    <ul>
+      <li><span class="term">Digital Signature</span> &mdash; ใช้ Private Key ของผู้ส่งเซ็น ผู้รับใช้ Public Key ตรวจสอบ ให้ทั้ง Authentication + Integrity + Non-repudiation</li>
+      <li><span class="term">PKI</span> (Public Key Infrastructure) &mdash; ระบบทั้งหมดที่จัดการ Digital Certificate รวมถึง CA, RA, CRL</li>
+      <li><span class="term">CA</span> (Certificate Authority) &mdash; "กรมการปกครอง" ที่ออกบัตรประชาชนดิจิทัล ยืนยันว่า Public Key นี้เป็นของคนนี้จริง</li>
+      <li><span class="term">Certificate</span> &mdash; ไฟล์ที่ผูก Public Key กับตัวตนเจ้าของ รับรองโดย CA</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 4: Change & Patch Management -->
+  <div class="section">
+    <h2>Change และ Patch Management</h2>
+    <span class="en">การจัดการเปลี่ยนแปลง และ การอัปเดตแก้ช่องโหว่</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ Change Management:</strong> ถ้าจะรื้อห้องน้ำในคอนโด ต้อง: ขออนุญาตนิติฯ ก่อน &rarr; ประเมินผลกระทบ &rarr; อนุมัติ &rarr; ทำในวันที่กำหนด &rarr; ตรวจรับ ไม่ใช่ลุยรื้อเลยแล้วค่อยบอกทีหลัง
+    </div>
+
+    <ul>
+      <li><span class="term">Change Management</span> &mdash; กระบวนการที่มีขั้นตอน: Request &rarr; Impact Assessment &rarr; Approval &rarr; Test &rarr; Implement &rarr; Document &rarr; Review</li>
+      <li><span class="term">Patch Management</span> &mdash; อัปเดตซอฟต์แวร์เพื่อปิดช่องโหว่ ต้องทำเป็นประจำ ทดสอบก่อน Deploy จริง</li>
+      <li><span class="term">Configuration Management</span> &mdash; จัดการ Baseline ของระบบ ถ้ามีการเปลี่ยนแปลงต้องบันทึก เพื่อให้ย้อนกลับได้</li>
+    </ul>
+
+    <p><strong>ทำไมสำคัญ:</strong> 60%+ ของเหตุ Security Incident เกิดจาก Unpatched System หรือ Misconfiguration ที่ไม่มีการจัดการ</p>
+  </div>
+
+  <!-- SECTION 5: SIEM & Monitoring -->
+  <div class="section">
+    <h2>SIEM และ Logging</h2>
+    <span class="en">Security Information and Event Management</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ SIEM:</strong> ศูนย์ควบคุมความปลอดภัยของห้าง &mdash; จอมอนิเตอร์ 50 จอรวมภาพจากกล้อง ระบบแจ้งเตือนไฟไหม้ ระบบบัตรผ่าน ทั้งหมดมาอยู่ที่เดียว ถ้ามีเหตุผิดปกติ แจ้งเตือนยามทันที
+    </div>
+
+    <ul>
+      <li><span class="term">SIEM</span> &mdash; รวม Log จากทุกระบบ (Firewall, Server, App) มาวิเคราะห์หา Pattern ผิดปกติ แจ้งเตือน Real-time</li>
+      <li><span class="term">Log</span> &mdash; บันทึกเหตุการณ์ ใคร ทำอะไร เมื่อไหร่ จากไหน สำคัญมากสำหรับ Forensics</li>
+      <li><span class="term">Correlation</span> &mdash; เชื่อมโยง Event หลายตัว เช่น "Login ผิด 50 ครั้ง + Login สำเร็จจาก IP ต่างประเทศ" = อาจถูก Brute Force</li>
+      <li><span class="term">Alerting</span> &mdash; แจ้งเตือนทีม SOC เมื่อพบ Pattern น่าสงสัย</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 6: DLP -->
+  <div class="section">
+    <h2>DLP (Data Loss Prevention)</h2>
+    <span class="en">ป้องกันข้อมูลรั่วไหล</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ:</strong> เจ้าหน้าที่ศุลกากรตรวจกระเป๋าที่สนามบิน &mdash; ตรวจว่ามีของต้องห้ามออกนอกประเทศหรือไม่ DLP ตรวจว่ามีข้อมูลสำคัญ (เลขบัตรเครดิต, ข้อมูลลูกค้า) กำลังจะถูกส่งออกนอกองค์กรหรือไม่
+    </div>
+
+    <ul>
+      <li><span class="term">Endpoint DLP</span> &mdash; ตรวจที่เครื่อง PC เช่น ห้าม Copy ข้อมูลลง USB</li>
+      <li><span class="term">Network DLP</span> &mdash; ตรวจ Traffic ที่วิ่งออก เช่น ห้ามส่ง Email ที่มีเลขบัตรเครดิต</li>
+      <li><span class="term">Cloud DLP</span> &mdash; ตรวจข้อมูลที่อัปโหลดขึ้น Cloud Storage</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 7: Data Security Lifecycle -->
+  <div class="section">
+    <h2>Data Security Lifecycle</h2>
+    <span class="en">วงจรชีวิตความปลอดภัยข้อมูล</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ:</strong> เอกสารลับราชการ &mdash; สร้างขึ้นมา &rarr; ตีตรา "ลับ" &rarr; เก็บในตู้ล็อค &rarr; ส่งต่อเฉพาะคนที่มีสิทธิ์ &rarr; เก็บรักษาตามระยะเวลาที่กำหนด &rarr; ถึงเวลาทำลายด้วยเครื่องย่อยกระดาษ
+    </div>
+
+    <ul>
+      <li><span class="term">Classification</span> &mdash; จัดระดับข้อมูล: Public / Internal / Confidential / Top Secret</li>
+      <li><span class="term">Handling</span> &mdash; วิธีจัดการข้อมูลแต่ละระดับ เช่น Confidential ต้องเข้ารหัสเมื่อส่ง</li>
+      <li><span class="term">Retention</span> &mdash; เก็บข้อมูลนานเท่าไหร่ ตามกฎหมายและนโยบาย</li>
+      <li><span class="term">Destruction</span> &mdash; ทำลายอย่างปลอดภัย: Shredding (กระดาษ), Degaussing (แม่เหล็ก), Cryptographic Erasure (ลบ Key)</li>
+    </ul>
+  </div>
+
+  <!-- CHEAT SHEET -->
+  <div class="section">
+    <h2>Cheat Sheet สรุป Domain 5</h2>
+    <span class="en">Quick Reference Table</span>
+    <table class="cheat">
+      <thead>
+        <tr><th>Term (EN)</th><th>ความหมาย (TH)</th><th>จำง่ายๆ</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>AES</td><td>Symmetric Encryption มาตรฐาน</td><td>กุญแจเดียว เร็ว</td></tr>
+        <tr><td>RSA</td><td>Asymmetric Encryption</td><td>กุญแจคู่ Public/Private</td></tr>
+        <tr><td>Hashing</td><td>สร้างลายนิ้วมือข้อมูล</td><td>ย้อนกลับไม่ได้</td></tr>
+        <tr><td>SHA-256</td><td>Hash Algorithm มาตรฐาน</td><td>ลายนิ้วมือ 256 bit</td></tr>
+        <tr><td>Digital Signature</td><td>ลายเซ็นดิจิทัล</td><td>ตราครั่งบนจดหมาย</td></tr>
+        <tr><td>PKI</td><td>โครงสร้าง Public Key</td><td>ระบบบัตรประชาชนดิจิทัล</td></tr>
+        <tr><td>CA</td><td>ผู้ออก Certificate</td><td>กรมการปกครอง</td></tr>
+        <tr><td>Change Mgmt</td><td>จัดการเปลี่ยนแปลงอย่างเป็นระบบ</td><td>ขออนุญาตก่อนรื้อห้อง</td></tr>
+        <tr><td>Patch Mgmt</td><td>อัปเดตปิดช่องโหว่</td><td>ซ่อมรูรั่วบ้าน</td></tr>
+        <tr><td>SIEM</td><td>ศูนย์เฝ้าระวังรวม</td><td>ห้องควบคุม 50 จอ</td></tr>
+        <tr><td>DLP</td><td>ป้องกันข้อมูลรั่ว</td><td>ศุลกากรตรวจกระเป๋า</td></tr>
+        <tr><td>Classification</td><td>จัดระดับความลับข้อมูล</td><td>ตีตรา ลับ/ลับมาก</td></tr>
+        <tr><td>Destruction</td><td>ทำลายข้อมูลอย่างปลอดภัย</td><td>เครื่องย่อยกระดาษ</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="nav-bottom">
+    <a href="lesson-domain-4.html">&larr; Domain 4: Network Security</a>
+    <a href="learning-path.html">Learning Path</a>
+    <a href="isc2-cc-landing.html">Quiz Portal &rarr;</a>
+  </div>
+</div>
+</body>
+</html>

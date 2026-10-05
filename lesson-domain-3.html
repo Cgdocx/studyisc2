@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISC2 CC Domain 3 — Access Controls Concepts (การควบคุมการเข้าถึง)</title>
+<meta name="description" content="บทเรียนเตรียมสอบ ISC2 CC Domain 3: Access Controls อธิบายง่ายเหมือนสอนเด็กอนุบาล พร้อมแผนภาพ เปรียบเทียบชีวิตจริง และ Cheat Sheet สองภาษา">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #EFE9D9; --cream-2: #E4DCC4;
+  --green: #1F8A4C; --green2: #136636; --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8; --orange: #E85A1F; --yellow: #F5C518;
+  --ink: #0F0F0F; --ink-2: #2A2A2A; --white: #FFFFFF;
+  --bg: #EFE9D9; --bg2: #E4DCC4; --card: #FFFFFF; --card2: #F7F4EB;
+  --line: #0F0F0F; --text: #0F0F0F; --muted: #4A4A4A;
+  --red: #D12438; --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F; --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F; --radius: 0px;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+.creative-global-nav { position:sticky;top:0;z-index:10000;background:var(--cream);border-bottom:3px solid var(--ink);font-family:var(--font-thai); }
+.cg-nav-inner { max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 18px;gap:12px;flex-wrap:wrap; }
+.cg-brand { display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font-family:var(--font-display);font-size:15px;border:2px solid var(--ink);background:var(--white);padding:4px 10px;box-shadow:3px 3px 0 var(--ink);text-transform:uppercase; }
+.cg-brand .cg-badge { background:var(--yellow);color:var(--ink);padding:1px 6px;font-size:11px;font-family:var(--font-mono);font-weight:800;border:1px solid var(--ink); }
+.cg-links { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+.cg-link { text-decoration:none;color:var(--ink);font-family:var(--font-mono);font-size:11px;font-weight:700;padding:6px 12px;background:var(--white);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);transition:transform .1s,box-shadow .1s,background .1s;white-space:nowrap; }
+.cg-link:hover { background:var(--yellow);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink); }
+.cg-link.active { background:var(--orange);color:var(--white); }
+@media(max-width:768px){ .cg-nav-inner{padding:8px 10px;} .cg-links{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;width:100%;-webkit-overflow-scrolling:touch;} }
+
+* { box-sizing:border-box;margin:0;padding:0; }
+body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min-height:100vh;-webkit-font-smoothing:antialiased; }
+.wrap { max-width:860px;margin:0 auto;padding:40px 24px 80px; }
+
+.hero { text-align:center;margin-bottom:40px;padding:32px 24px;background:var(--white);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink); }
+.hero .eyebrow { font-family:var(--font-mono);font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--orange);text-transform:uppercase;margin-bottom:6px; }
+.hero h1 { font-family:var(--font-display);font-size:32px;text-transform:uppercase;line-height:1.1;margin-bottom:10px; }
+.hero .sub { font-size:15px;color:var(--ink-2);line-height:1.7;max-width:640px;margin:0 auto; }
+
+.scenario { background:var(--yellow);border:3px solid var(--ink);box-shadow:var(--shadow);padding:24px;margin-bottom:36px;position:relative; }
+.scenario::before { content:'REAL-WORLD SCENARIO';font-family:var(--font-mono);font-size:11px;font-weight:800;background:var(--ink);color:var(--yellow);padding:2px 10px;position:absolute;top:-12px;left:16px; }
+.scenario p { font-size:15px;line-height:1.8; }
+
+.section { background:var(--white);border:3px solid var(--ink);box-shadow:var(--shadow);padding:28px 24px;margin-bottom:28px; }
+.section h2 { font-family:var(--font-display);font-size:22px;text-transform:uppercase;margin-bottom:6px; }
+.section .en { font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--orange);margin-bottom:16px;display:block; }
+.section p, .section li { font-size:15px;line-height:1.8; }
+.section ul { padding-left:20px;margin:12px 0; }
+.section li { margin-bottom:6px; }
+
+.analogy { background:var(--green-dim);border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;font-size:14px;line-height:1.7; }
+.analogy strong { color:var(--green2); }
+
+.term { display:inline-block;font-family:var(--font-mono);font-size:13px;font-weight:700;background:var(--cream-2);border:1.5px solid var(--ink);padding:1px 7px;margin:0 2px; }
+
+.diagram-wrap { background:var(--card2);border:3px solid var(--ink);box-shadow:var(--shadow);padding:20px;margin:28px 0;text-align:center;overflow-x:auto; }
+.diagram-wrap .caption { font-family:var(--font-mono);font-size:11px;font-weight:800;text-transform:uppercase;color:var(--muted);margin-top:12px; }
+
+.cheat { width:100%;border-collapse:collapse;margin:20px 0;font-size:14px; }
+.cheat th { background:var(--ink);color:var(--cream);font-family:var(--font-mono);font-size:12px;font-weight:800;text-transform:uppercase;padding:10px 14px;text-align:left; }
+.cheat td { padding:10px 14px;border-bottom:2px solid var(--cream-2); }
+.cheat tr:nth-child(even) td { background:var(--card2); }
+
+.nav-bottom { display:flex;gap:12px;flex-wrap:wrap;margin-top:40px; }
+.nav-bottom a { flex:1;min-width:200px;text-align:center;padding:14px;background:var(--ink);color:var(--cream);font-family:var(--font-mono);font-size:13px;font-weight:800;text-decoration:none;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);text-transform:uppercase;transition:transform .1s,background .1s; }
+.nav-bottom a:hover { background:var(--yellow);color:var(--ink);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink); }
+
+@media(max-width:600px){
+  .hero h1{font-size:24px;} .wrap{padding:24px 16px 60px;} .section{padding:20px 16px;}
+  .cheat{font-size:12px;} .cheat th,.cheat td{padding:8px 10px;}
+}
+</style>
+</head>
+<body>
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="index.html" class="cg-brand"><span class="cg-badge">ISC2 CC</span><span>STUDY HUB</span></a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link">MIND MAP</a>
+      <a href="learning-path.html" class="cg-link">LEARNING PATH</a>
+      <a href="games.html" class="cg-link">MINI GAMES</a>
+      <a href="isc2-cc-landing.html" class="cg-link">QUIZ PORTAL</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Domain 3 of 5 &middot; Beginner Lesson</div>
+    <h1>Access Controls Concepts</h1>
+    <div class="sub">การควบคุมการเข้าถึง &mdash; ใครเข้าได้ ใครเข้าไม่ได้ เข้าแล้วทำอะไรได้บ้าง?<br>อธิบายง่ายๆ เหมือนเข้าคอนโด</div>
+  </header>
+
+  <!-- SCENARIO -->
+  <div class="scenario">
+    <p>สมมติบริษัทแห่งหนึ่ง พนักงานฝ่ายบัญชีสามารถเปิดดูไฟล์สูตรลับของฝ่ายวิจัยได้อย่างอิสระ ไม่มีระบบตรวจว่าใครเข้ามาเมื่อไหร่ วันหนึ่งสูตรลับรั่วไหลไปถึงคู่แข่ง แต่หาคนทำผิดไม่ได้เลย เพราะไม่มีบันทึกว่าใครเปิดไฟล์ นี่คือสิ่งที่เกิดขึ้นเมื่อระบบไม่มี Access Control ที่ดี</p>
+  </div>
+
+  <!-- ACCESS CONTROL FLOW DIAGRAM -->
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 780 180" style="max-width:740px;width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg">
+      <!-- Identification -->
+      <rect x="10" y="50" width="140" height="80" fill="#F5C518" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="80" y="82" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="13" fill="#0F0F0F">IDENTIFICATION</text>
+      <text x="80" y="105" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="11" fill="#2A2A2A">แจ้งชื่อ / Username</text>
+      <!-- Arrow 1 -->
+      <polygon points="155,90 175,80 175,100" fill="#0F0F0F"/>
+      <!-- Authentication -->
+      <rect x="180" y="50" width="140" height="80" fill="#F06CA8" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="250" y="82" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="13" fill="#0F0F0F">AUTHENTICATION</text>
+      <text x="250" y="105" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="11" fill="#2A2A2A">พิสูจน์ตัวตน / Password</text>
+      <!-- Arrow 2 -->
+      <polygon points="325,90 345,80 345,100" fill="#0F0F0F"/>
+      <!-- Authorization -->
+      <rect x="350" y="50" width="140" height="80" fill="#1F8A4C" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="420" y="82" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="13" fill="#FFFFFF">AUTHORIZATION</text>
+      <text x="420" y="105" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="11" fill="#E4DCC4">ตรวจสิทธิ์ / Permission</text>
+      <!-- Arrow 3 -->
+      <polygon points="495,90 515,80 515,100" fill="#0F0F0F"/>
+      <!-- Accountability -->
+      <rect x="520" y="50" width="140" height="80" fill="#E85A1F" stroke="#0F0F0F" stroke-width="3"/>
+      <text x="590" y="82" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="13" fill="#FFFFFF">ACCOUNTABILITY</text>
+      <text x="590" y="105" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="11" fill="#EFE9D9">บันทึก / Audit Log</text>
+      <!-- Result -->
+      <rect x="680" y="30" width="90" height="50" fill="#1F8A4C" stroke="#0F0F0F" stroke-width="2" rx="0"/>
+      <text x="725" y="56" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="10" fill="#FFF">GRANTED</text>
+      <rect x="680" y="100" width="90" height="50" fill="#D12438" stroke="#0F0F0F" stroke-width="2" rx="0"/>
+      <text x="725" y="126" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="10" fill="#FFF">DENIED</text>
+      <line x1="660" y1="80" x2="680" y2="55" stroke="#0F0F0F" stroke-width="2"/>
+      <line x1="660" y1="100" x2="680" y2="125" stroke="#0F0F0F" stroke-width="2"/>
+      <!-- Labels -->
+      <text x="80" y="38" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#4A4A4A" font-weight="700">STEP 1</text>
+      <text x="250" y="38" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#4A4A4A" font-weight="700">STEP 2</text>
+      <text x="420" y="38" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#4A4A4A" font-weight="700">STEP 3</text>
+      <text x="590" y="38" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#4A4A4A" font-weight="700">STEP 4</text>
+    </svg>
+    <div class="caption">Access Control Flow: Identification &rarr; Authentication &rarr; Authorization &rarr; Accountability</div>
+  </div>
+
+  <!-- SECTION 1: IAAA -->
+  <div class="section">
+    <h2>4 ขั้นตอน Access Control</h2>
+    <span class="en">Identification &rarr; Authentication &rarr; Authorization &rarr; Accountability (IAAA)</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ: เข้าคอนโดหรู</strong><br>
+      1. <strong>Identification</strong> = บอก รปภ. ว่า "ผมชื่อสมชาย ห้อง 1204" (แจ้งตัวตน)<br>
+      2. <strong>Authentication</strong> = สแกนบัตรผ่านประตู (พิสูจน์ว่าเป็นตัวจริง)<br>
+      3. <strong>Authorization</strong> = ลิฟท์พาไปได้แค่ชั้น 12 ไม่ใช่ชั้นอื่น (สิทธิ์ที่ได้รับ)<br>
+      4. <strong>Accountability</strong> = กล้องวงจรปิดบันทึกว่าสมชายเข้ามาเวลา 18:30 (ตรวจสอบย้อนหลังได้)
+    </div>
+
+    <ul>
+      <li><span class="term">Identification</span> &mdash; บอกระบบว่าคุณคือใคร เช่น Username, Employee ID, Email</li>
+      <li><span class="term">Authentication</span> &mdash; พิสูจน์ว่าเป็นคุณจริงๆ เช่น รหัสผ่าน, ลายนิ้วมือ, OTP</li>
+      <li><span class="term">Authorization</span> &mdash; ระบบตรวจว่าคุณมีสิทธิ์ทำอะไรได้บ้าง เช่น อ่านได้อย่างเดียว หรือแก้ไขได้ด้วย</li>
+      <li><span class="term">Accountability</span> &mdash; บันทึกทุกอย่างที่คุณทำ เพื่อตรวจสอบย้อนหลังได้ (Audit Log)</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 2: Authentication Factors -->
+  <div class="section">
+    <h2>Authentication Factors</h2>
+    <span class="en">Something You Know / Have / Are</span>
+
+    <p>การพิสูจน์ตัวตนมี 3 ปัจจัยหลัก:</p>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ: เปิดตู้เซฟธนาคาร</strong><br>
+      - <strong>Something You Know</strong> = รหัสตู้เซฟ (รหัสผ่าน, PIN)<br>
+      - <strong>Something You Have</strong> = กุญแจตู้เซฟ (บัตร Smart Card, โทรศัพท์รับ OTP)<br>
+      - <strong>Something You Are</strong> = ลายนิ้วมือเจ้าของ (Biometrics: สแกนม่านตา, ใบหน้า)
+    </div>
+
+    <ul>
+      <li><span class="term">Knowledge Factor</span> &mdash; สิ่งที่คุณ "รู้" &mdash; รหัสผ่าน, PIN, คำตอบ Security Question</li>
+      <li><span class="term">Possession Factor</span> &mdash; สิ่งที่คุณ "มี" &mdash; Smart Card, Token, โทรศัพท์</li>
+      <li><span class="term">Inherence Factor</span> &mdash; สิ่งที่คุณ "เป็น" &mdash; ลายนิ้วมือ, ม่านตา, เสียง, ใบหน้า</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 3: MFA -->
+  <div class="section">
+    <h2>Multi-Factor Authentication (MFA)</h2>
+    <span class="en">การยืนยันตัวตนหลายปัจจัย</span>
+
+    <p>MFA คือการใช้ปัจจัยอย่างน้อย 2 ชนิด<strong>ที่ต่างกัน</strong>ในการพิสูจน์ตัวตน</p>
+
+    <div class="analogy">
+      <strong>ทำไมต้อง MFA?</strong><br>
+      ถ้าใช้แค่รหัสผ่าน (Know) แล้วรหัสหลุด = จบ<br>
+      แต่ถ้าใช้รหัสผ่าน + OTP ในมือถือ (Know + Have) แม้รหัสหลุด แฮกเกอร์ก็ยังเข้าไม่ได้ เพราะไม่มีมือถือของคุณ
+    </div>
+
+    <p><strong>สำคัญ:</strong> การใส่รหัสผ่าน + Security Question ไม่ใช่ MFA เพราะเป็น "Know + Know" (ปัจจัยเดียวกัน 2 ตัว) ต้องเป็นปัจจัย<em>คนละชนิด</em>ถึงจะนับว่าเป็น MFA</p>
+  </div>
+
+  <!-- SECTION 4: Access Control Models -->
+  <div class="section">
+    <h2>Access Control Models</h2>
+    <span class="en">DAC / MAC / RBAC / ABAC</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ 4 แบบ:</strong><br>
+      - <strong>DAC</strong> = เจ้าของห้องแชร์กุญแจให้เพื่อนเอง (เจ้าของข้อมูลกำหนดสิทธิ์เอง)<br>
+      - <strong>MAC</strong> = ค่ายทหาร ระดับ "ลับมาก" เปิดได้เฉพาะคนที่ได้รับ Clearance ระดับนั้น (ระบบกำหนด ห้ามเปลี่ยนเอง)<br>
+      - <strong>RBAC</strong> = พนักงานตำแหน่ง "ผู้จัดการ" เข้าถึงข้อมูลผู้จัดการทุกคนเหมือนกัน (สิทธิ์ตามบทบาท)<br>
+      - <strong>ABAC</strong> = "เข้าได้เฉพาะเวลาทำการ + จาก IP สำนักงาน + ตำแหน่ง HR" (สิทธิ์ตามหลายเงื่อนไขรวมกัน)
+    </div>
+
+    <ul>
+      <li><span class="term">DAC</span> (Discretionary Access Control) &mdash; เจ้าของ (Owner) กำหนดสิทธิ์เอง ยืดหยุ่นแต่เสี่ยง เช่น File sharing ใน Windows</li>
+      <li><span class="term">MAC</span> (Mandatory Access Control) &mdash; ระบบ/นโยบายกำหนดตายตัว ใช้ Label/Classification เช่น "Top Secret" ผู้ใช้เปลี่ยนเองไม่ได้</li>
+      <li><span class="term">RBAC</span> (Role-Based Access Control) &mdash; สิทธิ์ผูกกับ "Role" ไม่ใช่ตัวบุคคล เช่น Role "HR" เข้าถึงข้อมูลพนักงาน Role "Finance" เข้าถึงข้อมูลการเงิน</li>
+      <li><span class="term">ABAC</span> (Attribute-Based Access Control) &mdash; ยืดหยุ่นที่สุด ใช้หลาย Attribute ประกอบกัน เช่น เวลา + สถานที่ + ตำแหน่ง + ประเภทอุปกรณ์</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 5: SSO & Federation -->
+  <div class="section">
+    <h2>SSO และ Federation</h2>
+    <span class="en">Single Sign-On &amp; Federated Identity</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ:</strong><br>
+      - <strong>SSO</strong> = บัตรพนักงาน 1 ใบ เปิดได้ทุกประตูในบริษัท (Login ครั้งเดียว เข้าได้ทุกระบบภายใน)<br>
+      - <strong>Federation</strong> = พาสปอร์ต 1 เล่ม ใช้เข้าได้หลายประเทศ (Login ที่องค์กรหนึ่ง แต่ใช้ได้กับองค์กรอื่นที่ตกลงกัน)
+    </div>
+
+    <ul>
+      <li><span class="term">SSO</span> &mdash; ผู้ใช้ Login ครั้งเดียว เข้าถึงหลายระบบได้โดยไม่ต้องใส่รหัสผ่านซ้ำ ลดความเสี่ยง Password Fatigue</li>
+      <li><span class="term">Federation</span> &mdash; ความร่วมมือระหว่างองค์กร ให้ผู้ใช้ขององค์กร A เข้าใช้ระบบขององค์กร B ได้ เช่น "Login with Google" บนเว็บอื่น</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 6: PAM -->
+  <div class="section">
+    <h2>Privileged Access Management (PAM)</h2>
+    <span class="en">การจัดการสิทธิ์พิเศษ</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ:</strong> Master Key ของโรงแรมเปิดได้ทุกห้อง ถ้าหายหรือถูกขโมย = หายนะ<br>
+      PAM คือระบบที่ดูแล Master Key พิเศษ &mdash; ใครจะใช้ต้องขออนุมัติ, มีการบันทึก Session, หมดเวลาแล้วคืนอัตโนมัติ
+    </div>
+
+    <ul>
+      <li>บัญชี Admin / Root / SA คือเป้าหมายหลักของแฮกเกอร์</li>
+      <li>PAM ช่วย: จำกัดเวลาใช้งาน, บันทึก Session, บังคับ MFA, อนุมัติก่อนใช้ (Just-In-Time Access)</li>
+      <li>หลักการ: ให้สิทธิ์เท่าที่จำเป็น เวลาที่จำเป็น แล้วเอาคืน</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 7: Least Privilege -->
+  <div class="section">
+    <h2>Principle of Least Privilege</h2>
+    <span class="en">หลักการให้สิทธิ์น้อยที่สุดเท่าที่จำเป็น</span>
+
+    <div class="analogy">
+      <strong>เปรียบเทียบ:</strong> ถ้าจ้างช่างมาซ่อมแอร์ คุณให้กุญแจแค่ห้องที่มีแอร์ ไม่ใช่ให้ Master Key ทั้งบ้าน
+    </div>
+
+    <ul>
+      <li>ให้ผู้ใช้เข้าถึงเฉพาะสิ่งที่จำเป็นต่อการทำงาน ไม่มากไม่น้อยกว่านั้น</li>
+      <li>ลดความเสียหายเมื่อบัญชีถูก Compromise &mdash; แฮกเกอร์ทำได้แค่สิ่งที่บัญชีนั้นมีสิทธิ์</li>
+      <li>ใช้คู่กับ <span class="term">Need-to-Know</span> (เข้าถึงข้อมูลเฉพาะที่เกี่ยวข้องกับงาน)</li>
+      <li>ใช้คู่กับ <span class="term">Separation of Duties</span> (แยกหน้าที่ เช่น คนอนุมัติจ่ายเงิน กับ คนโอนเงิน ต้องเป็นคนละคน)</li>
+    </ul>
+  </div>
+
+  <!-- CHEAT SHEET -->
+  <div class="section">
+    <h2>Cheat Sheet สรุป Domain 3</h2>
+    <span class="en">Quick Reference Table</span>
+    <table class="cheat">
+      <thead>
+        <tr><th>Term (EN)</th><th>ความหมาย (TH)</th><th>จำง่ายๆ</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Identification</td><td>การแจ้งตัวตน</td><td>บอกชื่อ</td></tr>
+        <tr><td>Authentication</td><td>การพิสูจน์ตัวตน</td><td>สแกนบัตร</td></tr>
+        <tr><td>Authorization</td><td>การอนุญาตสิทธิ์</td><td>ลิฟท์ไปแค่ชั้นตัวเอง</td></tr>
+        <tr><td>Accountability</td><td>ความรับผิดชอบ/ตรวจสอบได้</td><td>กล้องวงจรปิด</td></tr>
+        <tr><td>MFA</td><td>ยืนยันตัวตนหลายปัจจัย</td><td>รหัส + OTP มือถือ</td></tr>
+        <tr><td>DAC</td><td>เจ้าของกำหนดสิทธิ์เอง</td><td>แชร์ไฟล์เอง</td></tr>
+        <tr><td>MAC</td><td>ระบบกำหนดตายตัว</td><td>ระดับความลับทหาร</td></tr>
+        <tr><td>RBAC</td><td>สิทธิ์ตามบทบาท/ตำแหน่ง</td><td>Role กำหนดสิทธิ์</td></tr>
+        <tr><td>ABAC</td><td>สิทธิ์ตามหลายเงื่อนไข</td><td>เวลา+ที่+ตำแหน่ง</td></tr>
+        <tr><td>SSO</td><td>Login ครั้งเดียว เข้าหลายระบบ</td><td>บัตรเดียวเปิดทุกประตู</td></tr>
+        <tr><td>Federation</td><td>ข้ามองค์กรด้วย Identity เดียว</td><td>พาสปอร์ตข้ามประเทศ</td></tr>
+        <tr><td>PAM</td><td>จัดการสิทธิ์ Admin/Root</td><td>ดูแล Master Key</td></tr>
+        <tr><td>Least Privilege</td><td>ให้สิทธิ์น้อยที่สุดเท่าที่จำเป็น</td><td>ช่างแอร์ได้กุญแจแค่ห้องแอร์</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="nav-bottom">
+    <a href="lesson-domain-2.html">&larr; Domain 2: BC, DR &amp; IR</a>
+    <a href="learning-path.html">Learning Path</a>
+    <a href="lesson-domain-4.html">Domain 4: Network Security &rarr;</a>
+  </div>
+</div>
+</body>
+</html>
