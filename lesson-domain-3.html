@@ -82,6 +82,7 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
 .lesson-nav a { flex:1;min-width:180px;display:flex;flex-direction:column;justify-content:center;gap:4px;text-align:center;padding:14px;background:var(--ink);color:var(--cream);font-family:var(--font-mono);font-size:13px;font-weight:800;text-decoration:none;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);text-transform:uppercase;transition:transform .1s,background .1s,box-shadow .1s; }
 .lesson-nav a small { font-family:var(--font-thai);font-size:11px;font-weight:600;text-transform:none;opacity:.85; }
 .lesson-nav a.ln-flash { background:var(--pink);color:var(--ink); }
+.lesson-nav a.ln-path { background:var(--yellow);color:var(--ink); }
 .lesson-nav a.ln-quiz { background:var(--white);color:var(--ink); }
 .lesson-nav a:hover { background:var(--yellow);color:var(--ink);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink); }
 @media(max-width:600px){ .lesson-tab { min-width:calc(33% - 8px); } .lesson-tab span { display:none; } .lesson-nav a { min-width:calc(50% - 6px); } }
@@ -322,6 +323,7 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
   <nav class="lesson-nav" aria-label="ไปต่อจากบทเรียนนี้">
     <a href="lesson-domain-2.html" class="ln-prev">&larr; Domain 2<small>BC, DR &amp; IR</small></a>
     <a href="flashcard.html?d=3" class="ln-flash">Flashcard Domain 3<small>ทวนคำศัพท์ของบทนี้</small></a>
+    <a href="learning-path.html" class="ln-path">Learning Path<small>ดูเส้นทางเรียนทั้งหมด</small></a>
     <a href="isc2-cc-landing.html" class="ln-quiz">ชุดข้อสอบ<small>เลือกชุดฝึกและสอบ</small></a>
     <a href="lesson-domain-4.html" class="ln-next">Domain 4 &rarr;<small>Network Security</small></a>
   </nav>
