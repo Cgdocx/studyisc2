@@ -1840,6 +1840,14 @@ if (overlayEl) {
   overlayEl.addEventListener("click", () => handleExamFocus());
 }
 
+// Any tap or click anywhere on the viewport immediately restores focus
+window.addEventListener("pointerdown", () => {
+  const card = document.getElementById("quizMainCard");
+  if (card && card.classList.contains("exam-blur")) {
+    handleExamFocus();
+  }
+}, { passive: true });
+
 document.addEventListener("visibilitychange", () => {
   if (session && session.strictIntegrity && !document.getElementById("screen-quiz").classList.contains("hidden")) {
     if (document.hidden) {
