@@ -478,6 +478,18 @@ footer.note { margin-top: 24px; color: var(--muted); font-size: 12px; font-famil
   </header>
 
   <section id="screen-home" class="hero">
+    <div id="resumeBanner" class="card hidden" style="margin-bottom:16px;border-left:4px solid var(--accent);background:rgba(31,138,76,0.08);padding:14px 18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <strong id="resumeTitle" style="color:var(--accent);font-size:15px;">พบแบบทดสอบที่ทำค้างไว้</strong>
+          <div id="resumeDesc" style="font-size:13px;color:var(--muted);margin-top:2px;">ทำค้างอยู่ที่ข้อ 1/100</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn primary" id="btnResume" type="button" style="padding:6px 14px;font-size:13px;">ทำต่อจากจุดเดิม</button>
+          <button class="btn" id="btnDiscardResume" type="button" style="padding:6px 14px;font-size:13px;">ล้างข้อมูล</button>
+        </div>
+      </div>
+    </div>
     <h2 id="t-hero">Choose domains to practice</h2>
     <p id="t-hero-p">Select one or more domains from the official 2026 CC outline. Thai text is embedded in this file so the quiz works offline.</p>
     
@@ -754,6 +766,73 @@ function shuffle(arr) {
   }
   return a;
 }
+
+function saveActiveSession() {
+  if (!session || !session.items || !session.items.length) return;
+  if (session.i >= session.items.length) return;
+  try {
+    const state = {
+      userName: session.userName,
+      mode: session.mode,
+      limit: session.limit,
+      i: session.i,
+      answers: session.answers,
+      reasons: session.reasons,
+      itemIndices: session.items.map(it => bank.indexOf(it)),
+      timestamp: Date.now()
+    };
+    localStorage.setItem("cc_1832_saved_session", JSON.stringify(state));
+  } catch (e) {}
+}
+
+function checkSavedSession() {
+  try {
+    const raw = localStorage.getItem("cc_1832_saved_session");
+    const banner = document.getElementById("resumeBanner");
+    if (!banner) return;
+    if (!raw) { banner.classList.add("hidden"); return; }
+    const st = JSON.parse(raw);
+    if (!st.itemIndices || !st.itemIndices.length) { banner.classList.add("hidden"); return; }
+    const desc = document.getElementById("resumeDesc");
+    const currentQ = (st.i || 0) + 1;
+    const totalQ = st.itemIndices.length;
+    const answeredCount = (st.answers || []).filter(a => a !== null && a !== -1).length;
+    if (desc) desc.textContent = "ทำค้างอยู่ที่ข้อ " + currentQ + "/" + totalQ + " (ตอบแล้ว " + answeredCount + " ข้อ)";
+    banner.classList.remove("hidden");
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function resumeSession() {
+  try {
+    const raw = localStorage.getItem("cc_1832_saved_session");
+    if (!raw) return;
+    const st = JSON.parse(raw);
+    if (!st.itemIndices || !st.itemIndices.length) return;
+    const items = st.itemIndices.map(idx => bank[idx]).filter(Boolean);
+    if (!items.length) return;
+    session = {
+      items,
+      i: Math.min(st.i || 0, items.length - 1),
+      userName: st.userName || "",
+      mode: st.mode || "exam",
+      limit: st.limit || 0,
+      answers: st.answers || Array(items.length).fill(null),
+      reasons: st.reasons || Array(items.length).fill(""),
+      left: 0,
+      endedEarly: false
+    };
+    document.getElementById("screen-home").classList.add("hidden");
+    document.getElementById("screen-result").classList.add("hidden");
+    document.getElementById("screen-quiz").classList.remove("hidden");
+    document.getElementById("btnHome").classList.remove("hidden");
+    renderQuestion();
+  } catch (e) {
+    console.error("Resume failed:", e);
+  }
+}
+
 function startQuiz() {
   const nameEl = document.getElementById("userName");
   const name = (nameEl && nameEl.value || "").trim();
@@ -784,6 +863,7 @@ function startQuiz() {
   document.getElementById("screen-quiz").classList.remove("hidden");
   document.getElementById("btnHome").classList.remove("hidden");
   renderQuestion();
+  saveActiveSession();
 }
 function current() { return session.items[session.i]; }
 function showEn() { return viewMode === "en" || viewMode === "both"; }
@@ -871,6 +951,7 @@ function pick(idx) {
     stopTimer();
     reveal(idx);
   }
+  saveActiveSession();
 }
 function reveal(idx) {
   const q = current();
@@ -910,6 +991,7 @@ function nextQ() {
   if (session.i >= session.items.length - 1) return finish();
   session.i++;
   renderQuestion();
+  saveActiveSession();
 }
 function skipQ() {
   if (session.answers[session.i] === null) {
@@ -917,9 +999,11 @@ function skipQ() {
     session.reasons[session.i] = "skipped";
   }
   nextQ();
+  saveActiveSession();
 }
 function finish() {
   stopTimer();
+  try { localStorage.removeItem("cc_1832_saved_session"); } catch(e){}
   const items = session.items;
   let correct = 0, skipped = 0, timed = 0;
   const by = {};
@@ -1089,6 +1173,7 @@ function goHome() {
   document.getElementById("screen-result").classList.add("hidden");
   document.getElementById("screen-home").classList.remove("hidden");
   document.getElementById("btnHome").classList.add("hidden");
+  checkSavedSession();
 }
 function endNow() {
   session.endedEarly = true;
@@ -1137,6 +1222,18 @@ try {
   bank = raw ? JSON.parse(raw.textContent) : [];
 } catch (e) { bank = []; }
 try { applyChrome(); } catch (e) { console.error(e); }
+
+try {
+  const btnRes = document.getElementById("btnResume");
+  if (btnRes) btnRes.onclick = resumeSession;
+  const btnDisc = document.getElementById("btnDiscardResume");
+  if (btnDisc) btnDisc.onclick = () => {
+    localStorage.removeItem("cc_1832_saved_session");
+    document.getElementById("resumeBanner").classList.add("hidden");
+  };
+  checkSavedSession();
+} catch (e) {}
+
 document.getElementById("domainList").addEventListener("click", (ev) => {
   const card = ev.target.closest(".domain");
   if (!card) return;
