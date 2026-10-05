@@ -1,7 +1,7 @@
 {
   "name": "ISC2 CC Study Hub & Practice Bank",
   "short_name": "ISC2 CC Hub",
-  "start_url": "./index.html",
+  "start_url": "./isc2-cc-landing.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",

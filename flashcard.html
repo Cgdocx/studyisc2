@@ -99,6 +99,7 @@ h1 { font-family: var(--font-display); font-size: 28px; text-transform: uppercas
 
 .shortcuts { text-align: center; font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 24px; }
 .shortcuts kbd { background: var(--white); border: 1px solid var(--ink); padding: 1px 6px; font-size: 11px; box-shadow: 1px 1px 0 var(--ink); }
+@media (hover: none) { .shortcuts { display: none; } }
 
 .domain-progress { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 24px; }
 .dp-item { background: var(--white); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); padding: 10px 12px; }
@@ -122,7 +123,7 @@ h1 { font-family: var(--font-display); font-size: 28px; text-transform: uppercas
 <body>
 <nav class="creative-global-nav">
   <div class="cg-nav-inner">
-    <a href="index.html" class="cg-brand"><span class="cg-badge">ISC2 CC</span><span>STUDY HUB</span></a>
+    <a href="isc2-cc-landing.html" class="cg-brand"><span class="cg-badge">ISC2 CC</span><span>STUDY HUB</span></a>
     <div class="cg-links">
       <a href="learning-path.html" class="cg-link">LEARNING PATH</a>
       <a href="lesson-domain-1.html" class="cg-link">บทเรียน</a>
@@ -151,7 +152,7 @@ h1 { font-family: var(--font-display); font-size: 28px; text-transform: uppercas
     <button class="ctrl-btn" id="unknownOnlyBtn">ดูเฉพาะ "ยังไม่รู้"</button>
   </div>
 
-  <div class="card-counter" id="cardCounter">1 / 120</div>
+  <div class="card-counter" id="cardCounter">1 / 100</div>
 
   <div class="card-scene" id="cardScene">
     <div class="card3d" id="card3d">
@@ -488,7 +489,9 @@ function init() {
     if (dx > 0) markKnow(); else markDunno();
   }, {passive:true});
 
-  buildDeck();
+  const startDomain = parseInt(new URLSearchParams(location.search).get('d'), 10);
+  if (DOMAINS.some(dom => dom.id === startDomain)) filterDomain(startDomain);
+  else buildDeck();
   shuffle(deck);
   renderCard();
   updateProgress();
