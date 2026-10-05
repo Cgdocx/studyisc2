@@ -196,9 +196,237 @@ footer{color:var(--muted);text-align:center;margin-top:20px;font-size:.85rem}
  body{background:#fff;color:#111}.toolbar,.side,.actions,.modal{display:none!important}.layout{display:block}.panel{box-shadow:none;border:0}
  .main-panel{padding:0}.thai{color:#111}.answer{background:#fff;color:#111}.explanation-block{background:#fff;color:#111}
 }
+
+
+/* ===== CREATIVE MODE SYSTEM DESIGN TOKENS (NEO-BRUTALIST EDITORIAL) ===== */
+:root {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+
+  /* Theme Variable Mappings for Quiz Components */
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --bg-raised: #E4DCC4;
+  --bg-card: #FFFFFF;
+  --panel: #FFFFFF;
+  --panel-2: #F7F4EB;
+  --panel2: #F7F4EB;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --border: #0F0F0F;
+  --text: #0F0F0F;
+  --text-dim: #2A2A2A;
+  --text-faint: #4A4A4A;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --red-bg: #FFE4E6;
+  --red-dim: rgba(209,36,56,.12);
+  --blue: #1E40AF;
+  --blue-bg: #E0E7FF;
+  --green-bg: #DCFCE7;
+  --gold: #E85A1F;
+  --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+
+  /* Typography */
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+.creative-global-nav {
+  position: sticky; top: 0; z-index: 10000;
+  background: var(--cream);
+  border-bottom: 3px solid var(--ink);
+  font-family: var(--font-body);
+}
+.cg-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 18px; gap: 12px; flex-wrap: wrap;
+}
+.cg-brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-display); font-size: 15px;
+  border: 2px solid var(--ink); background: var(--white);
+  padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase;
+}
+.cg-brand .cg-badge {
+  background: var(--yellow); color: var(--ink);
+  padding: 1px 6px; font-size: 11px; font-family: var(--font-mono); font-weight: 800;
+  border: 1px solid var(--ink);
+}
+.cg-links {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.cg-link {
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 6px 12px; background: var(--white);
+  border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  white-space: nowrap;
+}
+.cg-link:hover {
+  background: var(--yellow);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.cg-link.active {
+  background: var(--orange);
+  color: var(--white);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+@media (max-width: 768px) {
+  .cg-nav-inner { padding: 8px 10px; }
+  .cg-links { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; width: 100%; -webkit-overflow-scrolling: touch; }
+}
+
+/* Comprehensive Neo-Brutalist Theme Rules for Quiz Elements */
+body {
+  font-family: var(--font-thai) !important;
+  background: var(--cream) !important;
+  color: var(--ink) !important;
+  line-height: 1.6 !important;
+}
+
+h1, h2, h3, .logo, .brand, .results h2, .exam-timer {
+  font-family: var(--font-display) !important;
+  color: var(--ink) !important;
+  text-transform: uppercase;
+}
+
+.hero, .start-screen, .question-card, .card, .panel, .main-panel, .side, .q-card, .results, .review-item, .stat-card, .mode-card, .domain-row, .exam-bar, .finish-banner, .incomplete-banner, .explanation-box {
+  background: var(--white) !important;
+  color: var(--ink) !important;
+  border: 3px solid var(--ink) !important;
+  box-shadow: 5px 5px 0 var(--ink) !important;
+  border-radius: 0 !important;
+}
+
+.hero {
+  background: var(--white) !important;
+}
+
+.btn, button, input[type="button"], input[type="submit"], select, input[type="text"], input[type="number"], .option-btn, .choice-btn, .opt, .seg button, .lang-btn {
+  border: 2px solid var(--ink) !important;
+  box-shadow: 3px 3px 0 var(--ink) !important;
+  border-radius: 0 !important;
+  font-family: var(--font-thai) !important;
+  font-weight: 700 !important;
+  background: var(--white) !important;
+  color: var(--ink) !important;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+}
+
+.btn-primary, .active-btn, .seg button.on, .lang-btn.active, .btn-primary:hover {
+  background: var(--orange) !important;
+  color: var(--white) !important;
+}
+
+.btn:hover:not(:disabled), button:hover:not(:disabled), .option-btn:hover:not(.disabled), .opt:hover {
+  background: var(--yellow) !important;
+  color: var(--ink) !important;
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--ink) !important;
+}
+
+.btn:active:not(:disabled), button:active:not(:disabled), .option-btn:active:not(.disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink) !important;
+}
+
+.option-btn.correct-selected, .option-btn.correct-reveal, .choice-btn.correct, .opt.correct, .answer.correct {
+  background: #BBF7D0 !important;
+  border-color: var(--ink) !important;
+  color: var(--ink) !important;
+  box-shadow: 4px 4px 0 var(--ink) !important;
+}
+
+.option-btn.wrong-selected, .choice-btn.incorrect, .opt.incorrect, .answer.incorrect {
+  background: #FECDD3 !important;
+  border-color: var(--ink) !important;
+  color: var(--ink) !important;
+  box-shadow: 4px 4px 0 var(--ink) !important;
+}
+
+.option-letter {
+  background: var(--cream) !important;
+  border: 2px solid var(--ink) !important;
+  color: var(--ink) !important;
+  border-radius: 0 !important;
+  font-family: var(--font-mono) !important;
+  font-weight: 800 !important;
+}
+
+.domain-tag, .tag, .stat-pill, .badge, .lang-chip {
+  background: var(--cream-2) !important;
+  color: var(--ink) !important;
+  border: 1.5px solid var(--ink) !important;
+  border-radius: 0 !important;
+  box-shadow: 2px 2px 0 var(--ink) !important;
+  font-family: var(--font-mono) !important;
+  font-weight: 800 !important;
+}
+
+.progress-bar-track, .bar-track, .progress-wrap {
+  background: var(--cream-2) !important;
+  border: 2px solid var(--ink) !important;
+  border-radius: 0 !important;
+  height: 12px !important;
+}
+
+.progress-bar-fill, .bar-fill, .progress-fill {
+  background: var(--orange) !important;
+  border-radius: 0 !important;
+}
+
+.name-input, .count-input, input, select {
+  background: var(--white) !important;
+  color: var(--ink) !important;
+  border: 2px solid var(--ink) !important;
+}
+
+/* Remove dark radial gradients or dark pseudo-elements */
+body::before, body::after {
+  display: none !important;
+}
+
 </style>
 </head>
 <body>
+<!-- CREATIVE MODE GLOBAL NAV BAR -->
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="index.html" class="cg-brand">
+      <span class="cg-badge">ISC2 CC</span>
+      <span class="cg-title">STUDY HUB</span>
+    </a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link ">MIND MAP 12 บท</a>
+      <a href="1832quiz_NewExamDomainTH.html" class="cg-link ">ชุด 1,832 ข้อ (TH)</a>
+      <a href="isc2_cc_BothThai-eng_583quiz.html" class="cg-link ">ชุด 583 ข้อ (TH/EN)</a>
+      <a href="isc2_cc_exam548_5Domain_dualTh-Eng.html" class="cg-link ">ชุด 548 ข้อ (5 Domains)</a>
+      <a href="isc2_cc_exam1NCSA_bi_no-track-50q.html" class="cg-link active">ชุด 50 ข้อ สกมช.</a>
+      <a href="isc2-cc-landing.html" class="cg-link ">รวมชุดข้อสอบ</a>
+    </div>
+  </div>
+</nav>
+
 <div class="app">
   <section class="hero">
     <h1 id="titleEn"></h1>
