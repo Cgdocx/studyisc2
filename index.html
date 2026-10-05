@@ -1467,5 +1467,61 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
+<!-- neko -->
+<style>
+#neko{position:fixed;bottom:8px;z-index:9999;pointer-events:none}
+#neko.flip svg{transform:scaleX(-1)}
+#neko .neye-shut,#neko .nzzz{display:none}
+@keyframes nk-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+#neko.walk{animation:nk-bob .3s ease-in-out infinite}
+@keyframes nk-tail{0%,100%{transform:rotate(0)}50%{transform:rotate(-20deg)}}
+#neko.sit .ntail{animation:nk-tail 1s ease-in-out infinite;transform-origin:8px 30px}
+#neko.sleep .neye{display:none}
+#neko.sleep .neye-shut{display:block}
+@keyframes nk-zzz{0%,100%{opacity:0;transform:translateY(0)}50%{opacity:1;transform:translateY(-8px)}}
+#neko.sleep .nzzz{display:block;animation:nk-zzz 2s ease-in-out infinite}
+@keyframes nk-breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.03)}}
+#neko.sleep svg{animation:nk-breathe 2s ease-in-out infinite;transform-origin:center bottom}
+</style>
+<div id="neko">
+<svg width="50" height="45" viewBox="0 0 50 45">
+<path class="ntail" d="M8,30 Q2,18 6,8" stroke="#0F0F0F" stroke-width="3" fill="none" stroke-linecap="round"/>
+<ellipse cx="24" cy="33" rx="15" ry="10" fill="#0F0F0F"/>
+<circle cx="38" cy="22" r="9" fill="#0F0F0F"/>
+<polygon points="31,16 34,4 38,14" fill="#0F0F0F"/>
+<polygon points="38,14 41,3 44,14" fill="#0F0F0F"/>
+<polygon points="32.5,15 34,7 36,14" fill="#F06CA8"/>
+<polygon points="39,13.5 41,6 43,14" fill="#F06CA8"/>
+<ellipse class="neye" cx="35" cy="21" rx="2" ry="2.5" fill="#F5C518"/>
+<ellipse class="neye" cx="42" cy="21" rx="2" ry="2.5" fill="#F5C518"/>
+<circle class="neye" cx="35.5" cy="21.5" r="1.2" fill="#0F0F0F"/>
+<circle class="neye" cx="42.5" cy="21.5" r="1.2" fill="#0F0F0F"/>
+<line class="neye-shut" x1="33" y1="21" x2="37" y2="21" stroke="#F5C518" stroke-width="1.5" stroke-linecap="round"/>
+<line class="neye-shut" x1="40" y1="21" x2="44" y2="21" stroke="#F5C518" stroke-width="1.5" stroke-linecap="round"/>
+<polygon points="37.5,24.5 38.5,24.5 38,25.5" fill="#F06CA8"/>
+<text class="nzzz" x="46" y="12" fill="#F5C518" font-family="monospace" font-size="10" font-weight="bold">z</text>
+</svg>
+</div>
+<script>
+(function(){
+var el=document.getElementById('neko');
+if(!el)return;
+var x=Math.random()*(innerWidth-60),dir=1,state='walk',timer=0;
+function next(){
+if(state==='walk'){state=Math.random()<.65?'sit':'sleep';timer=state==='sit'?150+Math.random()*200:250+Math.random()*350}
+else{state='walk';timer=200+Math.random()*400;if(Math.random()<.4)dir*=-1}
+el.className=state+(dir<0?' flip':'')
+}
+next();state='walk';timer=100+Math.random()*200;el.className='walk';
+(function frame(){
+if(--timer<=0)next();
+if(state==='walk'){x+=1.2*dir;if(x>innerWidth-55){dir=-1;el.className='walk flip'}if(x<5){dir=1;el.className='walk'}}
+el.style.left=x+'px';
+requestAnimationFrame(frame)
+})()
+})();
+</script>
+
 </body>
 </html>
