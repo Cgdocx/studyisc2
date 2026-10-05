@@ -490,6 +490,18 @@ footer.note { margin-top: 24px; color: var(--muted); font-size: 12px; font-famil
         </div>
       </div>
     </div>
+    <div id="mistakeBanner" class="card hidden" style="margin-bottom:16px;border-left:4px solid #d97706;background:rgba(217,119,6,0.08);padding:14px 18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <strong id="mistakeTitle" style="color:#d97706;font-size:15px;">คลังข้อที่เคยตอบผิด (Spaced Repetition)</strong>
+          <div id="mistakeDesc" style="font-size:13px;color:var(--muted);margin-top:2px;">มีข้อสอบที่บันทึกไว้รอทบทวน 0 ข้อ</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn" id="btnPracticeMistakes" type="button" style="padding:6px 14px;font-size:13px;background:#d97706;color:#fff;border-color:#d97706;">ฝึกทำข้อที่เคยผิด</button>
+          <button class="btn" id="btnClearMistakes" type="button" style="padding:6px 14px;font-size:13px;">ล้างคลังข้อผิด</button>
+        </div>
+      </div>
+    </div>
     <h2 id="t-hero">Choose domains to practice</h2>
     <p id="t-hero-p">Select one or more domains from the official 2026 CC outline. Thai text is embedded in this file so the quiz works offline.</p>
     
@@ -579,9 +591,11 @@ footer.note { margin-top: 24px; color: var(--muted); font-size: 12px; font-famil
       <p id="resDetail" style="color:var(--muted);margin:6px 0 12px"></p>
       <div class="barlist" id="resBars"></div>
       <p class="send-note" id="resSend">Saving result…</p>
-      <div class="nav" style="justify-content:center">
+      <div class="nav" style="justify-content:center;flex-wrap:wrap;gap:8px;">
         <button class="btn" id="btnReview" type="button">Review answers</button>
         <button class="btn" id="btnPrint" type="button">Print incorrect</button>
+        <button class="btn" id="btnExportJson" type="button" style="border-color:#0284c7;color:#0284c7;">Export Analysis JSON</button>
+        <button class="btn primary hidden" id="btnRetryMissed" type="button" style="background:#d97706;border-color:#d97706;">ฝึกทำเฉพาะข้อที่ผิด (<span id="missedBadge">0</span>)</button>
         <button class="btn primary" id="btnAgain" type="button">New quiz</button>
       </div>
     </div>
@@ -845,6 +859,158 @@ function resumeSession() {
   }
 }
 
+
+function updateMistakeBank(missedIndices) {
+  if (!missedIndices || !missedIndices.length) return;
+  try {
+    const raw = localStorage.getItem("cc_mistake_bank");
+    let set = new Set(raw ? JSON.parse(raw) : []);
+    missedIndices.forEach(idx => set.add(idx));
+    localStorage.setItem("cc_mistake_bank", JSON.stringify([...set]));
+  } catch(e) {}
+}
+
+function checkMistakeBank() {
+  try {
+    const raw = localStorage.getItem("cc_mistake_bank");
+    const banner = document.getElementById("mistakeBanner");
+    if (!banner) return;
+    if (!raw) { banner.classList.add("hidden"); return; }
+    const list = JSON.parse(raw);
+    if (!list || !list.length) { banner.classList.add("hidden"); return; }
+    const desc = document.getElementById("mistakeDesc");
+    if (desc) desc.textContent = "มีข้อสอบในคลังรอฝึกทบทวน " + list.length + " ข้อ";
+    banner.classList.remove("hidden");
+  } catch(e) {}
+}
+
+function practiceMistakes() {
+  try {
+    const raw = localStorage.getItem("cc_mistake_bank");
+    if (!raw) return alert("ไม่มีข้อสอบในคลังข้อผิด");
+    const list = JSON.parse(raw);
+    if (!list || !list.length) return alert("ไม่มีข้อสอบในคลังข้อผิด");
+    const items = list.map(idx => bank[idx]).filter(Boolean);
+    if (!items.length) return alert("ไม่พบข้อสอบในระบบ");
+    
+    const nameEl = document.getElementById("userName");
+    const name = (nameEl && nameEl.value || "").trim() || "Candidate";
+    
+    session = {
+      items: shuffle(items),
+      i: 0,
+      userName: name,
+      mode: "practice",
+      limit: 0,
+      answers: Array(items.length).fill(null),
+      reasons: Array(items.length).fill(""),
+      left: 0,
+      endedEarly: false
+    };
+    document.getElementById("screen-home").classList.add("hidden");
+    document.getElementById("screen-result").classList.add("hidden");
+    document.getElementById("screen-quiz").classList.remove("hidden");
+    document.getElementById("btnHome").classList.remove("hidden");
+    renderQuestion();
+    saveActiveSession();
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+function retryCurrentMissed() {
+  if (!session || !session.items) return;
+  const missed = [];
+  session.items.forEach((q, i) => {
+    if (session.answers[i] !== q.a) missed.push(q);
+  });
+  if (!missed.length) return;
+  session = {
+    items: shuffle(missed),
+    i: 0,
+    userName: session.userName,
+    mode: session.mode,
+    limit: session.limit,
+    answers: Array(missed.length).fill(null),
+    reasons: Array(missed.length).fill(""),
+    left: 0,
+    endedEarly: false
+  };
+  document.getElementById("screen-result").classList.add("hidden");
+  document.getElementById("screen-quiz").classList.remove("hidden");
+  document.getElementById("btnHome").classList.remove("hidden");
+  renderQuestion();
+  saveActiveSession();
+}
+
+function exportWeaknessJson() {
+  if (!session || !session.summary) return;
+  const s = session.summary;
+  const letters = ["A","B","C","D"];
+  const missedDetails = [];
+  session.items.forEach((q, i) => {
+    const ans = session.answers[i];
+    if (ans !== q.a) {
+      let yourAns = "No Answer / Skipped";
+      if (ans >= 0 && q.c[ans]) yourAns = letters[ans] + ". " + q.c[ans];
+      missedDetails.push({
+        questionIndex: i + 1,
+        domainId: q.d,
+        domainName: domainName(q.d),
+        question_en: q.q,
+        question_th: q.qt || "",
+        options_en: q.c,
+        options_th: q.ct || [],
+        userAnswer: yourAns,
+        correctAnswer: letters[q.a] + ". " + q.c[q.a],
+        explanation_en: q.e || "",
+        explanation_th: q.et || ""
+      });
+    }
+  });
+
+  const domainStats = {};
+  DOMAINS.forEach(d => {
+    const stat = s.by[d.id];
+    if (stat && stat.t > 0) {
+      const scorePct = Math.round(stat.c / stat.t * 100);
+      domainStats["Domain_" + d.id] = {
+        name: d.en,
+        name_th: d.th,
+        correct: stat.c,
+        total: stat.t,
+        scorePercent: scorePct,
+        status: scorePct >= 70 ? "PASS" : "NEEDS_IMPROVEMENT"
+      };
+    }
+  });
+
+  const payload = {
+    reportTitle: "ISC2 CC Comprehensive Weakness & Exam Readiness Analysis",
+    candidateName: session.userName || "Candidate",
+    exportDate: new Date().toISOString(),
+    totalQuestions: s.total,
+    correctCount: s.correct,
+    overallScorePercent: s.pct,
+    overallVerdict: s.passed ? "PASS" : "FAIL",
+    domainBreakdown: domainStats,
+    totalMissedQuestions: missedDetails.length,
+    missedQuestionsList: missedDetails
+  };
+
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  const dateStr = new Date().toISOString().slice(0, 10);
+  const cleanName = (session.userName || "Candidate").replace(/\s+/g, "_");
+  a.download = "ISC2_CC_Weakness_Analysis_" + cleanName + "_" + dateStr + ".json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 function startQuiz() {
   const nameEl = document.getElementById("userName");
   const name = (nameEl && nameEl.value || "").trim();
@@ -1034,6 +1200,24 @@ function finish() {
   session.summary = { correct, total, skipped, timed, pct, passed, by };
   document.getElementById("screen-quiz").classList.add("hidden");
   document.getElementById("screen-result").classList.remove("hidden");
+  const missedIdxs = [];
+  session.items.forEach((q, i) => {
+    if (session.answers[i] !== q.a) {
+      const bIdx = bank.indexOf(q);
+      if (bIdx !== -1) missedIdxs.push(bIdx);
+    }
+  });
+  updateMistakeBank(missedIdxs);
+  const btnRetry = document.getElementById("btnRetryMissed");
+  const missedBadge = document.getElementById("missedBadge");
+  if (btnRetry && missedBadge) {
+    if (missedIdxs.length > 0) {
+      missedBadge.textContent = missedIdxs.length;
+      btnRetry.classList.remove("hidden");
+    } else {
+      btnRetry.classList.add("hidden");
+    }
+  }
   document.getElementById("resScore").textContent = pct + "%";
   const verd = document.getElementById("resVerdict");
   verd.textContent = passed ? t().pass : t().fail;
@@ -1186,6 +1370,7 @@ function goHome() {
   document.getElementById("screen-home").classList.remove("hidden");
   document.getElementById("btnHome").classList.add("hidden");
   checkSavedSession();
+  checkMistakeBank();
 }
 function endNow() {
   session.endedEarly = true;
@@ -1210,6 +1395,14 @@ document.getElementById("btnHome").onclick = goHome;
 document.getElementById("btnAgain").onclick = goHome;
 document.getElementById("btnReview").onclick = review;
 document.getElementById("btnPrint").onclick = printMissed;
+document.getElementById("btnExportJson").onclick = exportWeaknessJson;
+document.getElementById("btnRetryMissed").onclick = retryCurrentMissed;
+document.getElementById("btnPracticeMistakes").onclick = practiceMistakes;
+document.getElementById("btnClearMistakes").onclick = () => {
+  localStorage.removeItem("cc_mistake_bank");
+  document.getElementById("mistakeBanner").classList.add("hidden");
+};
+checkMistakeBank();
 document.getElementById("btnEnd").onclick = endNow;
 document.addEventListener("keydown", e => {
   if (document.getElementById("screen-quiz").classList.contains("hidden")) return;
@@ -1244,6 +1437,7 @@ try {
     document.getElementById("resumeBanner").classList.add("hidden");
   };
   checkSavedSession();
+  checkMistakeBank();
 } catch (e) {}
 
 document.getElementById("domainList").addEventListener("click", (ev) => {
@@ -1254,6 +1448,16 @@ document.getElementById("domainList").addEventListener("click", (ev) => {
   if (selected.has(id)) selected.delete(id); else selected.add(id);
   applyChrome();
 });
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => {
+      console.warn('SW registration failed:', err);
+    });
+  });
+}
 </script>
 </body>
 </html>
