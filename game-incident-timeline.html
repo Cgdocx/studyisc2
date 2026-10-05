@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISC2 CC — Security Incident Timeline Game</title>
+<title>ISC2 CC - Security Incident Timeline Game</title>
 <meta name="description" content="เกมเรียงลำดับขั้นตอนด้าน Cybersecurity ฝึกจำกระบวนการสำคัญ ISC2 CC ทั้ง 8 สถานการณ์">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -443,7 +443,7 @@ function renderScenario() {
         ${shuffled.map(idx => `
           <li class="step-item" draggable="true" data-idx="${idx}">
             <span class="step-num">${shuffled.indexOf(idx) + 1}</span>
-            <span>${s.steps[idx]} — ${s.stepsTH[idx]}</span>
+            <span>${s.steps[idx]} - ${s.stepsTH[idx]}</span>
           </li>
         `).join('')}
       </ul>
@@ -600,7 +600,7 @@ function checkOrder() {
     const explainBox = document.getElementById('explainBox');
     const correctList = document.getElementById('correctList');
     correctList.innerHTML = s.steps.map((step, i) =>
-      `<li><strong>${step}</strong> — ${s.stepsTH[i]}</li>`
+      `<li><strong>${step}</strong> - ${s.stepsTH[i]}</li>`
     ).join('');
     explainBox.classList.add('show');
 
