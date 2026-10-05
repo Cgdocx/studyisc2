@@ -462,10 +462,10 @@ const chapters = [
 {
   domainCode: "D1", domainName: "Domain 1: Security Principles", domainWeight: "26%",
  
-  en: "Cybersecurity Principles", th: "หลักการรักษาความมั่นคงปลอดภัยไซเบอร์", color:"#1F8A4C", tagline: "หัวใจของ <b>Information Assurance</b> คือ CIA Triad (Confidentiality, Integrity, Availability) บวกกับ Privacy และจรรยาบรรณ ISC2: เป็นรากฐานที่ทุกบทถัดไปต่อยอดขึ้นมา",
+  en: "Cybersecurity Principles", th: "หลักการรักษาความมั่นคงปลอดภัยไซเบอร์", color:"#1F8A4C", tagline: "หัวใจของการประกันความมั่นคงปลอดภัยสารสนเทศ (<b>Information Assurance</b>) มุ่งเน้นหลัก CIA Triad ร่วมกับการคุ้มครองข้อมูลส่วนบุคคลและจรรยาบรรณวิชาชีพ ISC2 ซึ่งเป็นรากฐานสำคัญของทุกโดเมน",
   topics: [
     {h:"Information Assurance", points:[
-      {t:"นิยาม", d:"เป็น <b>วัตถุประสงค์ (Objective)</b> ของ Cybersecurity ไม่ใช่กฎหมายหรือ Control เฉพาะเจาะจง: เป้าหมายคือรับประกันว่าข้อมูลอยู่ถูกที่ ถูกรูปแบบ ถูกคน"},
+      {t:"นิยาม", d:"เป็น <b>เป้าหมายหลักเชิงยุทธศาสตร์ (Objective)</b> ด้านความมั่นคงปลอดภัยไซเบอร์ มิใช่เพียงกฎหมายหรือมาตรการควบคุมเฉพาะ โดยมุ่งรับประกันความถูกต้อง ความพร้อมใช้ และความลับของสารสนเทศ"},
       {t:"องค์ประกอบ", d:"มี 6 ส่วนหลัก: Confidentiality, Integrity, Availability + Privacy, Authentication, Non-repudiation (2 อย่างหลังจะเรียนลึกใน Ch.8-9)"}
     ]},
     {h:"CIA Triad", points:[
@@ -474,14 +474,14 @@ const chapters = [
       {t:"Availability", d:"ข้อมูลเข้าถึงได้ทันเวลาและเชื่อถือได้ตามที่ต้องการ: \"ระบบและข้อมูลพร้อมให้เข้าถึงและใช้งานได้ตามต้องการหรือไม่\""}
     ]},
     {h:"Privacy vs Confidentiality", points:[
-      {t:"Privacy", d:"= Control + Possession + Secrecy: สิทธิ์ในการควบคุมข้อมูลของตนเอง กว้างกว่า Confidentiality และมีมิติกฎหมาย/การเมือง/ปรัชญาเข้ามาเกี่ยวข้อง"},
-      {t:"Confidentiality", d:"เป็นเพียง Technical secrecy หนึ่งในองค์ประกอบของ Privacy เท่านั้น ไม่ใช่สิ่งเดียวกัน"}
+      {t:"Privacy", d:"= สิทธิในการครอบครอง ควบคุม และรักษาความลับในข้อมูลของตนเอง ซึ่งมีขอบเขตกว้างกว่า Confidentiality โดยครอบคลุมถึงมิติด้านกฎหมายและสิทธิส่วนบุคคล"},
+      {t:"Confidentiality", d:"เป็นมาตรการรักษาความลับทางเทคนิค (Technical Secrecy) ซึ่งเป็นเพียงองค์ประกอบย่อยส่วนหนึ่งของการคุ้มครองความเป็นส่วนตัว"}
     ]},
     {h:"ISC2 Code of Ethics", points:[
       {t:"Canon 1", d:"Protect society, the common good, necessary public trust and confidence, and the infrastructure"},
       {t:"Canon 2", d:"Act honorably, honestly, justly, responsibly, and legally"},
       {t:"Canon 3", d:"Provide diligent and competent service to principals"},
-      {t:"Canon 4", d:"Advance and protect the profession: ต้องยึดถืออย่างเคร่งครัดเป็นเงื่อนไขของ Certification"}
+      {t:"Canon 4", d:"การส่งเสริมและปกป้องวิชาชีพ: ข้อกำหนดจรรยาบรรณที่ผู้ถือใบรับรองต้องยึดถือปฏิบัติอย่างเคร่งครัด"}
     ]}
   ],
   examFocus: [
@@ -503,22 +503,22 @@ const chapters = [
 {
   domainCode: "D1", domainName: "Domain 1: Security Principles", domainWeight: "26%",
  
-  en: "Risk Management", th: "การจัดการความเสี่ยง", color:"#E85A1F", tagline: "กระบวนการ <b>ระบุ  ->  ประเมิน  ->  จัดการ</b> ความเสี่ยง ผ่านสูตร Risk = Impact × Likelihood, Security Controls 3 ประเภท และ Governance ที่กำหนดกติกาให้ทั้งองค์กร",
+  en: "Risk Management", th: "การจัดการความเสี่ยง", color:"#E85A1F", tagline: "กระบวนการบริหารจัดการความเสี่ยง (<b>ระบุ  ->  ประเมิน  ->  รับมือ</b>) ผ่านการวิเคราะห์ Risk = Likelihood × Impact พร้อมการควบคุมความปลอดภัย 3 มิติ และธรรมาภิบาลที่กำกับดูแลทั้งองค์กร",
   topics: [
     {h:"Risk / Threat / Vulnerability", points:[
-      {t:"Risk", d:"มาตรวัดระดับที่ถูกคุกคาม = f(Impact, Likelihood) (ตามนิยาม NIST SP 800-37"},
-      {t:"Threat", d:"แหล่งที่มาของอันตราย (Source of danger) เช่น โปรแกรมประสงค์ร้าย (Malware), ผู้โจมตี (Hacker/Attacker), บุคลากรภายใน (Insider), ภัยธรรมชาติ"},
-      {t:"Vulnerability", d:"จุดอ่อนในระบบที่ Threat สามารถใช้ประโยชน์ได้ เช่น Unpatched software, Weak password"},
-      {t:"ความสัมพันธ์", d:"Threat exploit Vulnerability  ->  เกิดเหตุ  ->  เกิด Impact ต่อองค์กร"}
+      {t:"Risk", d:"ระดับผลกระทบที่อาจเกิดขึ้นต่อองค์กร = ฟังก์ชันของ (Likelihood × Impact) ตามมาตรฐาน NIST SP 800-30/37"},
+      {t:"Threat", d:"บ่อเกิดของอันตราย (Source of Danger) ที่อาจก่อให้เกิดความเสียหาย เช่น มัลแวร์, ผู้ไม่หวังดีภายนอก, บุคลากรภายในองค์กร, หรือภัยพิบัติธรรมชาติ"},
+      {t:"Vulnerability", d:"จุดอ่อนหรือช่องโหว่ในระบบที่ภัยคุกคามสามารถใช้หาประโยชน์ได้ เช่น ซอฟต์แวร์ที่ยังมิได้รับการปรับปรุงแก้ไข, รหัสผ่านที่คาดเดาง่าย"},
+      {t:"ความสัมพันธ์", d:"ภัยคุกคาม (Threat) ฉวยโอกาสจากช่องโหว่ (Vulnerability)  ->  ก่อให้เกิดเหตุการณ์ละเมิดความมั่นคงปลอดภัย  ->  ส่งผลกระทบ (Impact) ต่อพันธกิจองค์กร"}
     ]},
     {h:"Risk Management Process", points:[
-      {t:"1. Identification", d:"ระบุว่ามี Threats และ Vulnerabilities อะไรบ้างที่เกี่ยวข้องกับองค์กร"},
-      {t:"2. Assessment", d:"ให้คะแนน Likelihood × Impact  ->  จัด Priority  ->  เลือก Response ที่เหมาะสม"},
-      {t:"3. Treatment", d:"สร้าง Plan  ->  กำหนด Residual Risk ที่เหลือ  ->  มอบหมาย Owner  ->  Review เป็นระยะ"},
+      {t:"1. Identification", d:"การระบุและจัดทำบัญชีรายการภัยคุกคามตลอดจนช่องโหว่ที่อาจส่งผลกระทบต่อองค์กร"},
+      {t:"2. Assessment", d:"การประเมินโอกาสเกิดและผลกระทบ (Likelihood × Impact) เพื่อจัดลำดับความสำคัญและกำหนดมาตรการตอบสนองที่เหมาะสม"},
+      {t:"3. Treatment", d:"การจัดทำแผนปฏิบัติการ จัดการความเสี่ยงที่เหลืออยู่ (Residual Risk) มอบหมายผู้รับผิดชอบ และทบทวนตามรอบระยะเวลา"},
       {t:"4 Risk Responses", d:"<b>Avoid</b> หลีกเลี่ยง, <b>Accept</b> ยอมรับ, <b>Reduce/Mitigate</b> ลด, <b>Transfer</b> โอน (เช่นซื้อประกัน)"}
     ]},
     {h:"Security Controls", points:[
-      {t:"Technical", d:"ควบคุมผ่านเทคโนโลยี เช่น Login, MFA, Encryption, Firewall, IDS/IPS"},
+      {t:"Technical", d:"มาตรการควบคุมทางเทคนิค (Technical Controls) เช่น ระบบยืนยันตัวตน, การเข้ารหัสลับ, ไฟร์วอลล์ และระบบตรวจจับการบุกรุก"},
       {t:"Administrative", d:"ควบคุมผ่านเอกสาร/กระบวนการ เช่น Policy, Procedure, Standard, Guideline"},
       {t:"Physical", d:"ควบคุมทางกายภาพ เช่น ID readers, Locks, CCTV, Guards, Gates"},
       {t:"5 วัตถุประสงค์", d:"Preventive, Detective, Corrective, Deterrent, Compensating"}
@@ -533,7 +533,7 @@ const chapters = [
   examFocus: [
     {badge:"สูตรต้องจำ", title:"Risk = Impact × Likelihood", body:"ข้อสอบมักให้ Scenario แล้วถามว่า Risk Rating เป็นอย่างไร: ต้องประเมินทั้ง <span class='k'>Impact</span> (เสียหายแค่ไหน) และ <span class='k'>Likelihood</span> (โอกาสเกิดมากแค่ไหน) ประกอบกัน ไม่ใช่ดูแค่อย่างเดียว"},
     {badge:"แยกให้ออก", title:"Risk vs Threat vs Vulnerability", body:"<span class='k'>Threat</span> = แหล่งอันตราย, <span class='k'>Vulnerability</span> = จุดอ่อน, <span class='k'>Risk</span> = การวัดผลรวมทั้งสอง: ข้อสอบมักสลับให้เลือกผิด"},
-    {badge:"หัวข้อออกสอบประจำ", title:"4 Risk Responses ต้องจับคู่กับ Scenario ให้ถูก", body:"<span class='k'>ซื้อ Insurance = Transfer</span>, <span class='k'>ติด Firewall = Reduce</span>, <span class='k'>ไม่เปิด Server สู่ Internet = Avoid</span>, <span class='k'>ใช้ระบบเดิมต่อทั้งที่รู้ว่ามีช่องโหว่ = Accept</span>"},
+    {badge:"หัวข้อออกสอบประจำ", title:"4 Risk Responses ต้องจับคู่กับ Scenario ให้ถูก", body:"<span class='k'>ทำประกันภัยไซเบอร์ = Transfer</span>, <span class='k'>ติดตั้งไฟร์วอลล์ = Reduce</span>, <span class='k'>งดเปิดเซิร์ฟเวอร์สู่สาธารณะ = Avoid</span>, <span class='k'>ยอมรับและคงความเสี่ยงไว้ = Accept</span>"},
     {badge:"เปรียบเทียบ", title:"Technical vs Administrative vs Physical Controls", body:"โจทย์มักยกตัวอย่างเครื่องมือ/นโยบาย แล้วถามว่าเป็น Control ประเภทไหน เช่น Firewall=Technical, Policy document=Administrative, Lock=Physical"},
     {badge:"ต้องจำ", title:"Residual Risk ไม่มีทางเป็นศูนย์", body:"หลัง Treatment แล้วยังมี Risk ที่เหลืออยู่เสมอ (Residual Risk): องค์กรต้องยอมรับระดับหนึ่งเสมอ ไม่มี Control ใดขจัด Risk ได้ 100%"},
     {badge:"เปรียบเทียบ", title:"Policy  ->  Standard  ->  Procedure ลำดับต้องไม่สลับ", body:"Policy บอกทำไม (Why), Standard บอกอะไร (What), Procedure บอกอย่างไร (How): ข้อสอบมักเอาคำนิยามมาสลับที่กัน"}
@@ -550,14 +550,14 @@ const chapters = [
 {
   domainCode: "D4", domainName: "Domain 4: Network Security", domainWeight: "24%",
  
-  en: "Threats to Security", th: "ภัยคุกคามต่อความปลอดภัย", color:"#F06CA8", tagline: "รู้จักศัตรู — Malware 4 ประเภท, Network Attacks และวิวัฒนาการเครื่องมือตรวจจับ/ป้องกันตั้งแต่ Antivirus จนถึง Penetration Testing",
+  en: "Threats to Security", th: "ภัยคุกคามต่อความปลอดภัย", color:"#F06CA8", tagline: "การวิเคราะห์และเข้าใจภัยคุกคาม — จำแนกมัลแวร์ การโจมตีทางเครือข่าย และวิวัฒนาการเครื่องมือตรวจจับตั้งแต่ Antivirus ดั้งเดิมจนถึงการทดสอบเจาะระบบ (Penetration Testing)",
   topics: [
     {h:"Malware", points:[
       {t:"Virus", d:"ต้องมี Human interaction จึงจะแพร่ (ต้องมีคนรัน/เปิดไฟล์)"},
       {t:"Worm", d:"Standalone, Self-replicating — แพร่กระจายได้เองโดยไม่ต้องมีคนรัน"},
       {t:"Trojan", d:"แฝงตัวเป็นโปรแกรมที่ดูดี แต่ซ่อน Malicious code ไว้ข้างใน (Stealthy)"},
       {t:"Ransomware", d:"เข้ารหัสข้อมูลแล้วเรียกค่าไถ่ — 3 ปัจจัย: Encrypt + Time limit + Spread"},
-      {t:"APT", d:"Advanced Persistent Threat — ซับซ้อน มักได้รับการสนับสนุนจากรัฐ (State-sponsored) แฝงตัวระยะยาวโดยไม่ถูกตรวจพบ"}
+      {t:"APT", d:"Advanced Persistent Threat — ภัยคุกคามขั้นสูงที่มีการพัฒนาต่อเนื่อง (Advanced Persistent Threat) มีความซับซ้อน มักได้รับการสนับสนุนจากรัฐ แฝงตัวในระบบระยะยาวเพื่อจารกรรมข้อมูล"}
     ]},
     {h:"Network Attacks", points:[
       {t:"DDoS", d:"ใช้หลายระบบ (Botnet) ท่วม Traffic เพื่อ Deny access — ต่างจาก DoS ที่ใช้ระบบเดียว"},
@@ -565,7 +565,7 @@ const chapters = [
       {t:"Side-Channel", d:"วิเคราะห์ข้อมูลที่รั่วไหลจาก Physical implementation เช่น Power consumption, EM radiation"}
     ]},
     {h:"Detection & Mitigation", points:[
-      {t:"วิวัฒนาการ Antivirus", d:"AV (ใช้ Signature)  ->  NGAV (ใช้ ML/AI)  ->  EDR (Endpoint+AI)  ->  XDR (Endpoint+Network+Cloud)"},
+      {t:"วิวัฒนาการ Antivirus", d:"โปรแกรมป้องกันไวรัสดั้งเดิม (Signature-based)  ->  Next-Gen AV (Machine Learning)  ->  EDR (ตรวจจับพฤติกรรมบนอุปกรณ์ปลายทาง)  ->  XDR (บูรณาการการตรวจจับข้ามระบบเครือข่ายและคลาวด์)"},
       {t:"Patching & Updates", d:"ปิดช่องโหว่ที่รู้จักแล้วอย่างสม่ำเสมอ เป็นแนวป้องกันพื้นฐานที่สำคัญที่สุด"}
     ]},
     {h:"Firewalls & IDS/IPS", points:[
@@ -599,7 +599,7 @@ const chapters = [
 {
   domainCode: "D3", domainName: "Domain 3: Access Controls Concepts", domainWeight: "22%",
  
-  en: "Physical Access Controls", th: "การควบคุมการเข้าถึงทางกายภาพ", color:"#F5C518", tagline: "ควบคุมโลกจริง — ตั้งแต่ป้าย Badge, ประตู, การออกแบบพื้นที่แบบ CPTED ไปจนถึงกล้องวงจรปิดและเจ้าหน้าที่รักษาความปลอดภัย เป็น <b>แนวป้องกันด่านแรก</b>",
+  en: "Physical Access Controls", th: "การควบคุมการเข้าถึงทางกายภาพ", color:"#F5C518", tagline: "การควบคุมความปลอดภัยทางกายภาพ — ตั้งแต่บัตรประจำตัว ประตูกลไก การออกแบบสภาพแวดล้อมเพื่อป้องปรามอาชญากรรม (CPTED) ตลอดจนระบบโทรทัศน์วงจรปิดและเจ้าหน้าที่รักษาความปลอดภัย ซึ่งเป็น <b>แนวป้องกันด่านแรก</b>",
   topics: [
     {h:"Badge Systems", points:[
       {t:"Proximity Card", d:"ใช้ RFID แบบ Contactless แค่แตะหรือเข้าใกล้ Reader เช่น สำนักงาน โรงแรม"},
@@ -607,16 +607,16 @@ const chapters = [
       {t:"Biometric ID", d:"ใช้ Fingerprint/Retina ร่วมกับ Chip ปลอมแปลงยากที่สุด"}
     ]},
     {h:"Gates & Barriers", points:[
-      {t:"Turnstile", d:"ให้คนผ่านทีละ 1 คน ป้องกัน Tailgating ได้ดี — พบในสถานีรถไฟ สนามกีฬา"},
+      {t:"Turnstile", d:"ประตูกลหมุนที่จำกัดการผ่านคราวละหนึ่งคน มีประสิทธิภาพสูงในการสกัดกั้นการลอบเดินตาม (Tailgating)"},
       {t:"Barrier Gate", d:"แขนกั้นควบคุม Vehicle traffic ยกขึ้น-ลง ใช้ที่ลานจอดรถ"},
       {t:"Bollard", d:"เสาสกัดป้องกันรถชน ใช้หน้าอาคารรัฐบาล"},
-      {t:"Tailgating", d:"การแอบตามคนที่มีสิทธิ์เข้าไปโดยไม่ได้รับอนุญาต: เป็น Social engineering เชิงกายภาพ"}
+      {t:"Tailgating", d:"การแอบตามคนที่มีสิทธิเข้าไปโดยไม่ได้รับอนุญาต: เป็น Social engineering เชิงกายภาพ"}
     ]},
     {h:"CPTED", points:[
-      {t:"Natural Surveillance", d:"ออกแบบให้สังเกตเห็นกันได้ง่าย (แสงสว่าง ทัศนวิสัย)"},
-      {t:"Natural Access Control", d:"ออกแบบทางเข้า-ออกให้ควบคุมง่าย ลดจุดเข้าที่ไม่จำเป็น"},
-      {t:"Territorial Reinforcement", d:"สร้างขอบเขตพื้นที่ให้ชัดเจนว่าใครเป็นเจ้าของ"},
-      {t:"Maintenance", d:"ดูแลพื้นที่อย่างต่อเนื่อง พื้นที่ที่ถูกทิ้งร้างดึงดูดอาชญากรรม"}
+      {t:"Natural Surveillance", d:"การออกแบบพื้นที่เพื่อเพิ่มทัศนวิสัยและการมองเห็น เช่น การจัดแสงสว่างที่เพียงพอเพื่อป้องปรามผู้ไม่หวังดี"},
+      {t:"Natural Access Control", d:"การกำหนดและจำกัดช่องทางเข้าออกให้ชัดเจน เพื่อให้ง่ายต่อการกำกับดูแล"},
+      {t:"Territorial Reinforcement", d:"การแบ่งแนวเขตพื้นที่ครอบครองขององค์กรให้ชัดเจน เช่น การติดตั้งแนวรั้วหรือป้ายสัญลักษณ์"},
+      {t:"Maintenance", d:"การบำรุงรักษาสภาพแวดล้อมอย่างต่อเนื่อง เนื่องจากพื้นที่รกร้างไร้การดูแลมักตกเป็นเป้าหมายของการก่อเหตุ"}
     ]},
     {h:"Monitoring", points:[
       {t:"Security Guards", d:"ลาดตระเวน ตรวจบัตร เป็นทั้ง Deterrent และผู้ตอบสนองเหตุฉุกเฉิน"},
@@ -633,13 +633,13 @@ const chapters = [
     {badge:"หัวข้อออกสอบประจำ", title:"Turnstile vs Barrier Gate vs Bollard", body:"<span class='k'>Turnstile</span> ควบคุมคนเดินทีละคน, <span class='k'>Barrier Gate</span> ควบคุมรถ, <span class='k'>Bollard</span> เป็นเสาสกัดกันชน: ข้อสอบมักให้จับคู่ภาพหรือ Scenario กับชื่ออุปกรณ์"},
     {badge:"เปรียบเทียบ", title:"Proximity vs Smart Card vs Biometric", body:"เรียงจากความปลอดภัยน้อยไปมาก: <span class='k'>Proximity (RFID)</span>  ->  <span class='k'>Smart Card (Chip)</span>  ->  <span class='k'>Biometric</span> (ปลอมแปลงยากที่สุดเพราะผูกกับร่างกาย)"},
     {badge:"ข้อควรระวัง", title:"Cybersecurity software ไม่ใช่ Physical Control", body:"ข้อสอบมักใส่ตัวเลือกคู่เทียบที่ลวงเป็น Technical/Logical control ปนมาในคำถามเกี่ยวกับ Physical controls ต้องแยกให้ออก"},
-    {badge:"ต้องจำ", title:"Tailgating คือภัยคุกคามทางกายภาพที่พบบ่อยที่สุด", body:"การแอบตามคนที่มีสิทธิ์เข้าประตู เป็นจุดอ่อนที่ Turnstile และการฝึกอบรมพนักงานช่วยลดความเสี่ยงได้"},
+    {badge:"ต้องจำ", title:"Tailgating คือภัยคุกคามทางกายภาพที่พบบ่อยที่สุด", body:"การแอบตามคนที่มีสิทธิเข้าประตู เป็นจุดอ่อนที่ Turnstile และการฝึกอบรมพนักงานช่วยลดความเสี่ยงได้"},
     {badge:"เปรียบเทียบ", title:"4 หลักการ CPTED ต้องจำครบ", body:"Natural Surveillance, Natural Access Control, Territorial Reinforcement, Maintenance — ข้อสอบอาจถามยกตัวอย่างแล้วให้จับคู่หลักการ"},
     {badge:"หัวข้อออกสอบประจำ", title:"Security ต้อง Balance กับ Convenience", body:"หากมาตรการเข้มงวดเกินไปจนไม่สะดวก พนักงานจะหาทางเลี่ยง Control (เช่น เปิดประตูค้างให้เพื่อน): เป็นแนวคิดที่ข้อสอบชอบทดสอบผ่านสถานการณ์"}
   ],
   cheat: [
     "Proximity = <code>RFID</code> · Smart = <code>Chip</code> · Biometric = <code>Fingerprint+Chip</code>",
-    "Tailgating = แอบตามคนมีสิทธิ์เข้า (Social engineering ทางกายภาพ)",
+    "Tailgating = การลอบเดินตามผู้มีสิทธิเข้าพื้นที่ (กลลวงทางสังคมเชิงกายภาพ)",
     "CPTED = 4 หลักการ (Surveillance, Access Control, Territorial, Maintenance)",
     "CCTV 4 แบบ: <code>Fixed / PTZ / Dome / Bullet</code>",
     "Visitors ต้อง: ID + เหตุผล + Escort + Log ทุกครั้ง"
@@ -649,34 +649,34 @@ const chapters = [
 {
   domainCode: "D3", domainName: "Domain 3: Access Controls Concepts", domainWeight: "22%",
  
-  en: "Logical Access Controls", th: "การควบคุมการเข้าถึงเชิงตรรกะ", color:"#1F8A4C", tagline: "Software + Policies ที่ควบคุมว่าใครเข้าถึงอะไรได้บ้าง: จำง่าย ๆ <b>DAC = Owner ตัดสินใจ, MAC = ระบบกลางตัดสินใจ, RBAC = Role ตัดสินใจ</b>",
+  en: "Logical Access Controls", th: "การควบคุมการเข้าถึงเชิงตรรกะ", color:"#1F8A4C", tagline: "การควบคุมการเข้าถึงเชิงตรรกะผ่านซอฟต์แวร์และนโยบาย: <b>DAC = เจ้าของข้อมูลกำหนด, MAC = ระบบส่วนกลางกำหนดตามชั้นความลับ, RBAC = กำหนดตามบทบาทหน้าที่</b>",
   topics: [
     {h:"POLP & Need to Know", points:[
       {t:"Need to Know", d:"ผู้ใช้เข้าถึงเฉพาะข้อมูลที่จำเป็นต่อหน้าที่ของตนเองเท่านั้น"},
-      {t:"POLP", d:"Principle of Least Privilege — ให้สิทธิ์น้อยที่สุดที่จำเป็นต่อการทำงาน"},
-      {t:"3 Privilege Levels", d:"Administrator (เป้าหมายหลักของผู้โจมตี) > User (จำกัดสิทธิ์) > Guest (น้อยที่สุด)"}
+      {t:"POLP", d:"Principle of Least Privilege — การกำหนดสิทธิการใช้งานเพียงเท่าที่จำเป็นต่อการปฏิบัติงาน"},
+      {t:"3 Privilege Levels", d:"Administrator (เป้าหมายหลักของผู้โจมตี) > User (จำกัดสิทธิ) > Guest (น้อยที่สุด)"}
     ]},
     {h:"Segregation of Duties (SOD)", points:[
-      {t:"หลักการ", d:"แบ่งหน้าที่สำคัญให้คนละคนทำ เพื่อป้องกัน Fraud และ Unauthorized activity"},
+      {t:"หลักการ", d:"การแบ่งแยกหน้าที่ความรับผิดชอบในกระบวนการสำคัญมิให้ขึ้นตรงกับบุคคลเดียว เพื่อป้องกันการทุจริตและการกระทำโดยมิชอบ"},
       {t:"4 หน้าที่หลัก", d:"Authorization (อนุมัติ), Custody (ครอบครองทรัพย์สิน), Record-keeping (บันทึก), Reconciliation (ตรวจสอบยอด)"},
-      {t:"Dynamic SOD", d:"ห้ามทำ 2 หน้าที่ที่ขัดแย้งกันพร้อมกัน แม้จะมีสิทธิ์ทำได้ทั้งคู่"}
+      {t:"Dynamic SOD", d:"การควบคุมมิให้ปฏิบัติหน้าที่ซึ่งขัดแย้งทางผลประโยชน์ในธุรกรรมเดียวกัน แม้บุคคลนั้นจะได้รับสิทธิทั้งสองด้านก็ตาม"}
     ]},
     {h:"DAC — Discretionary Access Control", points:[
-      {t:"หลักการ", d:"เจ้าของ (Owner) เป็นผู้กำหนดสิทธิ์การเข้าถึงเอง ผ่าน Access Control List (ACL)"},
-      {t:"สิทธิ์", d:"กำหนดผ่าน r (read) / w (write) / x (execute) เช่นใน Unix/Linux"},
+      {t:"หลักการ", d:"เจ้าของข้อมูล (Data Owner) เป็นผู้กำหนดสิทธิการเข้าถึงทรัพยากรด้วยตนเองผ่านตารางกำหนดสิทธิ (ACL)"},
+      {t:"สิทธิ", d:"กำหนดผ่าน r (read) / w (write) / x (execute) เช่นใน Unix/Linux"},
       {t:"ข้อดี-ข้อเสีย", d:"ยืดหยุ่นสูง แต่จัดการยากเมื่อ Scale ใหญ่ขึ้น"}
     ]},
     {h:"MAC — Mandatory Access Control", points:[
-      {t:"หลักการ", d:"Central authority เป็นผู้กำหนดสิทธิ์ ไม่ใช่เจ้าของไฟล์ ใช้ Classification levels (Top Secret  ->  Public)"},
+      {t:"หลักการ", d:"หน่วยงานหรือระบบส่วนกลางเป็นผู้กำหนดสิทธิการเข้าถึงตามระดับชั้นความลับของข้อมูล (เช่น ลับที่สุด  ->  เปิดเผยต่อสาธารณะได้)"},
       {t:"Zero Trust", d:"เข้มงวดที่สุด ใช้ในหน่วยงานรัฐบาล/กลาโหม"},
       {t:"Bell-LaPadula", d:"เน้น Confidentiality — No Read Up, No Write Down"},
       {t:"Biba Model", d:"เน้น Integrity — No Write Up, No Read Down"},
       {t:"Clark-Wilson", d:"เน้น Integrity + Consistency ผ่าน Procedures/Rules ที่ควบคุมการทำธุรกรรม"}
     ]},
     {h:"RBAC — Role-Based Access Control", points:[
-      {t:"หลักการ", d:"สิทธิ์กำหนดตาม Role หรือ Job function ไม่ใช่รายบุคคล: เป็น Model ที่นิยมที่สุดในองค์กร"},
+      {t:"หลักการ", d:"สิทธิกำหนดตาม Role หรือ Job function ไม่ใช่รายบุคคล: เป็น Model ที่นิยมที่สุดในองค์กร"},
       {t:"Core RBAC", d:"พื้นฐาน: Role assignment + Role authorization + Permission authorization"},
-      {t:"Hierarchical RBAC", d:"สิทธิ์ Inherit ตามลำดับชั้น: Guest < User < Admin"},
+      {t:"Hierarchical RBAC", d:"สิทธิ Inherit ตามลำดับชั้น: Guest < User < Admin"},
       {t:"Constrained RBAC", d:"เพิ่มข้อจำกัด SOD เข้าไปในระบบ Role"},
       {t:"Access Matrix", d:"ตาราง Mapping Role  ->  Resource  ->  Actions (r/w/x) ต้อง Update สม่ำเสมอ"}
     ]}
@@ -684,16 +684,16 @@ const chapters = [
   examFocus: [
     {badge:"หัวข้อออกสอบบ่อยที่สุด", title:"DAC vs MAC vs RBAC — ใครเป็นคนตัดสินใจ", body:"<span class='k'>DAC = Owner</span> ตัดสินใจเอง (ยืดหยุ่นสุด), <span class='k'>MAC = Central authority</span> ตัดสินใจ (เข้มงวดสุด ใช้ในรัฐบาล/กลาโหม), <span class='k'>RBAC = Role</span> เป็นตัวกำหนด (นิยมสุดในองค์กรทั่วไป): เป็นหัวข้อที่ออกสอบแทบทุกครั้ง"},
     {badge:"เปรียบเทียบ", title:"Bell-LaPadula vs Biba vs Clark-Wilson", body:"<span class='k'>Bell-LaPadula = Confidentiality</span> (No Read Up, No Write Down), <span class='k'>Biba = Integrity</span> (No Write Up, No Read Down กลับด้านกัน), <span class='k'>Clark-Wilson = Integrity + Consistency</span> ผ่าน Rules"},
-    {badge:"ข้อควรระวัง", title:"unix chmod คือตัวอย่างของ DAC", body:"คำสั่ง <span class='k'>chmod 755 myfile.sh</span> คือเจ้าของไฟล์กำหนดสิทธิ์ r/w/x เอง ตรงตามนิยาม DAC ไม่ใช่ MAC หรือ RBAC"},
-    {badge:"ต้องจำ", title:"POLP ≠ Need to Know", body:"Need to Know = <span class='k'>ข้อมูล</span>ที่ต้องรู้ (Information) ส่วน POLP = <span class='k'>สิทธิ์</span>ที่ต้องมี (Permission): สองคำนี้ใกล้กันมากจนข้อสอบชอบเอามาสลับ"},
-    {badge:"เปรียบเทียบ", title:"Static SOD vs Dynamic SOD", body:"Static SOD ห้าม Role ที่ขัดแย้งกันมอบให้คนเดียวถาวร ส่วน Dynamic SOD อนุญาตให้มีสิทธิ์ทั้งคู่ได้ แต่ห้ามทำสองหน้าที่พร้อมกันในธุรกรรมเดียว"},
+    {badge:"ข้อควรระวัง", title:"unix chmod คือตัวอย่างของ DAC", body:"คำสั่ง <span class='k'>chmod 755 myfile.sh</span> คือเจ้าของไฟล์กำหนดสิทธิ r/w/x เอง ตรงตามนิยาม DAC ไม่ใช่ MAC หรือ RBAC"},
+    {badge:"ต้องจำ", title:"POLP ≠ Need to Know", body:"Need to Know = <span class='k'>ข้อมูล</span>ที่ต้องรู้ (Information) ส่วน POLP = <span class='k'>สิทธิ</span>ที่ต้องมี (Permission): สองคำนี้ใกล้กันมากจนข้อสอบชอบเอามาสลับ"},
+    {badge:"เปรียบเทียบ", title:"Static SOD vs Dynamic SOD", body:"Static SOD ห้าม Role ที่ขัดแย้งกันมอบให้คนเดียวถาวร ส่วน Dynamic SOD อนุญาตให้มีสิทธิทั้งคู่ได้ แต่ห้ามทำสองหน้าที่พร้อมกันในธุรกรรมเดียว"},
     {badge:"หัวข้อออกสอบประจำ", title:"RBAC เป็น Model ที่นิยมที่สุด เพราะจัดการง่ายกว่า MAC และปลอดภัยกว่า DAC", body:"ข้อสอบชอบถามว่าองค์กรทั่วไปควรเลือกใช้ Model ไหน — คำตอบมักเป็น RBAC เพราะ Balance ระหว่างความปลอดภัยกับการจัดการได้ดีที่สุด"}
   ],
   cheat: [
     "<b>DAC</b> = Owner ตัดสินใจ · <b>MAC</b> = Central authority ตัดสินใจ · <b>RBAC</b> = Role ตัดสินใจ",
     "Bell-LaPadula = <code>Confidentiality</code> (No Read Up/No Write Down)",
     "Biba = <code>Integrity</code> (No Write Up/No Read Down)",
-    "POLP ≠ Need to Know (POLP=สิทธิ์ / Need to Know=ข้อมูล)",
+    "POLP ≠ Need to Know (POLP=สิทธิ / Need to Know=ข้อมูล)",
     "RBAC ยอดนิยมที่สุดในองค์กรทั่วไป · MAC เข้มงวดสุดในรัฐบาล/กลาโหม"
   ]
 },
@@ -752,7 +752,7 @@ const chapters = [
 {
   domainCode: "D4", domainName: "Domain 4: Network Security", domainWeight: "24%",
  
-  en: "Network Security Infrastructure", th: "โครงสร้างพื้นฐานความปลอดภัยเครือข่าย", color:"#F06CA8", tagline: "จาก Data Center จริงสู่ Cloud — Defense-in-Depth, DMZ/VLAN/VPN และโมเดล Cloud ทั้ง 4 แบบพร้อม SLA เป็นบทที่ครอบคลุมกว้างที่สุดบทหนึ่ง",
+  en: "Network Security Infrastructure", th: "โครงสร้างพื้นฐานความปลอดภัยเครือข่าย", color:"#F06CA8", tagline: "โครงสร้างความปลอดภัยตั้งแต่ศูนย์ข้อมูล (Data Center) จนถึงระบบคลาวด์ — การป้องกันเชิงลึก (Defense-in-Depth), สถาปัตยกรรม DMZ/VLAN/VPN และรูปแบบการให้บริการคลาวด์พร้อมข้อตกลงระดับการให้บริการ (SLA)",
   topics: [
     {h:"On-Premises Infrastructure", points:[
       {t:"Power & Data Center", d:"UPS + Generator สำรองไฟ, ห้อง Data Center ต้องควบคุม HVAC (อุณหภูมิ+ความชื้น)"},
@@ -761,8 +761,8 @@ const chapters = [
       {t:"MOU vs MOA", d:"MOU = ไม่มีผลผูกพันทางกฎหมาย · MOA = มีผลผูกพันทางกฎหมาย (Legally binding)"}
     ]},
     {h:"Secure Network Design", points:[
-      {t:"Defense-in-Depth (DiD)", d:"ป้องกันหลายชั้นซ้อนกัน เปรียบเหมือนปราสาทที่มีทั้งคูเมือง กำแพง และทหารรักษาการณ์"},
-      {t:"Segmentation / Micro-seg", d:"แบ่งเครือข่ายเป็นส่วนย่อยเพื่อจำกัดความเสียหายหากถูกเจาะ"},
+      {t:"Defense-in-Depth (DiD)", d:"การประสานกลไกป้องกันหลายระดับชั้น เพื่อให้มั่นใจว่าหากมาตรการชั้นใดชั้นหนึ่งล้มเหลว ยังมีมาตรการชั้นอื่นรองรับรักษาการณ์"},
+      {t:"Segmentation / Micro-seg", d:"การแบ่งส่วนเครือข่ายออกเป็นโซนย่อย เพื่อจำกัดขอบเขตความเสียหายหากเกิดการบุกรุกเข้าสู่ระบบ"},
       {t:"DMZ", d:"Buffer zone ระหว่าง Internal  <->  External ใช้วาง Public-facing servers"},
       {t:"VLAN", d:"แบ่ง Network เสมือนในระดับ Logical โดยไม่ต้องเดินสายใหม่"},
       {t:"VPN", d:"เข้ารหัสการเชื่อมต่อ 3 แบบ: Remote access, Site-to-site, Mobile"},
@@ -813,8 +813,8 @@ const chapters = [
     ]},
     {h:"Hashing & Non-repudiation", points:[
       {t:"Hashing", d:"One-way function แปลง Data  ->  Fixed-length hash (SHA-256, MD5) — พิสูจน์ Integrity ไม่ใช่ Confidentiality"},
-      {t:"Salting", d:"เพิ่มตัวเลขลับเข้าไปกับข้อมูลก่อน Hash เพื่อป้องกัน Reverse engineering"},
-      {t:"Non-repudiation", d:"ทำให้ผู้ส่งปฏิเสธไม่ได้ว่าตนเองส่งข้อมูล — ใช้ Digital Signature"},
+      {t:"Salting", d:"การเพิ่มค่าสุ่มเฉพาะ (Salt) เข้ากับข้อมูลก่อนทำการคำนวณแฮช เพื่อป้องกันการถอดรหัสผ่านตาราง Rainbow Table"},
+      {t:"Non-repudiation", d:"การไม่สามารถปฏิเสธความรับผิด (Non-repudiation) เพื่อพิสูจน์ยืนยันตัวตนผู้ส่งและป้องกันการปฏิเสธการทำธุรกรรม"},
       {t:"Digital Signature", d:"= Hash message แล้วเข้ารหัส Hash นั้นด้วย Private key ของผู้ส่ง"}
     ]},
     {h:"Authentication", points:[
@@ -900,18 +900,18 @@ const chapters = [
   topics: [
     {h:"Incident Response (IR)", points:[
       {t:"ขั้นตอนหลัก", d:"Detect (ตรวจจับ)  ->  Classify (จัดประเภท)  ->  Contain (ควบคุม)  ->  Respond (ตอบสนอง)  ->  Recover (กู้คืน)  ->  Reflect (ทบทวนบทเรียน)"},
-      {t:"ขอบเขต", d:"จัดการกับเหตุการณ์เฉพาะหน้าที่เกิดขึ้นจริง ณ ขณะนั้น"}
+      {t:"ขอบเขต", d:"การปฏิบัติการรับมือและระงับเหตุการณ์ฉุกเฉินเฉพาะหน้าเพื่อจำกัดความเสียหายในทันที"}
     ]},
     {h:"Business Continuity (BC)", points:[
       {t:"BIA", d:"Business Impact Analysis — วิเคราะห์ว่ากระบวนการใดสำคัญที่สุด (Critical Process)"},
       {t:"Call Tree", d:"โครงสร้างการติดต่อสื่อสารเมื่อเกิดเหตุ เพื่อแจ้งเตือนบุคลากรที่เกี่ยวข้อง"},
-      {t:"เป้าหมาย", d:"ทำให้องค์กรดำเนินธุรกิจต่อได้ (Continue operations) แม้เกิดวิกฤต"}
+      {t:"เป้าหมาย", d:"การเตรียมความพร้อมเพื่อให้กระบวนการทางธุรกิจที่สำคัญสามารถดำเนินงานได้อย่างต่อเนื่องแม้เผชิญภาวะวิกฤต"}
     ]},
     {h:"Disaster Recovery (DR)", points:[
       {t:"Backup", d:"สำรองข้อมูลอย่างสม่ำเสมอและต้องทดสอบการ Restore จริง"},
-      {t:"RPO", d:"Recovery Point Objective — ยอมสูญเสียข้อมูลได้มากที่สุดกี่นาที/ชั่วโมง"},
-      {t:"RTO", d:"Recovery Time Objective: ต้องกู้ระบบให้กลับมาใช้งานได้ภายในเวลาเท่าไร"},
-      {t:"MTD", d:"Maximum Tolerable Downtime — เวลาสูงสุดที่ธุรกิจทนหยุดทำงานได้ก่อนเสียหายรุนแรง"},
+      {t:"RPO", d:"Recovery Point Objective — ระยะเวลาสูงสุดของข้อมูลที่สูญหายได้ซึ่งองค์กรยังยอมรับได้ (คำนวณจากความถี่ในการสำรองข้อมูล)"},
+      {t:"RTO", d:"Recovery Time Objective: ระยะเวลาเป้าหมายในการฟื้นฟูระบบและบริการให้กลับมาใช้งานได้ตามปกติ"},
+      {t:"MTD", d:"Maximum Tolerable Downtime — ระยะเวลาสูงสุดที่ระบบหรือกระบวนการทางธุรกิจสามารถหยุดชะงักได้ ก่อนที่จะเกิดความเสียหายร้ายแรงต่อองค์กร"},
       {t:"Failover Site", d:"สถานที่สำรองสำหรับย้ายระบบไปทำงานต่อ"}
     ]},
     {h:"Governance", points:[
@@ -938,19 +938,19 @@ const chapters = [
 {
   domainCode: "ALL", domainName: "Integration: เชื่อมโยงครบทั้ง 5 Domains", domainWeight: "100%",
  
-  en: "Cybersecurity as a Whole", th: "ภาพรวมการรักษาความมั่นคงปลอดภัยไซเบอร์ทั้งระบบ", color:"#F06CA8", tagline: "เชื่อมทุกโดเมนให้เป็นระบบเดียว — Mission + CIA กำหนดเป้าหมาย, Defense-in-Depth ป้องกันหลายชั้นแบบปราสาทที่ต้องดูแลทั้งหลัง ไม่ใช่แค่จุดใดจุดหนึ่ง",
+  en: "Cybersecurity as a Whole", th: "ภาพรวมการรักษาความมั่นคงปลอดภัยไซเบอร์ทั้งระบบ", color:"#F06CA8", tagline: "การบูรณาการความมั่นคงปลอดภัยแบบองค์รวม — ยึดถือพันธกิจองค์กรและหลัก CIA เป็นเป้าหมาย พร้อมประสานการป้องกันเชิงลึกหลายระดับชั้นเสมือนการพิทักษ์ปราสาทรอบด้าน มิให้มีจุดล้มเหลวเพียงจุดเดียว",
   topics: [
     {h:"Security as a Whole", points:[
-      {t:"หลักการ", d:"ทุกโดเมนที่เรียนมา (Ch.1-10) พึ่งพากันหมด — ไม่มี Control เดียวที่เพียงพอสำหรับป้องกันทุกอย่าง"}
+      {t:"หลักการ", d:"ทุกโดเมนมีความเชื่อมโยงและเกื้อหนุนซึ่งกันและกันอย่างเป็นระบบ — ไม่มีมาตรการควบคุมใดเพียงพอโดยลำพังในการป้องกันระบบทั้งหมด"}
     ]},
     {h:"Defense-in-Depth", points:[
-      {t:"หลักการ", d:"ป้องกันหลายชั้นซ้อนกันและมีทางสำรอง หากชั้นหนึ่งล้มเหลว ยังมีชั้นอื่นรองรับอยู่"}
+      {t:"หลักการ", d:"การวางมาตรการป้องกันเชิงลึกที่สอดประสานกันหลายระดับชั้น เพื่อให้มีกลไกสำรองรองรับเมื่อชั้นใดชั้นหนึ่งเกิดความล้มเหลว"}
     ]},
     {h:"Castle Analogy", points:[
-      {t:"อุปมา", d:"มองระบบความปลอดภัยเหมือนปราสาทที่ต้องดูแลทั้งหลัง ไม่ใช่แค่ประตูหน้าหรือกำแพงเดียว"}
+      {t:"อุปมา", d:"การรักษาความมั่นคงปลอดภัยแบบองค์รวมเปรียบเสมือนการพิทักษ์ปราสาท ที่จำเป็นต้องวางระบบคุ้มกันทุกด้าน มิใช่มุ่งเน้นเพียงประตูด้านหน้า"}
     ]},
     {h:"Mission + CIA", points:[
-      {t:"หลักการ", d:"เป้าหมายสูงสุดคือภารกิจ (Mission) ขององค์กร โดยมี CIA เป็นคุณสมบัติที่ Controls ทั้งหมดต้องคุ้มครอง"}
+      {t:"หลักการ", d:"เป้าหมายสูงสุดคือการขับเคลื่อนภารกิจ (Mission) ขององค์กร โดยใช้หลัก CIA เป็นคุณลักษณะที่มาตรการควบคุมความปลอดภัยทั้งหมดต้องค้ำจุน"}
     ]},
     {h:"8 โดเมนหลักที่เชื่อมกัน", points:[
       {t:"Governance", d:"Policy / Ethics / Risk"},
@@ -964,9 +964,9 @@ const chapters = [
     ]}
   ],
   examFocus: [
-    {badge:"แนวคิดหลัก", title:"บทนี้ไม่มี Objective ใหม่ แต่เชื่อมทุกบทเข้าด้วยกัน", body:"ข้อสอบมักออกในรูปแบบ Scenario ที่ต้องมองภาพรวมว่าปัญหาหนึ่งอาจต้องแก้ด้วยหลายโดเมนพร้อมกัน ไม่ใช่ Control เดียว"},
+    {badge:"แนวคิดหลัก", title:"การบูรณาการองค์ความรู้: เชื่อมโยงหลักการของทุกโดเมนเข้าด้วยกันเพื่อการตัดสินใจเชิงยุทธศาสตร์", body:"ข้อสอบมักออกในรูปแบบ Scenario ที่ต้องมองภาพรวมว่าปัญหาหนึ่งอาจต้องแก้ด้วยหลายโดเมนพร้อมกัน ไม่ใช่ Control เดียว"},
     {badge:"ต้องจำ", title:"10 ประโยคสรุปสำคัญ", body:"<span class='k'>Mission มาก่อนเครื่องมือ</span>, <span class='k'>CIA คือเป้าหมายหลัก</span>, <span class='k'>Policy=Why Standard=What Procedure=How</span>, <span class='k'>Least privilege ลดผลกระทบ</span>, <span class='k'>Logging ทำให้มองเห็น</span>, <span class='k'>Backup ต้องทดสอบ restore</span> — ประโยคเหล่านี้มักถูกนำมาแปลงเป็นคำถามข้อสอบโดยตรง"},
-    {badge:"หัวข้อออกสอบประจำ", title:"ไม่มี Control เดียวที่เพียงพอ (No single point of failure)", body:"หากข้อสอบถามว่า \"Control ใดควรใช้เพียงอย่างเดียวเพื่อป้องกันทั้งหมด\" คำตอบที่ถูกต้องคือไม่มี: ต้องใช้ Defense-in-Depth เสมอ"},
+    {badge:"หัวข้อออกสอบประจำ", title:"ไม่มีมาตรการควบคุมใดเพียงพอโดยลำพัง (การขจัดจุดล้มเหลวเพียงจุดเดียว)", body:"หากข้อสอบถามว่า \"Control ใดควรใช้เพียงอย่างเดียวเพื่อป้องกันทั้งหมด\" คำตอบที่ถูกต้องคือไม่มี: ต้องใช้ Defense-in-Depth เสมอ"},
     {badge:"เปรียบเทียบ", title:"People + Process + Technology ต้องสมดุลกัน", body:"เทคโนโลยีเพียงอย่างเดียวไม่พอ ต้องมีกระบวนการ (Process) ที่ถูกต้องและคนที่ได้รับการฝึกอบรม (People) ควบคู่กันเสมอ"}
   ],
   cheat: [
@@ -981,11 +981,11 @@ const chapters = [
 {
   domainCode: "POST", domainName: "Professional Development & CPE Roadmap", domainWeight: "Career",
  
-  en: "After the Certification", th: "หลังผ่านการรับรอง", color:"#F5C518", tagline: "จากผู้สอบผ่านสู่มืออาชีพ — Continuous Learning Loop, Technical Leadership และแผนปฏิบัติการ 90 วันสู่สายอาชีพ Cyber",
+  en: "After the Certification", th: "หลังผ่านการรับรอง", color:"#F5C518", tagline: "การพัฒนาสู่ผู้ประกอบวิชาชีพด้านความมั่นคงปลอดภัยไซเบอร์ — วงจรการเรียนรู้อย่างต่อเนื่อง การสร้างภาวะผู้นำทางเทคนิค และแผนปฏิบัติการ 90 วันเพื่อความก้าวหน้าในสายอาชีพ",
   topics: [
     {h:"Rest & Reflect", points:[
-      {t:"พัก", d:"ให้สมองและร่างกายได้พักหลังสอบเสร็จ ก่อนวางแผนขั้นต่อไป"},
-      {t:"ทบทวน", d:"ถามตัวเองว่าอะไรทำได้ดี อะไรยังไม่แม่น แล้วบันทึกบทเรียนจากการเตรียมสอบ"}
+      {t:"พัก", d:"การพักฟื้นฟูหลังการเตรียมตัวและเข้าสอบ ก่อนเริ่มวางแผนยุทธศาสตร์ในก้าวถัดไป"},
+      {t:"ทบทวน", d:"การทบทวนจุดแข็งและข้อที่ควรพัฒนา พร้อมสรุปบทเรียนและองค์ความรู้ที่ได้รับ"}
     ]},
     {h:"Technical Leadership", points:[
       {t:"Explain", d:"อธิบายเรื่องยากให้เข้าใจง่าย"},
@@ -996,7 +996,7 @@ const chapters = [
     ]},
     {h:"Continuous Learning Loop", points:[
       {t:"ขั้นตอน", d:"Plan (วางแผน)  ->  Learn (เรียนรู้)  ->  Practice (ฝึกลงมือทำ)  ->  Teach (สอนคนอื่น)  ->  Review (ทบทวน)"},
-      {t:"สูตร 70-20-10", d:"70% ลงมือทำจริง, 20% เรียนรู้จากคนอื่น, 10% คอร์ส/หนังสือ"},
+      {t:"สูตร 70-20-10", d:"การฝึกปฏิบัติจริง (70%), การแลกเปลี่ยนเรียนรู้จากผู้มีประสบการณ์ (20%), และการศึกษาหลักสูตรวิชาการ (10%)"},
       {t:"Time Block", d:"จัดเวลา 30 นาที/วัน หรือ 3 ชั่วโมง/สัปดาห์อย่างสม่ำเสมอ"}
     ]},
     {h:"Career Roadmap (5 ขั้นตอน)", points:[
