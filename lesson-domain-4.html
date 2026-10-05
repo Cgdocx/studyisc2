@@ -94,7 +94,7 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
   <header class="hero">
     <div class="eyebrow">Domain 4 of 5 &middot; Beginner Lesson</div>
     <h1>Network Security</h1>
-    <div class="sub">ความปลอดภัยเครือข่าย &mdash; ปกป้องข้อมูลที่วิ่งไปมาระหว่างคอมพิวเตอร์<br>อธิบายง่ายๆ เหมือน รปภ. หมู่บ้าน</div>
+    <div class="sub">ความปลอดภัยเครือข่าย - ปกป้องข้อมูลที่วิ่งไปมาระหว่างคอมพิวเตอร์<br>อธิบายง่ายๆ เหมือน รปภ. หมู่บ้าน</div>
   </header>
 
   <!-- SCENARIO -->
@@ -168,7 +168,7 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
   <!-- SECTION 1: OSI Model -->
   <div class="section">
     <h2>OSI Model แบบเข้าใจง่าย</h2>
-    <span class="en">Open Systems Interconnection &mdash; 7 Layers</span>
+    <span class="en">Open Systems Interconnection - 7 Layers</span>
 
     <div class="analogy">
       <strong>เปรียบเทียบ: ส่งจดหมายหาเพื่อน</strong><br>
@@ -196,17 +196,17 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     </div>
 
     <ul>
-      <li><span class="term">TCP</span> &mdash; Connection-oriented, 3-way handshake (SYN, SYN-ACK, ACK), ใช้กับ HTTP, Email, FTP</li>
-      <li><span class="term">UDP</span> &mdash; Connectionless, ไม่มีการตรวจสอบ ใช้กับ DNS, VoIP, Streaming</li>
-      <li><span class="term">IP Address</span> &mdash; "ที่อยู่" ของอุปกรณ์ในเครือข่าย (IPv4: 192.168.1.1 / IPv6: ยาวกว่า)</li>
-      <li><span class="term">Port</span> &mdash; "เลขห้อง" ของบริการ เช่น Port 80 = HTTP, 443 = HTTPS, 22 = SSH</li>
+      <li><span class="term">TCP</span> - Connection-oriented, 3-way handshake (SYN, SYN-ACK, ACK), ใช้กับ HTTP, Email, FTP</li>
+      <li><span class="term">UDP</span> - Connectionless, ไม่มีการตรวจสอบ ใช้กับ DNS, VoIP, Streaming</li>
+      <li><span class="term">IP Address</span> - "ที่อยู่" ของอุปกรณ์ในเครือข่าย (IPv4: 192.168.1.1 / IPv6: ยาวกว่า)</li>
+      <li><span class="term">Port</span> - "เลขห้อง" ของบริการ เช่น Port 80 = HTTP, 443 = HTTPS, 22 = SSH</li>
     </ul>
   </div>
 
   <!-- SECTION 3: Firewall -->
   <div class="section">
     <h2>Firewall</h2>
-    <span class="en">กำแพงไฟ &mdash; ด่านตรวจเครือข่าย</span>
+    <span class="en">กำแพงไฟ - ด่านตรวจเครือข่าย</span>
 
     <div class="analogy">
       <strong>เปรียบเทียบ: รปภ. หน้าประตูหมู่บ้าน</strong><br>
@@ -215,10 +215,10 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     </div>
 
     <ul>
-      <li><span class="term">Packet Filtering</span> &mdash; ตรวจแค่ "ซองจดหมาย" (IP, Port) ไม่เปิดอ่านเนื้อหา &mdash; เร็วแต่ไม่ละเอียด</li>
-      <li><span class="term">Stateful Inspection</span> &mdash; จำ "บทสนทนา" ได้ ตรวจว่า Packet นี้เป็นส่วนหนึ่งของ Connection ที่อนุญาตหรือไม่</li>
-      <li><span class="term">Next-Gen Firewall (NGFW)</span> &mdash; ตรวจถึงระดับ Application ดูว่าเป็น Facebook, YouTube หรือ Malware</li>
-      <li><span class="term">WAF</span> (Web Application Firewall) &mdash; เฉพาะทางสำหรับเว็บ กัน SQL Injection, XSS</li>
+      <li><span class="term">Packet Filtering</span> - ตรวจแค่ "ซองจดหมาย" (IP, Port) ไม่เปิดอ่านเนื้อหา - เร็วแต่ไม่ละเอียด</li>
+      <li><span class="term">Stateful Inspection</span> - จำ "บทสนทนา" ได้ ตรวจว่า Packet นี้เป็นส่วนหนึ่งของ Connection ที่อนุญาตหรือไม่</li>
+      <li><span class="term">Next-Gen Firewall (NGFW)</span> - ตรวจถึงระดับ Application ดูว่าเป็น Facebook, YouTube หรือ Malware</li>
+      <li><span class="term">WAF</span> (Web Application Firewall) - เฉพาะทางสำหรับเว็บ กัน SQL Injection, XSS</li>
     </ul>
   </div>
 
@@ -229,14 +229,14 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
 
     <div class="analogy">
       <strong>เปรียบเทียบ:</strong><br>
-      - <strong>IDS</strong> = กล้องวงจรปิด &mdash; เห็นขโมย แจ้งเตือน แต่จับเองไม่ได้ (Passive, detect only)<br>
-      - <strong>IPS</strong> = รปภ. ติดอาวุธ &mdash; เห็นขโมยก็จับเลย บล็อค Traffic ทันที (Active, block + alert)
+      - <strong>IDS</strong> = กล้องวงจรปิด - เห็นขโมย แจ้งเตือน แต่จับเองไม่ได้ (Passive, detect only)<br>
+      - <strong>IPS</strong> = รปภ. ติดอาวุธ - เห็นขโมยก็จับเลย บล็อค Traffic ทันที (Active, block + alert)
     </div>
 
     <ul>
-      <li><span class="term">Signature-based</span> &mdash; จับจากลายเซ็นที่รู้จัก เหมือนภาพคนร้ายที่ติดบอร์ด (รู้จัก = จับได้ ไม่รู้จัก = รอด)</li>
-      <li><span class="term">Anomaly-based</span> &mdash; จับจากพฤติกรรมผิดปกติ เช่น Login 100 ครั้งใน 1 นาที (จับ Zero-day ได้ แต่อาจ False Positive)</li>
-      <li><span class="term">Heuristic-based</span> &mdash; ใช้กฎ + AI วิเคราะห์รูปแบบ</li>
+      <li><span class="term">Signature-based</span> - จับจากลายเซ็นที่รู้จัก เหมือนภาพคนร้ายที่ติดบอร์ด (รู้จัก = จับได้ ไม่รู้จัก = รอด)</li>
+      <li><span class="term">Anomaly-based</span> - จับจากพฤติกรรมผิดปกติ เช่น Login 100 ครั้งใน 1 นาที (จับ Zero-day ได้ แต่อาจ False Positive)</li>
+      <li><span class="term">Heuristic-based</span> - ใช้กฎ + AI วิเคราะห์รูปแบบ</li>
     </ul>
   </div>
 
@@ -251,10 +251,10 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     </div>
 
     <ul>
-      <li><span class="term">Site-to-Site VPN</span> &mdash; เชื่อมสำนักงาน 2 แห่ง เหมือนสร้างอุโมงค์ระหว่าง 2 อาคาร</li>
-      <li><span class="term">Remote Access VPN</span> &mdash; พนักงาน WFH เชื่อมเข้าออฟฟิศจากที่บ้าน</li>
-      <li><span class="term">IPsec</span> &mdash; โปรโตคอลเข้ารหัสที่ Layer 3 (Network Layer)</li>
-      <li><span class="term">TLS/SSL VPN</span> &mdash; ทำงานผ่าน Browser ไม่ต้องลง Software พิเศษ</li>
+      <li><span class="term">Site-to-Site VPN</span> - เชื่อมสำนักงาน 2 แห่ง เหมือนสร้างอุโมงค์ระหว่าง 2 อาคาร</li>
+      <li><span class="term">Remote Access VPN</span> - พนักงาน WFH เชื่อมเข้าออฟฟิศจากที่บ้าน</li>
+      <li><span class="term">IPsec</span> - โปรโตคอลเข้ารหัสที่ Layer 3 (Network Layer)</li>
+      <li><span class="term">TLS/SSL VPN</span> - ทำงานผ่าน Browser ไม่ต้องลง Software พิเศษ</li>
     </ul>
   </div>
 
@@ -271,9 +271,9 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     </div>
 
     <ul>
-      <li><span class="term">DMZ</span> (Demilitarized Zone) &mdash; วาง Public-facing Server (Web, Email) ไว้ตรงนี้ ถ้าถูกเจาะ ยังไม่ถึง Internal</li>
-      <li><span class="term">VLAN</span> (Virtual LAN) &mdash; แบ่ง Network ด้วย Switch โดยไม่ต้องแยกสายจริง ลด Broadcast Storm</li>
-      <li><span class="term">NAC</span> (Network Access Control) &mdash; ตรวจสุขภาพอุปกรณ์ก่อนอนุญาตเข้าเครือข่าย</li>
+      <li><span class="term">DMZ</span> (Demilitarized Zone) - วาง Public-facing Server (Web, Email) ไว้ตรงนี้ ถ้าถูกเจาะ ยังไม่ถึง Internal</li>
+      <li><span class="term">VLAN</span> (Virtual LAN) - แบ่ง Network ด้วย Switch โดยไม่ต้องแยกสายจริง ลด Broadcast Storm</li>
+      <li><span class="term">NAC</span> (Network Access Control) - ตรวจสุขภาพอุปกรณ์ก่อนอนุญาตเข้าเครือข่าย</li>
     </ul>
   </div>
 
@@ -290,9 +290,9 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     </div>
 
     <ul>
-      <li><strong>WPA2-Enterprise</strong> &mdash; ใช้ RADIUS Server ยืนยันตัวตน เหมาะกับองค์กร</li>
-      <li><strong>WPA2-Personal</strong> &mdash; ใช้ Pre-Shared Key (PSK) = รหัสผ่าน Wi-Fi ที่บ้าน</li>
-      <li><strong>WPA3-SAE</strong> &mdash; ป้องกัน Dictionary Attack แม้รหัสผ่านง่ายก็เจาะยากขึ้น</li>
+      <li><strong>WPA2-Enterprise</strong> - ใช้ RADIUS Server ยืนยันตัวตน เหมาะกับองค์กร</li>
+      <li><strong>WPA2-Personal</strong> - ใช้ Pre-Shared Key (PSK) = รหัสผ่าน Wi-Fi ที่บ้าน</li>
+      <li><strong>WPA3-SAE</strong> - ป้องกัน Dictionary Attack แม้รหัสผ่านง่ายก็เจาะยากขึ้น</li>
     </ul>
   </div>
 
@@ -320,11 +320,11 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     <span class="en">การโจมตีเครือข่ายที่พบบ่อย</span>
 
     <ul>
-      <li><span class="term">Man-in-the-Middle (MITM)</span> &mdash; แฮกเกอร์แอบนั่งกลาง ดักฟังข้อมูลระหว่างคุณกับเซิร์ฟเวอร์ เหมือนมีคนแอบเปิดอ่านจดหมายก่อนส่งต่อ <strong>ป้องกัน:</strong> ใช้ HTTPS, VPN</li>
-      <li><span class="term">DoS / DDoS</span> &mdash; ส่ง Traffic ท่วมจนระบบล่ม เหมือนจ้างคน 1 ล้านคนโทรเข้า Call Center พร้อมกัน <strong>ป้องกัน:</strong> DDoS Mitigation, CDN, Rate Limiting</li>
-      <li><span class="term">ARP Spoofing</span> &mdash; หลอกว่า "ฉันคือ Gateway" เพื่อดักจับ Traffic ใน LAN <strong>ป้องกัน:</strong> Dynamic ARP Inspection, Static ARP</li>
-      <li><span class="term">DNS Poisoning</span> &mdash; เปลี่ยนชี้ทาง DNS ให้คุณไปเว็บปลอม <strong>ป้องกัน:</strong> DNSSEC</li>
-      <li><span class="term">Rogue AP</span> &mdash; ตั้ง Wi-Fi ปลอมล่อเหยื่อ <strong>ป้องกัน:</strong> Wireless IDS, NAC</li>
+      <li><span class="term">Man-in-the-Middle (MITM)</span> - แฮกเกอร์แอบนั่งกลาง ดักฟังข้อมูลระหว่างคุณกับเซิร์ฟเวอร์ เหมือนมีคนแอบเปิดอ่านจดหมายก่อนส่งต่อ <strong>ป้องกัน:</strong> ใช้ HTTPS, VPN</li>
+      <li><span class="term">DoS / DDoS</span> - ส่ง Traffic ท่วมจนระบบล่ม เหมือนจ้างคน 1 ล้านคนโทรเข้า Call Center พร้อมกัน <strong>ป้องกัน:</strong> DDoS Mitigation, CDN, Rate Limiting</li>
+      <li><span class="term">ARP Spoofing</span> - หลอกว่า "ฉันคือ Gateway" เพื่อดักจับ Traffic ใน LAN <strong>ป้องกัน:</strong> Dynamic ARP Inspection, Static ARP</li>
+      <li><span class="term">DNS Poisoning</span> - เปลี่ยนชี้ทาง DNS ให้คุณไปเว็บปลอม <strong>ป้องกัน:</strong> DNSSEC</li>
+      <li><span class="term">Rogue AP</span> - ตั้ง Wi-Fi ปลอมล่อเหยื่อ <strong>ป้องกัน:</strong> Wireless IDS, NAC</li>
     </ul>
   </div>
 

@@ -94,7 +94,7 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
   <header class="hero">
     <div class="eyebrow">Domain 5 of 5 &middot; Beginner Lesson</div>
     <h1>Security Operations</h1>
-    <div class="sub">การปฏิบัติการรักษาความปลอดภัย &mdash; เข้ารหัส เฝ้าระวัง จัดการเปลี่ยนแปลง<br>อธิบายง่ายๆ เหมือนทีมรักษาความปลอดภัยประจำตึก</div>
+    <div class="sub">การปฏิบัติการรักษาความปลอดภัย - เข้ารหัส เฝ้าระวัง จัดการเปลี่ยนแปลง<br>อธิบายง่ายๆ เหมือนทีมรักษาความปลอดภัยประจำตึก</div>
   </header>
 
   <!-- SCENARIO -->
@@ -202,13 +202,13 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     </div>
 
     <ul>
-      <li><span class="term">AES</span> (Advanced Encryption Standard) &mdash; Symmetric, มาตรฐานปัจจุบัน ใช้ทั่วโลก (128/192/256 bit)</li>
-      <li><span class="term">3DES</span> &mdash; Symmetric เก่า กำลังถูกเลิกใช้</li>
-      <li><span class="term">RSA</span> &mdash; Asymmetric, ใช้กันมาก สำหรับแลกเปลี่ยน Key และ Digital Signature</li>
-      <li><span class="term">ECC</span> (Elliptic Curve Cryptography) &mdash; Asymmetric, Key สั้นกว่า RSA แต่แข็งแรงเท่ากัน</li>
+      <li><span class="term">AES</span> (Advanced Encryption Standard) - Symmetric, มาตรฐานปัจจุบัน ใช้ทั่วโลก (128/192/256 bit)</li>
+      <li><span class="term">3DES</span> - Symmetric เก่า กำลังถูกเลิกใช้</li>
+      <li><span class="term">RSA</span> - Asymmetric, ใช้กันมาก สำหรับแลกเปลี่ยน Key และ Digital Signature</li>
+      <li><span class="term">ECC</span> (Elliptic Curve Cryptography) - Asymmetric, Key สั้นกว่า RSA แต่แข็งแรงเท่ากัน</li>
     </ul>
 
-    <p><strong>ในทางปฏิบัติ:</strong> ใช้ Asymmetric แลกเปลี่ยน Key ก่อน แล้วใช้ Symmetric เข้ารหัสข้อมูลจริง (เร็วกว่า) &mdash; วิธีนี้เรียกว่า Hybrid Encryption และ TLS/HTTPS ใช้วิธีนี้</p>
+    <p><strong>ในทางปฏิบัติ:</strong> ใช้ Asymmetric แลกเปลี่ยน Key ก่อน แล้วใช้ Symmetric เข้ารหัสข้อมูลจริง (เร็วกว่า) - วิธีนี้เรียกว่า Hybrid Encryption และ TLS/HTTPS ใช้วิธีนี้</p>
   </div>
 
   <!-- SECTION 2: Hashing -->
@@ -217,16 +217,16 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     <span class="en">ลายนิ้วมือของข้อมูล</span>
 
     <div class="analogy">
-      <strong>เปรียบเทียบ:</strong> ลายนิ้วมือคน &mdash; คนละคนมีลายนิ้วมือต่างกัน ดูลายนิ้วมือแล้วรู้ว่าเป็นใคร แต่ดูลายนิ้วมือแล้วสร้างคนขึ้นมาใหม่ไม่ได้ (One-way function)
+      <strong>เปรียบเทียบ:</strong> ลายนิ้วมือคน - คนละคนมีลายนิ้วมือต่างกัน ดูลายนิ้วมือแล้วรู้ว่าเป็นใคร แต่ดูลายนิ้วมือแล้วสร้างคนขึ้นมาใหม่ไม่ได้ (One-way function)
     </div>
 
     <ul>
-      <li>Hash ไม่ใช่ Encryption &mdash; ย้อนกลับไม่ได้ (irreversible)</li>
+      <li>Hash ไม่ใช่ Encryption - ย้อนกลับไม่ได้ (irreversible)</li>
       <li>ใช้ตรวจสอบว่าข้อมูลถูกแก้ไขหรือไม่ (Integrity check)</li>
-      <li>ใช้เก็บรหัสผ่าน &mdash; เก็บ Hash แทนรหัสจริง ถ้า DB หลุด แฮกเกอร์ได้แค่ Hash</li>
-      <li><span class="term">SHA-256</span> &mdash; มาตรฐานปัจจุบัน (Secure Hash Algorithm)</li>
-      <li><span class="term">MD5</span> &mdash; เก่า ไม่ปลอดภัยแล้ว (Collision attack ได้)</li>
-      <li><span class="term">Salt</span> &mdash; เพิ่มค่าสุ่มก่อน Hash เพื่อป้องกัน Rainbow Table Attack</li>
+      <li>ใช้เก็บรหัสผ่าน - เก็บ Hash แทนรหัสจริง ถ้า DB หลุด แฮกเกอร์ได้แค่ Hash</li>
+      <li><span class="term">SHA-256</span> - มาตรฐานปัจจุบัน (Secure Hash Algorithm)</li>
+      <li><span class="term">MD5</span> - เก่า ไม่ปลอดภัยแล้ว (Collision attack ได้)</li>
+      <li><span class="term">Salt</span> - เพิ่มค่าสุ่มก่อน Hash เพื่อป้องกัน Rainbow Table Attack</li>
     </ul>
   </div>
 
@@ -237,14 +237,14 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
 
     <div class="analogy">
       <strong>เปรียบเทียบ Digital Signature:</strong><br>
-      เหมือนประทับตราครั่งบนจดหมายสมัยก่อน &mdash; รู้ว่าใครส่ง (Authentication) และยังไม่ถูกเปิด (Integrity) ผู้ส่งปฏิเสธไม่ได้ว่าไม่ได้ส่ง (Non-repudiation)
+      เหมือนประทับตราครั่งบนจดหมายสมัยก่อน - รู้ว่าใครส่ง (Authentication) และยังไม่ถูกเปิด (Integrity) ผู้ส่งปฏิเสธไม่ได้ว่าไม่ได้ส่ง (Non-repudiation)
     </div>
 
     <ul>
-      <li><span class="term">Digital Signature</span> &mdash; ใช้ Private Key ของผู้ส่งเซ็น ผู้รับใช้ Public Key ตรวจสอบ ให้ทั้ง Authentication + Integrity + Non-repudiation</li>
-      <li><span class="term">PKI</span> (Public Key Infrastructure) &mdash; ระบบทั้งหมดที่จัดการ Digital Certificate รวมถึง CA, RA, CRL</li>
-      <li><span class="term">CA</span> (Certificate Authority) &mdash; "กรมการปกครอง" ที่ออกบัตรประชาชนดิจิทัล ยืนยันว่า Public Key นี้เป็นของคนนี้จริง</li>
-      <li><span class="term">Certificate</span> &mdash; ไฟล์ที่ผูก Public Key กับตัวตนเจ้าของ รับรองโดย CA</li>
+      <li><span class="term">Digital Signature</span> - ใช้ Private Key ของผู้ส่งเซ็น ผู้รับใช้ Public Key ตรวจสอบ ให้ทั้ง Authentication + Integrity + Non-repudiation</li>
+      <li><span class="term">PKI</span> (Public Key Infrastructure) - ระบบทั้งหมดที่จัดการ Digital Certificate รวมถึง CA, RA, CRL</li>
+      <li><span class="term">CA</span> (Certificate Authority) - "กรมการปกครอง" ที่ออกบัตรประชาชนดิจิทัล ยืนยันว่า Public Key นี้เป็นของคนนี้จริง</li>
+      <li><span class="term">Certificate</span> - ไฟล์ที่ผูก Public Key กับตัวตนเจ้าของ รับรองโดย CA</li>
     </ul>
   </div>
 
@@ -258,9 +258,9 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     </div>
 
     <ul>
-      <li><span class="term">Change Management</span> &mdash; กระบวนการที่มีขั้นตอน: Request &rarr; Impact Assessment &rarr; Approval &rarr; Test &rarr; Implement &rarr; Document &rarr; Review</li>
-      <li><span class="term">Patch Management</span> &mdash; อัปเดตซอฟต์แวร์เพื่อปิดช่องโหว่ ต้องทำเป็นประจำ ทดสอบก่อน Deploy จริง</li>
-      <li><span class="term">Configuration Management</span> &mdash; จัดการ Baseline ของระบบ ถ้ามีการเปลี่ยนแปลงต้องบันทึก เพื่อให้ย้อนกลับได้</li>
+      <li><span class="term">Change Management</span> - กระบวนการที่มีขั้นตอน: Request &rarr; Impact Assessment &rarr; Approval &rarr; Test &rarr; Implement &rarr; Document &rarr; Review</li>
+      <li><span class="term">Patch Management</span> - อัปเดตซอฟต์แวร์เพื่อปิดช่องโหว่ ต้องทำเป็นประจำ ทดสอบก่อน Deploy จริง</li>
+      <li><span class="term">Configuration Management</span> - จัดการ Baseline ของระบบ ถ้ามีการเปลี่ยนแปลงต้องบันทึก เพื่อให้ย้อนกลับได้</li>
     </ul>
 
     <p><strong>ทำไมสำคัญ:</strong> 60%+ ของเหตุ Security Incident เกิดจาก Unpatched System หรือ Misconfiguration ที่ไม่มีการจัดการ</p>
@@ -272,14 +272,14 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     <span class="en">Security Information and Event Management</span>
 
     <div class="analogy">
-      <strong>เปรียบเทียบ SIEM:</strong> ศูนย์ควบคุมความปลอดภัยของห้าง &mdash; จอมอนิเตอร์ 50 จอรวมภาพจากกล้อง ระบบแจ้งเตือนไฟไหม้ ระบบบัตรผ่าน ทั้งหมดมาอยู่ที่เดียว ถ้ามีเหตุผิดปกติ แจ้งเตือนยามทันที
+      <strong>เปรียบเทียบ SIEM:</strong> ศูนย์ควบคุมความปลอดภัยของห้าง - จอมอนิเตอร์ 50 จอรวมภาพจากกล้อง ระบบแจ้งเตือนไฟไหม้ ระบบบัตรผ่าน ทั้งหมดมาอยู่ที่เดียว ถ้ามีเหตุผิดปกติ แจ้งเตือนยามทันที
     </div>
 
     <ul>
-      <li><span class="term">SIEM</span> &mdash; รวม Log จากทุกระบบ (Firewall, Server, App) มาวิเคราะห์หา Pattern ผิดปกติ แจ้งเตือน Real-time</li>
-      <li><span class="term">Log</span> &mdash; บันทึกเหตุการณ์ ใคร ทำอะไร เมื่อไหร่ จากไหน สำคัญมากสำหรับ Forensics</li>
-      <li><span class="term">Correlation</span> &mdash; เชื่อมโยง Event หลายตัว เช่น "Login ผิด 50 ครั้ง + Login สำเร็จจาก IP ต่างประเทศ" = อาจถูก Brute Force</li>
-      <li><span class="term">Alerting</span> &mdash; แจ้งเตือนทีม SOC เมื่อพบ Pattern น่าสงสัย</li>
+      <li><span class="term">SIEM</span> - รวม Log จากทุกระบบ (Firewall, Server, App) มาวิเคราะห์หา Pattern ผิดปกติ แจ้งเตือน Real-time</li>
+      <li><span class="term">Log</span> - บันทึกเหตุการณ์ ใคร ทำอะไร เมื่อไหร่ จากไหน สำคัญมากสำหรับ Forensics</li>
+      <li><span class="term">Correlation</span> - เชื่อมโยง Event หลายตัว เช่น "Login ผิด 50 ครั้ง + Login สำเร็จจาก IP ต่างประเทศ" = อาจถูก Brute Force</li>
+      <li><span class="term">Alerting</span> - แจ้งเตือนทีม SOC เมื่อพบ Pattern น่าสงสัย</li>
     </ul>
   </div>
 
@@ -289,13 +289,13 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     <span class="en">ป้องกันข้อมูลรั่วไหล</span>
 
     <div class="analogy">
-      <strong>เปรียบเทียบ:</strong> เจ้าหน้าที่ศุลกากรตรวจกระเป๋าที่สนามบิน &mdash; ตรวจว่ามีของต้องห้ามออกนอกประเทศหรือไม่ DLP ตรวจว่ามีข้อมูลสำคัญ (เลขบัตรเครดิต, ข้อมูลลูกค้า) กำลังจะถูกส่งออกนอกองค์กรหรือไม่
+      <strong>เปรียบเทียบ:</strong> เจ้าหน้าที่ศุลกากรตรวจกระเป๋าที่สนามบิน - ตรวจว่ามีของต้องห้ามออกนอกประเทศหรือไม่ DLP ตรวจว่ามีข้อมูลสำคัญ (เลขบัตรเครดิต, ข้อมูลลูกค้า) กำลังจะถูกส่งออกนอกองค์กรหรือไม่
     </div>
 
     <ul>
-      <li><span class="term">Endpoint DLP</span> &mdash; ตรวจที่เครื่อง PC เช่น ห้าม Copy ข้อมูลลง USB</li>
-      <li><span class="term">Network DLP</span> &mdash; ตรวจ Traffic ที่วิ่งออก เช่น ห้ามส่ง Email ที่มีเลขบัตรเครดิต</li>
-      <li><span class="term">Cloud DLP</span> &mdash; ตรวจข้อมูลที่อัปโหลดขึ้น Cloud Storage</li>
+      <li><span class="term">Endpoint DLP</span> - ตรวจที่เครื่อง PC เช่น ห้าม Copy ข้อมูลลง USB</li>
+      <li><span class="term">Network DLP</span> - ตรวจ Traffic ที่วิ่งออก เช่น ห้ามส่ง Email ที่มีเลขบัตรเครดิต</li>
+      <li><span class="term">Cloud DLP</span> - ตรวจข้อมูลที่อัปโหลดขึ้น Cloud Storage</li>
     </ul>
   </div>
 
@@ -305,14 +305,14 @@ body { background:var(--cream);color:var(--ink);font-family:var(--font-thai);min
     <span class="en">วงจรชีวิตความปลอดภัยข้อมูล</span>
 
     <div class="analogy">
-      <strong>เปรียบเทียบ:</strong> เอกสารลับราชการ &mdash; สร้างขึ้นมา &rarr; ตีตรา "ลับ" &rarr; เก็บในตู้ล็อค &rarr; ส่งต่อเฉพาะคนที่มีสิทธิ์ &rarr; เก็บรักษาตามระยะเวลาที่กำหนด &rarr; ถึงเวลาทำลายด้วยเครื่องย่อยกระดาษ
+      <strong>เปรียบเทียบ:</strong> เอกสารลับราชการ - สร้างขึ้นมา &rarr; ตีตรา "ลับ" &rarr; เก็บในตู้ล็อค &rarr; ส่งต่อเฉพาะคนที่มีสิทธิ์ &rarr; เก็บรักษาตามระยะเวลาที่กำหนด &rarr; ถึงเวลาทำลายด้วยเครื่องย่อยกระดาษ
     </div>
 
     <ul>
-      <li><span class="term">Classification</span> &mdash; จัดระดับข้อมูล: Public / Internal / Confidential / Top Secret</li>
-      <li><span class="term">Handling</span> &mdash; วิธีจัดการข้อมูลแต่ละระดับ เช่น Confidential ต้องเข้ารหัสเมื่อส่ง</li>
-      <li><span class="term">Retention</span> &mdash; เก็บข้อมูลนานเท่าไหร่ ตามกฎหมายและนโยบาย</li>
-      <li><span class="term">Destruction</span> &mdash; ทำลายอย่างปลอดภัย: Shredding (กระดาษ), Degaussing (แม่เหล็ก), Cryptographic Erasure (ลบ Key)</li>
+      <li><span class="term">Classification</span> - จัดระดับข้อมูล: Public / Internal / Confidential / Top Secret</li>
+      <li><span class="term">Handling</span> - วิธีจัดการข้อมูลแต่ละระดับ เช่น Confidential ต้องเข้ารหัสเมื่อส่ง</li>
+      <li><span class="term">Retention</span> - เก็บข้อมูลนานเท่าไหร่ ตามกฎหมายและนโยบาย</li>
+      <li><span class="term">Destruction</span> - ทำลายอย่างปลอดภัย: Shredding (กระดาษ), Degaussing (แม่เหล็ก), Cryptographic Erasure (ลบ Key)</li>
     </ul>
   </div>
 
