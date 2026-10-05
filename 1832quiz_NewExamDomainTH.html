@@ -1676,16 +1676,16 @@ const COMPANION_DATA = {
   level: 1,
   dialogueTimer: null,
   evolutionStages: [
-    { minLevel: 1, sprite: "🐱", name: "BYTE (KITTEN)", bg: "var(--yellow)" },
-    { minLevel: 3, sprite: "🦊", name: "FOX BYTE", bg: "var(--orange)" },
-    { minLevel: 5, sprite: "🦁", name: "CYBER LION", bg: "#BBF7D0" },
-    { minLevel: 8, sprite: "🤖", name: "MECHA GUARDIAN", bg: "var(--pink)" },
-    { minLevel: 12, sprite: "👑", name: "CYBER OVERLORD", bg: "var(--accent)" }
+    { minLevel: 1, sprite: "●", name: "BYTE (KITTEN)", bg: "var(--yellow)" },
+    { minLevel: 3, sprite: "◆", name: "FOX BYTE", bg: "var(--orange)" },
+    { minLevel: 5, sprite: "★", name: "CYBER LION", bg: "#BBF7D0" },
+    { minLevel: 8, sprite: "✦", name: "MECHA GUARDIAN", bg: "var(--pink)" },
+    { minLevel: 12, sprite: "✸", name: "CYBER OVERLORD", bg: "var(--accent)" }
   ],
   correctQuotes: [
-    "สุดยอด! ข้อนี้แม่นมาก ✨",
-    "คอมโบมาแล้ว! ลุยต่อเลย 🔥",
-    "CISSP/CC ระดับเทพ 🛡️",
+    "สุดยอด! ข้อนี้แม่นมาก",
+    "คอมโบมาแล้ว! ลุยต่อเลย",
+    "CISSP/CC ระดับเทพ",
     "ความรู้แน่นปึ้ก! คำตอบนี้เฉียบคม",
     "คะแนนพุ่งกระฉูด! ไปต่อเลย"
   ],
@@ -1710,7 +1710,7 @@ function initCompanion() {
   if (!widget) return;
   COMPANION_DATA.streak = 0;
   COMPANION_DATA.level = 1;
-  updateCompanionUI("ยินดีที่ได้ร่วมทาง! ลุยไปด้วยกันนะ 🐱", false, false);
+  updateCompanionUI("ยินดีที่ได้ร่วมทาง! ลุยไปด้วยกันนะ", false, false);
 }
 
 function updateCompanionUI(speechText, isCorrectAnim, isWrongAnim) {
@@ -1730,7 +1730,7 @@ function updateCompanionUI(speechText, isCorrectAnim, isWrongAnim) {
 
   if (spriteEl) spriteEl.textContent = currentStage.sprite;
   if (nameEl) nameEl.textContent = `${currentStage.name} Lv.${COMPANION_DATA.level}`;
-  if (streakEl) streakEl.textContent = `🔥 ${COMPANION_DATA.streak} STREAK`;
+  if (streakEl) streakEl.textContent = `x${COMPANION_DATA.streak} STREAK`;
   if (cardEl) cardEl.style.backgroundColor = currentStage.bg;
 
   if (speechText && speechEl) {
@@ -1955,7 +1955,7 @@ function finish() {
     verd.textContent = passed ? t().pass : t().fail;
     verd.className = "verdict " + (passed ? "pass" : "fail");
     if (strikes > 0) {
-      verd.innerHTML += `<div style="font-size:12px;margin-top:6px;font-family:var(--font-mono);font-weight:700;color:var(--pink);">⚠️ INTEGRITY LOG: ตรวจพบการสลับหน้าจอ/หลุดเต็มหน้าจอ ${strikes}/3 ครั้ง</div>`;
+      verd.innerHTML += `<div style="font-size:12px;margin-top:6px;font-family:var(--font-mono);font-weight:700;color:var(--pink);">[!] INTEGRITY LOG: ตรวจพบการสลับหน้าจอ/หลุดเต็มหน้าจอ ${strikes}/3 ครั้ง</div>`;
     }
   }
   document.getElementById("resPassLine").textContent = t().passing;
@@ -2248,7 +2248,7 @@ function triggerIntegrityStrike(reason) {
   const btn = document.getElementById("btnReenterFullscreen");
 
   if (strikes >= 3) {
-    if (title) title.textContent = "❌ DISQUALIFIED: ละเมิดกติกาครบ 3 ครั้ง";
+    if (title) title.textContent = "[X] DISQUALIFIED: ละเมิดกติกาครบ 3 ครั้ง";
     if (desc) desc.innerHTML = "ตรวจพบการสลับหน้าต่างหรือหลุดจากโหมดเต็มหน้าจอครบ 3 ครั้ง<br><strong>ระบบได้ยุติการสอบและประมวลผลคะแนนของข้อที่ทำทันที</strong>";
     if (btn) {
       btn.textContent = "ดูผลคะแนนการสอบ";
@@ -2274,7 +2274,7 @@ function triggerIntegrityStrike(reason) {
     return;
   }
 
-  if (title) title.textContent = `⚠️ INTEGRITY STRIKE ${strikes}/3: ออกจากโหมดสอบ`;
+  if (title) title.textContent = `[!] INTEGRITY STRIKE ${strikes}/3: ออกจากโหมดสอบ`;
   if (desc) desc.innerHTML = `${reason || "ตรวจพบการสลับหน้าต่างหรือหลุดออกจากโหมดเต็มหน้าจอ"}<br><strong>คำเตือน:</strong> หากตรวจพบครบ 3 ครั้ง ระบบจะตัดสิทธิ์และส่งผลสอบทันที`;
   if (btn) {
     btn.textContent = "⛶ ล็อกเต็มหน้าจอและสอบต่อ";
@@ -2367,7 +2367,7 @@ window.addEventListener("keyup", (e) => {
         navigator.clipboard.writeText("");
       }
     } catch (_) {}
-    triggerIntegrityToast("⚠️ ไม่อนุญาตให้ใช้คำสั่ง PrintScreen ระหว่างสอบ");
+    triggerIntegrityToast("[!] ไม่อนุญาตให้ใช้คำสั่ง PrintScreen ระหว่างสอบ");
   }
 });
 
@@ -2377,13 +2377,13 @@ window.addEventListener("keydown", (e) => {
   // Win+Shift+S, Cmd+Shift+3/4
   if ((e.metaKey || e.ctrlKey) && e.shiftKey && ["s", "S", "3", "4"].includes(e.key)) {
     e.preventDefault();
-    triggerIntegrityToast("⚠️ ตรวจพบปุ่มลัดจับภาพหน้าจอ (Screen Capture Blocked)");
+    triggerIntegrityToast("[!] ตรวจพบปุ่มลัดจับภาพหน้าจอ (Screen Capture Blocked)");
   }
   
   // Print dialog block (Ctrl+P / Cmd+P)
   if ((e.metaKey || e.ctrlKey) && (e.key === "p" || e.key === "P")) {
     e.preventDefault();
-    triggerIntegrityToast("⚠️ ไม่อนุญาตให้สั่งพิมพ์ (Print) หน้าข้อสอบ");
+    triggerIntegrityToast("[!] ไม่อนุญาตให้สั่งพิมพ์ (Print) หน้าข้อสอบ");
   }
 });
 
@@ -2470,18 +2470,18 @@ if ('serviceWorker' in navigator) {
 
 </script>
 <div id="pwaUpdateToast" class="card hidden" style="position:fixed;bottom:20px;right:20px;z-index:9999;box-shadow:4px 4px 0 var(--ink);border:3px solid var(--ink);background:var(--yellow);color:var(--ink);padding:12px 18px;display:flex;align-items:center;gap:12px;font-family:var(--font-mono);font-weight:700;">
-  <span style="font-size:13px;">⚡ มีคลังข้อสอบเวอร์ชันใหม่</span>
+  <span style="font-size:13px;">[!] มีคลังข้อสอบเวอร์ชันใหม่</span>
   <button class="btn primary" id="btnPwaRefresh" style="padding:6px 14px;font-size:12px;background:var(--ink);color:var(--white);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);">อัปเดตทันที</button>
 </div>
 <div id="integrityWarningToast" class="card hidden" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9999;background:var(--pink);color:var(--white);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:10px 20px;font-size:13.5px;display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-weight:700;">
-  <span>⚠️ ตรวจพบการสลับหน้าต่างหรือแท็บเบราว์เซอร์ (ครั้งที่ <span id="tabSwitchCount">0</span>)</span>
+  <span>[!] ตรวจพบการสลับหน้าต่างหรือแท็บเบราว์เซอร์ (ครั้งที่ <span id="tabSwitchCount">0</span>)</span>
 </div>
 
 <!-- Integrity Violation 3-Strike Modal -->
 <div id="integrityModal" class="strike-modal hidden">
   <div class="strike-box">
     <span class="strike-pill">SECURITY INTEGRITY GATE</span>
-    <h2 id="strikeTitle">⚠️ ตรวจพบการออกจากโหมดสอบ (STRIKE 1/3)</h2>
+    <h2 id="strikeTitle">[!] ตรวจพบการออกจากโหมดสอบ (STRIKE 1/3)</h2>
     <p id="strikeDesc">
       ระบบตรวจพบว่าคุณสลับหน้าต่าง หรือหลุดออกจากโหมดเต็มหน้าจอ (Fullscreen)<br>
       <strong>กติกา:</strong> หากตรวจพบการละเมิดครบ 3 ครั้ง ระบบจะยุติการสอบและประมวลผลคะแนนทันที
@@ -2506,10 +2506,10 @@ if ('serviceWorker' in navigator) {
     <span id="companionSpeech">ลุยเลย! ค่อย ๆ อ่านโจทย์นะ</span>
   </div>
   <div id="companionCard" class="companion-avatar-card" title="คลิกเพื่อทักทาย Byte">
-    <div id="companionSprite" class="companion-sprite">🐱</div>
+    <div id="companionSprite" class="companion-sprite">●</div>
     <div class="companion-meta">
       <div id="companionName" class="companion-name">BYTE Lv.1</div>
-      <div id="companionStreak" class="companion-streak">🔥 0 STREAK</div>
+      <div id="companionStreak" class="companion-streak">x0 STREAK</div>
     </div>
   </div>
 </div>

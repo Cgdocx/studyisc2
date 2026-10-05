@@ -1156,7 +1156,7 @@ async function sendResultsToSheet(payload){
     showToast('✓ Result sent / ส่งผลสำเร็จแล้ว', 'good');
   }catch(e){
     if(statusEl) statusEl.textContent = 'Failed to send - check your connection / ส่งไม่สำเร็จ';
-    showToast('⚠ Failed to send result / ส่งผลไม่สำเร็จ', 'bad');
+    showToast('[!] Failed to send result / ส่งผลไม่สำเร็จ', 'bad');
   }
 }
 

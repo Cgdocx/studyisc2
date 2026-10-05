@@ -124,6 +124,7 @@ Active state: หน้าปัจจุบันให้เพิ่ม `clas
 
 ## สิ่งที่ AI ห้ามทำ
 
+- **ห้ามใช้ emoji เด็ดขาด** ทั้งในเนื้อหา, UI, JS strings — ใช้ text icon แทน เช่น `[!]` `[OK]` `[X]` หรือ Unicode geometric shapes (`●`, `◆`, `★`, `✦`)
 - ห้ามใช้ `--` เป็นตัวคั่น (ใช้ `—`)
 - ห้ามใช้ `system-ui` เป็น font fallback
 - ห้ามสร้าง nav bar ที่แตกต่างจาก template ข้างบน

@@ -1015,10 +1015,10 @@ function renderResults(app){
   }
 
   const finishedBanner = state.finishedManually
-    ? `<div class="finish-banner">✅ Your result has been sent.</div>`
+    ? `<div class="finish-banner">[OK] Your result has been sent.</div>`
     : '';
   const incompleteBanner = !complete
-    ? `<div class="incomplete-banner">⚠️ You answered ${state.answers.length} of ${total} questions. Incomplete attempts are automatically marked <strong>FAIL</strong>, regardless of score.</div>`
+    ? `<div class="incomplete-banner">[!] You answered ${state.answers.length} of ${total} questions. Incomplete attempts are automatically marked <strong>FAIL</strong>, regardless of score.</div>`
     : '';
 
   app.innerHTML = `
