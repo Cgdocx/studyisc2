@@ -1288,25 +1288,53 @@ function tokenizeForCanvas(text, isThai) {
   return text.split(" ").map((w, idx, arr) => (idx === arr.length - 1 ? w : w + " "));
 }
 
-function drawWrappedTokens(ctx, tokens, x, y, maxWidth, lineHeight) {
-  let line = "";
-  let curY = y;
-  for (let n = 0; n < tokens.length; n++) {
-    const testLine = line + tokens[n];
-    const metrics = ctx.measureText(testLine);
-    if (metrics.width > maxWidth && n > 0) {
-      ctx.fillText(line.trim(), x, curY);
-      line = tokens[n];
+let qCanvasAnimId = null;
+
+function layoutTokens(ctx, tokens, startX, startY, maxWidth, lineHeight, font) {
+  ctx.font = font;
+  const items = [];
+  let curX = startX;
+  let curY = startY;
+  
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i];
+    const w = ctx.measureText(t).width;
+    if (curX + w > (maxWidth - 8) && curX > startX) {
+      curX = startX;
       curY += lineHeight;
-    } else {
-      line = testLine;
     }
+    items.push({ text: t, x: curX, y: curY, width: w, index: i });
+    curX += w;
   }
-  ctx.fillText(line.trim(), x, curY);
-  return curY + lineHeight;
+  return { items, totalHeight: curY + lineHeight };
+}
+
+function drawTokenItems(ctx, items, frame, isThai) {
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    // Temporal Frame-Splitting: Alternate even/odd tokens between 100% and 12% opacity at 60fps
+    const isEven = (item.index % 2 === 0);
+    const activeInThisFrame = (frame % 2 === 0) ? isEven : !isEven;
+    
+    // Baseline & Kerning Micro-Jitter (Adversarial noise for OCR/VLM)
+    const yJitter = ((item.index * 7) % 3 - 1) * 0.85;
+    const xJitter = ((item.index * 11) % 3 - 1) * 0.55;
+    
+    if (activeInThisFrame) {
+      ctx.fillStyle = isThai ? "#2A2A2A" : "#0F0F0F";
+    } else {
+      ctx.fillStyle = isThai ? "rgba(42, 42, 42, 0.12)" : "rgba(15, 15, 15, 0.12)";
+    }
+    ctx.fillText(item.text, item.x + xJitter, item.y + yJitter);
+  }
 }
 
 function renderQuestionCanvas(q) {
+  if (qCanvasAnimId) {
+    cancelAnimationFrame(qCanvasAnimId);
+    qCanvasAnimId = null;
+  }
+
   const canvas = document.getElementById("qCanvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
@@ -1318,79 +1346,76 @@ function renderQuestionCanvas(q) {
   const testCtx = testCanvas.getContext("2d");
   
   const enLineHeight = 26; // 1.6x line-height for 16px font
-  const thLineHeight = 28; // 1.8x line-height for 15px Thai font (ample room for tone & vowel marks)
+  const thLineHeight = 28; // 1.8x line-height for 15px Thai font
 
   const enTokens = showEn() ? tokenizeForCanvas(q.q, false) : [];
   const thTokens = (showTh() && q.qt) ? tokenizeForCanvas(q.qt, true) : [];
 
-  let estHeight = 30;
+  let curY = 22;
+  let enLayout = { items: [], totalHeight: curY };
   if (enTokens.length > 0) {
-    testCtx.font = "600 16px 'Space Grotesk', system-ui, sans-serif";
-    let curLine = "";
-    let lineCount = 1;
-    enTokens.forEach(t => {
-      if (testCtx.measureText(curLine + t).width > (width - 20)) {
-        lineCount++;
-        curLine = t;
-      } else {
-        curLine += t;
-      }
-    });
-    estHeight += lineCount * enLineHeight + 6;
+    enLayout = layoutTokens(testCtx, enTokens, 4, curY, width - 16, enLineHeight, "600 16px 'Space Grotesk', system-ui, sans-serif");
+    curY = enLayout.totalHeight + 8;
   }
 
+  let thLayout = { items: [], totalHeight: curY };
   if (thTokens.length > 0) {
-    testCtx.font = "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif";
-    let curLineTh = "";
-    let lineCountTh = 1;
-    thTokens.forEach(t => {
-      if (testCtx.measureText(curLineTh + t).width > (width - 20)) {
-        lineCountTh++;
-        curLineTh = t;
-      } else {
-        curLineTh += t;
-      }
-    });
-    estHeight += lineCountTh * thLineHeight + 14;
+    thLayout = layoutTokens(testCtx, thTokens, 4, curY, width - 16, thLineHeight, "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif");
+    curY = thLayout.totalHeight + 10;
   }
+
+  const estHeight = Math.max(curY, 60);
 
   canvas.width = Math.floor(width * dpr);
   canvas.height = Math.floor(estHeight * dpr);
   canvas.style.width = width + "px";
   canvas.style.height = estHeight + "px";
 
-  ctx.scale(dpr, dpr);
-  ctx.clearRect(0, 0, width, estHeight);
-
-  // Dynamic Anti-OCR / Anti-VLM Watermark Layer
   const candidateId = session ? (session.userName || "Candidate") : "ISC2 CC";
   const nowStr = new Date().toISOString().slice(0, 10);
   const wmText = `ISC2 CC · ${candidateId} · ${nowStr}`;
-  ctx.save();
-  ctx.rotate(-18 * Math.PI / 180);
-  ctx.fillStyle = "rgba(15, 15, 15, 0.055)"; // High-frequency OCR noise
-  ctx.font = "700 13px 'JetBrains Mono', monospace";
-  for (let x = -width; x < width * 2; x += 220) {
-    for (let y = -estHeight; y < estHeight * 2; y += 46) {
-      ctx.fillText(wmText, x, y);
+
+  let frame = 0;
+  function renderFrame() {
+    if (!session || !session.strictIntegrity || document.getElementById("screen-quiz").classList.contains("hidden")) {
+      qCanvasAnimId = null;
+      return;
     }
-  }
-  ctx.restore();
 
-  let curY = 22;
+    ctx.save();
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, width, estHeight);
 
-  if (enTokens.length > 0) {
-    ctx.fillStyle = "#0F0F0F"; // Crisp Neo-Brutalist Deep Ink
-    ctx.font = "600 16px 'Space Grotesk', system-ui, sans-serif";
-    curY = drawWrappedTokens(ctx, enTokens, 4, curY, width - 16, enLineHeight);
+    // 1. Dynamic Anti-OCR / Anti-VLM Watermark Layer
+    ctx.save();
+    ctx.rotate(-18 * Math.PI / 180);
+    ctx.fillStyle = "rgba(15, 15, 15, 0.055)"; // High-frequency OCR noise
+    ctx.font = "700 13px 'JetBrains Mono', monospace";
+    for (let x = -width; x < width * 2; x += 220) {
+      for (let y = -estHeight; y < estHeight * 2; y += 46) {
+        ctx.fillText(wmText, x, y);
+      }
+    }
+    ctx.restore();
+
+    // 2. English Tokens with Temporal Splitting & Jitter
+    if (enLayout.items.length > 0) {
+      ctx.font = "600 16px 'Space Grotesk', system-ui, sans-serif";
+      drawTokenItems(ctx, enLayout.items, frame, false);
+    }
+
+    // 3. Thai Tokens with Temporal Splitting & Jitter
+    if (thLayout.items.length > 0) {
+      ctx.font = "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif";
+      drawTokenItems(ctx, thLayout.items, frame, true);
+    }
+
+    ctx.restore();
+    frame++;
+    qCanvasAnimId = requestAnimationFrame(renderFrame);
   }
 
-  if (thTokens.length > 0) {
-    curY += 6;
-    ctx.fillStyle = "#2A2A2A"; // Crisp Neo-Brutalist Ink 2
-    ctx.font = "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif";
-    drawWrappedTokens(ctx, thTokens, 4, curY, width - 16, thLineHeight);
-  }
+  renderFrame();
 }
 
 function renderQuestion(keepTimer) {
@@ -1511,6 +1536,10 @@ function skipQ() {
   saveActiveSession();
 }
 function finish() {
+  if (qCanvasAnimId) {
+    cancelAnimationFrame(qCanvasAnimId);
+    qCanvasAnimId = null;
+  }
   stopTimer();
   try { localStorage.removeItem("cc_1832_saved_session"); } catch(e){}
   const items = session.items;
@@ -1699,7 +1728,7 @@ function review() {
   });
   box.scrollIntoView({behavior:"smooth"});
 }
-function goHome() {
+function goHome() { if (qCanvasAnimId) { cancelAnimationFrame(qCanvasAnimId); qCanvasAnimId = null; }
   stopTimer();
   document.body.classList.remove("strict-exam-active");
   document.getElementById("screen-quiz").classList.add("hidden");
