@@ -1,4 +1,4 @@
-const CACHE_NAME = 'studyisc2-cache-v1';
+const CACHE_NAME = 'studyisc2-cache-v2';
 
 const PRECACHE_ASSETS = [
   './',
@@ -36,8 +36,27 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
 
-  // Stale-While-Revalidate for local resources
+  // Local resources
   if (url.origin === self.location.origin) {
+    const isHtml = event.request.mode === 'navigate' ||
+                   (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) ||
+                   url.pathname.endsWith('.html');
+
+    if (isHtml) {
+      // Network-First for HTML so new UI/fixes reflect immediately on reload
+      event.respondWith(
+        fetch(event.request).then(networkResponse => {
+          if (networkResponse && networkResponse.status === 200) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          }
+          return networkResponse;
+        }).catch(() => caches.match(event.request))
+      );
+      return;
+    }
+
+    // Stale-While-Revalidate for static assets
     event.respondWith(
       caches.match(event.request).then(cachedResponse => {
         const fetchPromise = fetch(event.request).then(networkResponse => {
