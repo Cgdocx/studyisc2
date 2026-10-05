@@ -504,6 +504,22 @@ footer.note { margin-top: 24px; color: var(--muted); font-size: 12px; font-famil
         </div>
       </div>
     </div>
+        <div class="card" style="margin-bottom:16px;background:linear-gradient(135deg, rgba(31,138,76,0.12), rgba(15,23,42,0.6));border:1px solid rgba(31,138,76,0.3);padding:14px 18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <strong style="color:var(--accent);font-size:16px;">จำลองสอบจริง Pearson VUE (100 ข้อ / 120 นาที)</strong>
+            <span class="pill" style="font-size:11px;padding:2px 8px;background:rgba(31,138,76,0.2);">Official Outline</span>
+          </div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px;">
+            สุ่มข้อสอบตามสัดส่วนข้อสอบทางการ: D1 (26q), D2 (10q), D3 (22q), D4 (24q), D5 (18q) · ห้ามย้อนกลับ (Linear Flow)
+          </div>
+        </div>
+        <button class="btn primary" id="btnPearsonVue" type="button" style="padding:8px 18px;font-size:14px;background:#1F8A4C;border-color:#1F8A4C;">
+          เริ่มจำลองสอบจริง
+        </button>
+      </div>
+    </div>
     <h2 id="t-hero">Choose domains to practice</h2>
     <p id="t-hero-p">Select one or more domains from the official 2026 CC outline. Thai text is embedded in this file so the quiz works offline.</p>
     
@@ -878,10 +894,11 @@ function checkMistakeBank() {
     const banner = document.getElementById("mistakeBanner");
     if (!banner) return;
     if (!raw) { banner.classList.add("hidden"); return; }
-    const list = JSON.parse(raw);
-    if (!list || !list.length) { banner.classList.add("hidden"); return; }
+    const parsed = JSON.parse(raw);
+    const list = Array.isArray(parsed) ? parsed : [];
+    if (!list.length) { banner.classList.add("hidden"); return; }
     const desc = document.getElementById("mistakeDesc");
-    if (desc) desc.textContent = "มีข้อสอบในคลังรอฝึกทบทวน " + list.length + " ข้อ";
+    if (desc) desc.textContent = "มีข้อสอบในคลังรอฝึกทบทวน " + list.length + " ข้อ (Mastery streak >= 2 เพื่อปลดออก)";
     banner.classList.remove("hidden");
   } catch(e) {}
 }
@@ -890,9 +907,10 @@ function practiceMistakes() {
   try {
     const raw = localStorage.getItem("cc_mistake_bank");
     if (!raw) return alert("ไม่มีข้อสอบในคลังข้อผิด");
-    const list = JSON.parse(raw);
-    if (!list || !list.length) return alert("ไม่มีข้อสอบในคลังข้อผิด");
-    const items = list.map(idx => bank[idx]).filter(Boolean);
+    const parsed = JSON.parse(raw);
+    const list = Array.isArray(parsed) ? parsed : [];
+    if (!list.length) return alert("ไม่มีข้อสอบในคลังข้อผิด");
+    const items = list.map(item => (typeof item === 'object' ? bank[item.idx] : bank[item])).filter(Boolean);
     if (!items.length) return alert("ไม่พบข้อสอบในระบบ");
     
     const nameEl = document.getElementById("userName");
@@ -1011,6 +1029,88 @@ function exportWeaknessJson() {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+}
+
+
+function startPearsonVueSimulation() {
+  const nameEl = document.getElementById("userName");
+  const name = (nameEl && nameEl.value || "").trim() || "Candidate";
+  
+  const targets = { 1: 26, 2: 10, 3: 22, 4: 24, 5: 18 };
+  const poolByDomain = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+  bank.forEach(q => {
+    if (poolByDomain[q.d]) poolByDomain[q.d].push(q);
+  });
+  
+  let selectedItems = [];
+  for (let d = 1; d <= 5; d++) {
+    const shuffled = shuffle(poolByDomain[d]);
+    selectedItems.push(...shuffled.slice(0, targets[d]));
+  }
+  selectedItems = shuffle(selectedItems);
+  
+  session = {
+    items: selectedItems,
+    i: 0,
+    userName: name,
+    mode: "exam",
+    limit: 72,
+    answers: Array(selectedItems.length).fill(null),
+    reasons: Array(selectedItems.length).fill(""),
+    left: 0,
+    endedEarly: false,
+    isPearsonVue: true
+  };
+  
+  document.getElementById("screen-home").classList.add("hidden");
+  document.getElementById("screen-result").classList.add("hidden");
+  document.getElementById("screen-quiz").classList.remove("hidden");
+  document.getElementById("btnHome").classList.remove("hidden");
+  renderQuestion();
+  saveActiveSession();
+}
+
+function updateMistakeBankHardened(sessionItems, sessionAnswers) {
+  try {
+    const raw = localStorage.getItem("cc_mistake_bank");
+    let bankEntries = [];
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        bankEntries = parsed.map(item => (typeof item === 'number' ? { idx: item, streak: 0 } : item));
+      }
+    }
+    
+    const entryMap = new Map();
+    bankEntries.forEach(e => entryMap.set(e.idx, e.streak || 0));
+    
+    sessionItems.forEach((q, i) => {
+      const bIdx = bank.indexOf(q);
+      if (bIdx === -1) return;
+      const isCorrect = sessionAnswers[i] === q.a;
+      
+      if (!isCorrect) {
+        entryMap.set(bIdx, 0);
+      } else if (entryMap.has(bIdx)) {
+        const newStreak = (entryMap.get(bIdx) || 0) + 1;
+        if (newStreak >= 2) {
+          entryMap.delete(bIdx);
+        } else {
+          entryMap.set(bIdx, newStreak);
+        }
+      }
+    });
+    
+    let updatedEntries = [];
+    entryMap.forEach((streak, idx) => updatedEntries.push({ idx, streak }));
+    
+    // Cap at 250 items max (FIFO)
+    if (updatedEntries.length > 250) {
+      updatedEntries = updatedEntries.slice(updatedEntries.length - 250);
+    }
+    
+    localStorage.setItem("cc_mistake_bank", JSON.stringify(updatedEntries));
+  } catch(e) {}
 }
 
 function startQuiz() {
@@ -1209,7 +1309,7 @@ function finish() {
       if (bIdx !== -1) missedIdxs.push(bIdx);
     }
   });
-  updateMistakeBank(missedIdxs);
+  updateMistakeBankHardened(session.items, session.answers);
   const btnRetry = document.getElementById("btnRetryMissed");
   const missedBadge = document.getElementById("missedBadge");
   if (btnRetry && missedBadge) {
@@ -1386,6 +1486,8 @@ document.getElementById("langSeg").onclick = (e) => {
   applyChrome();
 };
 document.getElementById("btnStart").onclick = startQuiz;
+const btnPV = document.getElementById("btnPearsonVue");
+if (btnPV) btnPV.onclick = startPearsonVueSimulation;
 document.getElementById("btnAll").onclick = () => {
   if (selected.size === 5) selected.clear();
   else selected = new Set([1,2,3,4,5]);
@@ -1408,9 +1510,17 @@ checkMistakeBank();
 document.getElementById("btnEnd").onclick = endNow;
 document.addEventListener("keydown", e => {
   if (document.getElementById("screen-quiz").classList.contains("hidden")) return;
-  const map = {Digit1:0,Digit2:1,Digit3:2,Digit4:3,Numpad1:0,Numpad2:1,Numpad3:2,Numpad4:3};
-  if (e.code in map) pick(map[e.code]);
-  if (e.code === "Enter" || e.code === "ArrowRight") {
+  const map = {
+    Digit1:0, Digit2:1, Digit3:2, Digit4:3,
+    Numpad1:0, Numpad2:1, Numpad3:2, Numpad4:3,
+    KeyA:0, KeyB:1, KeyC:2, KeyD:3
+  };
+  if (e.code in map) {
+    e.preventDefault();
+    pick(map[e.code]);
+  }
+  if (e.code === "Enter" || e.code === "ArrowRight" || (e.code === "Space" && e.target.tagName !== "BUTTON" && e.target.tagName !== "INPUT")) {
+    e.preventDefault();
     if (!document.getElementById("btnNext").disabled) nextQ();
   }
 });
@@ -1453,13 +1563,36 @@ document.getElementById("domainList").addEventListener("click", (ev) => {
 </script>
 
 <script>
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(err => {
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            const toast = document.getElementById('pwaUpdateToast');
+            const btnRefresh = document.getElementById('btnPwaRefresh');
+            if (toast && btnRefresh) {
+              toast.classList.remove('hidden');
+              btnRefresh.onclick = () => {
+                newWorker.postMessage({ type: 'SKIP_WAITING' });
+                window.location.reload();
+              };
+            }
+          }
+        });
+      });
+    }).catch(err => {
       console.warn('SW registration failed:', err);
     });
   });
 }
+
 </script>
+<div id="pwaUpdateToast" class="card hidden" style="position:fixed;bottom:20px;right:20px;z-index:9999;box-shadow:0 10px 25px rgba(0,0,0,0.5);border:1px solid var(--accent);background:#1e293b;color:#f8fafc;padding:12px 18px;display:flex;align-items:center;gap:12px;border-radius:8px;">
+  <span style="font-size:14px;">มีเนื้อหา/คลังข้อสอบเวอร์ชันใหม่</span>
+  <button class="btn primary" id="btnPwaRefresh" style="padding:4px 12px;font-size:12px;background:#1F8A4C;border-color:#1F8A4C;">อัปเดตเลย</button>
+</div>
 </body>
 </html>
