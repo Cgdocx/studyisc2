@@ -1218,16 +1218,25 @@ function startTimer() {
   }, 1000);
 }
 
-function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
-  const words = text.split(" ");
+function tokenizeForCanvas(text, isThai) {
+  if (isThai && typeof Intl !== "undefined" && Intl.Segmenter) {
+    try {
+      const segmenter = new Intl.Segmenter("th", { granularity: "word" });
+      return Array.from(segmenter.segment(text), s => s.segment);
+    } catch(e) {}
+  }
+  return text.split(" ").map((w, idx, arr) => (idx === arr.length - 1 ? w : w + " "));
+}
+
+function drawWrappedTokens(ctx, tokens, x, y, maxWidth, lineHeight) {
   let line = "";
   let curY = y;
-  for (let n = 0; n < words.length; n++) {
-    const testLine = line + words[n] + " ";
+  for (let n = 0; n < tokens.length; n++) {
+    const testLine = line + tokens[n];
     const metrics = ctx.measureText(testLine);
     if (metrics.width > maxWidth && n > 0) {
       ctx.fillText(line.trim(), x, curY);
-      line = words[n] + " ";
+      line = tokens[n];
       curY += lineHeight;
     } else {
       line = testLine;
@@ -1247,41 +1256,46 @@ function renderQuestionCanvas(q) {
 
   const testCanvas = document.createElement("canvas");
   const testCtx = testCanvas.getContext("2d");
-  testCtx.font = "600 16px 'Space Grotesk', system-ui, sans-serif";
+  
+  const enLineHeight = 26; // 1.6x line-height for 16px font
+  const thLineHeight = 28; // 1.8x line-height for 15px Thai font (ample room for tone & vowel marks)
 
-  let estHeight = 32;
-  if (showEn()) {
-    const words = q.q.split(" ");
-    let lineCount = 1;
+  const enTokens = showEn() ? tokenizeForCanvas(q.q, false) : [];
+  const thTokens = (showTh() && q.qt) ? tokenizeForCanvas(q.qt, true) : [];
+
+  let estHeight = 30;
+  if (enTokens.length > 0) {
+    testCtx.font = "600 16px 'Space Grotesk', system-ui, sans-serif";
     let curLine = "";
-    words.forEach(w => {
-      if (testCtx.measureText(curLine + w + " ").width > (width - 24)) {
+    let lineCount = 1;
+    enTokens.forEach(t => {
+      if (testCtx.measureText(curLine + t).width > (width - 20)) {
         lineCount++;
-        curLine = w + " ";
+        curLine = t;
       } else {
-        curLine += w + " ";
+        curLine += t;
       }
     });
-    estHeight += lineCount * 25 + 6;
-  }
-  if (showTh() && q.qt) {
-    testCtx.font = "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif";
-    const wordsTh = q.qt.split(" ");
-    let lineCountTh = 1;
-    let curLineTh = "";
-    wordsTh.forEach(w => {
-      if (testCtx.measureText(curLineTh + w + " ").width > (width - 24)) {
-        lineCountTh++;
-        curLineTh = w + " ";
-      } else {
-        curLineTh += w + " ";
-      }
-    });
-    estHeight += lineCountTh * 23 + 12;
+    estHeight += lineCount * enLineHeight + 6;
   }
 
-  canvas.width = width * dpr;
-  canvas.height = estHeight * dpr;
+  if (thTokens.length > 0) {
+    testCtx.font = "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif";
+    let curLineTh = "";
+    let lineCountTh = 1;
+    thTokens.forEach(t => {
+      if (testCtx.measureText(curLineTh + t).width > (width - 20)) {
+        lineCountTh++;
+        curLineTh = t;
+      } else {
+        curLineTh += t;
+      }
+    });
+    estHeight += lineCountTh * thLineHeight + 14;
+  }
+
+  canvas.width = Math.floor(width * dpr);
+  canvas.height = Math.floor(estHeight * dpr);
   canvas.style.width = width + "px";
   canvas.style.height = estHeight + "px";
 
@@ -1291,17 +1305,17 @@ function renderQuestionCanvas(q) {
   let curY = 22;
   const isDark = !document.body.classList.contains("light");
 
-  if (showEn()) {
+  if (enTokens.length > 0) {
     ctx.fillStyle = isDark ? "#f1f5f9" : "#0f172a";
     ctx.font = "600 16px 'Space Grotesk', system-ui, sans-serif";
-    curY = drawWrappedText(ctx, q.q, 4, curY, width - 16, 25);
+    curY = drawWrappedTokens(ctx, enTokens, 4, curY, width - 16, enLineHeight);
   }
 
-  if (showTh() && q.qt) {
-    curY += 4;
+  if (thTokens.length > 0) {
+    curY += 6;
     ctx.fillStyle = isDark ? "#94a3b8" : "#475569";
     ctx.font = "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif";
-    drawWrappedText(ctx, q.qt, 4, curY, width - 16, 23);
+    drawWrappedTokens(ctx, thTokens, 4, curY, width - 16, thLineHeight);
   }
 }
 
@@ -1656,6 +1670,22 @@ document.getElementById("btnClearMistakes").onclick = () => {
 checkMistakeBank();
 document.getElementById("btnEnd").onclick = endNow;
 
+
+
+// Dynamic Canvas Responsive Redraw on Screen Resize & Orientation Change
+let canvasResizeTimer = null;
+function handleCanvasResize() {
+  if (session && session.strictIntegrity && !document.getElementById("screen-quiz").classList.contains("hidden")) {
+    clearTimeout(canvasResizeTimer);
+    canvasResizeTimer = setTimeout(() => {
+      if (typeof current === "function" && current()) {
+        renderQuestionCanvas(current());
+      }
+    }, 120);
+  }
+}
+window.addEventListener("resize", handleCanvasResize);
+window.addEventListener("orientationchange", () => setTimeout(handleCanvasResize, 150));
 
 // Mobile Touch & OS Selection Hardening
 window.oncontextmenu = function(e) {
