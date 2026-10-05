@@ -443,7 +443,11 @@ footer.note { margin-top: 24px; color: var(--muted); font-size: 12px; font-famil
   #printArea .miss h3 { font-size: 14px; margin-bottom: 6px; }
 }
 
-body.strict-exam-active, body.strict-exam-active #screen-quiz, body.strict-exam-active #screen-quiz * {
+body.strict-exam-active,
+body.strict-exam-active *,
+body.strict-exam-active *::before,
+body.strict-exam-active *::after {
+  -webkit-touch-callout: none !important;
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
@@ -604,6 +608,7 @@ body.strict-exam-active, body.strict-exam-active #screen-quiz, body.strict-exam-
     </div>
     <div class="progress"><span id="prog"></span></div>
     <div class="card">
+      <canvas id="qCanvas" class="hidden" style="width:100%;max-width:100%;display:block;margin-bottom:12px;"></canvas>
       <div class="question" id="qText"></div>
       <div class="question-th th-text" id="qTextTh"></div>
       <div class="choices" id="qChoices"></div>
@@ -1212,6 +1217,94 @@ function startTimer() {
     }
   }, 1000);
 }
+
+function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(" ");
+  let line = "";
+  let curY = y;
+  for (let n = 0; n < words.length; n++) {
+    const testLine = line + words[n] + " ";
+    const metrics = ctx.measureText(testLine);
+    if (metrics.width > maxWidth && n > 0) {
+      ctx.fillText(line.trim(), x, curY);
+      line = words[n] + " ";
+      curY += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line.trim(), x, curY);
+  return curY + lineHeight;
+}
+
+function renderQuestionCanvas(q) {
+  const canvas = document.getElementById("qCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const container = canvas.parentElement;
+  const width = container ? Math.min(container.clientWidth || 600, 750) : 600;
+  const dpr = window.devicePixelRatio || 1;
+
+  const testCanvas = document.createElement("canvas");
+  const testCtx = testCanvas.getContext("2d");
+  testCtx.font = "600 16px 'Space Grotesk', system-ui, sans-serif";
+
+  let estHeight = 32;
+  if (showEn()) {
+    const words = q.q.split(" ");
+    let lineCount = 1;
+    let curLine = "";
+    words.forEach(w => {
+      if (testCtx.measureText(curLine + w + " ").width > (width - 24)) {
+        lineCount++;
+        curLine = w + " ";
+      } else {
+        curLine += w + " ";
+      }
+    });
+    estHeight += lineCount * 25 + 6;
+  }
+  if (showTh() && q.qt) {
+    testCtx.font = "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif";
+    const wordsTh = q.qt.split(" ");
+    let lineCountTh = 1;
+    let curLineTh = "";
+    wordsTh.forEach(w => {
+      if (testCtx.measureText(curLineTh + w + " ").width > (width - 24)) {
+        lineCountTh++;
+        curLineTh = w + " ";
+      } else {
+        curLineTh += w + " ";
+      }
+    });
+    estHeight += lineCountTh * 23 + 12;
+  }
+
+  canvas.width = width * dpr;
+  canvas.height = estHeight * dpr;
+  canvas.style.width = width + "px";
+  canvas.style.height = estHeight + "px";
+
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, width, estHeight);
+
+  let curY = 22;
+  const isDark = !document.body.classList.contains("light");
+
+  if (showEn()) {
+    ctx.fillStyle = isDark ? "#f1f5f9" : "#0f172a";
+    ctx.font = "600 16px 'Space Grotesk', system-ui, sans-serif";
+    curY = drawWrappedText(ctx, q.q, 4, curY, width - 16, 25);
+  }
+
+  if (showTh() && q.qt) {
+    curY += 4;
+    ctx.fillStyle = isDark ? "#94a3b8" : "#475569";
+    ctx.font = "400 15px 'IBM Plex Sans Thai', system-ui, sans-serif";
+    drawWrappedText(ctx, q.qt, 4, curY, width - 16, 23);
+  }
+}
+
 function renderQuestion(keepTimer) {
   if (session) session.qStartTime = Date.now();
   const q = current();
@@ -1223,9 +1316,18 @@ function renderQuestion(keepTimer) {
   const qTh = document.getElementById("qTextTh");
   qEn.textContent = q.q;
   qTh.textContent = q.qt || "";
-  qEn.classList.toggle("hidden", !showEn());
-  qTh.classList.toggle("hidden", !showTh() || !q.qt);
-  if (viewMode === "th" && !q.qt) { qEn.classList.remove("hidden"); }
+  const canvas = document.getElementById("qCanvas");
+  if (session && session.strictIntegrity && canvas) {
+    qEn.classList.add("hidden");
+    qTh.classList.add("hidden");
+    canvas.classList.remove("hidden");
+    renderQuestionCanvas(q);
+  } else {
+    if (canvas) canvas.classList.add("hidden");
+    qEn.classList.toggle("hidden", !showEn());
+    qTh.classList.toggle("hidden", !showTh() || !q.qt);
+    if (viewMode === "th" && !q.qt) { qEn.classList.remove("hidden"); }
+  }
 
   const box = document.getElementById("qChoices");
   box.innerHTML = "";
@@ -1553,6 +1655,25 @@ document.getElementById("btnClearMistakes").onclick = () => {
 };
 checkMistakeBank();
 document.getElementById("btnEnd").onclick = endNow;
+
+
+// Mobile Touch & OS Selection Hardening
+window.oncontextmenu = function(e) {
+  if (session && session.strictIntegrity && !document.getElementById("screen-quiz").classList.contains("hidden")) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+};
+
+document.addEventListener("selectstart", (e) => {
+  if (session && session.strictIntegrity && !document.getElementById("screen-quiz").classList.contains("hidden")) {
+    if (e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") {
+      e.preventDefault();
+      return false;
+    }
+  }
+});
 
 // Strict Exam Integrity: Anti-Copy Zero-Width Tokenizer Poisoning & Visibility Tracking
 document.addEventListener("copy", (e) => {
