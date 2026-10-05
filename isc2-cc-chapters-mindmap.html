@@ -393,6 +393,76 @@
     .hero-titles h2 { font-size: 24px; }
     .footnav button { min-height: 44px; padding: 12px 20px; font-size: 12px; }
   }
+
+/* ===== CREATIVE MODE GLOBAL NAV & THEME TOKENS ===== */
+:root {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green-dark: #136636;
+  --pink: #F06CA8;
+  --pink-dark: #D14E8B;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+.creative-global-nav {
+  position: sticky; top: 0; z-index: 10000;
+  background: var(--cream);
+  border-bottom: 3px solid var(--ink);
+  font-family: var(--font-body);
+}
+.cg-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 18px; gap: 12px; flex-wrap: wrap;
+}
+.cg-brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-display); font-size: 15px;
+  border: 2px solid var(--ink); background: var(--white);
+  padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase;
+}
+.cg-brand .cg-badge {
+  background: var(--yellow); color: var(--ink);
+  padding: 1px 6px; font-size: 11px; font-family: var(--font-mono); font-weight: 800;
+  border: 1px solid var(--ink);
+}
+.cg-links {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.cg-link {
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 6px 12px; background: var(--white);
+  border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  white-space: nowrap;
+}
+.cg-link:hover {
+  background: var(--yellow);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.cg-link.active {
+  background: var(--orange);
+  color: var(--white);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+@media (max-width: 768px) {
+  .cg-nav-inner { padding: 8px 10px; }
+  .cg-links { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; width: 100%; -webkit-overflow-scrolling: touch; }
+}
+
 </style>
 </head>
 <body>
@@ -411,6 +481,23 @@
 </nav>
 
 <main id="main">
+<!-- CREATIVE MODE GLOBAL NAV BAR -->
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="index.html" class="cg-brand">
+      <span class="cg-badge">ISC2 CC</span>
+      <span class="cg-title">STUDY HUB</span>
+    </a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link active">MIND MAP 12 บท</a>
+      <a href="1832quiz_NewExamDomainTH.html" class="cg-link ">ชุด 1,832 ข้อ (TH)</a>
+      <a href="isc2_cc_BothThai-eng_583quiz.html" class="cg-link ">ชุด 583 ข้อ (TH/EN)</a>
+      <a href="isc2_cc_exam548_5Domain_dualTh-Eng.html" class="cg-link ">ชุด 548 ข้อ (5 Domains)</a>
+      <a href="isc2_cc_exam1NCSA_bi_no-track-50q.html" class="cg-link ">ชุด 50 ข้อ สกมช.</a>
+      <a href="isc2-cc-landing.html" class="cg-link ">รวมชุดข้อสอบ</a>
+    </div>
+  </div>
+</nav>
   <noscript>
     <h2>ข้อกำหนด: จำเป็นต้องเปิดใช้งาน JavaScript</h2>
     <p>ระบบ Mind Map สรุป 12 บทของ ISC2 CC จำเป็นต้องใช้ JavaScript ในการแสดงผลแบบ Interactive</p>

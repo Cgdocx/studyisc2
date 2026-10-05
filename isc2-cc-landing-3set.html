@@ -3,301 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISC2 CC — Study Hub</title>
+<title>ISC2 CC Exam Portal — พอร์ทัลชุดข้อสอบ Certified in Cybersecurity</title>
+<meta name="description" content="ศูนย์รวมชุดข้อสอบและแบบทดสอบเตรียมสอบ ISC2 CC ครบทุกรูปแบบ 1,832 ข้อ, 583 ข้อสองภาษา, 548 ข้อ 5 Domains, 50 ข้อ สกมช. และ Mind Map สรุป 12 บท">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg: #0a0e16;
-    --bg-raised: #101623;
-    --bg-card: #131a29;
-    --line: #232d40;
-    --text: #e8ecf4;
-    --text-dim: #8a94a8;
-    --text-faint: #566072;
-    --mint: #2DD4BF;
-    --blue: #60A5FA;
-    --amber: #FBBF24;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html,body{height:100%;}
-  body{
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', 'Noto Sans Thai', sans-serif;
-    min-height:100vh;
-    position:relative;
-    overflow-x:hidden;
-  }
-  body::before{
-    content:"";
-    position:fixed; inset:0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 64px 64px;
-    opacity:0.1;
-    pointer-events:none;
-    z-index:0;
-  }
-  body::after{
-    content:"";
-    position:fixed;
-    top:-20%; left:50%; transform:translateX(-50%);
-    width:900px; height:600px;
-    background: radial-gradient(ellipse at center, rgba(45,212,191,0.10), transparent 65%);
-    pointer-events:none;
-    z-index:0;
-  }
 
-  .wrap{
-    position:relative; z-index:1;
-    max-width:980px;
-    margin:0 auto;
-    padding:64px 32px 48px;
-  }
+/* ===== CREATIVE MODE GLOBAL NAV & THEME TOKENS ===== */
+:root {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --text: #0F0F0F;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F;
+  --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
 
-  header{
-    text-align:center;
-    margin-bottom:56px;
-    animation: rise 0.5s ease;
-  }
-  .eyebrow{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
-    color: var(--text-faint);
-    display:flex; align-items:center; justify-content:center; gap:10px;
-  }
-  .eyebrow::before, .eyebrow::after{
-    content:""; width:28px; height:1px; background: var(--line);
-  }
-  h1{
-    font-family:'Space Grotesk', sans-serif;
-    font-size: clamp(32px, 5vw, 48px);
-    font-weight:700;
-    letter-spacing:-0.02em;
-    margin-top:14px;
-    background: linear-gradient(135deg, #ffffff 30%, #9fb0c9 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .sub{
-    margin-top:12px;
-    font-family:'Noto Sans Thai', sans-serif;
-    font-size:15px;
-    color: var(--text-dim);
-    max-width:520px;
-    margin-left:auto; margin-right:auto;
-    line-height:1.7;
-  }
+.creative-global-nav {
+  position: sticky; top: 0; z-index: 10000;
+  background: var(--cream);
+  border-bottom: 3px solid var(--ink);
+  font-family: var(--font-body);
+}
+.cg-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 18px; gap: 12px; flex-wrap: wrap;
+}
+.cg-brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-display); font-size: 15px;
+  border: 2px solid var(--ink); background: var(--white);
+  padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase;
+}
+.cg-brand .cg-badge {
+  background: var(--yellow); color: var(--ink);
+  padding: 1px 6px; font-size: 11px; font-family: var(--font-mono); font-weight: 800;
+  border: 1px solid var(--ink);
+}
+.cg-links {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.cg-link {
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 6px 12px; background: var(--white);
+  border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  white-space: nowrap;
+}
+.cg-link:hover {
+  background: var(--yellow);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.cg-link.active {
+  background: var(--orange);
+  color: var(--white);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+@media (max-width: 768px) {
+  .cg-nav-inner { padding: 8px 10px; }
+  .cg-links { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; width: 100%; -webkit-overflow-scrolling: touch; }
+}
 
-  .grid{
-    display:grid;
-    grid-template-columns: 1fr;
-    gap:16px;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
   }
-  @media (min-width: 760px){
-    .grid{ grid-template-columns: 1fr 1fr; }
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
   }
-
-  .card{
-    position:relative;
-    display:flex; flex-direction:column;
-    background: var(--bg-card);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:26px 24px;
-    text-decoration:none;
-    color: var(--text);
-    overflow:hidden;
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    animation: rise 0.5s ease backwards;
+  header.hero-section {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 32px 20px;
+    background: var(--white);
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
   }
-  .card:nth-child(1){ animation-delay: 0.05s; }
-  .card:nth-child(2){ animation-delay: 0.12s; }
-  .card:nth-child(3){ animation-delay: 0.19s; }
-  .card:nth-child(4){ animation-delay: 0.26s; }
-
-  .card::before{
-    content:"";
-    position:absolute; inset:0;
-    background: radial-gradient(circle at 85% -10%, var(--accent, var(--mint)) 0%, transparent 55%);
-    opacity:0.14;
-    pointer-events:none;
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px; font-weight: 800; letter-spacing: 0.12em;
+    color: var(--orange); text-transform: uppercase; margin-bottom: 8px;
   }
-  .card:hover{
-    transform: translateY(-4px);
-    border-color: var(--accent, var(--mint));
-    box-shadow: 0 16px 40px -18px rgba(0,0,0,0.6);
+  h1 {
+    font-family: var(--font-display);
+    font-size: 38px; font-weight: 400; line-height: 1.1;
+    text-transform: uppercase; color: var(--ink); margin-bottom: 12px;
   }
-
-  .card .icon{
-    font-size:30px;
-    margin-bottom:16px;
-    line-height:1;
+  .sub {
+    font-family: var(--font-thai); font-size: 16px; color: var(--ink-2);
+    max-width: 720px; margin: 0 auto; line-height: 1.6;
   }
-  .card .tag{
-    font-family:'JetBrains Mono', monospace;
-    font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
-    color: var(--accent, var(--mint));
-    margin-bottom:8px;
-    font-weight:600;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
   }
-  .card h2{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:19px; font-weight:700;
-    letter-spacing:-0.01em;
-    margin-bottom:4px;
+  .card {
+    background: var(--white);
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    padding: 26px 24px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
   }
-  .card .th-title{
-    font-family:'Noto Sans Thai', sans-serif;
-    font-size:13px;
-    color: var(--text-dim);
-    margin-bottom:14px;
+  .card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 var(--ink);
   }
-  .card p{
-    font-family:'Noto Sans Thai','Inter',sans-serif;
-    font-size:12.5px;
-    color: var(--text-dim);
-    line-height:1.75;
-    flex:1;
+  .card-badge {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+    padding: 3px 8px; background: var(--accent-bg, var(--yellow));
+    border: 1.5px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+    text-transform: uppercase; margin-bottom: 14px; align-self: flex-start;
   }
-  .card .meta{
-    display:flex; align-items:center; gap:8px;
-    margin:16px 0 4px;
-    flex-wrap:wrap;
+  .card h2 {
+    font-family: var(--font-display); font-size: 22px; font-weight: 400;
+    text-transform: uppercase; margin-bottom: 10px; color: var(--ink);
   }
-  .badge{
-    font-family:'JetBrains Mono', monospace;
-    font-size:10.5px; font-weight:600;
-    padding:4px 9px;
-    border-radius:5px;
-    background: rgba(255,255,255,0.05);
-    color: var(--text-dim);
-    border:1px solid var(--line);
+  .card p {
+    font-family: var(--font-thai); font-size: 14px; line-height: 1.7; color: var(--ink-2);
+    margin-bottom: 20px; flex: 1;
   }
-  .cta{
-    margin-top:18px;
-    display:flex; align-items:center; justify-content:space-between;
-    font-family:'JetBrains Mono', monospace;
-    font-size:11.5px; letter-spacing:0.04em;
-    color: var(--accent, var(--mint));
-    font-weight:600;
-    padding-top:14px;
-    border-top:1px solid var(--line);
+  .card-meta {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+    color: var(--ink); background: var(--cream);
+    padding: 8px 12px; border: 1.5px solid var(--ink);
+    margin-bottom: 18px; display: flex; justify-content: space-between;
   }
-  .cta .arrow{
-    transition: transform 0.2s ease;
+  .card-btn {
+    display: block; text-align: center;
+    background: var(--btn-bg, var(--ink)); color: var(--btn-color, var(--cream));
+    text-decoration: none; font-family: var(--font-mono); font-size: 13px; font-weight: 800;
+    padding: 12px 18px; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+    text-transform: uppercase; transition: transform 0.1s ease, background 0.1s ease;
   }
-  .card:hover .cta .arrow{ transform: translateX(4px); }
-
-  footer{
-    margin-top:56px;
-    text-align:center;
-    padding-top:24px;
-    border-top:1px solid var(--line);
-    animation: rise 0.6s ease 0.25s backwards;
+  .card-btn:hover {
+    background: var(--yellow); color: var(--ink);
+    transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink);
   }
-  footer .credit{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    color: var(--text-faint);
-    letter-spacing:0.04em;
-  }
-  footer .credit b{
-    color: var(--mint);
-    font-weight:600;
-  }
-  footer .note{
-    margin-top:8px;
-    font-family:'Noto Sans Thai', sans-serif;
-    font-size:11.5px;
-    color: var(--text-faint);
-  }
-
-  @keyframes rise{
-    from{ opacity:0; transform: translateY(12px); }
-    to{ opacity:1; transform: translateY(0); }
-  }
-
-  @media (max-width: 480px){
-    .wrap{ padding:44px 18px 32px; }
-    h1{ font-size:28px; }
+  @media (max-width: 600px) {
+    h1 { font-size: 26px; }
+    .wrap { padding: 24px 16px 60px; }
   }
 </style>
 </head>
 <body>
+<!-- CREATIVE MODE GLOBAL NAV BAR -->
+<nav class="creative-global-nav">
+  <div class="cg-nav-inner">
+    <a href="index.html" class="cg-brand">
+      <span class="cg-badge">ISC2 CC</span>
+      <span class="cg-title">STUDY HUB</span>
+    </a>
+    <div class="cg-links">
+      <a href="index.html" class="cg-link ">MIND MAP 12 บท</a>
+      <a href="1832quiz_NewExamDomainTH.html" class="cg-link ">ชุด 1,832 ข้อ (TH)</a>
+      <a href="isc2_cc_BothThai-eng_583quiz.html" class="cg-link ">ชุด 583 ข้อ (TH/EN)</a>
+      <a href="isc2_cc_exam548_5Domain_dualTh-Eng.html" class="cg-link ">ชุด 548 ข้อ (5 Domains)</a>
+      <a href="isc2_cc_exam1NCSA_bi_no-track-50q.html" class="cg-link ">ชุด 50 ข้อ สกมช.</a>
+      <a href="isc2-cc-landing.html" class="cg-link active">รวมชุดข้อสอบ</a>
+    </div>
+  </div>
+</nav>
 <div class="wrap">
-
-  <header>
-    <div class="eyebrow">ISC2 · Certified in Cybersecurity</div>
-    <h1>CC Study Hub</h1>
-    <p class="sub">ศูนย์รวมเครื่องมือเตรียมสอบ ISC2 CC — ทบทวน Mind Map ครบ 12 บท และฝึกทำข้อสอบจำลอง รวมชุดใหม่ตาม Domain 1 ก.ย. 2026</p>
+  <header class="hero-section">
+    <div class="eyebrow">ISC2 CC · Comprehensive Study Portal</div>
+    <h1>ISC2 Certified in Cybersecurity</h1>
+    <div class="sub">ศูนย์รวมชุดแบบทดสอบ คลังข้อสอบจำลอง และสรุป Mind Map เชื่อมโยงครบทั้ง 5 โดเมนทางการและ 12 บทเรียน</div>
   </header>
 
   <div class="grid">
-
-    <a class="card" style="--accent:#2DD4BF" href="https://wesleydellth.github.io/studyisc2/isc2-cc-chapters-mindmap.html" target="_blank" rel="noopener">
-      <div class="icon">🧠</div>
-      <div class="tag">Review</div>
-      <h2>Mind Map ทบทวน</h2>
-      <div class="th-title">เรียนทวน Mind Map ครบ 12 บท</div>
-      <p>สรุปเนื้อหาแบบ Mind Map พร้อมจุดที่ข้อสอบออกบ่อยและ Cheat Sheet ของทั้ง 12 บท สลับดูได้ทันทีในหน้าเดียว</p>
-      <div class="meta">
-        <span class="badge">12 Chapters</span>
-        <span class="badge">TH/EN</span>
+    <!-- Card 1 -->
+    <div class="card" style="--accent-bg: var(--green); --btn-bg: var(--green); --btn-color: var(--white);">
+      <div>
+        <span class="card-badge">INTERACTIVE MIND MAP</span>
+        <h2>Mind Map สรุป 12 บท</h2>
+        <p>สรุปประเด็นสำคัญ เจาะลึกจุดเน้นข้อสอบ (Exam Focus) และ Cheat Sheet สองภาษา แมปตรงตาม 5 Domains ทางการ</p>
       </div>
-      <div class="cta"><span>เปิดหน้าทบทวน</span><span class="arrow">→</span></div>
-    </a>
-
-    <a class="card" style="--accent:#60A5FA" href="https://wesleydellth.github.io/studyisc2/isc2_cc_BothThai-eng_583quiz.html" target="_blank" rel="noopener">
-      <div class="icon">📝</div>
-      <div class="tag">Exam Set 1</div>
-      <h2>Exam Set 1</h2>
-      <div class="th-title">ชุดข้อสอบจำลอง 583 ข้อ</div>
-      <p>ข้อสอบจำลองสองภาษา (ไทย/อังกฤษ) ครอบคลุมเนื้อหาทั้งหมด เหมาะสำหรับฝึกทำแบบละเอียดก่อนสอบจริง</p>
-      <div class="meta">
-        <span class="badge">583 Questions</span>
-        <span class="badge">TH/EN</span>
+      <div>
+        <div class="card-meta"><span>12 CHAPTERS</span><span>TH / EN</span></div>
+        <a href="index.html" class="card-btn">เปิดดู Mind Map &rarr;</a>
       </div>
-      <div class="cta"><span>เริ่มทำข้อสอบ</span><span class="arrow">→</span></div>
-    </a>
+    </div>
 
-    <a class="card" style="--accent:#FBBF24" href="https://wesleydellth.github.io/studyisc2/isc2_cc_exam548_5Domain_dualTh-Eng.html" target="_blank" rel="noopener">
-      <div class="icon">🎯</div>
-      <div class="tag">Exam Set 2</div>
-      <h2>Exam Set 2</h2>
-      <div class="th-title">ชุดข้อสอบ 548 ข้อ แบ่งตาม 5 Domain</div>
-      <p>ข้อสอบจำลองสองภาษาจัดกลุ่มตาม 5 Domain ของ ISC2 CC ช่วยให้โฟกัสฝึกฝนเป็นหมวดหมู่ได้ตรงจุด</p>
-      <div class="meta">
-        <span class="badge">548 Questions</span>
-        <span class="badge">5 Domains</span>
+    <!-- Card 2 -->
+    <div class="card" style="--accent-bg: var(--orange); --btn-bg: var(--orange); --btn-color: var(--white);">
+      <div>
+        <span class="card-badge">LARGEST BANK</span>
+        <h2>ชุด 1,832 ข้อ (5 Domains)</h2>
+        <p>คลังข้อสอบฉบับเต็มมากที่สุด 1,832 ข้อ แปลภาษาไทยจำแนกตามโครงสร้างข้อสอบใหม่ เลือกลุยทีละโดเมนหรือจำลองสอบจริงได้</p>
       </div>
-      <div class="cta"><span>เริ่มทำข้อสอบ</span><span class="arrow">→</span></div>
-    </a>
-
-    <a class="card" style="--accent:#A78BFA" href="https://wesleydellth.github.io/studyisc2/1832quiz_NewExamDomainTH.html" target="_blank" rel="noopener">
-      <div class="icon">🚀</div>
-      <div class="tag">New Outline</div>
-      <h2>1832 Dump New domain 1 Sep 2026</h2>
-      <div class="th-title">ชุดข้อสอบ 1,832 ข้อ ตามโครงร่างใหม่</div>
-      <p>Dump ชุดใหญ่ตาม Exam Outline มีผล 1 กันยายน 2026 เลือกฝึกเป็น Domain พร้อมสลับภาษาไทย/อังกฤษ และส่งคะแนนเข้าชีต</p>
-      <div class="meta">
-        <span class="badge">1832 Questions</span>
-        <span class="badge">5 Domains 2026</span>
-        <span class="badge">TH/EN</span>
+      <div>
+        <div class="card-meta"><span>1,832 QUESTIONS</span><span>NEW OUTLINE</span></div>
+        <a href="1832quiz_NewExamDomainTH.html" class="card-btn">เริ่มทำแบบทดสอบ &rarr;</a>
       </div>
-      <div class="cta"><span>เริ่มทำข้อสอบ</span><span class="arrow">→</span></div>
-    </a>
+    </div>
 
+    <!-- Card 3 -->
+    <div class="card" style="--accent-bg: var(--pink); --btn-bg: var(--pink); --btn-color: var(--ink);">
+      <div>
+        <span class="card-badge">BILINGUAL DUAL-MODE</span>
+        <h2>ชุด 583 ข้อ (TH/EN)</h2>
+        <p>ฝึกทำข้อสอบแบบสองภาษาเทียบเคียง ไทยและอังกฤษควบคู่ ช่วยให้คุ้นเคยกับคำศัพท์เฉพาะทางในห้องสอบจริง</p>
+      </div>
+      <div>
+        <div class="card-meta"><span>583 QUESTIONS</span><span>THAI + ENGLISH</span></div>
+        <a href="isc2_cc_BothThai-eng_583quiz.html" class="card-btn">เริ่มทำแบบทดสอบ &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card" style="--accent-bg: var(--yellow); --btn-bg: var(--ink); --btn-color: var(--cream);">
+      <div>
+        <span class="card-badge">OFFICIAL DOMAIN MOCK</span>
+        <h2>ชุด 548 ข้อ (5 โดเมน)</h2>
+        <p>ชุดข้อสอบมาตรฐาน 5 โดเมนระบบสองภาษา เหมาะสำหรับทบทวนความพร้อมรอบสุดท้ายก่อนลงสนามสอบ</p>
+      </div>
+      <div>
+        <div class="card-meta"><span>548 QUESTIONS</span><span>5 DOMAINS</span></div>
+        <a href="isc2_cc_exam548_5Domain_dualTh-Eng.html" class="card-btn">เริ่มทำแบบทดสอบ &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card" style="--accent-bg: var(--cream-2); --btn-bg: var(--ink); --btn-color: var(--yellow);">
+      <div>
+        <span class="card-badge">NCSA FORMAT</span>
+        <h2>ชุด 50 ข้อ สกมช.</h2>
+        <p>แนวข้อสอบจำลอง สกมช. 50 ข้อ สองภาษา ไม่มีระบบแทร็กกิ้ง เหมาะสำหรับการซ้อมสปีดเทสต์แบบเร็ว</p>
+      </div>
+      <div>
+        <div class="card-meta"><span>50 QUESTIONS</span><span>SPEED TEST</span></div>
+        <a href="isc2_cc_exam1NCSA_bi_no-track-50q.html" class="card-btn">เริ่มทำแบบทดสอบ &rarr;</a>
+      </div>
+    </div>
   </div>
-
-  <footer>
-    <div class="credit">Made by <b>Gotji</b></div>
-    <div class="note">ISC2 Certified in Cybersecurity — เอกสารเรียบเรียงใหม่เพื่อการศึกษา</div>
-  </footer>
-
 </div>
 </body>
 </html>
