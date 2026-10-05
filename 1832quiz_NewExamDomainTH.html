@@ -982,6 +982,7 @@ function saveActiveSession() {
       answers: session.answers,
       reasons: session.reasons,
       itemIndices: session.items.map(it => bank.indexOf(it)),
+      integrityStrikes: session.integrityStrikes || 0,
       timestamp: Date.now()
     };
     localStorage.setItem("cc_1832_saved_session", JSON.stringify(state));
@@ -1033,8 +1034,17 @@ function resumeSession() {
       answers: st.answers || Array(items.length).fill(null),
       reasons: st.reasons || Array(items.length).fill(""),
       left: 0,
-      endedEarly: false
+      endedEarly: false,
+      strictIntegrity: true,
+      integrityStrikes: st.integrityStrikes || 0
     };
+    const strikes = session.integrityStrikes || 0;
+    const badge = document.getElementById("strikeBadge");
+    if (badge && strikes > 0) {
+      badge.textContent = `STRIKES: ${strikes}/3`;
+      badge.classList.remove("hidden");
+      if (strikes >= 2) badge.style.background = "var(--pink)";
+    }
     document.getElementById("screen-home").classList.add("hidden");
     document.getElementById("screen-result").classList.add("hidden");
     document.getElementById("screen-quiz").classList.remove("hidden");
@@ -1929,6 +1939,7 @@ function triggerIntegrityStrike(reason) {
   
   session.isHandlingStrike = true;
   session.integrityStrikes = (session.integrityStrikes || 0) + 1;
+  saveActiveSession();
   const strikes = session.integrityStrikes;
   
   const badge = document.getElementById("strikeBadge");
