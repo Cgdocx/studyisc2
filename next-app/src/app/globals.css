@@ -1,0 +1,106 @@
+:root {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dark: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --pink-dark: #D14E8B;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --panel: #FFFFFF;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --border: #0F0F0F;
+  --text: #0F0F0F;
+  --text-dim: #2A2A2A;
+  --text-faint: #4A4A4A;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --red-bg: #FFE4E6;
+  --red-dim: rgba(209,36,56,.12);
+  --blue: #1E40AF;
+  --blue-bg: #E0E7FF;
+  --green-bg: #DCFCE7;
+  --gold: #E85A1F;
+  --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+
+  --font-display: 'Archivo Black', 'IBM Plex Sans Thai', sans-serif;
+  --font-body: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', monospace;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-thai);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--yellow); color: var(--ink); }
+
+.creative-global-nav {
+  position: sticky; top: 0; z-index: 10000;
+  background: var(--cream);
+  border-bottom: 3px solid var(--ink);
+  font-family: var(--font-body);
+}
+.cg-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 18px; gap: 12px; flex-wrap: wrap;
+}
+.cg-brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-display); font-size: 15px; font-weight: 400;
+  border: 2px solid var(--ink); background: var(--white);
+  padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase;
+}
+.cg-brand .cg-badge {
+  background: var(--yellow); color: var(--ink);
+  padding: 1px 6px; font-size: 11px; font-family: var(--font-mono); font-weight: 700;
+  border: 1px solid var(--ink);
+}
+.cg-links { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cg-link {
+  text-decoration: none; color: var(--ink);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 6px 12px; background: var(--white);
+  border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  white-space: nowrap;
+}
+.cg-link:hover { background: var(--yellow); transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); }
+.cg-link.active { background: var(--orange); color: var(--white); box-shadow: 2px 2px 0 var(--ink); }
+@media (max-width: 768px) {
+  .cg-nav-inner { padding: 8px 10px; }
+  .cg-links { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; width: 100%; -webkit-overflow-scrolling: touch; }
+}
+
+#neko { position: fixed; bottom: 8px; z-index: 9999; pointer-events: none; }
+#neko.flip svg { transform: scaleX(-1); }
+#neko .neye-shut, #neko .nzzz { display: none; }
+@keyframes nk-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+#neko.walk { animation: nk-bob .3s ease-in-out infinite; }
+@keyframes nk-tail { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-20deg); } }
+#neko.sit .ntail { animation: nk-tail 1s ease-in-out infinite; transform-origin: 8px 30px; }
+#neko.sleep .neye { display: none; }
+#neko.sleep .neye-shut { display: block; }
+@keyframes nk-zzz { 0%, 100% { opacity: 0; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-8px); } }
+#neko.sleep .nzzz { display: block; animation: nk-zzz 2s ease-in-out infinite; }
+@keyframes nk-breathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.03); } }
+#neko.sleep svg { animation: nk-breathe 2s ease-in-out infinite; transform-origin: center bottom; }

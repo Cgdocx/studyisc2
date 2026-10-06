@@ -1,0 +1,164 @@
+.pg-landing, .pg-landing * { margin: 0; padding: 0; }
+.pg-landing { padding-bottom: 60px; }
+.pg-landing .container { max-width: 1100px; margin: 0 auto; padding: 32px 18px 0;
+}
+.pg-landing .hero {
+    background: var(--white);
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    padding: 36px 28px 30px;
+    margin-bottom: 32px;
+    text-align: center;
+}
+.pg-landing .eyebrow {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; color: var(--orange); text-transform: uppercase;
+    margin-bottom: 8px;
+}
+.pg-landing h1 {
+    font-family: var(--font-display); font-size: clamp(24px, 3.8vw, 34px);
+    font-weight: 400; line-height: 1.1; text-transform: uppercase;
+    letter-spacing: -0.01em; color: var(--ink); margin-bottom: 6px;
+}
+.pg-landing .hero-th {
+    font-family: var(--font-thai); font-size: 16px; font-weight: 700;
+    color: var(--ink-2); margin-bottom: 10px;
+}
+.pg-landing .sub {
+    font-family: var(--font-thai); font-size: 13.5px; font-weight: 400;
+    color: var(--ink-2); max-width: 720px; margin: 0 auto; line-height: 1.7;
+}
+.pg-landing .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+.pg-landing .card {
+    background: var(--white);
+    border: 3px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+    padding: 24px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.pg-landing .card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--ink);
+}
+.pg-landing .card-head {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+}
+.pg-landing .card-badge {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 8px; background: var(--badge-bg, var(--yellow));
+    color: var(--ink); border: 1.5px solid var(--ink);
+    box-shadow: 2px 2px 0 var(--ink); margin-bottom: 10px;
+}
+.pg-landing .card h2 {
+    font-family: var(--font-display); font-size: 16px; font-weight: 400;
+    line-height: 1.25; letter-spacing: -0.01em; text-transform: uppercase;
+    color: var(--ink); margin: 0;
+}
+.pg-landing .card-sub-th {
+    font-family: var(--font-thai); font-size: 13.5px; font-weight: 700;
+    color: var(--ink-2); margin-top: 5px;
+}
+.pg-landing .card p {
+    font-family: var(--font-thai); font-size: 13px; line-height: 1.7;
+    color: var(--ink-2); font-weight: 400; flex: 1; margin-bottom: 16px;
+}
+.pg-landing .card-meta {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px;
+}
+.pg-landing .card-meta span {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+    color: var(--ink); background: var(--cream);
+    padding: 3px 8px; border: 1.5px solid var(--ink);
+    box-shadow: 1.5px 1.5px 0 var(--ink);
+}
+.pg-landing .card-btn {
+    display: block; text-align: center;
+    background: var(--btn-bg, var(--ink)); color: var(--btn-color, var(--white));
+    text-decoration: none;
+    font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 12px 18px; border: 2px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+}
+.pg-landing .card-btn:hover {
+    background: var(--yellow); color: var(--ink);
+    transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink);
+}
+.pg-landing .start-here {
+    position: relative;
+    display: grid; grid-template-columns: 1fr auto; gap: 18px 28px; align-items: center;
+    background: var(--yellow);
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    padding: 30px 26px 24px;
+    margin-bottom: 36px;
+}
+.pg-landing .start-tag {
+    position: absolute; top: -14px; left: 18px;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--ink); color: var(--yellow);
+    padding: 3px 12px; border: 2px solid var(--ink);
+}
+.pg-landing .start-body h2 {
+    font-family: var(--font-display); font-size: clamp(18px, 2.6vw, 22px); font-weight: 400;
+    line-height: 1.2; text-transform: uppercase; margin-bottom: 6px;
+}
+.pg-landing .start-body p { font-family: var(--font-thai); font-size: 13.5px; line-height: 1.7; color: var(--ink-2); margin-bottom: 12px;
+}
+.pg-landing .start-steps { list-style: none; display: flex; flex-wrap: wrap; gap: 8px;
+}
+.pg-landing .start-steps li {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-thai); font-size: 12.5px; font-weight: 700;
+    background: var(--white); border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+    padding: 4px 10px 4px 4px;
+}
+.pg-landing .start-steps li b {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+    background: var(--ink); color: var(--yellow); padding: 1px 6px;
+}
+.pg-landing .start-actions { display: flex; flex-direction: column; gap: 10px; min-width: 230px;
+}
+.pg-landing .start-btn {
+    display: block; text-align: center; text-decoration: none;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 12px 18px; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+    background: var(--white); color: var(--ink);
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+}
+.pg-landing .start-btn.primary { background: var(--ink); color: var(--yellow);
+}
+.pg-landing .start-btn:hover { background: var(--orange); color: var(--white); transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink);
+}
+.pg-landing .section-label {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    font-family: var(--font-display); font-size: 18px; font-weight: 400; text-transform: uppercase;
+    margin: 8px 0 18px;
+}
+.pg-landing .section-label span {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+    background: var(--orange); color: var(--white); border: 2px solid var(--ink);
+    box-shadow: 2px 2px 0 var(--ink); padding: 3px 8px;
+}
+.pg-landing .grid + .section-label { margin-top: 40px;
+}
+@media (max-width: 720px) {
+.pg-landing .start-here { grid-template-columns: 1fr; padding: 28px 18px 20px;
+}
+.pg-landing .start-actions { min-width: 0;
+}
+}
