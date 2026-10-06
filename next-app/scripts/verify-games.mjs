@@ -1,26 +1,26 @@
+// Mini-game data in src/data/games and the built game pages. Source of truth: the committed JSON.
+// Checks: unchanged since verified against the legacy pages at deletion time (legacy-snapshot.json),
+// internal integrity, and (after a build) the pre-JS markup of out/ game pages against the pinned
+// fingerprint of the original pages' markup.
 import { readFileSync, existsSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
-import vm from 'node:vm';
-import { read, blockEnd, tokens, decode } from './content-lib.mjs';
-import { GAME_EXTRACTORS, GAMES_DIR } from './games-lib.mjs';
+import { APP, checker, loadJson, loadSnapshot, jsonHash, decode, fingerprint, wrapOf, routes, normGameMarkup } from './check-lib.mjs';
 
-const OUT = resolve(dirname(fileURLToPath(import.meta.url)), '../out');
-let failed = 0;
-const ok = (cond, msg) => { process.stdout.write((cond ? '[OK] ' : '[X] ') + msg + '\n'); if (!cond) failed++; };
-const load = name => JSON.parse(readFileSync(resolve(GAMES_DIR, name), 'utf8'));
+const OUT = resolve(APP, 'out');
+const { ok, done } = checker();
+const snap = loadSnapshot();
+const load = name => loadJson('src/data/games/' + name);
+const GAMES = ['games.json', 'term-match.json', 'domain-sort.json', 'rapid-fire.json', 'beat-clock.json', 'incident-timeline.json', 'fill-gap.json', 'defend-castle.json', 'phish-detect.json'];
 
-for (const [name, extract] of Object.entries(GAME_EXTRACTORS)) ok(isDeepStrictEqual(load(name), JSON.parse(JSON.stringify(extract()))), `${name}: identical to a fresh extraction from the original page`);
-
-const bc = read('game-beat-clock.html');
-const bcScript = bc.slice(bc.lastIndexOf('<script>', bc.indexOf('const QUESTIONS')) + 8, bc.indexOf('</script>', bc.indexOf('const QUESTIONS')));
-const parses = src => { try { new vm.Script(src); return true; } catch { return false; } };
-ok(parses(bcScript), 'game-beat-clock.html: game script parses')
+for (const name of GAMES) {
+  const pin = snap.data['src/data/games/' + name];
+  ok(jsonHash(load(name)) === pin.sha256, `${name}: unchanged since verified identical to a fresh extraction from ${pin.source} at ${snap.commit.slice(0, 7)}`);
+}
 
 const hub = load('games.json');
 const cards = hub.categories.flatMap(c => c.cards);
-const files = Object.values(GAME_EXTRACTORS).slice(1).map(f => f().file);
+const files = GAMES.slice(1).map(name => load(name).file);
 ok(cards.length === 8 && isDeepStrictEqual(cards.map(c => c.href).sort(), [...files].sort()), `games.json: ${hub.categories.length} categories, ${cards.length} cards linking exactly the 8 game pages`);
 
 const tm = load('term-match.json');
@@ -50,37 +50,18 @@ const onlyLinks = b => !b.replace(/<span class="fake-link">[^<]*<\/span>/g, '').
 ok(pd.emails.length === 16 && pd.emails.every(e => e.flags.every(f => ids.has(f)) && (e.isPhishing || e.flags.length === 0) && onlyLinks(e.body) && !/[<&]/.test(e.from)),
   `phish-detect.json: ${pd.emails.length} emails (${pd.emails.filter(e => e.isPhishing).length} phishing), flags within the ${ids.size} known flags, bodies contain only fake-link spans`);
 
-const routes = Object.fromEntries([...readFileSync(resolve(OUT, '../src/lib/site.ts'), 'utf8').matchAll(/'([^']+\.html)':\s*\{\s*route:\s*'([^']*)'/g)].map(m => ['/studyisc2' + m[2], m[1]]));
-
-function wrapOf(html, anchor) {
-  const s = anchor ? html.indexOf(anchor) : 0;
-  const a = html.indexOf('<div class="wrap">', s);
-  return html.slice(a + '<div class="wrap">'.length, blockEnd(html, a, 'div') - '</div>'.length);
-}
-
-const LEAF = new Set(['/rect', '/path', '/circle', '/line', '/polyline', '/polygon', '/ellipse']);
-function norm(html, built) {
-  return tokens(html).filter(t => !LEAF.has(t)).map(t => t[0] === '#' ? t : t.replace(/\[(.*)\]$/, (_, a) => '[' + a.split('|').filter(x => x && !/^on[a-z]+=/.test(x) && x !== '/=').map(x => {
-    if (x.startsWith('style=')) return 'style=' + x.slice(6).split(';').map(d => d.trim().replace(/\s*:\s*/, ':')).filter(Boolean).join(';');
-    if (built && x.startsWith('href=')) { const h = x.slice(5); return 'href=' + (routes[h] || h); }
-    return x;
-  }).sort().join('|') + ']'));
-}
-
+const routeMap = routes();
 if (existsSync(OUT)) {
   for (const file of ['games.html', ...files]) {
-    const orig = read(file);
     const built = readFileSync(resolve(OUT, file), 'utf8');
-    const x = norm(wrapOf(built, 'pg-game"'), true);
-    const y = norm(wrapOf(orig), false);
-    const diffAt = x.findIndex((t, k) => t !== y[k]);
-    const same = diffAt === -1 && x.length === y.length;
-    ok(same, `out/${file}: pre-JS .wrap markup matches the original (${y.length} tags/text nodes, ${y.filter(t => t[0] === '#').join('').length} text chars)` + (same ? '' : ` first diff at ${diffAt}: ${x[diffAt]} | ${y[diffAt]}`));
+    const x = fingerprint(normGameMarkup(wrapOf(built, 'pg-game"'), routeMap));
+    const y = snap.gameMarkup[file];
+    ok(isDeepStrictEqual(x, y), `out/${file}: pre-JS .wrap markup matches the original, per the pinned fingerprint (${y.nodes} tags/text nodes, ${y.textChars} text chars)` + (isDeepStrictEqual(x, y) ? '' : ` got ${x.nodes} nodes / ${x.textChars} chars`));
     const t = decode(built.match(/<title>([^<]*)<\/title>/)[1]);
-    ok(t === decode(orig.match(/<title>([^<]*)<\/title>/)[1]), `out/${file}: <title> ${t}`);
+    ok(t === snap.files[file].title, `out/${file}: <title> ${t}`);
   }
 } else {
   process.stdout.write('[SKIP] out/ not built; run npm run build for the markup checks\n');
 }
 
-process.exit(failed ? 1 : 0);
+done();

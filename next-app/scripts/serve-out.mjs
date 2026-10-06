@@ -5,11 +5,8 @@ import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(here, '../out');
-const LEGACY = resolve(here, '../..');
 const BASE = '/studyisc2';
 const PORT = Number(process.env.PORT || 4173);
-const STRICT = process.argv.includes('--strict') || process.env.STRICT === '1';
-const ROOTS = STRICT ? [OUT] : [OUT, LEGACY];
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json',
   '.svg': 'image/svg+xml', '.png': 'image/png', '.ico': 'image/x-icon', '.txt': 'text/plain; charset=utf-8',
@@ -22,13 +19,10 @@ async function isFile(p) {
 
 async function locate(rel) {
   const candidates = [rel, rel + '.html', join(rel, 'index.html')];
-  for (const root of ROOTS) {
-    for (const c of candidates) {
-      const full = normalize(join(root, c));
-      if (!full.startsWith(root)) continue;
-      if (root === LEGACY && full.startsWith(join(LEGACY, 'next-app'))) continue;
-      if (await isFile(full)) return full;
-    }
+  for (const c of candidates) {
+    const full = normalize(join(OUT, c));
+    if (!full.startsWith(OUT)) continue;
+    if (await isFile(full)) return full;
   }
   return null;
 }
@@ -52,5 +46,5 @@ createServer(async (req, res) => {
   res.writeHead(200, { 'Content-Type': TYPES[extname(file)] || 'application/octet-stream' });
   res.end(await readFile(file));
 }).listen(PORT, () => {
-  process.stdout.write(`Serving ${BASE}/ on http://localhost:${PORT}${BASE}/ (${STRICT ? 'out/ only, like GitHub Pages after the switch' : 'out/ first, then legacy root pages'})\n`);
+  process.stdout.write(`Serving ${BASE}/ on http://localhost:${PORT}${BASE}/ from out/ (the same files GitHub Pages serves)\n`);
 });

@@ -3,7 +3,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
-export const SRC = resolve(here, '../../studyisc2_questions_583_bilingual.csv');
+export const SRC = resolve(here, '../public/studyisc2_questions_583_bilingual.csv');
 const OUT = resolve(here, '../public/data/questions-583.json');
 
 function parseCsv(text) {

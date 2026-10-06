@@ -6,9 +6,11 @@
 
 ## เนื้อหาทั้งหมด
 
+URL ทั้งหมดอยู่ใต้ https://cgdocx.github.io/studyisc2/ (เปิดแบบไม่มี `.html` ก็ได้ เช่น `/studyisc2/flashcard`)
+
 ### ชุดข้อสอบ
 
-| ชุด | จำนวนข้อ | ภาษา | ไฟล์ |
+| ชุด | จำนวนข้อ | ภาษา | URL |
 |-----|----------|------|------|
 | Practice Quiz (2026 Outline) | 1,832 | TH | `1832quiz_NewExamDomainTH.html` |
 | Bilingual Dual-Mode | 583 | TH/EN | `isc2_cc_BothThai-eng_583quiz.html` |
@@ -18,7 +20,7 @@
 
 ### บทเรียนสำหรับมือใหม่
 
-| Domain | หัวข้อ | ไฟล์ |
+| Domain | หัวข้อ | URL |
 |--------|--------|------|
 | 1 | Security Principles | `lesson-domain-1.html` |
 | 2 | BC, DR & Incident Response | `lesson-domain-2.html` |
@@ -28,7 +30,7 @@
 
 ### เครื่องมือเรียนรู้
 
-| เครื่องมือ | รายละเอียด | ไฟล์ |
+| เครื่องมือ | รายละเอียด | URL |
 |-----------|------------|------|
 | Mind Map สรุป 12 บท | สรุปประเด็นสำคัญ + Cheat Sheet | `index.html` |
 | Flashcard 100 ใบ | บัตรคำศัพท์พลิกดูคำตอบ แบ่งตาม Domain | `flashcard.html` |
@@ -36,7 +38,7 @@
 
 ### Mini Games (8 เกม)
 
-| เกม | รูปแบบ | ไฟล์ |
+| เกม | รูปแบบ | URL |
 |-----|--------|------|
 | Term Matching | ลากจับคู่คำศัพท์กับคำอธิบาย | `game-term-match.html` |
 | Domain Sorting | จัดหมวดหมู่ concept ใส่ Domain | `game-domain-sort.html` |
@@ -55,10 +57,33 @@
 4. Network Security
 5. Security Operations
 
+## โครงสร้างโปรเจกต์
+
+เว็บทั้งหมดอยู่ใน `next-app/` (Next.js App Router + TypeScript, static export) แต่ละหน้าคือ route ใน `next-app/src/app/<ชื่อหน้า>/` และ export เป็น `<ชื่อหน้า>.html` ชื่อเดิม ลิงก์และ bookmark เดิมจึงใช้ได้ทุกลิงก์
+
+| ส่วน | ที่อยู่ |
+|------|--------|
+| หน้าเว็บ 23 หน้า | `next-app/src/app/` |
+| ข้อมูลข้อสอบ (JSON) | `next-app/public/data/` |
+| เนื้อหาบทเรียน, flashcard, mind map, learning path | `next-app/src/data/content/` |
+| ข้อมูลเกม | `next-app/src/data/games/` |
+| CSV (ข้อสอบ 583, glossary, รายชื่อหน้า) | `next-app/public/` |
+| `sw.js`, `manifest.json` | `next-app/public/` |
+| Deploy | `.github/workflows/nextjs-pages.yml` (build + ตรวจทุก PR, deploy เมื่อสั่ง run เองบน `main`) |
+
+ไฟล์ HTML แบบเดิมที่เคยอยู่ที่ root ถูกลบแล้ว ดูย้อนหลังได้ใน git history (`git show 791433d:<ไฟล์>.html`)
+
 ## การใช้งาน
 
-เปิด https://cgdocx.github.io/studyisc2/ หรือ clone แล้วเปิดไฟล์ HTML ในเบราว์เซอร์ได้เลย
+เปิด https://cgdocx.github.io/studyisc2/ หรือรันในเครื่อง:
 
 ```bash
 git clone https://github.com/Cgdocx/studyisc2.git
+cd studyisc2/next-app
+npm install
+npm run dev     # http://localhost:3000/studyisc2/
+npm run build   # static site ใน next-app/out/
+npm run serve   # เปิด out/ ที่ http://localhost:4173/studyisc2/
 ```
+
+รายละเอียด build, การตรวจสอบ และการ deploy อยู่ใน [`next-app/README.md`](next-app/README.md)

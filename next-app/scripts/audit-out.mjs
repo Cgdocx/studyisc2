@@ -1,27 +1,24 @@
-import { spawn, execFileSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadSnapshot, sha256 } from './check-lib.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const ROOT = resolve(here, '../..');
 const OUT = resolve(here, '../out');
 const PORT = Number(process.env.AUDIT_PORT || 4180);
 const LOCAL = `http://localhost:${PORT}/studyisc2/`;
 const LIVE = 'https://cgdocx.github.io/studyisc2/';
-const live = process.argv.includes('--live');
 const verifyLive = process.argv.includes('--verify-live');
 
 let failed = 0;
 const ok = (cond, msg) => { process.stdout.write((cond ? '[OK] ' : '[X] ') + msg + '\n'); if (!cond) failed++; };
 
-const tracked = execFileSync('git', ['ls-files'], { cwd: ROOT, encoding: 'utf8' }).split('\n').filter(Boolean);
-const published = tracked.filter(f => !f.split('/').some(part => part.startsWith('.') || part.startsWith('_')));
-const rootFiles = published.filter(f => !f.includes('/'));
-const SITE = rootFiles.filter(f => /\.(html|csv)$/.test(f) || f === 'sw.js' || f === 'manifest.json');
-const DOCS = rootFiles.filter(f => !SITE.includes(f));
-const INTERNAL = published.filter(f => f.includes('/'));
+// Every URL the legacy root site published, pinned (with checksums) when the legacy files were deleted.
+const snap = loadSnapshot();
+const SITE = Object.keys(snap.files);
 const SAME_BYTES = SITE.filter(f => /\.csv$/.test(f) || f === 'manifest.json');
+const sameAsLegacy = (f, body) => sha256(body) === snap.files[f].sha256;
 
 const lp = JSON.parse(readFileSync(resolve(here, '../src/data/content/learning-path.json'), 'utf8'));
 const lpLinks = [...new Set(JSON.stringify(lp).match(/"link":"[^"]+"/g)?.map(s => s.slice(8, -1)) ?? [])];
@@ -48,31 +45,31 @@ if (verifyLive) {
     const r = await get(LIVE, f);
     if (r.status !== 200) { bad.push(`${f} (${r.status})`); continue; }
     if (f.endsWith('.html') && !r.body.toString().includes('/studyisc2/_next/')) bad.push(`${f} (not the Next.js build)`);
-    if (SAME_BYTES.includes(f) && !r.body.equals(readFileSync(resolve(ROOT, f)))) bad.push(`${f} (bytes differ)`);
+    if (SAME_BYTES.includes(f) && !sameAsLegacy(f, r.body)) bad.push(`${f} (bytes differ)`);
     if (f === 'sw.js' && !r.body.toString().includes('studyisc2-cache-v3')) bad.push('sw.js (not the v3 worker)');
   }
   for (const v of VARIANTS) { const r = await get(LIVE, v); if (r.status !== 200) bad.push(`${v || '/'} (${r.status})`); }
   const asset = (await get(LIVE, 'index.html')).body.toString().match(/\/studyisc2\/(_next\/static\/[^"]+\.js)/);
   const assetRes = asset ? await get(LIVE, asset[1]) : { status: 0 };
   if (assetRes.status !== 200) bad.push(`_next asset ${asset ? asset[1] : '(none found)'} (${assetRes.status})`);
-  ok(bad.length === 0, `live site ${LIVE}: ${SITE.length} site URLs and ${VARIANTS.length} URL forms return 200, every page is the Next.js build, _next/ assets load, sw.js is v3, manifest and CSVs byte-identical` + (bad.length ? ': ' + bad.join(', ') : ''));
+  ok(bad.length === 0, `live site ${LIVE}: ${SITE.length} site URLs and ${VARIANTS.length} URL forms return 200, every page is the Next.js build, _next/ assets load, sw.js is v3, manifest and CSVs byte-identical to the legacy files` + (bad.length ? ': ' + bad.join(', ') : ''));
   process.exit(failed ? 1 : 0);
 }
 
-const server = spawn(process.execPath, [resolve(here, 'serve-out.mjs'), '--strict'], { env: { ...process.env, PORT: String(PORT) }, stdio: ['ignore', 'pipe', 'inherit'] });
+const server = spawn(process.execPath, [resolve(here, 'serve-out.mjs')], { env: { ...process.env, PORT: String(PORT) }, stdio: ['ignore', 'pipe', 'inherit'] });
 await new Promise((res, rej) => { server.stdout.once('data', res); server.once('exit', rej); });
 
 try {
   ok(existsSync(OUT), 'out/ exists');
-  process.stdout.write(`\nLive inventory (what the legacy Pages build publishes from this checkout): ${published.length} files = ${SITE.length} site files + ${DOCS.length} repo docs + ${INTERNAL.length} next-app source files\n\n`);
+  process.stdout.write(`\nLegacy URL inventory pinned at ${snap.commit.slice(0, 7)}: ${SITE.length} site files\n\n`);
 
   const missing = [];
   for (const f of SITE) {
     const r = await get(LOCAL, f);
-    const same = !SAME_BYTES.includes(f) || r.body.equals(readFileSync(resolve(ROOT, f)));
+    const same = !SAME_BYTES.includes(f) || sameAsLegacy(f, r.body);
     if (r.status !== 200 || !same) missing.push(`${f} (${r.status}${same ? '' : ', bytes differ'})`);
   }
-  ok(missing.length === 0, `${SITE.length} site URLs served from out/ at the same /studyisc2/ path (${SITE.filter(f => f.endsWith('.html')).length} pages, sw.js, manifest.json, ${SITE.filter(f => f.endsWith('.csv')).length} CSV byte-identical)` + (missing.length ? ': ' + missing.join(', ') : ''));
+  ok(missing.length === 0, `${SITE.length} site URLs served from out/ at the same /studyisc2/ path (${SITE.filter(f => f.endsWith('.html')).length} pages, sw.js, manifest.json, ${SITE.filter(f => f.endsWith('.csv')).length} CSV byte-identical to the legacy files)` + (missing.length ? ': ' + missing.join(', ') : ''));
 
   const badVariants = [];
   for (const v of VARIANTS) { const r = await get(LOCAL, v); if (r.status !== 200 || r.type !== 'text/html') badVariants.push(`${v || '/'} (${r.status})`); }
@@ -130,17 +127,6 @@ try {
   const notFound = await get(LOCAL, 'no-such-page.html');
   ok(notFound.status === 404 && notFound.body.toString().includes('/studyisc2/_next/'), 'unknown URL returns 404 with the exported 404.html');
 
-  if (live) {
-    process.stdout.write('\nLive site today:\n');
-    const rows = [];
-    for (const f of [...SITE, ...VARIANTS, 'favicon.ico']) rows.push([f || '/', (await get(LIVE, f)).status, (await get(LOCAL, f)).status]);
-    for (const f of [...DOCS, 'CLAUDE.html', INTERNAL.find(f => f.endsWith('package.json'))]) rows.push([f, (await get(LIVE, f)).status, (await get(LOCAL, f)).status]);
-    for (const [f, a, b] of rows) process.stdout.write(`  ${String(a).padEnd(4)} live | ${String(b).padEnd(4)} out  ${f}\n`);
-    const regress = rows.filter(([f, a, b]) => a === 200 && b !== 200 && SITE.concat(VARIANTS).includes(f === '/' ? '' : f));
-    ok(regress.length === 0, `every site URL that is 200 on the live site is 200 from out/ (${rows.filter(r => r[1] === 200).length} live 200s checked)` + (regress.length ? ': ' + regress.map(r => r[0]).join(', ') : ''));
-    const dropped = rows.filter(([, a, b]) => a === 200 && b !== 200).map(r => r[0]);
-    process.stdout.write(`[INFO] served live today but not part of the site, intentionally not in out/: ${dropped.join(', ')}, plus the other ${INTERNAL.length - 1} next-app source files\n`);
-  }
 } finally {
   server.kill();
 }
