@@ -1,0 +1,661 @@
+{
+ "tabsAria": "เลือกบทเรียนตาม Domain",
+ "tabs": [
+  {
+   "n": 1,
+   "file": "lesson-domain-1.html",
+   "code": "D1",
+   "label": "Security Principles"
+  },
+  {
+   "n": 2,
+   "file": "lesson-domain-2.html",
+   "code": "D2",
+   "label": "BC, DR & IR"
+  },
+  {
+   "n": 3,
+   "file": "lesson-domain-3.html",
+   "code": "D3",
+   "label": "Access Controls"
+  },
+  {
+   "n": 4,
+   "file": "lesson-domain-4.html",
+   "code": "D4",
+   "label": "Network Security"
+  },
+  {
+   "n": 5,
+   "file": "lesson-domain-5.html",
+   "code": "D5",
+   "label": "Security Operations"
+  }
+ ],
+ "lessons": [
+  {
+   "n": 1,
+   "file": "lesson-domain-1.html",
+   "title": "Domain 1: Security Principles - บทเรียน ISC2 CC สำหรับผู้เริ่มต้น",
+   "description": "เรียนรู้หลักการรักษาความปลอดภัยไซเบอร์ (Security Principles) แบบเข้าใจง่าย เปรียบเทียบชีวิตจริง สำหรับเตรียมสอบ ISC2 CC",
+   "variant": "a",
+   "hero": {
+    "className": "lesson-hero",
+    "eyebrow": "Domain 1 of 5 : Beginner Lesson",
+    "title": "Security Principles",
+    "subTag": "p",
+    "subLines": [
+     "หลักการรักษาความปลอดภัย : พื้นฐานที่ทุกอย่างเริ่มต้น เข้าใจง่ายเหมือนเรื่องในชีวิตประจำวัน"
+    ]
+   },
+   "navAria": "ไปต่อจากบทเรียนนี้",
+   "nav": [
+    {
+     "href": "flashcard.html?d=1",
+     "className": "ln-flash",
+     "label": "Flashcard Domain 1",
+     "small": "ทวนคำศัพท์ของบทนี้"
+    },
+    {
+     "href": "learning-path.html",
+     "className": "ln-path",
+     "label": "Learning Path",
+     "small": "ดูเส้นทางเรียนทั้งหมด"
+    },
+    {
+     "href": "isc2-cc-landing.html",
+     "className": "ln-quiz",
+     "label": "ชุดข้อสอบ",
+     "small": "เลือกชุดฝึกและสอบ"
+    },
+    {
+     "href": "lesson-domain-2.html",
+     "className": "ln-next",
+     "label": "Domain 2 →",
+     "small": "BC, DR & IR"
+    }
+   ],
+   "blocks": [
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "scenario-box"
+     },
+     "html": "\n    <span class=\"tag\">Real-World Case</span>\n    <p>ปี 2017 บริษัท Equifax ซึ่งเป็นบริษัทจัดอันดับเครดิตรายใหญ่ของสหรัฐ ถูกแฮกจนข้อมูลส่วนบุคคลของคนกว่า 147 ล้านคนรั่วไหล สาเหตุหลักคือไม่ได้อัปเดตแพตช์ช่องโหว่ที่รู้อยู่แล้วมานานหลายเดือน</p>\n    <p>เหตุการณ์นี้แสดงให้เห็นว่า หลักการพื้นฐานทุกข้อใน Domain 1 นี้ล้วนสำคัญ ตั้งแต่การรักษาความลับของข้อมูล (Confidentiality) ไปจนถึง Due Care ในการดูแลระบบ</p>\n    <p class=\"moral\">บทเรียน: แค่รู้ว่ามีช่องโหว่ยังไม่พอ ต้อง \"ลงมือแก้\" ด้วย นั่นคือหัวใจของ Due Care</p>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "diagram-wrap"
+     },
+     "html": "\n    <div class=\"diagram-title\">CIA Triad : สามเสาหลักความปลอดภัย</div>\n    <svg viewBox=\"0 0 500 380\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:460px;\">\n      \n      <polygon points=\"250,40 80,320 420,320\" fill=\"none\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      \n      <circle cx=\"250\" cy=\"65\" r=\"44\" fill=\"#1F8A4C\" stroke=\"#0F0F0F\" stroke-width=\"2.5\"/>\n      <text x=\"250\" y=\"58\" text-anchor=\"middle\" fill=\"#FFF\" font-family=\"'Archivo Black',sans-serif\" font-size=\"13\">C</text>\n      <text x=\"250\" y=\"76\" text-anchor=\"middle\" fill=\"#EFE9D9\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"9\" font-weight=\"600\">ความลับ</text>\n      \n      <circle cx=\"95\" cy=\"310\" r=\"44\" fill=\"#E85A1F\" stroke=\"#0F0F0F\" stroke-width=\"2.5\"/>\n      <text x=\"95\" y=\"303\" text-anchor=\"middle\" fill=\"#FFF\" font-family=\"'Archivo Black',sans-serif\" font-size=\"13\">I</text>\n      <text x=\"95\" y=\"321\" text-anchor=\"middle\" fill=\"#EFE9D9\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"9\" font-weight=\"600\">ความถูกต้อง</text>\n      \n      <circle cx=\"405\" cy=\"310\" r=\"44\" fill=\"#F5C518\" stroke=\"#0F0F0F\" stroke-width=\"2.5\"/>\n      <text x=\"405\" y=\"303\" text-anchor=\"middle\" fill=\"#0F0F0F\" font-family=\"'Archivo Black',sans-serif\" font-size=\"13\">A</text>\n      <text x=\"405\" y=\"321\" text-anchor=\"middle\" fill=\"#0F0F0F\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"9\" font-weight=\"600\">ความพร้อมใช้</text>\n      \n      <text x=\"250\" y=\"16\" text-anchor=\"middle\" fill=\"#1F8A4C\" font-family=\"'JetBrains Mono',monospace\" font-size=\"10\" font-weight=\"700\">CONFIDENTIALITY</text>\n      <text x=\"28\" y=\"348\" text-anchor=\"start\" fill=\"#E85A1F\" font-family=\"'JetBrains Mono',monospace\" font-size=\"10\" font-weight=\"700\">INTEGRITY</text>\n      <text x=\"472\" y=\"348\" text-anchor=\"end\" fill=\"#0F0F0F\" font-family=\"'JetBrains Mono',monospace\" font-size=\"10\" font-weight=\"700\">AVAILABILITY</text>\n      \n      <text x=\"250\" y=\"160\" text-anchor=\"middle\" fill=\"#4A4A4A\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"11\">กุญแจบ้าน</text>\n      <text x=\"180\" y=\"270\" text-anchor=\"middle\" fill=\"#4A4A4A\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"11\">ซีลพัสดุ</text>\n      <text x=\"320\" y=\"270\" text-anchor=\"middle\" fill=\"#4A4A4A\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"11\">ร้าน 24 ชม.</text>\n    </svg>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>1. CIA Triad : สามเสาหลัก</h2>\n    <p>ทุกอย่างในโลกความปลอดภัยไซเบอร์หมุนรอบสามสิ่งนี้:</p>\n\n    <h3>Confidentiality (ความลับ)</h3>\n    <p>ข้อมูลต้องเข้าถึงได้เฉพาะคนที่ได้รับอนุญาตเท่านั้น ใครไม่มีสิทธิ์ ไม่ควรเห็น</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"กุญแจบ้าน\" มีแค่เจ้าของบ้านกับคนที่ได้รับกุญแจเท่านั้นที่เปิดประตูเข้าไปได้ คนอื่นยืนดูจากข้างนอกได้อย่างเดียว</p>\n    </div>\n\n    <h3>Integrity (ความถูกต้องครบถ้วน)</h3>\n    <p>ข้อมูลต้องไม่ถูกแก้ไข เปลี่ยนแปลง หรือปลอมแปลงโดยไม่ได้รับอนุญาต ถ้ามีการเปลี่ยน ต้องตรวจจับได้</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ซีลพัสดุ\" ถ้าซีลไม่ฉีก แปลว่าไม่มีใครเปิดดู ถ้าซีลขาด รู้ทันทีว่ามีคนแกะ</p>\n    </div>\n\n    <h3>Availability (ความพร้อมใช้งาน)</h3>\n    <p>ข้อมูลและระบบต้องพร้อมให้คนที่มีสิทธิ์เข้าถึงได้เสมอเมื่อต้องการ</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ร้านสะดวกซื้อ 24 ชม.\" เปิดให้บริการตลอด ไม่ว่าจะดึกแค่ไหน ลูกค้าก็ซื้อของได้</p>\n    </div>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">Confidentiality</div>\n        <div class=\"def\">การรักษาความลับของข้อมูล เข้าถึงได้เฉพาะผู้ที่ได้รับอนุญาต</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Integrity</div>\n        <div class=\"def\">การรักษาความถูกต้องครบถ้วนของข้อมูล ไม่ถูกเปลี่ยนแปลงโดยไม่ได้รับอนุญาต</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Availability</div>\n        <div class=\"def\">ข้อมูลและระบบพร้อมใช้งานสำหรับผู้มีสิทธิ์เสมอ</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">CIA Triad</div>\n        <div class=\"def\">สามเสาหลักของ Information Security ทุกมาตรการรักษาความปลอดภัยเริ่มจากนี้</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>2. Authentication, Authorization, Accounting (AAA)</h2>\n    <p>สามขั้นตอนที่เกิดขึ้นทุกครั้งที่คนเข้าใช้ระบบ:</p>\n\n    <h3>Authentication (การพิสูจน์ตัวตน)</h3>\n    <p>ยืนยันว่า \"คุณเป็นใคร\" จริงตามที่อ้าง</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"แสดงบัตรประชาชน\" ก่อนเข้าตึก รปภ. ขอดูบัตรเพื่อยืนยันว่าคุณคือคนที่บอก</p>\n    </div>\n\n    <h3>Authorization (การกำหนดสิทธิ์)</h3>\n    <p>หลังจากรู้ว่าคุณเป็นใครแล้ว ระบบตรวจว่า \"คุณมีสิทธิ์ทำอะไรได้บ้าง\"</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"สิทธิ์เข้าห้อง\" พนักงานเข้าออฟฟิศได้ แต่ไม่ใช่ทุกคนที่จะเข้าห้อง Server ได้</p>\n    </div>\n\n    <h3>Accounting (การบันทึกร่องรอย)</h3>\n    <p>บันทึกทุกการกระทำไว้ เพื่อตรวจสอบย้อนหลังว่าใครทำอะไรเมื่อไร</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"กล้องวงจรปิด\" ถึงคุณจะเข้าตึกได้ แต่ทุกอย่างถูกบันทึกไว้เสมอ</p>\n    </div>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">Authentication</div>\n        <div class=\"def\">การพิสูจน์ตัวตน : \"คุณเป็นใคร?\"</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Authorization</div>\n        <div class=\"def\">การกำหนดสิทธิ์ : \"คุณทำอะไรได้บ้าง?\"</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Accounting</div>\n        <div class=\"def\">การบันทึกร่องรอย : \"คุณทำอะไรไปแล้ว?\"</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Non-repudiation</div>\n        <div class=\"def\">ผู้ส่งปฏิเสธไม่ได้ว่าไม่ได้ส่ง เช่น Digital Signature</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>3. Risk Concepts : แนวคิดเรื่องความเสี่ยง</h2>\n    <p>ก่อนจะป้องกันอะไรได้ ต้องเข้าใจ \"ความเสี่ยง\" ก่อน ซึ่งประกอบด้วยสามส่วนหลัก:</p>\n\n    <h3>Threat (ภัยคุกคาม)</h3>\n    <p>สิ่งที่อาจก่อให้เกิดอันตราย เช่น แฮกเกอร์ มัลแวร์ น้ำท่วม ไฟไหม้</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"โจร\" มีโจรอยู่ในละแวกก็ถือว่ามีภัยคุกคาม แม้จะยังไม่ได้มาบ้านเรา</p>\n    </div>\n\n    <h3>Vulnerability (จุดอ่อน)</h3>\n    <p>จุดอ่อนหรือช่องโหว่ที่ภัยคุกคามสามารถใช้ประโยชน์ได้</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"หน้าต่างไม่ลงกลอน\" ถึงบ้านจะแข็งแรง แต่ถ้าลืมล็อกหน้าต่าง โจรก็เข้าได้</p>\n    </div>\n\n    <h3>Asset (ทรัพย์สิน)</h3>\n    <p>สิ่งที่มีค่าและต้องการปกป้อง เช่น ข้อมูลลูกค้า ระบบ Server เงินในบัญชี</p>\n\n    <h3>Risk = Threat x Vulnerability x Asset Value</h3>\n    <p>ความเสี่ยง = โอกาสที่ภัยคุกคามจะใช้ช่องโหว่ทำอันตรายต่อทรัพย์สินของเรา ยิ่งมีโจรเยอะ (Threat สูง) ลืมล็อกบ่อย (Vulnerability สูง) และของมีค่าเยอะ (Asset Value สูง) ความเสี่ยงก็ยิ่งสูง</p>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">Threat</div>\n        <div class=\"def\">ภัยคุกคามที่อาจก่อให้เกิดความเสียหาย</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Vulnerability</div>\n        <div class=\"def\">จุดอ่อน/ช่องโหว่ในระบบ</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Asset</div>\n        <div class=\"def\">ทรัพย์สินที่มีค่าและต้องปกป้อง</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Risk</div>\n        <div class=\"def\">ความเสี่ยง = Threat x Vulnerability x Asset Value</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>4. Risk Treatment : วิธีจัดการความเสี่ยง</h2>\n    <p>เมื่อรู้ว่ามีความเสี่ยงแล้ว มี 4 วิธีจัดการ:</p>\n\n    <h3>Avoid (หลีกเลี่ยง)</h3>\n    <p>เลิกทำกิจกรรมที่ก่อให้เกิดความเสี่ยงนั้นไปเลย</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ไม่ไปซอยมืด\" กลัวโดนปล้น ก็อย่าเดินซอยนั้น</p>\n    </div>\n\n    <h3>Mitigate (บรรเทา/ลดความเสี่ยง)</h3>\n    <p>ใช้มาตรการลดโอกาสหรือลดผลกระทบ เช่น ติดตั้ง Firewall ใช้ MFA</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ติดกล้องวงจรปิด + ล็อกประตู\" ยังอยู่บ้านเดิม แต่เพิ่มการป้องกัน</p>\n    </div>\n\n    <h3>Transfer (โอนความเสี่ยง)</h3>\n    <p>โอนภาระความเสียหายให้คนอื่น เช่น ซื้อประกันภัย จ้าง MSSP</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ทำประกันบ้าน\" ถ้าไฟไหม้ บริษัทประกันจ่ายแทน</p>\n    </div>\n\n    <h3>Accept (ยอมรับ)</h3>\n    <p>รับรู้ว่ามีความเสี่ยง แต่เลือกที่จะไม่ทำอะไรเพิ่ม เพราะต้นทุนป้องกันแพงกว่าความเสียหาย</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"รู้ว่าฝนอาจตก แต่ไม่พกร่ม\" ยอมรับว่าเปียกได้ เพราะไม่อยากถือร่มหนักๆ</p>\n    </div>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">Risk Avoidance</div>\n        <div class=\"def\">หลีกเลี่ยงกิจกรรมที่มีความเสี่ยง</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Risk Mitigation</div>\n        <div class=\"def\">ลดโอกาสหรือผลกระทบของความเสี่ยง</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Risk Transfer</div>\n        <div class=\"def\">โอนภาระให้บุคคลที่สาม เช่น ซื้อประกัน</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Risk Acceptance</div>\n        <div class=\"def\">ยอมรับความเสี่ยงที่เหลืออยู่</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>5. Security Governance : การกำกับดูแล</h2>\n    <p>องค์กรต้องมี \"กฎ\" เป็นลำดับชั้น เพื่อให้ทุกคนปฏิบัติตาม:</p>\n\n    <h3>Policy (นโยบาย)</h3>\n    <p>กฎระดับสูงสุด กำหนดทิศทางกว้างๆ อนุมัติโดยผู้บริหาร</p>\n\n    <h3>Standard (มาตรฐาน)</h3>\n    <p>ข้อกำหนดเฉพาะที่ต้องปฏิบัติตาม เช่น \"รหัสผ่านต้องยาว 12 ตัวขึ้นไป\"</p>\n\n    <h3>Procedure (ขั้นตอนปฏิบัติ)</h3>\n    <p>คู่มือแบบ step-by-step ว่าต้องทำอย่างไร</p>\n\n    <h3>Guideline (แนวทาง)</h3>\n    <p>คำแนะนำที่ไม่บังคับ แต่ควรทำตาม</p>\n\n    <div class=\"analogy\">\n      <p>เปรียบเทียบกับกฎหมายไทย: Policy = รัฐธรรมนูญ, Standard = พ.ร.บ., Procedure = กฎกระทรวง/คู่มือปฏิบัติ, Guideline = คำแนะนำจากหน่วยงาน</p>\n    </div>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">Policy</div>\n        <div class=\"def\">นโยบายระดับสูง กำหนดทิศทาง \"ต้องทำอะไร\"</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Standard</div>\n        <div class=\"def\">มาตรฐานบังคับ กำหนดว่า \"ต้องทำแค่ไหน\"</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Procedure</div>\n        <div class=\"def\">ขั้นตอนปฏิบัติ \"ทำอย่างไร\" แบบ step-by-step</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Guideline</div>\n        <div class=\"def\">แนวทางแนะนำ ไม่บังคับ</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>6. Defense in Depth : การป้องกันหลายชั้น</h2>\n    <p>อย่าพึ่งพาการป้องกันเพียงอย่างเดียว ใช้หลายชั้นซ้อนกัน ถ้าชั้นหนึ่งถูกเจาะ ยังมีชั้นถัดไปรอรับ</p>\n\n    <div class=\"analogy\">\n      <p>เหมือน \"ปราสาทยุคกลาง\" มีคูน้ำ (Network Security) กำแพงชั้นนอก (Firewall) ประตูหนา (Access Control) ทหารยาม (IDS/IPS) และห้องนิรภัย (Encryption) ศัตรูต้องผ่านทุกชั้นถึงจะเข้าถึงสมบัติได้</p>\n    </div>\n\n    <p>ชั้นการป้องกันที่พบบ่อย:</p>\n    <ul>\n      <li><strong>Physical:</strong> ล็อกประตู กล้องวงจรปิด การ์ดผ่าน</li>\n      <li><strong>Technical:</strong> Firewall, Antivirus, Encryption, MFA</li>\n      <li><strong>Administrative:</strong> Policy, Training, Background Check</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>7. Due Diligence vs Due Care</h2>\n    <p>สองคำนี้คู่กัน แต่ต่างกัน:</p>\n\n    <h3>Due Diligence (ความรอบคอบ)</h3>\n    <p>\"รู้\" ทำการศึกษา วิเคราะห์ ประเมินความเสี่ยงอย่างละเอียด</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ตรวจบ้านก่อนซื้อ\" จ้างช่างมาเช็คว่าบ้านมีปัญหาตรงไหน</p>\n    </div>\n\n    <h3>Due Care (ความเอาใจใส่)</h3>\n    <p>\"ลงมือทำ\" นำสิ่งที่รู้ไปปฏิบัติจริง แก้ปัญหาที่พบ</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ซ่อมบ้านตามที่ช่างบอก\" รู้ว่าหลังคารั่วแล้วก็ต้องซ่อม</p>\n    </div>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">Due Diligence</div>\n        <div class=\"def\">\"รู้\" ศึกษา วิจัย ประเมินความเสี่ยงก่อนตัดสินใจ</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Due Care</div>\n        <div class=\"def\">\"ทำ\" ลงมือปฏิบัติตามที่รู้ แก้ไขปัญหาที่พบ</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>8. หลักการควบคุมสิทธิ์</h2>\n\n    <h3>Least Privilege (สิทธิ์น้อยที่สุด)</h3>\n    <p>ให้สิทธิ์เข้าถึงเท่าที่จำเป็นต่อการทำงานเท่านั้น ไม่มากกว่านั้น</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"กุญแจห้อง\" พนักงานบัญชีได้กุญแจแค่ห้องบัญชี ไม่จำเป็นต้องได้กุญแจห้อง Server</p>\n    </div>\n\n    <h3>Separation of Duties (แบ่งแยกหน้าที่)</h3>\n    <p>ไม่ให้คนเดียวทำทุกขั้นตอน เพื่อป้องกันการทุจริต</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ระบบเบิกเงิน\" คนขอเบิก กับ คนอนุมัติ ต้องคนละคน</p>\n    </div>\n\n    <h3>Need to Know (จำเป็นต้องรู้)</h3>\n    <p>แม้จะมี Security Clearance สูงพอ แต่ถ้าไม่จำเป็นต้องรู้ข้อมูลนั้นเพื่อทำงาน ก็ไม่ให้เข้าถึง</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"หมอรักษาเฉพาะคนไข้ของตัวเอง\" หมอคนอื่นเข้าดูประวัติคนไข้ที่ไม่ได้รักษาไม่ได้</p>\n    </div>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">Least Privilege</div>\n        <div class=\"def\">ให้สิทธิ์ขั้นต่ำที่จำเป็นต่อการทำงาน</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Separation of Duties</div>\n        <div class=\"def\">แบ่งงานให้หลายคนทำ ป้องกัน fraud</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Need to Know</div>\n        <div class=\"def\">เข้าถึงข้อมูลได้เฉพาะเมื่อจำเป็นต่องาน</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Privilege Creep</div>\n        <div class=\"def\">สิทธิ์สะสมมากขึ้นเรื่อยๆ จากการย้ายตำแหน่งโดยไม่ถอนสิทธิ์เก่า</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "cheat-sheet"
+     },
+     "html": "\n    <h2>Cheat Sheet : Domain 1</h2>\n    <table>\n      <thead>\n        <tr><th>Concept</th><th>จำง่ายๆ</th><th>Analogy</th></tr>\n      </thead>\n      <tbody>\n        <tr><td>Confidentiality</td><td>คนไม่มีสิทธิ์ห้ามดู</td><td>กุญแจบ้าน</td></tr>\n        <tr><td>Integrity</td><td>ห้ามแก้ไขโดยไม่อนุญาต</td><td>ซีลพัสดุ</td></tr>\n        <tr><td>Availability</td><td>ต้องใช้ได้เสมอ</td><td>ร้าน 24 ชม.</td></tr>\n        <tr><td>Authentication</td><td>คุณเป็นใคร?</td><td>แสดงบัตร</td></tr>\n        <tr><td>Authorization</td><td>คุณทำอะไรได้?</td><td>สิทธิ์เข้าห้อง</td></tr>\n        <tr><td>Accounting</td><td>บันทึกทุกอย่าง</td><td>กล้องวงจรปิด</td></tr>\n        <tr><td>Risk Avoid</td><td>ไม่ทำเลย</td><td>ไม่ไปซอยมืด</td></tr>\n        <tr><td>Risk Mitigate</td><td>ลดโอกาส/ผลกระทบ</td><td>ติดกล้อง+ล็อก</td></tr>\n        <tr><td>Risk Transfer</td><td>ให้คนอื่นรับแทน</td><td>ทำประกัน</td></tr>\n        <tr><td>Risk Accept</td><td>ยอมรับ</td><td>ไม่พกร่ม</td></tr>\n        <tr><td>Least Privilege</td><td>ให้สิทธิ์แค่ที่จำเป็น</td><td>กุญแจเฉพาะห้อง</td></tr>\n        <tr><td>Separation of Duties</td><td>แบ่งงานหลายคน</td><td>คนเบิก =/= คนอนุมัติ</td></tr>\n        <tr><td>Defense in Depth</td><td>ป้องกันหลายชั้น</td><td>ปราสาทหลายกำแพง</td></tr>\n        <tr><td>Due Diligence</td><td>ศึกษาก่อน (รู้)</td><td>ตรวจบ้าน</td></tr>\n        <tr><td>Due Care</td><td>ลงมือทำ (แก้)</td><td>ซ่อมบ้าน</td></tr>\n      </tbody>\n    </table>\n  "
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "file": "lesson-domain-2.html",
+   "title": "Domain 2: BC, DR & Incident Response - บทเรียน ISC2 CC สำหรับผู้เริ่มต้น",
+   "description": "เรียนรู้ Business Continuity, Disaster Recovery และ Incident Response แบบเข้าใจง่าย เปรียบเทียบชีวิตจริง สำหรับเตรียมสอบ ISC2 CC",
+   "variant": "a",
+   "hero": {
+    "className": "lesson-hero",
+    "eyebrow": "Domain 2 of 5 : Beginner Lesson",
+    "title": "Business Continuity, Disaster Recovery & Incident Response",
+    "subTag": "p",
+    "subLines": [
+     "เมื่อเรื่องร้ายเกิดขึ้น องค์กรต้องมีแผนรับมือ ฟื้นตัว และเรียนรู้จากมัน"
+    ]
+   },
+   "navAria": "ไปต่อจากบทเรียนนี้",
+   "nav": [
+    {
+     "href": "lesson-domain-1.html",
+     "className": "ln-prev",
+     "label": "← Domain 1",
+     "small": "Security Principles"
+    },
+    {
+     "href": "flashcard.html?d=2",
+     "className": "ln-flash",
+     "label": "Flashcard Domain 2",
+     "small": "ทวนคำศัพท์ของบทนี้"
+    },
+    {
+     "href": "learning-path.html",
+     "className": "ln-path",
+     "label": "Learning Path",
+     "small": "ดูเส้นทางเรียนทั้งหมด"
+    },
+    {
+     "href": "isc2-cc-landing.html",
+     "className": "ln-quiz",
+     "label": "ชุดข้อสอบ",
+     "small": "เลือกชุดฝึกและสอบ"
+    },
+    {
+     "href": "lesson-domain-3.html",
+     "className": "ln-next",
+     "label": "Domain 3 →",
+     "small": "Access Controls"
+    }
+   ],
+   "blocks": [
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "scenario-box"
+     },
+     "html": "\n    <span class=\"tag\">Real-World Case</span>\n    <p>ปี 2554 (2011) น้ำท่วมใหญ่ในประเทศไทย ศูนย์ข้อมูลและโรงงานผลิตฮาร์ดดิสก์ในนิคมอุตสาหกรรมจมอยู่ใต้น้ำนานหลายสัปดาห์ บริษัทที่มี Disaster Recovery Plan สามารถย้ายการทำงานไปยังศูนย์สำรองได้ภายในไม่กี่ชั่วโมง ในขณะที่บริษัทที่ไม่มีแผน ต้องหยุดกิจการนานหลายเดือน บางรายปิดตัวถาวร</p>\n    <p class=\"moral\">บทเรียน: ภัยพิบัติไม่ถามก่อนมา องค์กรที่มีแผน BCP/DRP จะฟื้นตัวได้เร็ว องค์กรที่ไม่มีอาจไม่ฟื้นเลย</p>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "diagram-wrap"
+     },
+     "html": "\n    <div class=\"diagram-title\">Incident Response Lifecycle (NIST)</div>\n    <svg viewBox=\"0 0 520 320\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:500px;\">\n      \n      \n      \n      <rect x=\"190\" y=\"10\" width=\"140\" height=\"50\" fill=\"#1F8A4C\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <text x=\"260\" y=\"32\" text-anchor=\"middle\" fill=\"#FFF\" font-family=\"'JetBrains Mono',monospace\" font-size=\"10\" font-weight=\"700\">1. PREPARATION</text>\n      <text x=\"260\" y=\"48\" text-anchor=\"middle\" fill=\"#EFE9D9\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"9\">เตรียมพร้อม</text>\n      \n      <line x1=\"330\" y1=\"42\" x2=\"380\" y2=\"85\" stroke=\"#0F0F0F\" stroke-width=\"2\" marker-end=\"url(#arrowhead)\"/>\n\n      \n      <rect x=\"360\" y=\"80\" width=\"150\" height=\"50\" fill=\"#E85A1F\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <text x=\"435\" y=\"102\" text-anchor=\"middle\" fill=\"#FFF\" font-family=\"'JetBrains Mono',monospace\" font-size=\"9\" font-weight=\"700\">2. DETECTION &amp; ANALYSIS</text>\n      <text x=\"435\" y=\"118\" text-anchor=\"middle\" fill=\"#EFE9D9\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"9\">ตรวจจับและวิเคราะห์</text>\n      \n      <line x1=\"435\" y1=\"130\" x2=\"435\" y2=\"155\" stroke=\"#0F0F0F\" stroke-width=\"2\" marker-end=\"url(#arrowhead)\"/>\n\n      \n      <rect x=\"360\" y=\"155\" width=\"150\" height=\"50\" fill=\"#D12438\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <text x=\"435\" y=\"177\" text-anchor=\"middle\" fill=\"#FFF\" font-family=\"'JetBrains Mono',monospace\" font-size=\"10\" font-weight=\"700\">3. CONTAINMENT</text>\n      <text x=\"435\" y=\"193\" text-anchor=\"middle\" fill=\"#EFE9D9\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"9\">จำกัดวง</text>\n      \n      <line x1=\"380\" y1=\"210\" x2=\"330\" y2=\"240\" stroke=\"#0F0F0F\" stroke-width=\"2\" marker-end=\"url(#arrowhead)\"/>\n\n      \n      <rect x=\"190\" y=\"235\" width=\"140\" height=\"50\" fill=\"#F06CA8\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <text x=\"260\" y=\"257\" text-anchor=\"middle\" fill=\"#0F0F0F\" font-family=\"'JetBrains Mono',monospace\" font-size=\"10\" font-weight=\"700\">4. ERADICATION</text>\n      <text x=\"260\" y=\"273\" text-anchor=\"middle\" fill=\"#0F0F0F\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"9\">กำจัดสาเหตุ</text>\n      \n      <line x1=\"190\" y1=\"260\" x2=\"150\" y2=\"210\" stroke=\"#0F0F0F\" stroke-width=\"2\" marker-end=\"url(#arrowhead)\"/>\n\n      \n      <rect x=\"10\" y=\"155\" width=\"140\" height=\"50\" fill=\"#F5C518\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <text x=\"80\" y=\"177\" text-anchor=\"middle\" fill=\"#0F0F0F\" font-family=\"'JetBrains Mono',monospace\" font-size=\"10\" font-weight=\"700\">5. RECOVERY</text>\n      <text x=\"80\" y=\"193\" text-anchor=\"middle\" fill=\"#0F0F0F\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"9\">ฟื้นฟูระบบ</text>\n      \n      <line x1=\"80\" y1=\"155\" x2=\"80\" y2=\"130\" stroke=\"#0F0F0F\" stroke-width=\"2\" marker-end=\"url(#arrowhead)\"/>\n\n      \n      <rect x=\"10\" y=\"80\" width=\"140\" height=\"50\" fill=\"#EFE9D9\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <text x=\"80\" y=\"100\" text-anchor=\"middle\" fill=\"#0F0F0F\" font-family=\"'JetBrains Mono',monospace\" font-size=\"9\" font-weight=\"700\">6. LESSONS LEARNED</text>\n      <text x=\"80\" y=\"118\" text-anchor=\"middle\" fill=\"#4A4A4A\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"9\">ถอดบทเรียน</text>\n      \n      <line x1=\"140\" y1=\"85\" x2=\"190\" y2=\"42\" stroke=\"#0F0F0F\" stroke-width=\"2\" marker-end=\"url(#arrowhead)\" stroke-dasharray=\"5,3\"/>\n\n      <defs>\n        <marker id=\"arrowhead\" markerWidth=\"8\" markerHeight=\"6\" refX=\"8\" refY=\"3\" orient=\"auto\">\n          <polygon points=\"0 0, 8 3, 0 6\" fill=\"#0F0F0F\"/>\n        </marker>\n      </defs>\n    </svg>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>1. BCP vs DRP : แผนต่อเนื่อง vs แผนกู้คืน</h2>\n\n    <h3>BCP : Business Continuity Plan</h3>\n    <p>แผนที่ทำให้ธุรกิจสามารถ \"ดำเนินต่อไปได้\" แม้เกิดเหตุการณ์ร้ายแรง เน้นที่กระบวนการทำงาน คน และการดำเนินธุรกิจ</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"แผนอพยพ\" ของตึก : ไฟไหม้ชั้น 3 พนักงานย้ายไปทำงานชั้น 10 ได้ทันที ธุรกิจไม่หยุด</p>\n    </div>\n\n    <h3>DRP : Disaster Recovery Plan</h3>\n    <p>แผนที่เน้น \"กู้คืนระบบ IT และข้อมูล\" ให้กลับมาทำงานได้หลังเกิดภัยพิบัติ เป็นส่วนหนึ่งของ BCP</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"แผนซ่อมบ้าน\" บ้านถูกน้ำท่วม ต้องซ่อมไฟ ซ่อมน้ำ ซ่อมเฟอร์นิเจอร์ให้กลับมาอยู่ได้</p>\n    </div>\n\n    <p><strong>จำง่ายๆ:</strong> BCP = ทำยังไงให้ธุรกิจไม่หยุด, DRP = ทำยังไงให้ระบบ IT กลับมา</p>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">BCP</div>\n        <div class=\"def\">Business Continuity Plan : แผนรักษาความต่อเนื่องทางธุรกิจ</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">DRP</div>\n        <div class=\"def\">Disaster Recovery Plan : แผนกู้คืนระบบหลังภัยพิบัติ</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>2. BIA : Business Impact Analysis</h2>\n    <p>ก่อนจะวางแผนรับมือ ต้องรู้ก่อนว่า \"ถ้าระบบล่ม ใครเดือดร้อนที่สุด?\" BIA คือการวิเคราะห์ผลกระทบทางธุรกิจ</p>\n\n    <p>BIA ตอบคำถามเหล่านี้:</p>\n    <ul>\n      <li>กระบวนการไหนสำคัญที่สุด? (Critical Business Functions)</li>\n      <li>ถ้าหยุดทำงาน เสียหายเท่าไร? (Financial Impact)</li>\n      <li>หยุดได้นานแค่ไหนก่อนจะเจ็บหนัก? (Maximum Tolerable Downtime)</li>\n      <li>ต้องการทรัพยากรอะไรบ้างในการฟื้นฟู?</li>\n    </ul>\n\n    <div class=\"analogy\">\n      <p>เหมือน \"เช็คร่างกาย\" ก่อนทำประกัน : หมอต้องรู้ว่าอวัยวะไหนอ่อนแอ ถึงจะออกแบบแผนรักษาได้ถูก</p>\n    </div>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">BIA</div>\n        <div class=\"def\">การวิเคราะห์ผลกระทบทางธุรกิจ รู้ว่าอะไรสำคัญที่สุด</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Critical Business Function</div>\n        <div class=\"def\">กระบวนการที่องค์กรขาดไม่ได้ ต้องฟื้นก่อน</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>3. RPO vs RTO : สองตัวเลขสำคัญ</h2>\n\n    <h3>RPO : Recovery Point Objective</h3>\n    <p>\"ยอมเสียข้อมูลได้กี่ชั่วโมง?\" ถ้า RPO = 4 ชั่วโมง แปลว่าต้อง backup อย่างน้อยทุก 4 ชั่วโมง เพราะยอมเสียข้อมูลได้ไม่เกินนั้น</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"เซฟเกม\" ถ้าเซฟทุก 4 ชั่วโมง แล้วเกมแครช คุณเสียความก้าวหน้าไม่เกิน 4 ชั่วโมง</p>\n    </div>\n\n    <h3>RTO : Recovery Time Objective</h3>\n    <p>\"ระบบต้องกลับมาภายในกี่ชั่วโมง?\" ถ้า RTO = 2 ชั่วโมง แปลว่าหลังเกิดเหตุ ระบบต้องพร้อมใช้งานภายใน 2 ชั่วโมง</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"เวลาซ่อมรถ\" ช่างบอกว่าจะซ่อมเสร็จใน 2 ชั่วโมง คุณต้องกลับมาใช้รถได้ตามนั้น</p>\n    </div>\n\n    <p><strong>จำง่ายๆ:</strong> RPO ดูย้อนหลัง (เสียข้อมูลได้เท่าไร), RTO ดูไปข้างหน้า (กลับมาได้เร็วแค่ไหน)</p>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">RPO</div>\n        <div class=\"def\">Recovery Point Objective : ยอมเสียข้อมูลได้ไม่เกินกี่ชั่วโมง</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">RTO</div>\n        <div class=\"def\">Recovery Time Objective : ระบบต้องกลับมาใช้ได้ภายในกี่ชั่วโมง</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">MTBF</div>\n        <div class=\"def\">Mean Time Between Failures : เวลาเฉลี่ยระหว่างการเสีย (ยิ่งนาน ยิ่งดี)</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">MTTR</div>\n        <div class=\"def\">Mean Time To Repair : เวลาเฉลี่ยในการซ่อม (ยิ่งสั้น ยิ่งดี)</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>4. Incident Response Lifecycle</h2>\n    <p>เมื่อเกิดเหตุการณ์ด้านความปลอดภัย (Security Incident) ต้องทำตาม 6 ขั้นตอนตามลำดับ:</p>\n\n    <h3>1. Preparation (เตรียมพร้อม)</h3>\n    <p>เตรียมทีม เครื่องมือ แผน และฝึกซ้อมล่วงหน้า ก่อนเกิดเหตุ</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ซ้อมหนีไฟ\" ทำตอนไม่มีไฟไหม้ เพื่อเวลาเกิดจริงจะได้ไม่ตกใจ</p>\n    </div>\n\n    <h3>2. Detection &amp; Analysis (ตรวจจับและวิเคราะห์)</h3>\n    <p>ตรวจพบว่ามีเหตุผิดปกติเกิดขึ้น แล้ววิเคราะห์ว่าร้ายแรงแค่ไหน</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"เตือนไฟไหม้ดัง\" สัญญาณเตือนดัง ต้องไปดูก่อนว่าเป็นไฟไหม้จริงหรือแค่ปิ้งขนมปังไหม้</p>\n    </div>\n\n    <h3>3. Containment (จำกัดวง)</h3>\n    <p>หยุดไม่ให้ปัญหาลุกลาม จำกัดความเสียหายให้อยู่ในวงแคบที่สุด</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"กั้นฝายน้ำ\" น้ำท่วมมา ต้องกั้นไม่ให้ไหลไปท่วมบ้านข้างๆ</p>\n    </div>\n\n    <h3>4. Eradication (กำจัดสาเหตุ)</h3>\n    <p>กำจัดต้นตอของปัญหา เช่น ลบ Malware ปิดช่องโหว่</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ดับไฟที่ต้นเพลิง\" ไม่ใช่แค่ราดน้ำตรงที่ลุกอยู่ แต่ต้องหาจุดที่ไฟเริ่มแล้วดับตรงนั้น</p>\n    </div>\n\n    <h3>5. Recovery (ฟื้นฟู)</h3>\n    <p>นำระบบกลับมาทำงานตามปกติ ตรวจสอบว่าปลอดภัยแล้ว</p>\n\n    <h3>6. Lessons Learned (ถอดบทเรียน)</h3>\n    <p>ประชุมหลังเหตุการณ์ วิเคราะห์ว่าเกิดอะไร ทำไมถึงเกิด และปรับปรุงแผนให้ดีขึ้น</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ดูรีเพลย์หลังแข่ง\" ทีมฟุตบอลดูวิดีโอหลังเกมเพื่อปรับกลยุทธ์ครั้งหน้า</p>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>5. ประเภทภัยพิบัติ</h2>\n    <p>ภัยพิบัติที่องค์กรต้องเตรียมรับมือแบ่งเป็น 3 ประเภท:</p>\n\n    <h3>Natural Disasters (ภัยธรรมชาติ)</h3>\n    <p>น้ำท่วม แผ่นดินไหว พายุ ไฟป่า สึนามิ : ควบคุมไม่ได้ แต่เตรียมรับมือได้</p>\n\n    <h3>Man-made Disasters (ภัยจากมนุษย์)</h3>\n    <p>การโจมตีทางไซเบอร์ การก่อวินาศกรรม ไฟฟ้าดับจากอุบัติเหตุ การรั่วไหลของสารเคมี</p>\n\n    <h3>Technical Disasters (ภัยจากเทคนิค)</h3>\n    <p>Hardware เสีย ระบบล่ม Software bug ข้อมูลเสียหาย</p>\n\n    <div class=\"analogy\">\n      <p>ไม่ว่าสาเหตุจะเป็นอะไร ผลลัพธ์เหมือนกัน: ธุรกิจหยุดชะงัก ดังนั้น BCP/DRP ต้องครอบคลุมทุกประเภท</p>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>6. Backup Strategies : กลยุทธ์สำรองข้อมูล</h2>\n\n    <h3>Full Backup (สำรองทั้งหมด)</h3>\n    <p>คัดลอกข้อมูลทุกอย่างทุกครั้ง ใช้เวลาและพื้นที่มาก แต่กู้คืนเร็วที่สุด</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ถ่ายเอกสารทั้งเล่มทุกวัน\" ใช้กระดาษเยอะ แต่หาเอกสารง่าย</p>\n    </div>\n\n    <h3>Incremental Backup (สำรองเฉพาะที่เปลี่ยน)</h3>\n    <p>สำรองเฉพาะข้อมูลที่เปลี่ยนแปลงตั้งแต่ backup ครั้งล่าสุด (full หรือ incremental) ประหยัดพื้นที่ แต่กู้คืนช้ากว่าเพราะต้องเรียงต่อหลายชิ้น</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"จดเฉพาะหน้าที่แก้ไข\" จดน้อย แต่ตอนจะรวมเล่มต้องหาหลายแผ่นมาต่อกัน</p>\n    </div>\n\n    <h3>Differential Backup (สำรองส่วนต่างจาก Full)</h3>\n    <p>สำรองข้อมูลที่เปลี่ยนแปลงตั้งแต่ Full Backup ครั้งล่าสุด ไฟล์ใหญ่กว่า Incremental แต่กู้คืนเร็วกว่า</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"จดทุกหน้าที่แก้ไขนับจากต้นฉบับ\" ไฟล์ใหญ่ขึ้นทุกวัน แต่ต้องการแค่ 2 ชิ้นในการกู้คืน (Full + Differential ล่าสุด)</p>\n    </div>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">Full Backup</div>\n        <div class=\"def\">สำรองทั้งหมด ใช้พื้นที่มาก กู้คืนเร็ว</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Incremental</div>\n        <div class=\"def\">สำรองเฉพาะที่เปลี่ยนจาก backup ครั้งล่าสุด</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Differential</div>\n        <div class=\"def\">สำรองเฉพาะที่เปลี่ยนจาก Full ล่าสุด</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>7. Testing Types : ประเภทการทดสอบแผน</h2>\n    <p>มีแผนแล้วต้องทดสอบด้วย เรียงจากเบาไปหนัก:</p>\n\n    <h3>1. Tabletop Exercise (ซ้อมบนโต๊ะ)</h3>\n    <p>ประชุมพูดคุยจำลองสถานการณ์ \"ถ้าเกิดเหตุแบบนี้ เราจะทำอย่างไร?\" ไม่มีการทำจริง</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"อ่านคู่มือดับเพลิงด้วยกัน\" นั่งคุยกันว่าจะทำอะไรก่อนหลัง</p>\n    </div>\n\n    <h3>2. Walkthrough (ซ้อมเดินผ่าน)</h3>\n    <p>ทีมเดินผ่านแต่ละขั้นตอนของแผน ตรวจสอบว่าแต่ละขั้นทำได้จริงไหม</p>\n\n    <h3>3. Simulation (จำลองสถานการณ์)</h3>\n    <p>จำลองเหตุการณ์จริงบางส่วน เช่น ทดสอบ failover ไปยัง backup site</p>\n\n    <h3>4. Full Interruption Test (ทดสอบแบบเต็มรูปแบบ)</h3>\n    <p>ปิดระบบหลักจริงๆ แล้วทดสอบกู้คืน เสี่ยงที่สุด แต่ให้ผลจริงที่สุด</p>\n    <div class=\"analogy\">\n      <p>เหมือน \"ถอดปลั๊กจริง\" แล้วดูว่า generator ขึ้นมาทันไหม : ถ้าใช้ได้ก็สบายใจ ถ้าไม่ได้ก็รู้ก่อนเกิดเหตุจริง</p>\n    </div>\n\n    <div class=\"vocab\">\n      <div class=\"vocab-item\">\n        <div class=\"term\">Tabletop</div>\n        <div class=\"def\">ซ้อมพูดคุย ไม่ทำจริง เสี่ยงต่ำสุด</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Walkthrough</div>\n        <div class=\"def\">เดินผ่านขั้นตอน ตรวจสอบความพร้อม</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Simulation</div>\n        <div class=\"def\">จำลองเหตุการณ์จริงบางส่วน</div>\n      </div>\n      <div class=\"vocab-item\">\n        <div class=\"term\">Full Interruption</div>\n        <div class=\"def\">ปิดระบบจริง ทดสอบกู้คืนจริง เสี่ยงสูงสุด</div>\n      </div>\n    </div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "diagram-wrap"
+     },
+     "html": "\n    <div class=\"diagram-title\">BCP / DRP / BIA Relationship</div>\n    <svg viewBox=\"0 0 480 260\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:460px;\">\n      \n      <rect x=\"10\" y=\"10\" width=\"460\" height=\"240\" rx=\"0\" fill=\"none\" stroke=\"#1F8A4C\" stroke-width=\"3\"/>\n      <text x=\"30\" y=\"38\" fill=\"#1F8A4C\" font-family=\"'Archivo Black',sans-serif\" font-size=\"14\">BCP (Business Continuity Plan)</text>\n      <text x=\"30\" y=\"56\" fill=\"#4A4A4A\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"11\">แผนรักษาความต่อเนื่องทางธุรกิจ</text>\n\n      \n      <rect x=\"30\" y=\"72\" width=\"200\" height=\"80\" fill=\"#FFF8E1\" stroke=\"#E85A1F\" stroke-width=\"2\"/>\n      <text x=\"130\" y=\"96\" text-anchor=\"middle\" fill=\"#E85A1F\" font-family=\"'JetBrains Mono',monospace\" font-size=\"11\" font-weight=\"700\">BIA</text>\n      <text x=\"130\" y=\"114\" text-anchor=\"middle\" fill=\"#4A4A4A\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"10\">วิเคราะห์ผลกระทบทางธุรกิจ</text>\n      <text x=\"130\" y=\"132\" text-anchor=\"middle\" fill=\"#4A4A4A\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"9\">RPO / RTO / MTBF / MTTR</text>\n\n      \n      <rect x=\"250\" y=\"72\" width=\"200\" height=\"80\" fill=\"#FDEDF4\" stroke=\"#F06CA8\" stroke-width=\"2\"/>\n      <text x=\"350\" y=\"96\" text-anchor=\"middle\" fill=\"#D12438\" font-family=\"'JetBrains Mono',monospace\" font-size=\"11\" font-weight=\"700\">DRP</text>\n      <text x=\"350\" y=\"114\" text-anchor=\"middle\" fill=\"#4A4A4A\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"10\">แผนกู้คืนระบบ IT</text>\n      <text x=\"350\" y=\"132\" text-anchor=\"middle\" fill=\"#4A4A4A\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"9\">Backup / Failover / Recovery</text>\n\n      \n      <line x1=\"230\" y1=\"112\" x2=\"250\" y2=\"112\" stroke=\"#0F0F0F\" stroke-width=\"2\" marker-end=\"url(#arrowhead2)\"/>\n\n      \n      <rect x=\"30\" y=\"168\" width=\"420\" height=\"65\" fill=\"#EFE9D9\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <text x=\"240\" y=\"192\" text-anchor=\"middle\" fill=\"#0F0F0F\" font-family=\"'JetBrains Mono',monospace\" font-size=\"11\" font-weight=\"700\">INCIDENT RESPONSE</text>\n      <text x=\"240\" y=\"212\" text-anchor=\"middle\" fill=\"#4A4A4A\" font-family=\"'IBM Plex Sans Thai',sans-serif\" font-size=\"10\">Preparation > Detection > Containment > Eradication > Recovery > Lessons Learned</text>\n\n      <defs>\n        <marker id=\"arrowhead2\" markerWidth=\"8\" markerHeight=\"6\" refX=\"8\" refY=\"3\" orient=\"auto\">\n          <polygon points=\"0 0, 8 3, 0 6\" fill=\"#0F0F0F\"/>\n        </marker>\n      </defs>\n    </svg>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "cheat-sheet"
+     },
+     "html": "\n    <h2>Cheat Sheet : Domain 2</h2>\n    <table>\n      <thead>\n        <tr><th>Concept</th><th>จำง่ายๆ</th><th>Analogy</th></tr>\n      </thead>\n      <tbody>\n        <tr><td>BCP</td><td>ธุรกิจต้องไม่หยุด</td><td>แผนอพยพ</td></tr>\n        <tr><td>DRP</td><td>กู้คืนระบบ IT</td><td>แผนซ่อมบ้าน</td></tr>\n        <tr><td>BIA</td><td>วิเคราะห์ว่าอะไรสำคัญสุด</td><td>เช็คร่างกาย</td></tr>\n        <tr><td>RPO</td><td>ยอมเสียข้อมูลได้กี่ ชม.</td><td>เซฟเกม</td></tr>\n        <tr><td>RTO</td><td>ระบบต้องกลับมาภายในกี่ ชม.</td><td>เวลาซ่อมรถ</td></tr>\n        <tr><td>MTBF</td><td>เวลาเฉลี่ยระหว่างเสีย</td><td>ยิ่งนาน ยิ่งดี</td></tr>\n        <tr><td>MTTR</td><td>เวลาเฉลี่ยในการซ่อม</td><td>ยิ่งสั้น ยิ่งดี</td></tr>\n        <tr><td>Full Backup</td><td>สำรองทุกอย่าง</td><td>ถ่ายเอกสารทั้งเล่ม</td></tr>\n        <tr><td>Incremental</td><td>สำรองเฉพาะที่เปลี่ยน</td><td>จดเฉพาะหน้าที่แก้</td></tr>\n        <tr><td>Differential</td><td>สำรองส่วนต่างจาก Full</td><td>จดทุกหน้าที่แก้จากต้นฉบับ</td></tr>\n        <tr><td>Tabletop</td><td>ซ้อมพูดคุย</td><td>อ่านคู่มือด้วยกัน</td></tr>\n        <tr><td>Full Interruption</td><td>ทดสอบปิดระบบจริง</td><td>ถอดปลั๊กจริง</td></tr>\n        <tr><td>Preparation</td><td>IR ขั้น 1: เตรียมพร้อม</td><td>ซ้อมหนีไฟ</td></tr>\n        <tr><td>Containment</td><td>IR ขั้น 3: จำกัดวง</td><td>กั้นฝายน้ำ</td></tr>\n        <tr><td>Lessons Learned</td><td>IR ขั้น 6: ถอดบทเรียน</td><td>ดูรีเพลย์หลังแข่ง</td></tr>\n      </tbody>\n    </table>\n  "
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "file": "lesson-domain-3.html",
+   "title": "ISC2 CC Domain 3 - Access Controls Concepts (การควบคุมการเข้าถึง)",
+   "description": "บทเรียนเตรียมสอบ ISC2 CC Domain 3: Access Controls อธิบายง่ายเหมือนสอนเด็กอนุบาล พร้อมแผนภาพ เปรียบเทียบชีวิตจริง และ Cheat Sheet สองภาษา",
+   "variant": "b",
+   "hero": {
+    "className": "hero",
+    "eyebrow": "Domain 3 of 5 · Beginner Lesson",
+    "title": "Access Controls Concepts",
+    "subTag": "div",
+    "subLines": [
+     "การควบคุมการเข้าถึง - ใครเข้าได้ ใครเข้าไม่ได้ เข้าแล้วทำอะไรได้บ้าง?",
+     "อธิบายง่ายๆ เหมือนเข้าคอนโด"
+    ]
+   },
+   "navAria": "ไปต่อจากบทเรียนนี้",
+   "nav": [
+    {
+     "href": "lesson-domain-2.html",
+     "className": "ln-prev",
+     "label": "← Domain 2",
+     "small": "BC, DR & IR"
+    },
+    {
+     "href": "flashcard.html?d=3",
+     "className": "ln-flash",
+     "label": "Flashcard Domain 3",
+     "small": "ทวนคำศัพท์ของบทนี้"
+    },
+    {
+     "href": "learning-path.html",
+     "className": "ln-path",
+     "label": "Learning Path",
+     "small": "ดูเส้นทางเรียนทั้งหมด"
+    },
+    {
+     "href": "isc2-cc-landing.html",
+     "className": "ln-quiz",
+     "label": "ชุดข้อสอบ",
+     "small": "เลือกชุดฝึกและสอบ"
+    },
+    {
+     "href": "lesson-domain-4.html",
+     "className": "ln-next",
+     "label": "Domain 4 →",
+     "small": "Network Security"
+    }
+   ],
+   "blocks": [
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "scenario"
+     },
+     "html": "\n    <p>สมมติบริษัทแห่งหนึ่ง พนักงานฝ่ายบัญชีสามารถเปิดดูไฟล์สูตรลับของฝ่ายวิจัยได้อย่างอิสระ ไม่มีระบบตรวจว่าใครเข้ามาเมื่อไหร่ วันหนึ่งสูตรลับรั่วไหลไปถึงคู่แข่ง แต่หาคนทำผิดไม่ได้เลย เพราะไม่มีบันทึกว่าใครเปิดไฟล์ นี่คือสิ่งที่เกิดขึ้นเมื่อระบบไม่มี Access Control ที่ดี</p>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "diagram-wrap"
+     },
+     "html": "\n    <svg viewBox=\"0 0 780 180\" style=\"max-width:740px;width:100%;height:auto;\" xmlns=\"http://www.w3.org/2000/svg\">\n      \n      <rect x=\"10\" y=\"50\" width=\"140\" height=\"80\" fill=\"#F5C518\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"80\" y=\"82\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"13\" fill=\"#0F0F0F\">IDENTIFICATION</text>\n      <text x=\"80\" y=\"105\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"11\" fill=\"#2A2A2A\">แจ้งชื่อ / Username</text>\n      \n      <polygon points=\"155,90 175,80 175,100\" fill=\"#0F0F0F\"/>\n      \n      <rect x=\"180\" y=\"50\" width=\"140\" height=\"80\" fill=\"#F06CA8\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"250\" y=\"82\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"13\" fill=\"#0F0F0F\">AUTHENTICATION</text>\n      <text x=\"250\" y=\"105\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"11\" fill=\"#2A2A2A\">พิสูจน์ตัวตน / Password</text>\n      \n      <polygon points=\"325,90 345,80 345,100\" fill=\"#0F0F0F\"/>\n      \n      <rect x=\"350\" y=\"50\" width=\"140\" height=\"80\" fill=\"#1F8A4C\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"420\" y=\"82\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"13\" fill=\"#FFFFFF\">AUTHORIZATION</text>\n      <text x=\"420\" y=\"105\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"11\" fill=\"#E4DCC4\">ตรวจสิทธิ์ / Permission</text>\n      \n      <polygon points=\"495,90 515,80 515,100\" fill=\"#0F0F0F\"/>\n      \n      <rect x=\"520\" y=\"50\" width=\"140\" height=\"80\" fill=\"#E85A1F\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"590\" y=\"82\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"13\" fill=\"#FFFFFF\">ACCOUNTABILITY</text>\n      <text x=\"590\" y=\"105\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"11\" fill=\"#EFE9D9\">บันทึก / Audit Log</text>\n      \n      <rect x=\"680\" y=\"30\" width=\"90\" height=\"50\" fill=\"#1F8A4C\" stroke=\"#0F0F0F\" stroke-width=\"2\" rx=\"0\"/>\n      <text x=\"725\" y=\"56\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"10\" fill=\"#FFF\">GRANTED</text>\n      <rect x=\"680\" y=\"100\" width=\"90\" height=\"50\" fill=\"#D12438\" stroke=\"#0F0F0F\" stroke-width=\"2\" rx=\"0\"/>\n      <text x=\"725\" y=\"126\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"10\" fill=\"#FFF\">DENIED</text>\n      <line x1=\"660\" y1=\"80\" x2=\"680\" y2=\"55\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <line x1=\"660\" y1=\"100\" x2=\"680\" y2=\"125\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      \n      <text x=\"80\" y=\"38\" text-anchor=\"middle\" font-family=\"JetBrains Mono,monospace\" font-size=\"10\" fill=\"#4A4A4A\" font-weight=\"700\">STEP 1</text>\n      <text x=\"250\" y=\"38\" text-anchor=\"middle\" font-family=\"JetBrains Mono,monospace\" font-size=\"10\" fill=\"#4A4A4A\" font-weight=\"700\">STEP 2</text>\n      <text x=\"420\" y=\"38\" text-anchor=\"middle\" font-family=\"JetBrains Mono,monospace\" font-size=\"10\" fill=\"#4A4A4A\" font-weight=\"700\">STEP 3</text>\n      <text x=\"590\" y=\"38\" text-anchor=\"middle\" font-family=\"JetBrains Mono,monospace\" font-size=\"10\" fill=\"#4A4A4A\" font-weight=\"700\">STEP 4</text>\n    </svg>\n    <div class=\"caption\">Access Control Flow: Identification &rarr; Authentication &rarr; Authorization &rarr; Accountability</div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>4 ขั้นตอน Access Control</h2>\n    <span class=\"en\">Identification &rarr; Authentication &rarr; Authorization &rarr; Accountability (IAAA)</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ: เข้าคอนโดหรู</strong><br>\n      1. <strong>Identification</strong> = บอก รปภ. ว่า \"ผมชื่อสมชาย ห้อง 1204\" (แจ้งตัวตน)<br>\n      2. <strong>Authentication</strong> = สแกนบัตรผ่านประตู (พิสูจน์ว่าเป็นตัวจริง)<br>\n      3. <strong>Authorization</strong> = ลิฟท์พาไปได้แค่ชั้น 12 ไม่ใช่ชั้นอื่น (สิทธิ์ที่ได้รับ)<br>\n      4. <strong>Accountability</strong> = กล้องวงจรปิดบันทึกว่าสมชายเข้ามาเวลา 18:30 (ตรวจสอบย้อนหลังได้)\n    </div>\n\n    <ul>\n      <li><span class=\"term\">Identification</span> - บอกระบบว่าคุณคือใคร เช่น Username, Employee ID, Email</li>\n      <li><span class=\"term\">Authentication</span> - พิสูจน์ว่าเป็นคุณจริงๆ เช่น รหัสผ่าน, ลายนิ้วมือ, OTP</li>\n      <li><span class=\"term\">Authorization</span> - ระบบตรวจว่าคุณมีสิทธิ์ทำอะไรได้บ้าง เช่น อ่านได้อย่างเดียว หรือแก้ไขได้ด้วย</li>\n      <li><span class=\"term\">Accountability</span> - บันทึกทุกอย่างที่คุณทำ เพื่อตรวจสอบย้อนหลังได้ (Audit Log)</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Authentication Factors</h2>\n    <span class=\"en\">Something You Know / Have / Are</span>\n\n    <p>การพิสูจน์ตัวตนมี 3 ปัจจัยหลัก:</p>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ: เปิดตู้เซฟธนาคาร</strong><br>\n      - <strong>Something You Know</strong> = รหัสตู้เซฟ (รหัสผ่าน, PIN)<br>\n      - <strong>Something You Have</strong> = กุญแจตู้เซฟ (บัตร Smart Card, โทรศัพท์รับ OTP)<br>\n      - <strong>Something You Are</strong> = ลายนิ้วมือเจ้าของ (Biometrics: สแกนม่านตา, ใบหน้า)\n    </div>\n\n    <ul>\n      <li><span class=\"term\">Knowledge Factor</span> - สิ่งที่คุณ \"รู้\" - รหัสผ่าน, PIN, คำตอบ Security Question</li>\n      <li><span class=\"term\">Possession Factor</span> - สิ่งที่คุณ \"มี\" - Smart Card, Token, โทรศัพท์</li>\n      <li><span class=\"term\">Inherence Factor</span> - สิ่งที่คุณ \"เป็น\" - ลายนิ้วมือ, ม่านตา, เสียง, ใบหน้า</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Multi-Factor Authentication (MFA)</h2>\n    <span class=\"en\">การยืนยันตัวตนหลายปัจจัย</span>\n\n    <p>MFA คือการใช้ปัจจัยอย่างน้อย 2 ชนิด<strong>ที่ต่างกัน</strong>ในการพิสูจน์ตัวตน</p>\n\n    <div class=\"analogy\">\n      <strong>ทำไมต้อง MFA?</strong><br>\n      ถ้าใช้แค่รหัสผ่าน (Know) แล้วรหัสหลุด = จบ<br>\n      แต่ถ้าใช้รหัสผ่าน + OTP ในมือถือ (Know + Have) แม้รหัสหลุด แฮกเกอร์ก็ยังเข้าไม่ได้ เพราะไม่มีมือถือของคุณ\n    </div>\n\n    <p><strong>สำคัญ:</strong> การใส่รหัสผ่าน + Security Question ไม่ใช่ MFA เพราะเป็น \"Know + Know\" (ปัจจัยเดียวกัน 2 ตัว) ต้องเป็นปัจจัย<em>คนละชนิด</em>ถึงจะนับว่าเป็น MFA</p>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Access Control Models</h2>\n    <span class=\"en\">DAC / MAC / RBAC / ABAC</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ 4 แบบ:</strong><br>\n      - <strong>DAC</strong> = เจ้าของห้องแชร์กุญแจให้เพื่อนเอง (เจ้าของข้อมูลกำหนดสิทธิ์เอง)<br>\n      - <strong>MAC</strong> = ค่ายทหาร ระดับ \"ลับมาก\" เปิดได้เฉพาะคนที่ได้รับ Clearance ระดับนั้น (ระบบกำหนด ห้ามเปลี่ยนเอง)<br>\n      - <strong>RBAC</strong> = พนักงานตำแหน่ง \"ผู้จัดการ\" เข้าถึงข้อมูลผู้จัดการทุกคนเหมือนกัน (สิทธิ์ตามบทบาท)<br>\n      - <strong>ABAC</strong> = \"เข้าได้เฉพาะเวลาทำการ + จาก IP สำนักงาน + ตำแหน่ง HR\" (สิทธิ์ตามหลายเงื่อนไขรวมกัน)\n    </div>\n\n    <ul>\n      <li><span class=\"term\">DAC</span> (Discretionary Access Control) - เจ้าของ (Owner) กำหนดสิทธิ์เอง ยืดหยุ่นแต่เสี่ยง เช่น File sharing ใน Windows</li>\n      <li><span class=\"term\">MAC</span> (Mandatory Access Control) - ระบบ/นโยบายกำหนดตายตัว ใช้ Label/Classification เช่น \"Top Secret\" ผู้ใช้เปลี่ยนเองไม่ได้</li>\n      <li><span class=\"term\">RBAC</span> (Role-Based Access Control) - สิทธิ์ผูกกับ \"Role\" ไม่ใช่ตัวบุคคล เช่น Role \"HR\" เข้าถึงข้อมูลพนักงาน Role \"Finance\" เข้าถึงข้อมูลการเงิน</li>\n      <li><span class=\"term\">ABAC</span> (Attribute-Based Access Control) - ยืดหยุ่นที่สุด ใช้หลาย Attribute ประกอบกัน เช่น เวลา + สถานที่ + ตำแหน่ง + ประเภทอุปกรณ์</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>SSO และ Federation</h2>\n    <span class=\"en\">Single Sign-On &amp; Federated Identity</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ:</strong><br>\n      - <strong>SSO</strong> = บัตรพนักงาน 1 ใบ เปิดได้ทุกประตูในบริษัท (Login ครั้งเดียว เข้าได้ทุกระบบภายใน)<br>\n      - <strong>Federation</strong> = พาสปอร์ต 1 เล่ม ใช้เข้าได้หลายประเทศ (Login ที่องค์กรหนึ่ง แต่ใช้ได้กับองค์กรอื่นที่ตกลงกัน)\n    </div>\n\n    <ul>\n      <li><span class=\"term\">SSO</span> - ผู้ใช้ Login ครั้งเดียว เข้าถึงหลายระบบได้โดยไม่ต้องใส่รหัสผ่านซ้ำ ลดความเสี่ยง Password Fatigue</li>\n      <li><span class=\"term\">Federation</span> - ความร่วมมือระหว่างองค์กร ให้ผู้ใช้ขององค์กร A เข้าใช้ระบบขององค์กร B ได้ เช่น \"Login with Google\" บนเว็บอื่น</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Privileged Access Management (PAM)</h2>\n    <span class=\"en\">การจัดการสิทธิ์พิเศษ</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ:</strong> Master Key ของโรงแรมเปิดได้ทุกห้อง ถ้าหายหรือถูกขโมย = หายนะ<br>\n      PAM คือระบบที่ดูแล Master Key พิเศษ - ใครจะใช้ต้องขออนุมัติ, มีการบันทึก Session, หมดเวลาแล้วคืนอัตโนมัติ\n    </div>\n\n    <ul>\n      <li>บัญชี Admin / Root / SA คือเป้าหมายหลักของแฮกเกอร์</li>\n      <li>PAM ช่วย: จำกัดเวลาใช้งาน, บันทึก Session, บังคับ MFA, อนุมัติก่อนใช้ (Just-In-Time Access)</li>\n      <li>หลักการ: ให้สิทธิ์เท่าที่จำเป็น เวลาที่จำเป็น แล้วเอาคืน</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Principle of Least Privilege</h2>\n    <span class=\"en\">หลักการให้สิทธิ์น้อยที่สุดเท่าที่จำเป็น</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ:</strong> ถ้าจ้างช่างมาซ่อมแอร์ คุณให้กุญแจแค่ห้องที่มีแอร์ ไม่ใช่ให้ Master Key ทั้งบ้าน\n    </div>\n\n    <ul>\n      <li>ให้ผู้ใช้เข้าถึงเฉพาะสิ่งที่จำเป็นต่อการทำงาน ไม่มากไม่น้อยกว่านั้น</li>\n      <li>ลดความเสียหายเมื่อบัญชีถูก Compromise - แฮกเกอร์ทำได้แค่สิ่งที่บัญชีนั้นมีสิทธิ์</li>\n      <li>ใช้คู่กับ <span class=\"term\">Need-to-Know</span> (เข้าถึงข้อมูลเฉพาะที่เกี่ยวข้องกับงาน)</li>\n      <li>ใช้คู่กับ <span class=\"term\">Separation of Duties</span> (แยกหน้าที่ เช่น คนอนุมัติจ่ายเงิน กับ คนโอนเงิน ต้องเป็นคนละคน)</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Cheat Sheet สรุป Domain 3</h2>\n    <span class=\"en\">Quick Reference Table</span>\n    <table class=\"cheat\">\n      <thead>\n        <tr><th>Term (EN)</th><th>ความหมาย (TH)</th><th>จำง่ายๆ</th></tr>\n      </thead>\n      <tbody>\n        <tr><td>Identification</td><td>การแจ้งตัวตน</td><td>บอกชื่อ</td></tr>\n        <tr><td>Authentication</td><td>การพิสูจน์ตัวตน</td><td>สแกนบัตร</td></tr>\n        <tr><td>Authorization</td><td>การอนุญาตสิทธิ์</td><td>ลิฟท์ไปแค่ชั้นตัวเอง</td></tr>\n        <tr><td>Accountability</td><td>ความรับผิดชอบ/ตรวจสอบได้</td><td>กล้องวงจรปิด</td></tr>\n        <tr><td>MFA</td><td>ยืนยันตัวตนหลายปัจจัย</td><td>รหัส + OTP มือถือ</td></tr>\n        <tr><td>DAC</td><td>เจ้าของกำหนดสิทธิ์เอง</td><td>แชร์ไฟล์เอง</td></tr>\n        <tr><td>MAC</td><td>ระบบกำหนดตายตัว</td><td>ระดับความลับทหาร</td></tr>\n        <tr><td>RBAC</td><td>สิทธิ์ตามบทบาท/ตำแหน่ง</td><td>Role กำหนดสิทธิ์</td></tr>\n        <tr><td>ABAC</td><td>สิทธิ์ตามหลายเงื่อนไข</td><td>เวลา+ที่+ตำแหน่ง</td></tr>\n        <tr><td>SSO</td><td>Login ครั้งเดียว เข้าหลายระบบ</td><td>บัตรเดียวเปิดทุกประตู</td></tr>\n        <tr><td>Federation</td><td>ข้ามองค์กรด้วย Identity เดียว</td><td>พาสปอร์ตข้ามประเทศ</td></tr>\n        <tr><td>PAM</td><td>จัดการสิทธิ์ Admin/Root</td><td>ดูแล Master Key</td></tr>\n        <tr><td>Least Privilege</td><td>ให้สิทธิ์น้อยที่สุดเท่าที่จำเป็น</td><td>ช่างแอร์ได้กุญแจแค่ห้องแอร์</td></tr>\n      </tbody>\n    </table>\n  "
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "file": "lesson-domain-4.html",
+   "title": "ISC2 CC Domain 4 - Network Security (ความปลอดภัยเครือข่าย)",
+   "description": "บทเรียนเตรียมสอบ ISC2 CC Domain 4: Network Security อธิบายง่ายด้วยภาพเปรียบเทียบชีวิตจริง พร้อมแผนภาพเครือข่าย และ Cheat Sheet สองภาษา",
+   "variant": "b",
+   "hero": {
+    "className": "hero",
+    "eyebrow": "Domain 4 of 5 · Beginner Lesson",
+    "title": "Network Security",
+    "subTag": "div",
+    "subLines": [
+     "ความปลอดภัยเครือข่าย - ปกป้องข้อมูลที่วิ่งไปมาระหว่างคอมพิวเตอร์",
+     "อธิบายง่ายๆ เหมือน รปภ. หมู่บ้าน"
+    ]
+   },
+   "navAria": "ไปต่อจากบทเรียนนี้",
+   "nav": [
+    {
+     "href": "lesson-domain-3.html",
+     "className": "ln-prev",
+     "label": "← Domain 3",
+     "small": "Access Controls"
+    },
+    {
+     "href": "flashcard.html?d=4",
+     "className": "ln-flash",
+     "label": "Flashcard Domain 4",
+     "small": "ทวนคำศัพท์ของบทนี้"
+    },
+    {
+     "href": "learning-path.html",
+     "className": "ln-path",
+     "label": "Learning Path",
+     "small": "ดูเส้นทางเรียนทั้งหมด"
+    },
+    {
+     "href": "isc2-cc-landing.html",
+     "className": "ln-quiz",
+     "label": "ชุดข้อสอบ",
+     "small": "เลือกชุดฝึกและสอบ"
+    },
+    {
+     "href": "lesson-domain-5.html",
+     "className": "ln-next",
+     "label": "Domain 5 →",
+     "small": "Security Operations"
+    }
+   ],
+   "blocks": [
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "scenario"
+     },
+     "html": "\n    <p>แฮกเกอร์นั่งอยู่ในร้านกาแฟ เปิดโน้ตบุ๊คดักจับข้อมูลผ่าน Wi-Fi สาธารณะ ลูกค้าที่กรอกเลขบัตรเครดิตซื้อของออนไลน์ ข้อมูลถูกดักอ่านทั้งหมด เพราะ Wi-Fi ไม่เข้ารหัส และเว็บไซต์ไม่ใช้ HTTPS นี่คือเหตุผลที่ Network Security สำคัญมาก</p>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "diagram-wrap"
+     },
+     "html": "\n    <svg viewBox=\"0 0 800 320\" style=\"max-width:760px;width:100%;height:auto;\" xmlns=\"http://www.w3.org/2000/svg\">\n      \n      <ellipse cx=\"100\" cy=\"80\" rx=\"80\" ry=\"45\" fill=\"#E4DCC4\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"100\" y=\"75\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"14\" fill=\"#0F0F0F\">INTERNET</text>\n      <text x=\"100\" y=\"95\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#4A4A4A\">โลกภายนอก</text>\n\n      \n      <line x1=\"180\" y1=\"80\" x2=\"230\" y2=\"80\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <polygon points=\"228,72 244,80 228,88\" fill=\"#0F0F0F\"/>\n\n      \n      <rect x=\"245\" y=\"45\" width=\"100\" height=\"70\" fill=\"#D12438\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"295\" y=\"72\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"12\" fill=\"#FFF\">FIREWALL</text>\n      <text x=\"295\" y=\"92\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#EFE9D9\">รปภ. ประตูหลัก</text>\n\n      \n      <line x1=\"345\" y1=\"60\" x2=\"400\" y2=\"40\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <polygon points=\"396,32 410,38 398,46\" fill=\"#0F0F0F\"/>\n\n      \n      <rect x=\"410\" y=\"10\" width=\"150\" height=\"65\" fill=\"#F5C518\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"485\" y=\"35\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"13\" fill=\"#0F0F0F\">DMZ</text>\n      <text x=\"485\" y=\"55\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#2A2A2A\">เขตกันชน (Web Server)</text>\n\n      \n      <line x1=\"345\" y1=\"90\" x2=\"400\" y2=\"130\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <polygon points=\"396,124 410,132 400,138\" fill=\"#0F0F0F\"/>\n\n      \n      <rect x=\"410\" y=\"100\" width=\"150\" height=\"65\" fill=\"#E85A1F\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"485\" y=\"125\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"13\" fill=\"#FFF\">IDS / IPS</text>\n      <text x=\"485\" y=\"148\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#EFE9D9\">กล้องวงจรปิด / ยามจับผู้ร้าย</text>\n\n      \n      <line x1=\"560\" y1=\"132\" x2=\"620\" y2=\"200\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <polygon points=\"616,194 626,206 614,206\" fill=\"#0F0F0F\"/>\n\n      \n      <rect x=\"560\" y=\"210\" width=\"220\" height=\"90\" fill=\"#1F8A4C\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"670\" y=\"240\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"14\" fill=\"#FFF\">INTERNAL NETWORK</text>\n      <text x=\"670\" y=\"262\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"11\" fill=\"#E4DCC4\">เครือข่ายภายใน (VLAN)</text>\n      <text x=\"670\" y=\"282\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#E4DCC4\">PC, Server, Printer</text>\n\n      \n      <rect x=\"50\" y=\"220\" width=\"130\" height=\"55\" fill=\"#F06CA8\" stroke=\"#0F0F0F\" stroke-width=\"3\" stroke-dasharray=\"8,4\"/>\n      <text x=\"115\" y=\"245\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"12\" fill=\"#0F0F0F\">VPN TUNNEL</text>\n      <text x=\"115\" y=\"262\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#2A2A2A\">อุโมงค์ลับเข้ารหัส</text>\n\n      \n      <line x1=\"115\" y1=\"220\" x2=\"100\" y2=\"125\" stroke=\"#F06CA8\" stroke-width=\"2\" stroke-dasharray=\"6,3\"/>\n\n      \n      <line x1=\"180\" y1=\"247\" x2=\"560\" y2=\"247\" stroke=\"#F06CA8\" stroke-width=\"2\" stroke-dasharray=\"6,3\"/>\n\n      \n      <rect x=\"380\" y=\"260\" width=\"80\" height=\"30\" fill=\"#E4DCC4\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <text x=\"420\" y=\"280\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"10\" fill=\"#0F0F0F\">NAC</text>\n    </svg>\n    <div class=\"caption\">Network Architecture: Internet &rarr; Firewall &rarr; DMZ / IDS&middot;IPS &rarr; Internal Network (with VPN &amp; NAC)</div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>OSI Model แบบเข้าใจง่าย</h2>\n    <span class=\"en\">Open Systems Interconnection - 7 Layers</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ: ส่งจดหมายหาเพื่อน</strong><br>\n      7. <strong>Application</strong> = เขียนจดหมาย (เนื้อหาที่คุณต้องการส่ง)<br>\n      6. <strong>Presentation</strong> = ใส่ซอง เข้ารหัสถ้าเป็นความลับ (แปลงรูปแบบข้อมูล)<br>\n      5. <strong>Session</strong> = ไปที่ไปรษณีย์ เปิดบริการส่ง (เปิด/ปิดการเชื่อมต่อ)<br>\n      4. <strong>Transport</strong> = เลือกส่ง EMS รับประกัน (TCP) หรือไปรษณีย์ธรรมดา (UDP)<br>\n      3. <strong>Network</strong> = เขียนที่อยู่ผู้รับ (IP Address, Routing)<br>\n      2. <strong>Data Link</strong> = บุรุษไปรษณีย์ส่งถึงบ้าน (MAC Address, Switch)<br>\n      1. <strong>Physical</strong> = ถนนที่รถไปรษณีย์วิ่ง (สายเคเบิล, Wi-Fi, สัญญาณไฟฟ้า)\n    </div>\n\n    <p><strong>จำง่ายๆ:</strong> ชั้นบนสุด = ใกล้คน (Application) ชั้นล่างสุด = ใกล้สาย (Physical)</p>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>TCP/IP Basics</h2>\n    <span class=\"en\">Transmission Control Protocol / Internet Protocol</span>\n\n    <div class=\"analogy\">\n      <strong>TCP vs UDP:</strong><br>\n      - <strong>TCP</strong> = ส่งพัสดุ EMS มีเลข Tracking ผู้รับต้องเซ็นรับ ถ้าหายส่งใหม่ (เชื่อถือได้ แต่ช้ากว่า)<br>\n      - <strong>UDP</strong> = โยนจดหมายใส่ตู้ไปรษณีย์ ไม่รู้ถึงหรือเปล่า (เร็ว แต่ไม่รับประกัน เช่น Video Call, Gaming)\n    </div>\n\n    <ul>\n      <li><span class=\"term\">TCP</span> - Connection-oriented, 3-way handshake (SYN, SYN-ACK, ACK), ใช้กับ HTTP, Email, FTP</li>\n      <li><span class=\"term\">UDP</span> - Connectionless, ไม่มีการตรวจสอบ ใช้กับ DNS, VoIP, Streaming</li>\n      <li><span class=\"term\">IP Address</span> - \"ที่อยู่\" ของอุปกรณ์ในเครือข่าย (IPv4: 192.168.1.1 / IPv6: ยาวกว่า)</li>\n      <li><span class=\"term\">Port</span> - \"เลขห้อง\" ของบริการ เช่น Port 80 = HTTP, 443 = HTTPS, 22 = SSH</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Firewall</h2>\n    <span class=\"en\">กำแพงไฟ - ด่านตรวจเครือข่าย</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ: รปภ. หน้าประตูหมู่บ้าน</strong><br>\n      มีรายชื่อว่าใครเข้าได้ ใครห้ามเข้า (Allow/Deny List)<br>\n      ตรวจทุกคนที่จะเข้า-ออก ถ้าไม่อยู่ในรายชื่ออนุญาต ไม่ให้ผ่าน\n    </div>\n\n    <ul>\n      <li><span class=\"term\">Packet Filtering</span> - ตรวจแค่ \"ซองจดหมาย\" (IP, Port) ไม่เปิดอ่านเนื้อหา - เร็วแต่ไม่ละเอียด</li>\n      <li><span class=\"term\">Stateful Inspection</span> - จำ \"บทสนทนา\" ได้ ตรวจว่า Packet นี้เป็นส่วนหนึ่งของ Connection ที่อนุญาตหรือไม่</li>\n      <li><span class=\"term\">Next-Gen Firewall (NGFW)</span> - ตรวจถึงระดับ Application ดูว่าเป็น Facebook, YouTube หรือ Malware</li>\n      <li><span class=\"term\">WAF</span> (Web Application Firewall) - เฉพาะทางสำหรับเว็บ กัน SQL Injection, XSS</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>IDS vs IPS</h2>\n    <span class=\"en\">Intrusion Detection System vs Intrusion Prevention System</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ:</strong><br>\n      - <strong>IDS</strong> = กล้องวงจรปิด - เห็นขโมย แจ้งเตือน แต่จับเองไม่ได้ (Passive, detect only)<br>\n      - <strong>IPS</strong> = รปภ. ติดอาวุธ - เห็นขโมยก็จับเลย บล็อค Traffic ทันที (Active, block + alert)\n    </div>\n\n    <ul>\n      <li><span class=\"term\">Signature-based</span> - จับจากลายเซ็นที่รู้จัก เหมือนภาพคนร้ายที่ติดบอร์ด (รู้จัก = จับได้ ไม่รู้จัก = รอด)</li>\n      <li><span class=\"term\">Anomaly-based</span> - จับจากพฤติกรรมผิดปกติ เช่น Login 100 ครั้งใน 1 นาที (จับ Zero-day ได้ แต่อาจ False Positive)</li>\n      <li><span class=\"term\">Heuristic-based</span> - ใช้กฎ + AI วิเคราะห์รูปแบบ</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>VPN (Virtual Private Network)</h2>\n    <span class=\"en\">อุโมงค์ลับเข้ารหัส</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ:</strong> ปกติคุณขับรถบนถนนสาธารณะ ทุกคนเห็นรถคุณ (Internet ปกติ)<br>\n      VPN คือสร้างอุโมงค์ลับให้รถคุณวิ่ง ข้างนอกมองไม่เห็นว่าใครอยู่ข้างใน ไปไหน ขนอะไร (เข้ารหัส Traffic ทั้งหมด)\n    </div>\n\n    <ul>\n      <li><span class=\"term\">Site-to-Site VPN</span> - เชื่อมสำนักงาน 2 แห่ง เหมือนสร้างอุโมงค์ระหว่าง 2 อาคาร</li>\n      <li><span class=\"term\">Remote Access VPN</span> - พนักงาน WFH เชื่อมเข้าออฟฟิศจากที่บ้าน</li>\n      <li><span class=\"term\">IPsec</span> - โปรโตคอลเข้ารหัสที่ Layer 3 (Network Layer)</li>\n      <li><span class=\"term\">TLS/SSL VPN</span> - ทำงานผ่าน Browser ไม่ต้องลง Software พิเศษ</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>DMZ, NAC, VLAN</h2>\n    <span class=\"en\">เครื่องมือแบ่งส่วนเครือข่าย</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ: โรงพยาบาล</strong><br>\n      - <strong>DMZ</strong> = ล็อบบี้ต้อนรับ คนนอกเข้าได้ แต่เข้าห้องผ่าตัดไม่ได้ (เขตกันชนระหว่าง Internet กับ Internal Network)<br>\n      - <strong>VLAN</strong> = แยกตึกผู้ป่วย ตึกแพทย์ ตึกธุรการ ไม่ให้ปะปนกัน (แบ่ง Network เสมือน)<br>\n      - <strong>NAC</strong> = เช็คว่าเครื่องที่จะเชื่อมต่อ Healthy ไหม มี Antivirus, Update หรือยัง ถ้าไม่ผ่าน ไม่ให้เข้า\n    </div>\n\n    <ul>\n      <li><span class=\"term\">DMZ</span> (Demilitarized Zone) - วาง Public-facing Server (Web, Email) ไว้ตรงนี้ ถ้าถูกเจาะ ยังไม่ถึง Internal</li>\n      <li><span class=\"term\">VLAN</span> (Virtual LAN) - แบ่ง Network ด้วย Switch โดยไม่ต้องแยกสายจริง ลด Broadcast Storm</li>\n      <li><span class=\"term\">NAC</span> (Network Access Control) - ตรวจสุขภาพอุปกรณ์ก่อนอนุญาตเข้าเครือข่าย</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Wireless Security</h2>\n    <span class=\"en\">ความปลอดภัย Wi-Fi</span>\n\n    <div class=\"analogy\">\n      <strong>วิวัฒนาการ Wi-Fi Security:</strong><br>\n      <span class=\"term\">WEP</span> (อย่าใช้!) = ล็อคบ้านด้วยกุญแจพลาสติก หักง่ายมาก<br>\n      <span class=\"term\">WPA2</span> (ดี) = ล็อคบ้านด้วยกุญแจเหล็ก + Deadbolt<br>\n      <span class=\"term\">WPA3</span> (ดีที่สุด) = ล็อคบ้านด้วยกุญแจ Digital + สแกนนิ้ว\n    </div>\n\n    <ul>\n      <li><strong>WPA2-Enterprise</strong> - ใช้ RADIUS Server ยืนยันตัวตน เหมาะกับองค์กร</li>\n      <li><strong>WPA2-Personal</strong> - ใช้ Pre-Shared Key (PSK) = รหัสผ่าน Wi-Fi ที่บ้าน</li>\n      <li><strong>WPA3-SAE</strong> - ป้องกัน Dictionary Attack แม้รหัสผ่านง่ายก็เจาะยากขึ้น</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Zero Trust</h2>\n    <span class=\"en\">\"ไม่ไว้ใจใครเลย\" ต้องพิสูจน์ตัวทุกครั้ง</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ:</strong> แบบเก่า = คนในบ้านไว้ใจหมด (Trust but Verify)<br>\n      Zero Trust = แม้คนในบ้านก็ต้องสแกนบัตรทุกครั้งที่เปิดประตู \"Never Trust, Always Verify\"\n    </div>\n\n    <ul>\n      <li>ไม่ว่าจะอยู่ใน Network ภายในหรือภายนอก ต้องพิสูจน์ตัวตนเสมอ</li>\n      <li>ใช้ Micro-segmentation แบ่งเครือข่ายเป็นส่วนเล็กๆ</li>\n      <li>Least Privilege Access ทุกจุด</li>\n      <li>ตรวจสอบ + Log ทุก Request แบบ Real-time</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Common Network Attacks</h2>\n    <span class=\"en\">การโจมตีเครือข่ายที่พบบ่อย</span>\n\n    <ul>\n      <li><span class=\"term\">Man-in-the-Middle (MITM)</span> - แฮกเกอร์แอบนั่งกลาง ดักฟังข้อมูลระหว่างคุณกับเซิร์ฟเวอร์ เหมือนมีคนแอบเปิดอ่านจดหมายก่อนส่งต่อ <strong>ป้องกัน:</strong> ใช้ HTTPS, VPN</li>\n      <li><span class=\"term\">DoS / DDoS</span> - ส่ง Traffic ท่วมจนระบบล่ม เหมือนจ้างคน 1 ล้านคนโทรเข้า Call Center พร้อมกัน <strong>ป้องกัน:</strong> DDoS Mitigation, CDN, Rate Limiting</li>\n      <li><span class=\"term\">ARP Spoofing</span> - หลอกว่า \"ฉันคือ Gateway\" เพื่อดักจับ Traffic ใน LAN <strong>ป้องกัน:</strong> Dynamic ARP Inspection, Static ARP</li>\n      <li><span class=\"term\">DNS Poisoning</span> - เปลี่ยนชี้ทาง DNS ให้คุณไปเว็บปลอม <strong>ป้องกัน:</strong> DNSSEC</li>\n      <li><span class=\"term\">Rogue AP</span> - ตั้ง Wi-Fi ปลอมล่อเหยื่อ <strong>ป้องกัน:</strong> Wireless IDS, NAC</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Cheat Sheet สรุป Domain 4</h2>\n    <span class=\"en\">Quick Reference Table</span>\n    <table class=\"cheat\">\n      <thead>\n        <tr><th>Term (EN)</th><th>ความหมาย (TH)</th><th>จำง่ายๆ</th></tr>\n      </thead>\n      <tbody>\n        <tr><td>Firewall</td><td>กำแพงไฟกรอง Traffic</td><td>รปภ. ตรวจคนเข้า-ออก</td></tr>\n        <tr><td>IDS</td><td>ระบบตรวจจับการบุกรุก</td><td>กล้องวงจรปิด (ดูอย่างเดียว)</td></tr>\n        <tr><td>IPS</td><td>ระบบป้องกันการบุกรุก</td><td>ยามจับผู้ร้าย (บล็อคได้)</td></tr>\n        <tr><td>VPN</td><td>เครือข่ายส่วนตัวเสมือน</td><td>อุโมงค์ลับเข้ารหัส</td></tr>\n        <tr><td>DMZ</td><td>เขตกันชน</td><td>ล็อบบี้โรงพยาบาล</td></tr>\n        <tr><td>VLAN</td><td>แบ่ง LAN เสมือน</td><td>แยกตึกไม่ให้ปะปน</td></tr>\n        <tr><td>NAC</td><td>ตรวจสุขภาพก่อนเข้า Network</td><td>เช็คว่า Update หรือยัง</td></tr>\n        <tr><td>Zero Trust</td><td>ไม่ไว้ใจใคร ต้องพิสูจน์ทุกครั้ง</td><td>สแกนบัตรทุกประตู</td></tr>\n        <tr><td>WPA2/WPA3</td><td>มาตรฐานเข้ารหัส Wi-Fi</td><td>ล็อคบ้าน (WPA3 = ดีสุด)</td></tr>\n        <tr><td>MITM</td><td>แฮกเกอร์ดักกลาง</td><td>แอบอ่านจดหมาย</td></tr>\n        <tr><td>DDoS</td><td>Traffic ท่วมจนล่ม</td><td>โทรท่วม Call Center</td></tr>\n        <tr><td>TCP</td><td>ส่งข้อมูลรับประกัน</td><td>EMS มี Tracking</td></tr>\n        <tr><td>UDP</td><td>ส่งข้อมูลไม่รับประกัน</td><td>ไปรษณีย์ธรรมดา</td></tr>\n      </tbody>\n    </table>\n  "
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "file": "lesson-domain-5.html",
+   "title": "ISC2 CC Domain 5 - Security Operations (การปฏิบัติการรักษาความปลอดภัย)",
+   "description": "บทเรียนเตรียมสอบ ISC2 CC Domain 5: Security Operations อธิบายง่ายด้วยภาพเปรียบเทียบชีวิตจริง พร้อมแผนภาพ Encryption และ Cheat Sheet สองภาษา",
+   "variant": "b",
+   "hero": {
+    "className": "hero",
+    "eyebrow": "Domain 5 of 5 · Beginner Lesson",
+    "title": "Security Operations",
+    "subTag": "div",
+    "subLines": [
+     "การปฏิบัติการรักษาความปลอดภัย - เข้ารหัส เฝ้าระวัง จัดการเปลี่ยนแปลง",
+     "อธิบายง่ายๆ เหมือนทีมรักษาความปลอดภัยประจำตึก"
+    ]
+   },
+   "navAria": "ไปต่อจากบทเรียนนี้",
+   "nav": [
+    {
+     "href": "lesson-domain-4.html",
+     "className": "ln-prev",
+     "label": "← Domain 4",
+     "small": "Network Security"
+    },
+    {
+     "href": "flashcard.html?d=5",
+     "className": "ln-flash",
+     "label": "Flashcard Domain 5",
+     "small": "ทวนคำศัพท์ของบทนี้"
+    },
+    {
+     "href": "learning-path.html",
+     "className": "ln-path",
+     "label": "Learning Path",
+     "small": "ดูเส้นทางเรียนทั้งหมด"
+    },
+    {
+     "href": "isc2-cc-landing.html",
+     "className": "ln-quiz",
+     "label": "ชุดข้อสอบ",
+     "small": "เลือกชุดฝึกและสอบ"
+    }
+   ],
+   "blocks": [
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "scenario"
+     },
+     "html": "\n    <p>ตี 3 ทีม SOC (Security Operations Center) ตรวจพบว่ามีคนใช้บัญชี admin login จากต่างประเทศ เจ้าของบัญชีตัวจริงยืนยันว่าไม่ได้ทำ ทีมจึงล็อคบัญชีทันที ตรวจ Log ย้อนหลัง พบว่ารหัสผ่านถูกเดาได้เพราะไม่มี MFA และไม่เคยเปลี่ยนรหัสผ่านมา 2 ปี SIEM ช่วยให้ตรวจจับและตอบสนองได้ภายใน 15 นาที</p>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "diagram-wrap"
+     },
+     "html": "\n    <svg viewBox=\"0 0 800 340\" style=\"max-width:760px;width:100%;height:auto;\" xmlns=\"http://www.w3.org/2000/svg\">\n      \n      <text x=\"400\" y=\"25\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"14\" fill=\"#0F0F0F\">SYMMETRIC ENCRYPTION (กุญแจเดียวกัน)</text>\n\n      \n      <rect x=\"30\" y=\"50\" width=\"130\" height=\"55\" fill=\"#F5C518\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"95\" y=\"75\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"11\" fill=\"#0F0F0F\">PLAINTEXT</text>\n      <text x=\"95\" y=\"92\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#2A2A2A\">ข้อความเดิม</text>\n\n      \n      <line x1=\"160\" y1=\"77\" x2=\"240\" y2=\"77\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <polygon points=\"238,70 254,77 238,84\" fill=\"#0F0F0F\"/>\n      <text x=\"200\" y=\"65\" text-anchor=\"middle\" font-family=\"JetBrains Mono,monospace\" font-size=\"10\" fill=\"#E85A1F\" font-weight=\"700\">KEY A</text>\n\n      \n      <rect x=\"255\" y=\"50\" width=\"110\" height=\"55\" fill=\"#E85A1F\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"310\" y=\"75\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"11\" fill=\"#FFF\">ENCRYPT</text>\n      <text x=\"310\" y=\"92\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#EFE9D9\">เข้ารหัส</text>\n\n      \n      <line x1=\"365\" y1=\"77\" x2=\"420\" y2=\"77\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <polygon points=\"418,70 434,77 418,84\" fill=\"#0F0F0F\"/>\n\n      \n      <rect x=\"435\" y=\"50\" width=\"130\" height=\"55\" fill=\"#D12438\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"500\" y=\"75\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"11\" fill=\"#FFF\">CIPHERTEXT</text>\n      <text x=\"500\" y=\"92\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#EFE9D9\">ข้อความเข้ารหัส</text>\n\n      \n      <line x1=\"565\" y1=\"77\" x2=\"630\" y2=\"77\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <polygon points=\"628,70 644,77 628,84\" fill=\"#0F0F0F\"/>\n      <text x=\"600\" y=\"65\" text-anchor=\"middle\" font-family=\"JetBrains Mono,monospace\" font-size=\"10\" fill=\"#E85A1F\" font-weight=\"700\">KEY A</text>\n\n      \n      <rect x=\"645\" y=\"50\" width=\"110\" height=\"55\" fill=\"#1F8A4C\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"700\" y=\"75\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"11\" fill=\"#FFF\">DECRYPT</text>\n      <text x=\"700\" y=\"92\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#E4DCC4\">ถอดรหัส</text>\n\n      \n      <line x1=\"20\" y1=\"135\" x2=\"780\" y2=\"135\" stroke=\"#0F0F0F\" stroke-width=\"2\" stroke-dasharray=\"8,4\"/>\n\n      \n      <text x=\"400\" y=\"165\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"14\" fill=\"#0F0F0F\">ASYMMETRIC ENCRYPTION (กุญแจคู่: Public + Private)</text>\n\n      \n      <rect x=\"30\" y=\"190\" width=\"130\" height=\"55\" fill=\"#F5C518\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"95\" y=\"215\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"11\" fill=\"#0F0F0F\">PLAINTEXT</text>\n      <text x=\"95\" y=\"232\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#2A2A2A\">ข้อความเดิม</text>\n\n      \n      <line x1=\"160\" y1=\"217\" x2=\"240\" y2=\"217\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <polygon points=\"238,210 254,217 238,224\" fill=\"#0F0F0F\"/>\n      <text x=\"200\" y=\"205\" text-anchor=\"middle\" font-family=\"JetBrains Mono,monospace\" font-size=\"9\" fill=\"#F06CA8\" font-weight=\"700\">PUBLIC KEY</text>\n\n      \n      <rect x=\"255\" y=\"190\" width=\"110\" height=\"55\" fill=\"#F06CA8\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"310\" y=\"215\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"11\" fill=\"#0F0F0F\">ENCRYPT</text>\n      <text x=\"310\" y=\"232\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#2A2A2A\">ล็อคด้วยแม่กุญแจ</text>\n\n      \n      <line x1=\"365\" y1=\"217\" x2=\"420\" y2=\"217\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <polygon points=\"418,210 434,217 418,224\" fill=\"#0F0F0F\"/>\n\n      \n      <rect x=\"435\" y=\"190\" width=\"130\" height=\"55\" fill=\"#D12438\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"500\" y=\"215\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"11\" fill=\"#FFF\">CIPHERTEXT</text>\n      <text x=\"500\" y=\"232\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#EFE9D9\">ข้อความเข้ารหัส</text>\n\n      \n      <line x1=\"565\" y1=\"217\" x2=\"630\" y2=\"217\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <polygon points=\"628,210 644,217 628,224\" fill=\"#0F0F0F\"/>\n      <text x=\"600\" y=\"205\" text-anchor=\"middle\" font-family=\"JetBrains Mono,monospace\" font-size=\"9\" fill=\"#1F8A4C\" font-weight=\"700\">PRIVATE KEY</text>\n\n      \n      <rect x=\"645\" y=\"190\" width=\"110\" height=\"55\" fill=\"#1F8A4C\" stroke=\"#0F0F0F\" stroke-width=\"3\"/>\n      <text x=\"700\" y=\"215\" text-anchor=\"middle\" font-family=\"Archivo Black,sans-serif\" font-size=\"11\" fill=\"#FFF\">DECRYPT</text>\n      <text x=\"700\" y=\"232\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"10\" fill=\"#E4DCC4\">ไขด้วยกุญแจลับ</text>\n\n      \n      <rect x=\"200\" y=\"270\" width=\"400\" height=\"50\" fill=\"#E4DCC4\" stroke=\"#0F0F0F\" stroke-width=\"2\"/>\n      <text x=\"400\" y=\"292\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"12\" fill=\"#0F0F0F\" font-weight=\"600\">Symmetric = เร็ว, กุญแจเดียว (AES, 3DES)</text>\n      <text x=\"400\" y=\"310\" text-anchor=\"middle\" font-family=\"IBM Plex Sans Thai,sans-serif\" font-size=\"12\" fill=\"#0F0F0F\" font-weight=\"600\">Asymmetric = ช้ากว่า, กุญแจคู่ (RSA, ECC)</text>\n    </svg>\n    <div class=\"caption\">Symmetric vs Asymmetric Encryption Flow</div>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Encryption (การเข้ารหัส)</h2>\n    <span class=\"en\">Symmetric vs Asymmetric</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ:</strong><br>\n      - <strong>Symmetric</strong> = คุณกับเพื่อนมีกุญแจเหมือนกัน 1 ดอก ใช้ล็อคและไขตู้เดียวกัน ปัญหา: ต้องส่งกุญแจให้เพื่อนอย่างปลอดภัย<br>\n      - <strong>Asymmetric</strong> = คุณมีแม่กุญแจ (Public Key) แจกให้ทุกคนล็อคของส่งมา แต่มีแค่คุณคนเดียวที่มีกุญแจไข (Private Key)\n    </div>\n\n    <ul>\n      <li><span class=\"term\">AES</span> (Advanced Encryption Standard) - Symmetric, มาตรฐานปัจจุบัน ใช้ทั่วโลก (128/192/256 bit)</li>\n      <li><span class=\"term\">3DES</span> - Symmetric เก่า กำลังถูกเลิกใช้</li>\n      <li><span class=\"term\">RSA</span> - Asymmetric, ใช้กันมาก สำหรับแลกเปลี่ยน Key และ Digital Signature</li>\n      <li><span class=\"term\">ECC</span> (Elliptic Curve Cryptography) - Asymmetric, Key สั้นกว่า RSA แต่แข็งแรงเท่ากัน</li>\n    </ul>\n\n    <p><strong>ในทางปฏิบัติ:</strong> ใช้ Asymmetric แลกเปลี่ยน Key ก่อน แล้วใช้ Symmetric เข้ารหัสข้อมูลจริง (เร็วกว่า) - วิธีนี้เรียกว่า Hybrid Encryption และ TLS/HTTPS ใช้วิธีนี้</p>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Hashing (การแฮช)</h2>\n    <span class=\"en\">ลายนิ้วมือของข้อมูล</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ:</strong> ลายนิ้วมือคน - คนละคนมีลายนิ้วมือต่างกัน ดูลายนิ้วมือแล้วรู้ว่าเป็นใคร แต่ดูลายนิ้วมือแล้วสร้างคนขึ้นมาใหม่ไม่ได้ (One-way function)\n    </div>\n\n    <ul>\n      <li>Hash ไม่ใช่ Encryption - ย้อนกลับไม่ได้ (irreversible)</li>\n      <li>ใช้ตรวจสอบว่าข้อมูลถูกแก้ไขหรือไม่ (Integrity check)</li>\n      <li>ใช้เก็บรหัสผ่าน - เก็บ Hash แทนรหัสจริง ถ้า DB หลุด แฮกเกอร์ได้แค่ Hash</li>\n      <li><span class=\"term\">SHA-256</span> - มาตรฐานปัจจุบัน (Secure Hash Algorithm)</li>\n      <li><span class=\"term\">MD5</span> - เก่า ไม่ปลอดภัยแล้ว (Collision attack ได้)</li>\n      <li><span class=\"term\">Salt</span> - เพิ่มค่าสุ่มก่อน Hash เพื่อป้องกัน Rainbow Table Attack</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Digital Signatures และ PKI</h2>\n    <span class=\"en\">ลายเซ็นดิจิทัล และ Public Key Infrastructure</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ Digital Signature:</strong><br>\n      เหมือนประทับตราครั่งบนจดหมายสมัยก่อน - รู้ว่าใครส่ง (Authentication) และยังไม่ถูกเปิด (Integrity) ผู้ส่งปฏิเสธไม่ได้ว่าไม่ได้ส่ง (Non-repudiation)\n    </div>\n\n    <ul>\n      <li><span class=\"term\">Digital Signature</span> - ใช้ Private Key ของผู้ส่งเซ็น ผู้รับใช้ Public Key ตรวจสอบ ให้ทั้ง Authentication + Integrity + Non-repudiation</li>\n      <li><span class=\"term\">PKI</span> (Public Key Infrastructure) - ระบบทั้งหมดที่จัดการ Digital Certificate รวมถึง CA, RA, CRL</li>\n      <li><span class=\"term\">CA</span> (Certificate Authority) - \"กรมการปกครอง\" ที่ออกบัตรประชาชนดิจิทัล ยืนยันว่า Public Key นี้เป็นของคนนี้จริง</li>\n      <li><span class=\"term\">Certificate</span> - ไฟล์ที่ผูก Public Key กับตัวตนเจ้าของ รับรองโดย CA</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Change และ Patch Management</h2>\n    <span class=\"en\">การจัดการเปลี่ยนแปลง และ การอัปเดตแก้ช่องโหว่</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ Change Management:</strong> ถ้าจะรื้อห้องน้ำในคอนโด ต้อง: ขออนุญาตนิติฯ ก่อน &rarr; ประเมินผลกระทบ &rarr; อนุมัติ &rarr; ทำในวันที่กำหนด &rarr; ตรวจรับ ไม่ใช่ลุยรื้อเลยแล้วค่อยบอกทีหลัง\n    </div>\n\n    <ul>\n      <li><span class=\"term\">Change Management</span> - กระบวนการที่มีขั้นตอน: Request &rarr; Impact Assessment &rarr; Approval &rarr; Test &rarr; Implement &rarr; Document &rarr; Review</li>\n      <li><span class=\"term\">Patch Management</span> - อัปเดตซอฟต์แวร์เพื่อปิดช่องโหว่ ต้องทำเป็นประจำ ทดสอบก่อน Deploy จริง</li>\n      <li><span class=\"term\">Configuration Management</span> - จัดการ Baseline ของระบบ ถ้ามีการเปลี่ยนแปลงต้องบันทึก เพื่อให้ย้อนกลับได้</li>\n    </ul>\n\n    <p><strong>ทำไมสำคัญ:</strong> 60%+ ของเหตุ Security Incident เกิดจาก Unpatched System หรือ Misconfiguration ที่ไม่มีการจัดการ</p>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>SIEM และ Logging</h2>\n    <span class=\"en\">Security Information and Event Management</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ SIEM:</strong> ศูนย์ควบคุมความปลอดภัยของห้าง - จอมอนิเตอร์ 50 จอรวมภาพจากกล้อง ระบบแจ้งเตือนไฟไหม้ ระบบบัตรผ่าน ทั้งหมดมาอยู่ที่เดียว ถ้ามีเหตุผิดปกติ แจ้งเตือนยามทันที\n    </div>\n\n    <ul>\n      <li><span class=\"term\">SIEM</span> - รวม Log จากทุกระบบ (Firewall, Server, App) มาวิเคราะห์หา Pattern ผิดปกติ แจ้งเตือน Real-time</li>\n      <li><span class=\"term\">Log</span> - บันทึกเหตุการณ์ ใคร ทำอะไร เมื่อไหร่ จากไหน สำคัญมากสำหรับ Forensics</li>\n      <li><span class=\"term\">Correlation</span> - เชื่อมโยง Event หลายตัว เช่น \"Login ผิด 50 ครั้ง + Login สำเร็จจาก IP ต่างประเทศ\" = อาจถูก Brute Force</li>\n      <li><span class=\"term\">Alerting</span> - แจ้งเตือนทีม SOC เมื่อพบ Pattern น่าสงสัย</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>DLP (Data Loss Prevention)</h2>\n    <span class=\"en\">ป้องกันข้อมูลรั่วไหล</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ:</strong> เจ้าหน้าที่ศุลกากรตรวจกระเป๋าที่สนามบิน - ตรวจว่ามีของต้องห้ามออกนอกประเทศหรือไม่ DLP ตรวจว่ามีข้อมูลสำคัญ (เลขบัตรเครดิต, ข้อมูลลูกค้า) กำลังจะถูกส่งออกนอกองค์กรหรือไม่\n    </div>\n\n    <ul>\n      <li><span class=\"term\">Endpoint DLP</span> - ตรวจที่เครื่อง PC เช่น ห้าม Copy ข้อมูลลง USB</li>\n      <li><span class=\"term\">Network DLP</span> - ตรวจ Traffic ที่วิ่งออก เช่น ห้ามส่ง Email ที่มีเลขบัตรเครดิต</li>\n      <li><span class=\"term\">Cloud DLP</span> - ตรวจข้อมูลที่อัปโหลดขึ้น Cloud Storage</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Data Security Lifecycle</h2>\n    <span class=\"en\">วงจรชีวิตความปลอดภัยข้อมูล</span>\n\n    <div class=\"analogy\">\n      <strong>เปรียบเทียบ:</strong> เอกสารลับราชการ - สร้างขึ้นมา &rarr; ตีตรา \"ลับ\" &rarr; เก็บในตู้ล็อค &rarr; ส่งต่อเฉพาะคนที่มีสิทธิ์ &rarr; เก็บรักษาตามระยะเวลาที่กำหนด &rarr; ถึงเวลาทำลายด้วยเครื่องย่อยกระดาษ\n    </div>\n\n    <ul>\n      <li><span class=\"term\">Classification</span> - จัดระดับข้อมูล: Public / Internal / Confidential / Top Secret</li>\n      <li><span class=\"term\">Handling</span> - วิธีจัดการข้อมูลแต่ละระดับ เช่น Confidential ต้องเข้ารหัสเมื่อส่ง</li>\n      <li><span class=\"term\">Retention</span> - เก็บข้อมูลนานเท่าไหร่ ตามกฎหมายและนโยบาย</li>\n      <li><span class=\"term\">Destruction</span> - ทำลายอย่างปลอดภัย: Shredding (กระดาษ), Degaussing (แม่เหล็ก), Cryptographic Erasure (ลบ Key)</li>\n    </ul>\n  "
+    },
+    {
+     "tag": "div",
+     "attrs": {
+      "class": "section"
+     },
+     "html": "\n    <h2>Cheat Sheet สรุป Domain 5</h2>\n    <span class=\"en\">Quick Reference Table</span>\n    <table class=\"cheat\">\n      <thead>\n        <tr><th>Term (EN)</th><th>ความหมาย (TH)</th><th>จำง่ายๆ</th></tr>\n      </thead>\n      <tbody>\n        <tr><td>AES</td><td>Symmetric Encryption มาตรฐาน</td><td>กุญแจเดียว เร็ว</td></tr>\n        <tr><td>RSA</td><td>Asymmetric Encryption</td><td>กุญแจคู่ Public/Private</td></tr>\n        <tr><td>Hashing</td><td>สร้างลายนิ้วมือข้อมูล</td><td>ย้อนกลับไม่ได้</td></tr>\n        <tr><td>SHA-256</td><td>Hash Algorithm มาตรฐาน</td><td>ลายนิ้วมือ 256 bit</td></tr>\n        <tr><td>Digital Signature</td><td>ลายเซ็นดิจิทัล</td><td>ตราครั่งบนจดหมาย</td></tr>\n        <tr><td>PKI</td><td>โครงสร้าง Public Key</td><td>ระบบบัตรประชาชนดิจิทัล</td></tr>\n        <tr><td>CA</td><td>ผู้ออก Certificate</td><td>กรมการปกครอง</td></tr>\n        <tr><td>Change Mgmt</td><td>จัดการเปลี่ยนแปลงอย่างเป็นระบบ</td><td>ขออนุญาตก่อนรื้อห้อง</td></tr>\n        <tr><td>Patch Mgmt</td><td>อัปเดตปิดช่องโหว่</td><td>ซ่อมรูรั่วบ้าน</td></tr>\n        <tr><td>SIEM</td><td>ศูนย์เฝ้าระวังรวม</td><td>ห้องควบคุม 50 จอ</td></tr>\n        <tr><td>DLP</td><td>ป้องกันข้อมูลรั่ว</td><td>ศุลกากรตรวจกระเป๋า</td></tr>\n        <tr><td>Classification</td><td>จัดระดับความลับข้อมูล</td><td>ตีตรา ลับ/ลับมาก</td></tr>\n        <tr><td>Destruction</td><td>ทำลายข้อมูลอย่างปลอดภัย</td><td>เครื่องย่อยกระดาษ</td></tr>\n      </tbody>\n    </table>\n  "
+    }
+   ]
+  }
+ ]
+}

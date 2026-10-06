@@ -28,11 +28,28 @@ export const PORTED_ROUTES: Record<string, { route: string; nav: NavKey }> = {
   '1832quiz_NewExamDomainTH.html': { route: '/1832quiz_NewExamDomainTH', nav: 'exam' },
   'isc2_cc_exam1NCSA_bi_no-track-50q.html': { route: '/isc2_cc_exam1NCSA_bi_no-track-50q', nav: 'exam' },
   'quiz-explained.html': { route: '/quiz-explained', nav: 'explained' },
+  'lesson-domain-1.html': { route: '/lesson-domain-1', nav: 'lesson' },
+  'lesson-domain-2.html': { route: '/lesson-domain-2', nav: 'lesson' },
+  'lesson-domain-3.html': { route: '/lesson-domain-3', nav: 'lesson' },
+  'lesson-domain-4.html': { route: '/lesson-domain-4', nav: 'lesson' },
+  'lesson-domain-5.html': { route: '/lesson-domain-5', nav: 'lesson' },
+  'learning-path.html': { route: '/learning-path', nav: 'path' },
+  'flashcard.html': { route: '/flashcard', nav: 'flashcard' },
+  'index.html': { route: '/', nav: 'mindmap' },
 };
+
+function cleanPath(pathname: string): string {
+  const p = pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/\/+$/, '');
+  return p || '/';
+}
+
+export function isMindMapPath(pathname: string | null): boolean {
+  return pathname !== null && cleanPath(pathname) === '/';
+}
 
 export function activeNavFor(pathname: string | null): NavKey | null {
   if (!pathname) return null;
-  const clean = pathname.replace(/\/$/, '').replace(/\.html$/, '');
+  const clean = cleanPath(pathname);
   const hit = Object.values(PORTED_ROUTES).find(p => p.route === clean);
   return hit ? hit.nav : null;
 }
