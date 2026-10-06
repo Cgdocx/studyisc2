@@ -2019,8 +2019,9 @@ function sendResultToSheet() {
     const ans = session.answers[i];
     const d = DOMAINS.find(x => x.id === q.d);
     let yourAnswer = "SKIPPED";
-    if (ans >= 0) yourAnswer = letters[ans] + ". " + q.c[ans];
+    if (ans != null && ans >= 0) yourAnswer = letters[ans] + ". " + q.c[ans];
     else if (ans === -2 || session.reasons[i] === "timeout") yourAnswer = "TIMEOUT";
+    else if (ans == null) yourAnswer = "NOT ANSWERED";
     return {
       domain: q.d,
       domainName: d ? d.en : String(q.d),
@@ -2080,7 +2081,7 @@ function buildPrintArea() {
     const q = item.q;
     const ans = item.ans;
     let yours = t().noAnswer;
-    if (ans >= 0) yours = letters[ans] + ". " + q.c[ans];
+    if (ans != null && ans >= 0) yours = letters[ans] + ". " + q.c[ans];
     else if (item.r === "timeout" || ans === -2) yours = t().timeout;
     else if (item.r === "skipped" || ans === -1) yours = t().skipped;
     html += `<div class="miss">
@@ -2110,6 +2111,7 @@ function review() {
     let mark = ok ? t().correct : t().incorrect;
     if (r === "skipped" || ans === -1) mark = t().skipped;
     if (r === "timeout" || ans === -2) mark = t().timeout;
+    if (ans == null && !r) mark = t().noAnswer;
     const thQ = q.qt ? `<div class="question-th th-text" style="font-size:15px">${escapeHtml(q.qt)}</div>` : "";
     const thE = q.et ? `<div class="th-text" style="margin-top:6px">${escapeHtml(q.et)}</div>` : "";
     const card = document.createElement("div");
@@ -2121,7 +2123,8 @@ function review() {
       ${viewMode !== "en" ? thQ : ""}
       <div style="margin:8px 0;color:var(--muted);font-size:14px">
         ${t().correct}: <b style="color:var(--green2)">${letters[q.a]}. ${escapeHtml(q.c[q.a])}</b>
-        ${ans !== q.a && ans >= 0 ? `<br>${t().incorrect}: ${letters[ans]}. ${escapeHtml(q.c[ans])}` : ""}
+        ${ans != null && ans !== q.a && ans >= 0 ? `<br>${t().incorrect}: ${letters[ans]}. ${escapeHtml(q.c[ans])}` : ""}
+        ${ans == null && !r ? `<br>${t().yourAnswer}: ${t().noAnswer}` : ""}
       </div>
       <div class="explain show"><b>${t().explanation}.</b> ${escapeHtml(q.e || "")}${viewMode !== "en" ? thE : ""}</div>`;
     box.appendChild(card);

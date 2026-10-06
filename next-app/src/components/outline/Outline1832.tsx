@@ -83,12 +83,12 @@ function fmtTime(sec: number): string {
   return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
 }
 
-function answerLabel(q: BankQ, ans: number | null): string {
-  return ans === null ? 'undefined. undefined' : LETTERS[ans] + '. ' + q.c[ans];
+function answerLabel(q: BankQ, ans: number): string {
+  return LETTERS[ans] + '. ' + q.c[ans];
 }
 
-function reachedOrAnswered(ans: number | null): boolean {
-  return ans === null || ans >= 0;
+function isAnswered(ans: number | null | undefined): ans is number {
+  return ans != null && ans >= 0;
 }
 
 const randomOf = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)];
@@ -326,8 +326,9 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
       const ans = s.answers[i];
       const d = DOMAINS.find(dd => dd.id === q.d);
       let yourAnswer = 'SKIPPED';
-      if (reachedOrAnswered(ans)) yourAnswer = answerLabel(q, ans);
+      if (isAnswered(ans)) yourAnswer = answerLabel(q, ans);
       else if (ans === -2 || s.reasons[i] === 'timeout') yourAnswer = 'TIMEOUT';
+      else if (ans == null) yourAnswer = 'NOT ANSWERED';
       return {
         domain: q.d,
         domainName: d ? d.en : String(q.d),
@@ -1078,6 +1079,7 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
               let mark = ans === rq.a ? rx.correct : rx.incorrect;
               if (r === 'skipped' || ans === -1) mark = rx.skipped;
               if (r === 'timeout' || ans === -2) mark = rx.timeout;
+              if (ans == null && !r) mark = rx.noAnswer;
               return (
                 <div key={i} className="card" style={sx('margin-bottom:10px')}>
                   <div className="q-domain">Q{i + 1} · {domainName(rq.d, review.viewMode)} · {mark}</div>
@@ -1085,7 +1087,8 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
                   {review.viewMode !== 'en' && rq.qt && <div className="question-th th-text" style={sx('font-size:15px')}>{rq.qt}</div>}
                   <div style={sx('margin:8px 0;color:var(--muted);font-size:14px')}>
                     {rx.correct}: <b style={sx('color:var(--green2)')}>{LETTERS[rq.a]}. {rq.c[rq.a]}</b>
-                    {ans !== rq.a && reachedOrAnswered(ans) && <><br />{rx.incorrect}: {ans === null ? 'undefined. ' : answerLabel(rq, ans)}</>}
+                    {ans !== rq.a && isAnswered(ans) && <><br />{rx.incorrect}: {answerLabel(rq, ans)}</>}
+                    {ans == null && !r && <><br />{rx.yourAnswer}: {rx.noAnswer}</>}
                   </div>
                   <div className="explain show"><b>{rx.explanation}.</b> {rq.e || ''}{review.viewMode !== 'en' && rq.et && <div className="th-text" style={sx('margin-top:6px')}>{rq.et}</div>}</div>
                 </div>
@@ -1103,7 +1106,7 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
                   if (ans === pq.a) return null;
                   const r = session.reasons[i];
                   let yours = x.noAnswer;
-                  if (reachedOrAnswered(ans)) yours = answerLabel(pq, ans);
+                  if (isAnswered(ans)) yours = answerLabel(pq, ans);
                   else if (r === 'timeout' || ans === -2) yours = x.timeout;
                   else if (r === 'skipped' || ans === -1) yours = x.skipped;
                   return (

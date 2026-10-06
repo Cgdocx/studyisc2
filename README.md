@@ -14,7 +14,7 @@
 | Bilingual Dual-Mode | 583 | TH/EN | `isc2_cc_BothThai-eng_583quiz.html` |
 | 5-Domain Mock Exam | 548 | TH/EN | `isc2_cc_exam548_5Domain_dualTh-Eng.html` |
 | NCSA Speed Test | 50 | TH/EN | `isc2_cc_exam1NCSA_bi_no-track-50q.html` |
-| อธิบายทำไมผิด (ทุกตัวเลือก) | 60 | TH/EN | `quiz-explained.html` |
+| อธิบายทำไมผิด (ทุกตัวเลือก) | 57 | TH/EN | `quiz-explained.html` |
 
 ### บทเรียนสำหรับมือใหม่
 
