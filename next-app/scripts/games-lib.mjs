@@ -4,13 +4,8 @@ import { read, decode, meta, evalConst, blockEnd, stripComments } from './conten
 
 export const GAMES_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '../src/data/games');
 
-export const BEAT_CLOCK_FIX = { from: '"ออกแบบ Network"}', to: '"ออกแบบ Network"]' };
-
 export function beatClockSource() {
-  const html = read('game-beat-clock.html');
-  const hits = html.split(BEAT_CLOCK_FIX.from).length - 1;
-  if (hits !== 1) throw new Error(`expected exactly one "${BEAT_CLOCK_FIX.from}" in game-beat-clock.html, found ${hits}`);
-  return html.replace(BEAT_CLOCK_FIX.from, BEAT_CLOCK_FIX.to);
+  return read('game-beat-clock.html');
 }
 
 const text = s => decode(s.replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim();
