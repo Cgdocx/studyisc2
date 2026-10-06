@@ -118,12 +118,12 @@ export const PORTAL_SECTIONS: PortalSection[] = [
         "btnBg": "var(--red)",
         "btnColor": "var(--white)",
         "badgeLight": true,
-        "badge": "WHY WRONG? // 60 Q",
+        "badge": "WHY WRONG? // 57 Q",
         "title": "QUIZ EXPLAINED",
-        "subTh": "อธิบายทำไมผิด 60 ข้อ พร้อมเหตุผลทุกตัวเลือก",
-        "desc": "แบบทดสอบ 60 ข้อ พร้อมคำอธิบายทุกตัวเลือก ทั้งข้อถูกและข้อผิด ช่วยให้เข้าใจลึกซึ้งว่าทำไมแต่ละตัวเลือกถูกหรือผิด",
+        "subTh": "อธิบายทำไมผิด 57 ข้อ พร้อมเหตุผลทุกตัวเลือก",
+        "desc": "แบบทดสอบ 57 ข้อ พร้อมคำอธิบายทุกตัวเลือก ทั้งข้อถูกและข้อผิด ช่วยให้เข้าใจลึกซึ้งว่าทำไมแต่ละตัวเลือกถูกหรือผิด",
         "meta": [
-          "60 QUESTIONS",
+          "57 QUESTIONS",
           "FULL EXPLANATIONS"
         ],
         "file": "quiz-explained.html",

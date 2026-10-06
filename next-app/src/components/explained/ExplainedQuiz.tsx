@@ -141,14 +141,14 @@ function ExplainedApp({ bank }: { bank: ExplainedQuestion[] }) {
         <header className="hero">
           <div className="eyebrow">DEEP LEARNING QUIZ</div>
           <h1>อธิบายทำไมผิด</h1>
-          <div className="sub">แบบทดสอบ 60 ข้อ ครอบคลุม 5 Domains พร้อมคำอธิบายทุกตัวเลือก ไม่ใช่แค่บอกว่าข้อไหนถูก แต่อธิบายว่าทำไมตัวเลือกอื่นถึงผิด</div>
+          <div className="sub">แบบทดสอบ <span className="q-total">{bank.length}</span> ข้อ ครอบคลุม 5 Domains พร้อมคำอธิบายทุกตัวเลือก ไม่ใช่แค่บอกว่าข้อไหนถูก แต่อธิบายว่าทำไมตัวเลือกอื่นถึงผิด</div>
         </header>
 
         <div id="startScreen" className="results-card" style={{ display: screen === 'start' ? 'block' : 'none' }}>
           <h2>เลือกโหมด</h2>
-          <p style={{ margin: '10px 0', fontSize: 14, color: 'var(--ink-2)' }}>ทำทั้ง 60 ข้อ หรือเลือกเฉพาะ Domain ที่ต้องการ</p>
+          <p style={{ margin: '10px 0', fontSize: 14, color: 'var(--ink-2)' }}>ทำทั้ง <span className="q-total">{bank.length}</span> ข้อ หรือเลือกเฉพาะ Domain ที่ต้องการ</p>
           <div className="mode-btns">
-            <button className="mode-btn primary" onClick={() => startQuiz('all')}>ทำทั้ง 60 ข้อ</button>
+            <button className="mode-btn primary" onClick={() => startQuiz('all')}>ทำทั้ง <span className="q-total">{bank.length}</span> ข้อ</button>
             {MODE_BUTTONS.map(b => (
               <button key={String(b.mode)} className="mode-btn" onClick={() => startQuiz(b.mode)}>{b.label}</button>
             ))}

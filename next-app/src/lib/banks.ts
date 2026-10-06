@@ -122,7 +122,7 @@ export const BANK_EXPLAINED: SimpleBankConfig = {
   id: 'explained',
   layout: 'explained',
   file: 'quiz-explained.html',
-  title: 'ISC2 CC - อธิบายทำไมผิด: แบบทดสอบ 60 ข้อพร้อมคำอธิบายทุกตัวเลือก',
+  title: 'ISC2 CC - อธิบายทำไมผิด: แบบทดสอบ 57 ข้อพร้อมคำอธิบายทุกตัวเลือก',
   dataFile: 'quiz-explained.json',
   tracker: null,
   battle: false,

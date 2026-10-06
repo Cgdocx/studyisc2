@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISC2 CC - อธิบายทำไมผิด: แบบทดสอบ 60 ข้อพร้อมคำอธิบายทุกตัวเลือก</title>
-<meta name="description" content="แบบทดสอบ ISC2 CC 60 ข้อ พร้อมคำอธิบายทุกตัวเลือกว่าทำไมถูกและทำไมผิด ครอบคลุม 5 Domains">
+<title>ISC2 CC - อธิบายทำไมผิด: แบบทดสอบ 57 ข้อพร้อมคำอธิบายทุกตัวเลือก</title>
+<meta name="description" content="แบบทดสอบ ISC2 CC 57 ข้อ พร้อมคำอธิบายทุกตัวเลือกว่าทำไมถูกและทำไมผิด ครอบคลุม 5 Domains">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -337,15 +337,15 @@ body {
   <header class="hero">
     <div class="eyebrow">DEEP LEARNING QUIZ</div>
     <h1>อธิบายทำไมผิด</h1>
-    <div class="sub">แบบทดสอบ 60 ข้อ ครอบคลุม 5 Domains พร้อมคำอธิบายทุกตัวเลือก ไม่ใช่แค่บอกว่าข้อไหนถูก แต่อธิบายว่าทำไมตัวเลือกอื่นถึงผิด</div>
+    <div class="sub">แบบทดสอบ <span class="q-total">57</span> ข้อ ครอบคลุม 5 Domains พร้อมคำอธิบายทุกตัวเลือก ไม่ใช่แค่บอกว่าข้อไหนถูก แต่อธิบายว่าทำไมตัวเลือกอื่นถึงผิด</div>
   </header>
 
   <!-- Start Screen -->
   <div id="startScreen" class="results-card" style="display:block;">
     <h2>เลือกโหมด</h2>
-    <p style="margin:10px 0; font-size:14px; color:var(--ink-2);">ทำทั้ง 60 ข้อ หรือเลือกเฉพาะ Domain ที่ต้องการ</p>
+    <p style="margin:10px 0; font-size:14px; color:var(--ink-2);">ทำทั้ง <span class="q-total">57</span> ข้อ หรือเลือกเฉพาะ Domain ที่ต้องการ</p>
     <div class="mode-btns">
-      <button class="mode-btn primary" onclick="startQuiz('all')">ทำทั้ง 60 ข้อ</button>
+      <button class="mode-btn primary" onclick="startQuiz('all')">ทำทั้ง <span class="q-total">57</span> ข้อ</button>
       <button class="mode-btn" onclick="startQuiz(1)">D1: Security Principles</button>
       <button class="mode-btn" onclick="startQuiz(2)">D2: BC/DR/IR</button>
       <button class="mode-btn" onclick="startQuiz(3)">D3: Access Controls</button>
@@ -359,7 +359,7 @@ body {
   <div id="quizArea" style="display:none;">
     <div class="progress-wrap">
       <div class="progress-top">
-        <span class="progress-label" id="progressLabel">ข้อ 1 / 60</span>
+        <span class="progress-label" id="progressLabel">ข้อ 1 / 57</span>
         <span class="progress-label" id="scoreLabel">คะแนน: 0</span>
       </div>
       <div class="progress-bar-bg">
@@ -1156,6 +1156,11 @@ function loadWrongHistory() {
 function saveWrongHistory(arr) {
   try { localStorage.setItem('isc2_wrong_history', JSON.stringify(arr)); } catch(e) {}
 }
+
+(function initTotals() {
+  var els = document.querySelectorAll('.q-total');
+  for (var i = 0; i < els.length; i++) els[i].textContent = QUESTIONS.length;
+})();
 
 (function initReviewBtn() {
   var h = loadWrongHistory();
