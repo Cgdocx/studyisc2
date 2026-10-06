@@ -11,7 +11,7 @@ AI ทุกตัวต้องอ่านไฟล์นี้ก่อน�
 
 ## Theme — Neo-Brutalist
 
-ธีมคือ Neo-Brutalist ทุกหน้าต้องใช้ design tokens เดียวกัน:
+ธีมคือ Neo-Brutalist ทุกหน้าต้องใช้ design tokens เดียวกัน กำหนดไว้ใน `next-app/src/app/globals.css` (`:root`) ไฟล์ style ของแต่ละหน้าใน `next-app/src/styles/` ต้องใช้ค่าชุดเดียวกันนี้:
 
 ### สี (CSS Custom Properties)
 
@@ -46,12 +46,12 @@ AI ทุกตัวต้องอ่านไฟล์นี้ก่อน�
 
 ### Fonts
 
-Google Fonts import URL ต้องเป็นตัวนี้เท่านั้น:
+Google Fonts import URL ต้องเป็นตัวนี้เท่านั้น อยู่ที่ `FONTS_URL` ใน `next-app/src/lib/site.ts` และโหลดครั้งเดียวใน `next-app/src/app/layout.tsx` (ห้ามโหลด font ซ้ำในหน้าอื่น):
 ```
 fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap
 ```
 
-Font variables ต้องมี **IBM Plex Sans Thai** เป็น fallback เสมอ:
+Font variables (ใน `globals.css`) ต้องมี **IBM Plex Sans Thai** เป็น fallback เสมอ:
 ```css
 --font-display: 'Archivo Black', 'IBM Plex Sans Thai', sans-serif;
 --font-body: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
@@ -71,21 +71,23 @@ Font variables ต้องมี **IBM Plex Sans Thai** เป็น fallback �
 
 ## Navigation Bar
 
-ทุกหน้าต้องมี nav bar เหมือนกันทั้ง 23 หน้า:
+ทุกหน้าใช้ nav bar ตัวเดียวกันคือ component `next-app/src/components/GlobalNav.tsx` ซึ่ง render จาก `layout.tsx` ให้ทุกหน้าอัตโนมัติ (หน้า Mind Map วาง nav เองในหน้าผ่าน `<GlobalNav inPage />`) ห้ามสร้าง nav ใหม่ในหน้าใด
 
-```html
-<div class="cg-links">
-  <a href="learning-path.html" class="cg-link">LEARNING PATH</a>
-  <a href="lesson-domain-1.html" class="cg-link">บทเรียน</a>
-  <a href="flashcard.html" class="cg-link">FLASHCARD</a>
-  <a href="isc2-cc-landing.html" class="cg-link">ชุดข้อสอบ</a>
-  <a href="quiz-explained.html" class="cg-link">อธิบายทำไมผิด</a>
-  <a href="games.html" class="cg-link">MINI GAMES</a>
-  <a href="index.html" class="cg-link">MIND MAP</a>
-</div>
-```
+ลิงก์และลำดับกำหนดที่ `NAV_LINKS` ใน `next-app/src/lib/site.ts`:
 
-Active state: หน้าปัจจุบันให้เพิ่ม `class="cg-link active"` ตาม mapping:
+| ลำดับ | ข้อความ | หน้า |
+|-------|---------|------|
+| 1 | LEARNING PATH | `learning-path.html` |
+| 2 | บทเรียน | `lesson-domain-1.html` |
+| 3 | FLASHCARD | `flashcard.html` |
+| 4 | ชุดข้อสอบ | `isc2-cc-landing.html` |
+| 5 | อธิบายทำไมผิด | `quiz-explained.html` |
+| 6 | MINI GAMES | `games.html` |
+| 7 | MIND MAP | `index.html` |
+
+HTML ที่ได้ยังเป็น `<div class="cg-links">` + `<a class="cg-link">` แบบเดิม style อยู่ใน `globals.css`
+
+Active state (`cg-link active`) มาจากค่า `nav` ของแต่ละหน้าใน `PORTED_ROUTES` (`site.ts`):
 - `index.html` → MIND MAP
 - `isc2-cc-landing.html` + quiz pages ทั้งหมด → ชุดข้อสอบ
 - `flashcard.html` → FLASHCARD
@@ -94,25 +96,30 @@ Active state: หน้าปัจจุบันให้เพิ่ม `clas
 - `games.html` + `game-*.html` → MINI GAMES
 - `lesson-domain-*.html` → บทเรียน
 
+ลิงก์ภายในเว็บให้ใช้ `<SiteLink file="ชื่อไฟล์.html">` (`next-app/src/components/SiteLink.tsx`) ซึ่งแปลงเป็น route ของ Next.js และใส่ basePath `/studyisc2` ให้เอง หน้าใหม่ต้องเพิ่มใน `PORTED_ROUTES` ด้วย
+
 ## โครงสร้างไฟล์
 
-- ทุกหน้าเป็น **self-contained single HTML file** (inline CSS + JS)
-- ไม่มี build step, ไม่มี bundler — GitHub Pages serve raw HTML
-- localStorage ใช้สำหรับ progress tracking (flashcard, quiz scores, learning path)
-- ไม่ต้องสร้างไฟล์ CSS/JS แยก
+- เว็บทั้งหมดอยู่ใน `next-app/` (Next.js App Router + TypeScript) ไม่มีหน้า HTML ที่ root อีกแล้ว
+- build เป็น static export (`output: 'export'`, `basePath: '/studyisc2'`) แต่ละ route export เป็น `<ชื่อหน้า>.html` ชื่อเดิม URL เดิมจึงใช้ได้ทั้งหมด
+- deploy ด้วย GitHub Actions (`.github/workflows/nextjs-pages.yml`) ทุก PR ต้องผ่าน lint, `verify:banks`, `verify:content`, build, `verify:games`, `audit:out` การ deploy ทำเมื่อสั่ง run workflow เองบน `main` เท่านั้น
+- ข้อมูลอยู่ใน JSON ที่ commit ไว้ (source of truth): ข้อสอบ `next-app/public/data/`, เนื้อหา `next-app/src/data/content/`, เกม `next-app/src/data/games/` แก้เนื้อหาที่ JSON ไม่ใช่ใน component
+- JSON เหล่านี้ถูก pin hash ไว้ใน `next-app/scripts/legacy-snapshot.json` (หลักฐานว่าตรงกับหน้าเดิมตอนลบ) ถ้าตั้งใจแก้เนื้อหา ต้องอัปเดต hash ในไฟล์นั้นใน PR เดียวกัน (วิธีดูใน `next-app/README.md`)
+- localStorage ใช้ key และรูปแบบเดิมสำหรับ progress tracking (flashcard, quiz scores, learning path, เกม) ห้ามเปลี่ยน key
+- style ของแต่ละหน้าอยู่ใน `next-app/src/styles/` scoped ใต้ class `.pg-<หน้า>`
 
-## ไฟล์ทั้งหมด (23 หน้า)
+## หน้าทั้งหมด (23 หน้า)
 
-| กลุ่ม | ไฟล์ |
-|-------|------|
-| Landing | `isc2-cc-landing.html` |
-| Mind Map | `index.html` |
-| Quiz | `1832quiz_NewExamDomainTH.html`, `isc2_cc_BothThai-eng_583quiz.html`, `isc2_cc_exam548_5Domain_dualTh-Eng.html`, `isc2_cc_exam1NCSA_bi_no-track-50q.html`, `quiz-explained.html` |
-| Lessons | `lesson-domain-1.html` ถึง `lesson-domain-5.html` |
-| Flashcard | `flashcard.html` |
-| Learning Path | `learning-path.html` |
-| Games Portal | `games.html` |
-| Games | `game-term-match.html`, `game-domain-sort.html`, `game-rapid-fire.html`, `game-beat-clock.html`, `game-incident-timeline.html`, `game-fill-gap.html`, `game-defend-castle.html`, `game-phish-detect.html` |
+| กลุ่ม | หน้า (URL) | Route ใน `next-app/src/app/` |
+|-------|------------|------------------------------|
+| Landing | `isc2-cc-landing.html` | `isc2-cc-landing/` |
+| Mind Map | `index.html` | `page.tsx` (root route) |
+| Quiz | `1832quiz_NewExamDomainTH.html`, `isc2_cc_BothThai-eng_583quiz.html`, `isc2_cc_exam548_5Domain_dualTh-Eng.html`, `isc2_cc_exam1NCSA_bi_no-track-50q.html`, `quiz-explained.html` | ชื่อเดียวกันไม่มี `.html` |
+| Lessons | `lesson-domain-1.html` ถึง `lesson-domain-5.html` | `lesson-domain-1/` ถึง `lesson-domain-5/` |
+| Flashcard | `flashcard.html` | `flashcard/` |
+| Learning Path | `learning-path.html` | `learning-path/` |
+| Games Portal | `games.html` | `games/` |
+| Games | `game-term-match.html`, `game-domain-sort.html`, `game-rapid-fire.html`, `game-beat-clock.html`, `game-incident-timeline.html`, `game-fill-gap.html`, `game-defend-castle.html`, `game-phish-detect.html` | ชื่อเดียวกันไม่มี `.html` |
 
 ## ISC2 CC 5 Domains
 
@@ -127,10 +134,10 @@ Active state: หน้าปัจจุบันให้เพิ่ม `clas
 - **ห้ามใช้ emoji เด็ดขาด** ทั้งในเนื้อหา, UI, JS strings — ใช้ text icon แทน เช่น `[!]` `[OK]` `[X]` หรือ Unicode geometric shapes (`●`, `◆`, `★`, `✦`)
 - ห้ามใช้ `--` หรือ `—` (em-dash) เป็นตัวคั่น ใช้ ` : ` สำหรับหัวข้อ/คำจำกัดความ, เว้นวรรคปกติสำหรับอุปมา, ` > ` สำหรับลำดับขั้นตอน
 - ห้ามใช้ `system-ui` เป็น font fallback
-- ห้ามสร้าง nav bar ที่แตกต่างจาก template ข้างบน
+- ห้ามสร้าง nav bar อื่นนอกจาก `GlobalNav`
 - ห้ามเปลี่ยนค่าสี/ธีมโดยไม่ได้รับอนุญาต
 - ห้ามเพิ่ม `console.log` ทิ้งไว้ในโค้ด
 - ห้ามใส่ placeholder text เช่น "Lorem ipsum", "example.com", "your-name-here"
 - ห้ามเขียนตัวเลขที่ไม่ตรงกับความจริง (เช่น "120+ flashcards" ถ้ามีแค่ 100)
 - ห้ามเพิ่ม HTML comment ที่ไม่จำเป็น (`<!-- Section X -->`)
-- เมื่อแก้ไขไฟล์ใดไฟล์หนึ่ง ต้องตรวจสอบว่า nav bar และ font variables ยังถูกต้อง
+- เมื่อแก้ไขหน้าใด ต้องตรวจสอบว่า nav bar และ font variables ยังถูกต้อง และ `npm run lint`, `npm run build` และ verify scripts ใน `next-app/` ผ่าน

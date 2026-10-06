@@ -1,33 +1,26 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+// Lesson / learning-path / flashcard / mind-map content in src/data/content. Source of truth: the
+// committed JSON. Checks: unchanged since verified against the legacy pages at deletion time
+// (legacy-snapshot.json), lessons.json still rebuilds the original lesson markup, internal integrity.
 import { isDeepStrictEqual } from 'node:util';
-import { EXTRACTORS, OUT_DIR, read, blockEnd, tokens } from './content-lib.mjs';
+import { checker, loadJson, loadSnapshot, jsonHash, sha256, tokens, fingerprint, rebuildLesson } from './check-lib.mjs';
 
-let failed = 0;
-const ok = (cond, msg) => { process.stdout.write((cond ? '[OK] ' : '[X] ') + msg + '\n'); if (!cond) failed++; };
-const load = name => JSON.parse(readFileSync(resolve(OUT_DIR, name), 'utf8'));
+const { ok, done } = checker();
+const snap = loadSnapshot();
+const at = snap.commit.slice(0, 7);
+const load = name => loadJson('src/data/content/' + name);
 
-for (const [name, extract] of Object.entries(EXTRACTORS)) ok(isDeepStrictEqual(load(name), JSON.parse(JSON.stringify(extract()))), `${name}: identical to a fresh extraction from the original page`);
-
-const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const attrs = o => Object.entries(o).map(([k, v]) => ` ${k}="${esc(v)}"`).join('');
+for (const name of ['lessons.json', 'learning-path.json', 'flashcards.json', 'mindmap.json']) {
+  const pin = snap.data['src/data/content/' + name];
+  ok(jsonHash(load(name)) === pin.sha256, `${name}: unchanged since verified identical to a fresh extraction from ${pin.source} at ${at}`);
+}
 
 const L = load('lessons.json');
+ok(L.lessons.length === 5 && L.tabs.length === 5 && L.lessons.every((l, k) => l.n === k + 1 && l.file === L.tabs[k].file && l.title && l.description), `lessons.json: 5 lessons, tabs aligned with lesson files (${L.tabs.map(t => t.file).join(' ')})`);
 for (const les of L.lessons) {
-  const orig = read(les.file);
-  const a = orig.indexOf('<div class="wrap">');
-  const wrapOrig = orig.slice(a + '<div class="wrap">'.length, blockEnd(orig, a, 'div') - '</div>'.length);
-  const tabs = L.tabs.map(t => `<a href="${t.file}" class="lesson-tab${t.n === les.n ? ' active' : ''}"${t.n === les.n ? ' aria-current="page"' : ''}><b>${esc(t.code)}</b><span>${esc(t.label)}</span></a>`).join('');
-  const h = les.hero;
-  const rebuilt = `<nav class="lesson-tabs" aria-label="${esc(L.tabsAria)}">${tabs}</nav>`
-    + `<header class="${h.className}"><div class="eyebrow">${esc(h.eyebrow)}</div><h1>${esc(h.title)}</h1><${h.subTag} class="sub">${h.subLines.map(esc).join('<br>')}</${h.subTag}></header>`
-    + les.blocks.map(b => `<${b.tag}${attrs(b.attrs)}>${b.html}</${b.tag}>`).join('')
-    + `<nav class="lesson-nav" aria-label="${esc(les.navAria)}">${les.nav.map(n => `<a href="${n.href}" class="${n.className}">${esc(n.label)}<small>${esc(n.small)}</small></a>`).join('')}</nav>`;
-  const [x, y] = [tokens(rebuilt), tokens(wrapOrig)];
-  const diffAt = x.findIndex((t, k) => t !== y[k]);
-  const svg = (wrapOrig.match(/<svg\b/g) || []).length;
-  const text = y.filter(t => t[0] === '#').join('').length;
-  ok(diffAt === -1 && x.length === y.length, `${les.file}: tabs + hero + ${les.blocks.length} content blocks + nav rebuild the original .wrap exactly (${y.length} tags/text nodes, ${svg} SVG diagram(s), ${text} text chars)` + (diffAt >= 0 ? ` first diff at ${diffAt}: ${x[diffAt]} | ${y[diffAt]}` : ''));
+  const x = fingerprint(tokens(rebuildLesson(L, les)));
+  const y = snap.lessonMarkup[les.file];
+  const svg = les.blocks.reduce((n, b) => n + (b.html.match(/<svg\b/g) || []).length, 0);
+  ok(isDeepStrictEqual(x, y), `${les.file}: tabs + hero + ${les.blocks.length} content blocks + nav rebuild the original .wrap exactly, per the pinned fingerprint (${y.nodes} tags/text nodes, ${svg} SVG diagram(s), ${y.textChars} text chars)`);
 }
 
 const F = load('flashcards.json');
@@ -42,7 +35,6 @@ ok(steps.length === 21 && new Set(steps.map(s => s.id)).size === 21, `learning-p
 const M = load('mindmap.json');
 const counts = M.chapters.map(c => `${c.topics.length}/${c.examFocus.length}/${c.cheat.length}`);
 ok(M.chapters.length === 12 && M.icons.length === 12, `mindmap.json: 12 chapters, 12 icons, topics/examFocus/cheat per chapter ${counts.join(' ')}`);
-const nsOrig = read('index.html').match(/<noscript>([\s\S]*?)<\/noscript>/)[1];
-ok(M.noscriptHtml === nsOrig, 'mindmap.json: noscript fallback byte-identical');
+ok(sha256(M.noscriptHtml) === snap.mindmapNoscript, 'mindmap.json: noscript fallback byte-identical to the original (pinned hash)');
 
-process.exit(failed ? 1 : 0);
+done();

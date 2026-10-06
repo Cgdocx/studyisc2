@@ -1,0 +1,296 @@
+{
+ "about": "Pinned at the deletion of the legacy root site. data/markup entries were verified equal to fresh extractions from the originals before being hashed (scripts/record-legacy-snapshot.mjs, removed with the legacy files). Originals: git show <commit>:<file>.",
+ "commit": "791433d0bf878655b9115dfbad4414163e105347",
+ "recorded": "2026-10-06",
+ "files": {
+  "1832quiz_NewExamDomainTH.html": {
+   "sha256": "8de40a8d871340354ffd840936f9a71e51d1f11c2b827f3d5d3a35c7dd5d79ca",
+   "bytes": 5702738,
+   "title": "ISC2 CC Practice Quiz · 2026 Outline"
+  },
+  "flashcard.html": {
+   "sha256": "7205b54b80a7d1876b300c7b64258b2441ac34274a728612092418cb74b69dd1",
+   "bytes": 58396,
+   "title": "ISC2 CC Flashcard - บัตรคำศัพท์เตรียมสอบ Certified in Cybersecurity"
+  },
+  "game-beat-clock.html": {
+   "sha256": "5a9c0895f3b503859b4e31d5c05c7b329447f8d200b18c3d7bdba78e23055a19",
+   "bytes": 38830,
+   "title": "ISC2 CC Beat the Clock - ตอบ 20 ข้อให้เร็วที่สุด"
+  },
+  "game-defend-castle.html": {
+   "sha256": "382d3ec50b86416d8e147e61847d8cea46c94f89c56ff7af2fba6813afebea34",
+   "bytes": 39828,
+   "title": "Defend the Castle - ปกป้องปราสาท | ISC2 CC Mini Game"
+  },
+  "game-domain-sort.html": {
+   "sha256": "0a5dfbf31a253fdfe3b9429b0f9b0b3164d5468401664986a001c0a8db80e024",
+   "bytes": 27012,
+   "title": "ISC2 CC - Domain Sort จัดหมวดหมู่โดเมน"
+  },
+  "game-fill-gap.html": {
+   "sha256": "3148ff8eff0b2d601507badc13086ebd4c67f89a6e25ad5f7039db74c0df56ca",
+   "bytes": 37836,
+   "title": "ISC2 CC - Fill the Gap Game"
+  },
+  "game-incident-timeline.html": {
+   "sha256": "b739528408f7ca21d37824a16fc0cddc97c665d6a760cf89953ad32db7006079",
+   "bytes": 30471,
+   "title": "ISC2 CC - Security Incident Timeline Game"
+  },
+  "game-phish-detect.html": {
+   "sha256": "44a112c3d57c7136f1058109bb89e6931b4efd5cbb8c80dea76243ba99ab0fb4",
+   "bytes": 46820,
+   "title": "Phishing Detective - นักสืบฟิชชิ่ง | ISC2 CC Mini Game"
+  },
+  "game-rapid-fire.html": {
+   "sha256": "e4ea71fede968e6da96a433572729db2bdd6e90ed4c8859bb6f2d1f4533b0390",
+   "bytes": 38222,
+   "title": "ISC2 CC Rapid Fire - ถูกหรือผิด 60 วินาที"
+  },
+  "game-term-match.html": {
+   "sha256": "2cec9324d8c6eb9e44335e8a226b3a91d1ea1ba9d2b7f403d0245acb65179ed0",
+   "bytes": 29615,
+   "title": "ISC2 CC - Term Match จับคู่คำศัพท์"
+  },
+  "games.html": {
+   "sha256": "94f2344fdc9ca6da40b0d2ef8206600272cda5f456a489b772c57de02593ae82",
+   "bytes": 16322,
+   "title": "Mini Games - ISC2 CC Study Portal"
+  },
+  "index.html": {
+   "sha256": "94082e102f3013224c3ad90afb4d6e6aa07aebceb7db9b732d5d821238026670",
+   "bytes": 133161,
+   "title": "ISC2 CC Mind Map - สรุปเนื้อหาเตรียมสอบ Certified in Cybersecurity 12 บท (5 Domains)"
+  },
+  "isc2-cc-landing.html": {
+   "sha256": "fe21c9757ba2ce0706d4d83d3e6600da63fd06bd82b6b70d7acd35b9d4ee247d",
+   "bytes": 24600,
+   "title": "ISC2 CC Exam & Study Portal // neo-brutalist"
+  },
+  "isc2_cc_BothThai-eng_583quiz.html": {
+   "sha256": "d013bcb74a7972d25ddd6a2ef3ecf9981920a742eb68b190a1560b7792a0ead3",
+   "bytes": 1223827,
+   "title": "ISC2 CC - Combined Practice Bank (583 Questions)"
+  },
+  "isc2_cc_exam1NCSA_bi_no-track-50q.html": {
+   "sha256": "86fd0df03c6c2b8e729690d354a73bb831b6750a0af67b80a24e8cfe5e2d58c3",
+   "bytes": 140903,
+   "title": "ISC2 CC - CC Practice Exam 1 (50 Q) - Bilingual Interactive Quiz"
+  },
+  "isc2_cc_exam548_5Domain_dualTh-Eng.html": {
+   "sha256": "d08a8a329aebc7c2164412b34627d179509614dcd95013836dbed3e5b054ba4c",
+   "bytes": 1477170,
+   "title": "ISC2 Cybersecurity Exam Practice (548 Questions) - Bilingual Interactive Quiz"
+  },
+  "learning-path.html": {
+   "sha256": "12eb10988f4a06c26de4f44e8a55a063db26705a924a048d8b008d2d10bd5d85",
+   "bytes": 25946,
+   "title": "ISC2 CC Learning Path - เส้นทางเรียนเตรียมสอบ Certified in Cybersecurity"
+  },
+  "lesson-domain-1.html": {
+   "sha256": "3ed4ff32e965cae8ecd9d7922445642e713ddf3b9cb06b2420240f65241b7981",
+   "bytes": 41646,
+   "title": "Domain 1: Security Principles - บทเรียน ISC2 CC สำหรับผู้เริ่มต้น"
+  },
+  "lesson-domain-2.html": {
+   "sha256": "bbf7cc4311383b76fad91506d00be31622506a46071b01b19125d71f255edfc6",
+   "bytes": 42355,
+   "title": "Domain 2: BC, DR & Incident Response - บทเรียน ISC2 CC สำหรับผู้เริ่มต้น"
+  },
+  "lesson-domain-3.html": {
+   "sha256": "480f7d0af76cf1b8cf4743cd02f7aba5e81b768c8ed688b03398c866192f6662",
+   "bytes": 31393,
+   "title": "ISC2 CC Domain 3 - Access Controls Concepts (การควบคุมการเข้าถึง)"
+  },
+  "lesson-domain-4.html": {
+   "sha256": "53b473b5d912a7916d282d0af212f0a9d8e91be760dd01709542651fa3552519",
+   "bytes": 33483,
+   "title": "ISC2 CC Domain 4 - Network Security (ความปลอดภัยเครือข่าย)"
+  },
+  "lesson-domain-5.html": {
+   "sha256": "0f4188a541f7b0170f04c99daf2ff2deab60b63d19badb793ac302c1535b9c84",
+   "bytes": 34081,
+   "title": "ISC2 CC Domain 5 - Security Operations (การปฏิบัติการรักษาความปลอดภัย)"
+  },
+  "manifest.json": {
+   "sha256": "2978fa3df03e4a5599861baee0a0ab12d2a152cdb64e0fcfda0e6c723eab5ff7",
+   "bytes": 498
+  },
+  "quiz-explained.html": {
+   "sha256": "f0022da243912d419006596b7f08b9c4dc1e7c0cde03d529552cf15443afb4ee",
+   "bytes": 115771,
+   "title": "ISC2 CC - อธิบายทำไมผิด: แบบทดสอบ 57 ข้อพร้อมคำอธิบายทุกตัวเลือก"
+  },
+  "studyisc2_glossary_th_en.csv": {
+   "sha256": "9247f26a00434327b1874f3fea86934d1f0ccd344048328eff688d2a970747b6",
+   "bytes": 39249
+  },
+  "studyisc2_pages_bilingual.csv": {
+   "sha256": "d3f8c4546b6766a741faed84324d545a20dfc57bee38b6a709882b1e743ccd79",
+   "bytes": 14052
+  },
+  "studyisc2_questions_583_bilingual.csv": {
+   "sha256": "16b8b075050e18a3d35bf40cd3280b135f601377b91a16d6f7e75d4ee7612f31",
+   "bytes": 919376
+  },
+  "sw.js": {
+   "sha256": "f4ec28fc5059f37e341453950ad59dbdfba9958c3f1a93617af6be0a91cd0d9f",
+   "bytes": 2548
+  }
+ },
+ "data": {
+  "public/data/questions-583.json": {
+   "source": "studyisc2_questions_583_bilingual.csv",
+   "sha256": "78748642677019eed0cc2754e70daf5396670bd203867f43b6294ed332c3a3e7",
+   "count": 583
+  },
+  "public/data/questions-548.json": {
+   "source": "isc2_cc_exam548_5Domain_dualTh-Eng.html",
+   "sha256": "94f3d50db6b1432df1d866d3549dc237bfae14c83e679cedaa52b5925f37a74e",
+   "count": 548
+  },
+  "public/data/bank-1832.json": {
+   "source": "1832quiz_NewExamDomainTH.html",
+   "sha256": "c8315aa739e9760ec6137e33d0675ea73ae079fb726a7f39c398feb4b05c5ca5",
+   "count": 1832
+  },
+  "public/data/ncsa-50.json": {
+   "source": "isc2_cc_exam1NCSA_bi_no-track-50q.html",
+   "sha256": "b312ac7fe72943e9af0bdd00ea8def74ffa07493b4841550d46dcfc094e41e49",
+   "count": 50
+  },
+  "public/data/quiz-explained.json": {
+   "source": "quiz-explained.html",
+   "sha256": "5d4f06753a84cc73a6ab0a49b000e6b9b4301af83afb226b5ad0204d4fffa4bf",
+   "count": 57
+  },
+  "src/data/content/lessons.json": {
+   "source": "lesson-domain-1..5.html",
+   "sha256": "79eda42ff8e829495c6dde57dad047cf8342fc7d1e9247b9296c249d268ff2d2"
+  },
+  "src/data/content/learning-path.json": {
+   "source": "learning-path.html",
+   "sha256": "8368faeb54c3070c45baa02dde369dceaa8ce2101acf2143a3417dd3ce32c77e"
+  },
+  "src/data/content/flashcards.json": {
+   "source": "flashcard.html",
+   "sha256": "2cd259a56f9d90e90ba56af9a6017a28c44cfbaf0708376152de9423a78224ea"
+  },
+  "src/data/content/mindmap.json": {
+   "source": "index.html",
+   "sha256": "8768ed380605e35101d3d241432c2fd9772f9a69c15ce138fa9d18f5b7482c39"
+  },
+  "src/data/games/games.json": {
+   "source": "games.html",
+   "sha256": "c117532b927c64369081b80ec32148db7c2226b37837615292b2ccad02220e63"
+  },
+  "src/data/games/term-match.json": {
+   "source": "game-term-match.html",
+   "sha256": "a59e0e24eb4d597ff690382be676e92bad1258f1b450e817259ae5cb4ad76f2c"
+  },
+  "src/data/games/domain-sort.json": {
+   "source": "game-domain-sort.html",
+   "sha256": "314c18ec0b407c9685e09c36d66596821675d457ba27dd7979552141964d6151"
+  },
+  "src/data/games/rapid-fire.json": {
+   "source": "game-rapid-fire.html",
+   "sha256": "101db1f270f5acf1ee59e60089923623f915c4110085431325fe67577234d419"
+  },
+  "src/data/games/beat-clock.json": {
+   "source": "game-beat-clock.html",
+   "sha256": "882857d350e528b75f4ab64785ad6b2edc0c9facc798ec93dfd3b8a5357cb92b"
+  },
+  "src/data/games/incident-timeline.json": {
+   "source": "game-incident-timeline.html",
+   "sha256": "8fdf6c6f0aad2f7316efd75b03e93deb9cc0f5df21600ba0b75ae8bdc120836a"
+  },
+  "src/data/games/fill-gap.json": {
+   "source": "game-fill-gap.html",
+   "sha256": "dc3a55c9b56f59748b719d60cb7919c9b36a983e9015ce2226a0c70dc7ea41b4"
+  },
+  "src/data/games/defend-castle.json": {
+   "source": "game-defend-castle.html",
+   "sha256": "752444247bf4b1fbb187dae1d1514c477e33ce16b4152c0ab74ac23586009455"
+  },
+  "src/data/games/phish-detect.json": {
+   "source": "game-phish-detect.html",
+   "sha256": "0de198cda72d2e86d60ce03e3ef5e0a92e4c74684250472c39cc85659fe89d82"
+  }
+ },
+ "lessonMarkup": {
+  "lesson-domain-1.html": {
+   "sha256": "3761ae62a9305ac40a2703c022aadc78a13ed6ddc8d1b873eb85fdf46012d93f",
+   "nodes": 866,
+   "textChars": 7613
+  },
+  "lesson-domain-2.html": {
+   "sha256": "2e1fe5596c26595cc84d572ba987c90762d0be39bca9172bff069c5c8c3d0a28",
+   "nodes": 796,
+   "textChars": 7318
+  },
+  "lesson-domain-3.html": {
+   "sha256": "86b7bbcb10e6f7791c5bf987c58f1c89acedb1c25e85c61838c83e6fe20bb5a7",
+   "nodes": 636,
+   "textChars": 5660
+  },
+  "lesson-domain-4.html": {
+   "sha256": "617a3ca5ff34f747a417313746e23088ea112c8c201dcbba3e92ba5d6c2fb212",
+   "nodes": 757,
+   "textChars": 6275
+  },
+  "lesson-domain-5.html": {
+   "sha256": "75c9564755d5a6093a6fadbbd0103b04d01c0d8331c617cf3eda8f411059cd07",
+   "nodes": 650,
+   "textChars": 5903
+  }
+ },
+ "gameMarkup": {
+  "games.html": {
+   "sha256": "7a0a55fbccbe5c120375cf71c526abea5336df74395ebc552002164d60ce1dc6",
+   "nodes": 239,
+   "textChars": 1437
+  },
+  "game-term-match.html": {
+   "sha256": "e43b786a77a4d61fe8185be4cc9050a7daa11ca6e6d8d4f0ccd5716daf12b151",
+   "nodes": 94,
+   "textChars": 338
+  },
+  "game-domain-sort.html": {
+   "sha256": "cae4cfb4e2791325fb92b881c9ce50f0e9a7b5f21c35e78726fdc6136b726517",
+   "nodes": 163,
+   "textChars": 552
+  },
+  "game-rapid-fire.html": {
+   "sha256": "a4591e736da661e2ec600faf0a2ff4ebe70ec88c6c106ba6c38e93231d6e9ae1",
+   "nodes": 126,
+   "textChars": 294
+  },
+  "game-beat-clock.html": {
+   "sha256": "0f9d4a48231e40ad886b91780fe46b370c13e1304df7776d729d00ca57324464",
+   "nodes": 145,
+   "textChars": 361
+  },
+  "game-incident-timeline.html": {
+   "sha256": "585032346be4f0d937b008757331b977de48310e5e102e1c6432d12ce6c7a252",
+   "nodes": 37,
+   "textChars": 172
+  },
+  "game-fill-gap.html": {
+   "sha256": "937290933089d6dc9f4633710eaea727e39224e4a4e17ab48a77f909402ffce3",
+   "nodes": 47,
+   "textChars": 181
+  },
+  "game-defend-castle.html": {
+   "sha256": "d3c3e368c2aa5c891e4be9b52ebfe49383734764a20c70b93fdad13349de95e1",
+   "nodes": 161,
+   "textChars": 383
+  },
+  "game-phish-detect.html": {
+   "sha256": "72bd2582028a4fb910e738a3eb82121b4c3ce08ed460744b4eac5ebb583f3683",
+   "nodes": 170,
+   "textChars": 379
+  }
+ },
+ "mindmapNoscript": "6d58ad155ea50d1654f4144c728f3d6845266637110884988c1ef0f9783208dd"
+}
