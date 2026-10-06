@@ -124,9 +124,26 @@ ESLint uses `eslint-config-next` (core web vitals and TypeScript). The React Com
 
 ## Deploy switch
 
-1. `npm run build`, with `sw.js`, `manifest.json` and `favicon.ico` copied into `public/` so they ship in `out/`.
-2. Change Pages to a GitHub Actions workflow that publishes `next-app/out/`.
-3. Verify every URL on the live site, then remove the legacy root `.html` files.
+`.github/workflows/nextjs-pages.yml` builds and checks `next-app` on every pull request and push to `main` (`npm ci`, lint, `verify:banks`, `verify:content`, build, `verify:games`, `audit:out`). Only a manual run (`workflow_dispatch`) on `main` uploads `next-app/out/` and deploys it with `actions/deploy-pages`, so merging changes nothing while Pages still builds the repo root (`build_type: legacy`).
+
+`public/` carries the root assets so they ship in `out/` at the same URLs: `sw.js`, `manifest.json` (byte-identical copy), `.nojekyll`, and the root CSV files (copied by `npm run build` through `prebuild`, not committed twice). `sw.js` differs from the root copy in two lines: the cache is renamed `studyisc2-cache-v3`, so returning visitors drop the old cache of legacy pages when the new worker activates, and `./favicon.ico` is gone from the precache list, because the file has never existed and `cache.addAll` fails as a whole on one 404, which leaves today's precache empty.
+
+```bash
+npm run audit:out                          # every URL the legacy site serves exists in out/, link crawl, sw.js and manifest paths
+node scripts/audit-out.mjs --live          # same, plus a side by side status table against the live site
+node scripts/audit-out.mjs --verify-live   # after the switch: the live site serves the Next.js build everywhere
+npm run serve:strict                       # serve out/ only, the way Pages will after the switch
+```
+
+Switch, in order (each step needs approval):
+
+1. Merge the deploy PR and wait for the `Next.js site` run on `main` to pass.
+2. `gh api -X PUT repos/Cgdocx/studyisc2/pages -f build_type=workflow`
+3. `gh workflow run nextjs-pages.yml --ref main`, then watch it finish.
+4. `node scripts/audit-out.mjs --verify-live`, and open the site in a browser.
+5. Rollback if anything is wrong: `gh api -X PUT repos/Cgdocx/studyisc2/pages -f build_type=legacy -f "source[branch]=main" -f "source[path]=/"`, then `gh api -X POST repos/Cgdocx/studyisc2/pages/builds`.
+
+Removing the legacy root `.html` files is a separate later step. `verify:banks`, `verify:content` and `verify:games` read those files, so they have to be retired or pointed at the JSON first; the root CSV files stay because `gen:questions` and `sync-public` use them.
 
 ## Layout
 
@@ -153,8 +170,9 @@ src/components/games/                 the 8 games and shared helpers
 src/data/games/                       extracted game data
 src/lib/storage.ts                    localStorage hook shared by Learning Path and flashcards
 src/data/content/                     extracted study content
+public/                               sw.js, manifest.json, .nojekyll (CSV files copied at build time)
 src/styles/                           page styles scoped under .pg-landing, .pg-quiz, .pg-outline, .pg-ncsa, .pg-explained, .pg-lesson, .pg-learning, .pg-flashcard, .pg-mindmap, .pg-games and .pg-<game>
-scripts/                              bank, content and game generators, verifiers, local static server
+scripts/                              bank, content and game generators, verifiers, URL audit, local static server
 ```
 
 Rules from the root `CLAUDE.md` still apply: neo-brutalist tokens, the exact Google Fonts URL, IBM Plex Sans Thai fallbacks, no emoji, no `system-ui`, no double dash in user facing text.

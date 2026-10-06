@@ -4,15 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/sync-public.mjs",
     "build": "next build",
     "gen:questions": "node scripts/gen-questions.mjs",
     "serve": "node scripts/serve-out.mjs",
+    "serve:strict": "node scripts/serve-out.mjs --strict",
     "gen:banks": "node scripts/gen-banks.mjs",
     "verify:banks": "node scripts/verify-banks.mjs",
     "gen:content": "node scripts/gen-content.mjs",
     "verify:content": "node scripts/verify-content.mjs",
     "gen:games": "node scripts/gen-games.mjs",
     "verify:games": "node scripts/verify-games.mjs",
+    "audit:out": "node scripts/audit-out.mjs",
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
