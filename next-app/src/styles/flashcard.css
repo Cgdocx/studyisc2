@@ -1,0 +1,90 @@
+.pg-flashcard {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --text: #0F0F0F;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+  --font-display: 'Archivo Black', 'IBM Plex Sans Thai', sans-serif;
+  --font-body: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', monospace;
+  --d1: #1F8A4C; --d2: #E85A1F; --d3: #F06CA8; --d4: #3B82F6; --d5: #8B5CF6;
+}
+.pg-flashcard, .pg-flashcard * { box-sizing: border-box; margin: 0; padding: 0; }
+.pg-flashcard { background: var(--cream); color: var(--ink); font-family: var(--font-thai); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+.pg-flashcard .wrap { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
+.pg-flashcard h1 { font-family: var(--font-display); font-size: 28px; text-transform: uppercase; text-align: center; margin-bottom: 8px; }
+.pg-flashcard .subtitle { text-align: center; font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+.pg-flashcard .progress-bar-wrap { background: var(--cream-2); border: 2px solid var(--ink); box-shadow: var(--shadow); padding: 12px 16px; margin-bottom: 20px; }
+.pg-flashcard .progress-label { font-family: var(--font-mono); font-size: 12px; font-weight: 700; margin-bottom: 6px; display: flex; justify-content: space-between; }
+.pg-flashcard .progress-track { height: 14px; background: var(--white); border: 2px solid var(--ink); position: relative; overflow: hidden; }
+.pg-flashcard .progress-fill { height: 100%; background: var(--green); transition: width 0.4s; }
+.pg-flashcard .domain-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; justify-content: center; }
+.pg-flashcard .domain-btn { font-family: var(--font-mono); font-size: 11px; font-weight: 700; padding: 6px 14px; border: 2px solid var(--ink); background: var(--white); box-shadow: 2px 2px 0 var(--ink); cursor: pointer; transition: transform 0.1s, background 0.1s; text-transform: uppercase; }
+.pg-flashcard .domain-btn:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
+.pg-flashcard .domain-btn.active { color: var(--white); transform: translate(0); box-shadow: 2px 2px 0 var(--ink); }
+.pg-flashcard .domain-btn[data-d="0"].active { background: var(--ink); }
+.pg-flashcard .domain-btn[data-d="1"].active { background: var(--d1); }
+.pg-flashcard .domain-btn[data-d="2"].active { background: var(--d2); }
+.pg-flashcard .domain-btn[data-d="3"].active { background: var(--d3); }
+.pg-flashcard .domain-btn[data-d="4"].active { background: var(--d4); }
+.pg-flashcard .domain-btn[data-d="5"].active { background: var(--d5); }
+.pg-flashcard .controls-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+.pg-flashcard .ctrl-btn { font-family: var(--font-mono); font-size: 12px; font-weight: 700; padding: 8px 16px; border: 2px solid var(--ink); background: var(--white); box-shadow: 2px 2px 0 var(--ink); cursor: pointer; transition: transform 0.1s; }
+.pg-flashcard .ctrl-btn:hover { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
+.pg-flashcard .card-counter { text-align: center; font-family: var(--font-mono); font-size: 13px; font-weight: 700; margin-bottom: 16px; }
+.pg-flashcard .card-scene { perspective: 1000px; width: 100%; max-width: 520px; height: 320px; margin: 0 auto 24px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.pg-flashcard .card3d { width: 100%; height: 100%; position: relative; transition: transform 0.5s; transform-style: preserve-3d; }
+.pg-flashcard .card3d.flipped { transform: rotateY(180deg); }
+.pg-flashcard .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 28px 24px; text-align: center; }
+.pg-flashcard .card-front { background: var(--white); }
+.pg-flashcard .card-back { background: var(--card2); transform: rotateY(180deg); }
+.pg-flashcard .card-front .term { font-family: var(--font-display); font-size: 28px; text-transform: uppercase; margin-bottom: 10px; word-break: break-word; }
+.pg-flashcard .card-front .hint { font-family: var(--font-thai); font-size: 14px; color: var(--muted); }
+.pg-flashcard .card-front .flip-hint { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 18px; border: 1px dashed var(--muted); padding: 3px 10px; }
+.pg-flashcard .card-back .domain-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 800; padding: 3px 10px; border: 2px solid var(--ink); color: var(--white); margin-bottom: 14px; text-transform: uppercase; }
+.pg-flashcard .card-back .def-th { font-family: var(--font-thai); font-size: 16px; font-weight: 600; line-height: 1.6; margin-bottom: 10px; }
+.pg-flashcard .card-back .def-en { font-family: var(--font-body); font-size: 13px; color: var(--muted); line-height: 1.5; }
+.pg-flashcard .action-row { display: flex; gap: 16px; justify-content: center; margin-bottom: 16px; }
+.pg-flashcard .act-btn { font-family: var(--font-mono); font-size: 13px; font-weight: 800; padding: 14px 28px; border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; text-transform: uppercase; }
+.pg-flashcard .act-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+.pg-flashcard .act-btn.know { background: var(--green); color: var(--white); }
+.pg-flashcard .act-btn.dunno { background: var(--red); color: var(--white); }
+.pg-flashcard .shortcuts { text-align: center; font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 24px; }
+.pg-flashcard .shortcuts kbd { background: var(--white); border: 1px solid var(--ink); padding: 1px 6px; font-size: 11px; box-shadow: 1px 1px 0 var(--ink); }
+@media (hover: none) {
+  .pg-flashcard .shortcuts { display: none; }
+}
+.pg-flashcard .domain-progress { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 24px; }
+.pg-flashcard .dp-item { background: var(--white); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); padding: 10px 12px; }
+.pg-flashcard .dp-item .dp-label { font-family: var(--font-mono); font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; }
+.pg-flashcard .dp-item .dp-bar { height: 8px; background: var(--cream-2); border: 1px solid var(--ink); margin-bottom: 3px; }
+.pg-flashcard .dp-item .dp-fill { height: 100%; transition: width 0.3s; }
+.pg-flashcard .dp-item .dp-count { font-family: var(--font-mono); font-size: 11px; font-weight: 700; }
+.pg-flashcard .empty-state { text-align: center; padding: 60px 20px; font-family: var(--font-thai); font-size: 16px; color: var(--muted); }
+.pg-flashcard .empty-state .big { font-family: var(--font-display); font-size: 36px; margin-bottom: 12px; color: var(--green); }
+@media (max-width: 600px) {
+  .pg-flashcard h1 { font-size: 22px; }
+  .pg-flashcard .card-scene { height: 280px; }
+  .pg-flashcard .card-front .term { font-size: 22px; }
+  .pg-flashcard .act-btn { padding: 12px 20px; font-size: 12px; }
+  .pg-flashcard .wrap { padding: 20px 14px 60px; }
+}

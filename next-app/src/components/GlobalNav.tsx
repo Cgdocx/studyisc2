@@ -2,10 +2,12 @@
 
 import { usePathname } from 'next/navigation';
 import SiteLink from './SiteLink';
-import { NAV_LINKS, activeNavFor } from '@/lib/site';
+import { NAV_LINKS, activeNavFor, isMindMapPath } from '@/lib/site';
 
-export default function GlobalNav() {
-  const active = activeNavFor(usePathname());
+export default function GlobalNav({ inPage = false }: { inPage?: boolean }) {
+  const pathname = usePathname();
+  const active = activeNavFor(pathname);
+  if (!inPage && isMindMapPath(pathname)) return null;
   return (
     <nav className="creative-global-nav">
       <div className="cg-nav-inner">

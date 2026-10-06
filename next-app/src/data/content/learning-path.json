@@ -1,0 +1,247 @@
+{
+ "title": "ISC2 CC Learning Path - เส้นทางเรียนเตรียมสอบ Certified in Cybersecurity",
+ "description": "เส้นทางเรียน ISC2 CC แบบ Step-by-step ตั้งแต่เริ่มต้นจนถึงพร้อมสอบ พร้อมติดตามความก้าวหน้า",
+ "phases": [
+  {
+   "id": "foundation",
+   "title": "Phase 1: Foundation",
+   "th": "ปูพื้นฐาน",
+   "color": "var(--d1)",
+   "desc": "เริ่มเรียนรู้ทีละ Domain ตั้งแต่ Domain 1-2 อ่าน ทำ Flashcard แล้วลองทำข้อสอบ",
+   "steps": [
+    {
+     "id": "s1",
+     "name": "อ่านบทเรียน Domain 1: Security Principles",
+     "desc": "ศึกษาหลักการพื้นฐาน CIA Triad, Risk Management, Governance",
+     "time": "~45 นาที",
+     "domain": 1,
+     "link": "lesson-domain-1.html",
+     "linkText": "อ่านบทเรียน"
+    },
+    {
+     "id": "s2",
+     "name": "ทำ Flashcard Domain 1",
+     "desc": "ท่องคำศัพท์สำคัญ 24 ใบ ในหมวด Security Principles",
+     "time": "~20 นาที",
+     "domain": 1,
+     "link": "flashcard.html?d=1",
+     "linkText": "เปิด Flashcard"
+    },
+    {
+     "id": "s3",
+     "name": "ทำแบบทดสอบ Domain 1",
+     "desc": "ลองทำข้อสอบ Domain 1 จากชุด 1,832 ข้อ เพื่อวัดความเข้าใจ",
+     "time": "~30 นาที",
+     "domain": 1,
+     "link": "1832quiz_NewExamDomainTH.html",
+     "linkText": "ทำข้อสอบ"
+    },
+    {
+     "id": "s4",
+     "name": "อ่านบทเรียน Domain 2: BC, DR & IR",
+     "desc": "ศึกษา BCP, DRP, Incident Response, Recovery strategies",
+     "time": "~40 นาที",
+     "domain": 2,
+     "link": "lesson-domain-2.html",
+     "linkText": "อ่านบทเรียน"
+    },
+    {
+     "id": "s5",
+     "name": "ทำ Flashcard Domain 2",
+     "desc": "ท่องคำศัพท์ 19 ใบ BCP, RPO, RTO, Hot/Warm/Cold Site",
+     "time": "~15 นาที",
+     "domain": 2,
+     "link": "flashcard.html?d=2",
+     "linkText": "เปิด Flashcard"
+    },
+    {
+     "id": "s6",
+     "name": "ทำแบบทดสอบ Domain 2",
+     "desc": "ลองทำข้อสอบ Domain 2 จากชุด 1,832 ข้อ",
+     "time": "~30 นาที",
+     "domain": 2,
+     "link": "1832quiz_NewExamDomainTH.html",
+     "linkText": "ทำข้อสอบ"
+    }
+   ]
+  },
+  {
+   "id": "deep-dive",
+   "title": "Phase 2: Deep Dive",
+   "th": "เจาะลึก",
+   "color": "var(--d3)",
+   "desc": "ต่อ Domain 3-5 แนวเดิม: อ่าน Flashcard ทำข้อสอบ",
+   "steps": [
+    {
+     "id": "s7",
+     "name": "อ่านบทเรียน Domain 3: Access Controls",
+     "desc": "ศึกษา Authentication, Authorization, RBAC, MFA, SSO",
+     "time": "~40 นาที",
+     "domain": 3,
+     "link": "lesson-domain-3.html",
+     "linkText": "อ่านบทเรียน"
+    },
+    {
+     "id": "s8",
+     "name": "ทำ Flashcard Domain 3",
+     "desc": "ท่องคำศัพท์ 19 ใบ Access Control, Identity Management",
+     "time": "~15 นาที",
+     "domain": 3,
+     "link": "flashcard.html?d=3",
+     "linkText": "เปิด Flashcard"
+    },
+    {
+     "id": "s9",
+     "name": "ทำแบบทดสอบ Domain 3",
+     "desc": "ลองทำข้อสอบ Domain 3 จากชุด 1,832 ข้อ",
+     "time": "~30 นาที",
+     "domain": 3,
+     "link": "1832quiz_NewExamDomainTH.html",
+     "linkText": "ทำข้อสอบ"
+    },
+    {
+     "id": "s10",
+     "name": "อ่านบทเรียน Domain 4: Network Security",
+     "desc": "ศึกษา Firewall, VPN, IDS/IPS, Zero Trust, OSI Model",
+     "time": "~45 นาที",
+     "domain": 4,
+     "link": "lesson-domain-4.html",
+     "linkText": "อ่านบทเรียน"
+    },
+    {
+     "id": "s11",
+     "name": "ทำ Flashcard Domain 4",
+     "desc": "ท่องคำศัพท์ 19 ใบ Network, Protocol, Attack types",
+     "time": "~15 นาที",
+     "domain": 4,
+     "link": "flashcard.html?d=4",
+     "linkText": "เปิด Flashcard"
+    },
+    {
+     "id": "s12",
+     "name": "ทำแบบทดสอบ Domain 4",
+     "desc": "ลองทำข้อสอบ Domain 4 จากชุด 1,832 ข้อ",
+     "time": "~30 นาที",
+     "domain": 4,
+     "link": "1832quiz_NewExamDomainTH.html",
+     "linkText": "ทำข้อสอบ"
+    },
+    {
+     "id": "s13",
+     "name": "อ่านบทเรียน Domain 5: Security Operations",
+     "desc": "ศึกษา Encryption, SIEM, DLP, Patch/Change Management",
+     "time": "~45 นาที",
+     "domain": 5,
+     "link": "lesson-domain-5.html",
+     "linkText": "อ่านบทเรียน"
+    },
+    {
+     "id": "s14",
+     "name": "ทำ Flashcard Domain 5",
+     "desc": "ท่องคำศัพท์ 19 ใบ Cryptography, Operations",
+     "time": "~15 นาที",
+     "domain": 5,
+     "link": "flashcard.html?d=5",
+     "linkText": "เปิด Flashcard"
+    },
+    {
+     "id": "s15",
+     "name": "ทำแบบทดสอบ Domain 5",
+     "desc": "ลองทำข้อสอบ Domain 5 จากชุด 1,832 ข้อ",
+     "time": "~30 นาที",
+     "domain": 5,
+     "link": "1832quiz_NewExamDomainTH.html",
+     "linkText": "ทำข้อสอบ"
+    }
+   ]
+  },
+  {
+   "id": "practice",
+   "title": "Phase 3: Practice",
+   "th": "ฝึกซ้อม",
+   "color": "var(--d4)",
+   "desc": "ลุยข้อสอบรวมทุก Domain และเล่น Mini Games เสริมความจำ",
+   "steps": [
+    {
+     "id": "s16",
+     "name": "ทำชุด 583 ข้อสองภาษา",
+     "desc": "ฝึกทำข้อสอบแบบ Thai/English เทียบเคียง คุ้นเคยคำศัพท์ในห้องสอบ",
+     "time": "~90 นาที",
+     "domain": 0,
+     "link": "isc2_cc_BothThai-eng_583quiz.html",
+     "linkText": "เริ่มทำ"
+    },
+    {
+     "id": "s17",
+     "name": "ทำชุด 548 ข้อ (5 Domains)",
+     "desc": "ข้อสอบมาตรฐาน 5 โดเมนสองภาษา ทบทวนความพร้อม",
+     "time": "~90 นาที",
+     "domain": 0,
+     "link": "isc2_cc_exam548_5Domain_dualTh-Eng.html",
+     "linkText": "เริ่มทำ"
+    },
+    {
+     "id": "s18",
+     "name": "เล่น Mini Games",
+     "desc": "เสริมความจำด้วยเกม: จับคู่ เรียงลำดับ ถูก/ผิด ปกป้องปราสาท",
+     "time": "~30 นาที",
+     "domain": 0,
+     "link": "games.html",
+     "linkText": "เล่นเกม"
+    }
+   ]
+  },
+  {
+   "id": "mock-exam",
+   "title": "Phase 4: Mock Exam",
+   "th": "จำลองสอบ",
+   "color": "var(--orange)",
+   "desc": "ซ้อมสอบจริง จับเวลา ทบทวน Mind Map และ Flashcard รอบสุดท้าย",
+   "steps": [
+    {
+     "id": "s19",
+     "name": "ทำชุด 50 ข้อ สกมช. (จับเวลา)",
+     "desc": "จำลองสอบจริง 50 ข้อ สปีดเทสต์ วัดความพร้อมก่อนสอบ",
+     "time": "~30 นาที",
+     "domain": 0,
+     "link": "isc2_cc_exam1NCSA_bi_no-track-50q.html",
+     "linkText": "เริ่มสอบ"
+    },
+    {
+     "id": "s20",
+     "name": "ทบทวน Mind Map 12 บท",
+     "desc": "ดู Mind Map สรุปเชื่อมโยงทุกบท ตรวจสอบจุดที่ยังไม่มั่นใจ",
+     "time": "~30 นาที",
+     "domain": 0,
+     "link": "index.html",
+     "linkText": "ดู Mind Map"
+    },
+    {
+     "id": "s21",
+     "name": "ทบทวน Flashcard ที่ \"ยังไม่รู้\"",
+     "desc": "กลับไปดู Flashcard เฉพาะใบที่ยังไม่มั่นใจ ท่องรอบสุดท้าย",
+     "time": "~20 นาที",
+     "domain": 0,
+     "link": "flashcard.html",
+     "linkText": "ทบทวน"
+    }
+   ]
+  }
+ ],
+ "domainColors": {
+  "0": "var(--ink)",
+  "1": "var(--d1)",
+  "2": "var(--d2)",
+  "3": "var(--d3)",
+  "4": "var(--d4)",
+  "5": "var(--d5)"
+ },
+ "domainLabels": {
+  "0": "ALL",
+  "1": "D1",
+  "2": "D2",
+  "3": "D3",
+  "4": "D4",
+  "5": "D5"
+ }
+}

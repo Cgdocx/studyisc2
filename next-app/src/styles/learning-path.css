@@ -1,0 +1,84 @@
+.pg-learning {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --text: #0F0F0F;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+  --font-display: 'Archivo Black', 'IBM Plex Sans Thai', sans-serif;
+  --font-body: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', monospace;
+  --d1: #1F8A4C; --d2: #E85A1F; --d3: #F06CA8; --d4: #3B82F6; --d5: #8B5CF6;
+}
+.pg-learning, .pg-learning * { box-sizing: border-box; margin: 0; padding: 0; }
+.pg-learning { background: var(--cream); color: var(--ink); font-family: var(--font-thai); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+.pg-learning .wrap { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
+.pg-learning h1 { font-family: var(--font-display); font-size: 28px; text-transform: uppercase; text-align: center; margin-bottom: 8px; }
+.pg-learning .subtitle { text-align: center; font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+.pg-learning .readiness { background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 20px 24px; margin-bottom: 32px; text-align: center; }
+.pg-learning .readiness .label { font-family: var(--font-mono); font-size: 12px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; }
+.pg-learning .readiness .pct { font-family: var(--font-display); font-size: 48px; color: var(--green); margin-bottom: 8px; }
+.pg-learning .readiness .bar-track { height: 18px; background: var(--cream-2); border: 2px solid var(--ink); position: relative; overflow: hidden; }
+.pg-learning .readiness .bar-fill { height: 100%; background: var(--green); transition: width 0.5s; }
+.pg-learning .readiness .detail { font-family: var(--font-mono); font-size: 11px; margin-top: 8px; color: var(--muted); }
+.pg-learning .phase { margin-bottom: 36px; }
+.pg-learning .phase-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+.pg-learning .phase-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 800; padding: 4px 12px; border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink); text-transform: uppercase; color: var(--white); }
+.pg-learning .phase-title { font-family: var(--font-display); font-size: 20px; text-transform: uppercase; }
+.pg-learning .phase-desc { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.pg-learning .phase-progress { font-family: var(--font-mono); font-size: 11px; font-weight: 700; margin-left: auto; }
+.pg-learning .timeline { position: relative; padding-left: 40px; }
+.pg-learning .timeline::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 3px; background: var(--ink); }
+.pg-learning .step { position: relative; margin-bottom: 18px; }
+.pg-learning .step-node { position: absolute; left: -40px; top: 6px; width: 28px; height: 28px; border: 3px solid var(--ink); background: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 11px; font-weight: 800; z-index: 2; transition: background 0.2s; }
+.pg-learning .step.done .step-node { background: var(--green); color: var(--white); }
+.pg-learning .step.current .step-node { background: var(--yellow); animation: lp-pulse 1.5s infinite; }
+@keyframes lp-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(245,197,24,.5); } 50% { box-shadow: 0 0 0 8px rgba(245,197,24,0); } }
+.pg-learning .step.future .step-node { background: var(--cream-2); color: var(--muted); }
+.pg-learning .step-card { background: var(--white); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); padding: 14px 16px; display: flex; align-items: center; gap: 14px; }
+.pg-learning .step.current .step-card { border-width: 3px; box-shadow: 5px 5px 0 var(--ink); }
+.pg-learning .step.done .step-card { background: var(--green-dim); }
+.pg-learning .step-check { width: 32px; height: 32px; padding: 0; border: 2px solid var(--ink); background: var(--white); color: var(--ink); box-shadow: 2px 2px 0 var(--ink); flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; font-family: var(--font-mono); font-size: 16px; font-weight: 800; transition: transform 0.1s, box-shadow 0.1s, background 0.1s; }
+.pg-learning .step-check:hover { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
+.pg-learning .step-check:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+.pg-learning .step.done .step-check { background: var(--green); color: var(--white); }
+.pg-learning .step-content { flex: 1; min-width: 0; }
+.pg-learning .step-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 3px; }
+.pg-learning .step-name { font-family: var(--font-thai); font-size: 14px; font-weight: 700; }
+.pg-learning .step-domain-tag { font-family: var(--font-mono); font-size: 9px; font-weight: 800; padding: 1px 6px; border: 1px solid var(--ink); color: var(--white); text-transform: uppercase; }
+.pg-learning .step-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.pg-learning .step-time { font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: var(--muted); margin-top: 3px; }
+.pg-learning .step-link { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--green); text-decoration: none; border: 1px solid var(--green); padding: 3px 8px; white-space: nowrap; flex-shrink: 0; }
+.pg-learning .step-link:hover { background: var(--green); color: var(--white); }
+.pg-learning .next-row { display: flex; justify-content: center; margin: 0 0 28px; }
+.pg-learning .next-btn { font-family: var(--font-mono); font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 12px 22px; border: 3px solid var(--ink); background: var(--yellow); color: var(--ink); box-shadow: 4px 4px 0 var(--ink); cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; }
+.pg-learning .next-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+.pg-learning .next-btn:disabled { background: var(--green); color: var(--white); cursor: default; transform: none; box-shadow: 4px 4px 0 var(--ink); }
+.pg-learning .reset-row { text-align: center; margin-top: 24px; }
+.pg-learning .reset-btn { font-family: var(--font-mono); font-size: 12px; font-weight: 700; padding: 8px 16px; border: 2px solid var(--ink); background: var(--white); box-shadow: 2px 2px 0 var(--ink); cursor: pointer; }
+.pg-learning .reset-btn:hover { background: var(--red); color: var(--white); }
+@media (max-width: 600px) {
+  .pg-learning h1 { font-size: 22px; }
+  .pg-learning .readiness .pct { font-size: 36px; }
+  .pg-learning .wrap { padding: 20px 14px 60px; }
+  .pg-learning .timeline { padding-left: 34px; }
+  .pg-learning .step-node { left: -34px; width: 24px; height: 24px; font-size: 10px; }
+  .pg-learning .step-card { flex-wrap: wrap; }
+  .pg-learning .step-link { margin-top: 6px; }
+}

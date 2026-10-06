@@ -1,17 +1,19 @@
 import Link from 'next/link';
-import type { ReactNode } from 'react';
+import type { AnchorHTMLAttributes, ReactNode } from 'react';
 import { PORTED_ROUTES, legacyHref } from '@/lib/site';
 
-interface Props {
+interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
   file: string;
-  className?: string;
   children: ReactNode;
 }
 
-export default function SiteLink({ file, className, children }: Props) {
-  const ported = PORTED_ROUTES[file];
+export default function SiteLink({ file, children, ...rest }: Props) {
+  const q = file.indexOf('?');
+  const base = q < 0 ? file : file.slice(0, q);
+  const query = q < 0 ? '' : file.slice(q);
+  const ported = PORTED_ROUTES[base];
   if (ported) {
-    return <Link href={ported.route} className={className}>{children}</Link>;
+    return <Link href={ported.route + query} {...rest}>{children}</Link>;
   }
-  return <a href={legacyHref(file)} className={className}>{children}</a>;
+  return <a href={legacyHref(file)} {...rest}>{children}</a>;
 }
