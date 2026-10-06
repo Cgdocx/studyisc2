@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { isDeepStrictEqual } from 'node:util';
 import vm from 'node:vm';
 import { read, blockEnd, tokens, decode } from './content-lib.mjs';
-import { GAME_EXTRACTORS, GAMES_DIR, BEAT_CLOCK_FIX } from './games-lib.mjs';
+import { GAME_EXTRACTORS, GAMES_DIR } from './games-lib.mjs';
 
 const OUT = resolve(dirname(fileURLToPath(import.meta.url)), '../out');
 let failed = 0;
@@ -16,8 +16,7 @@ for (const [name, extract] of Object.entries(GAME_EXTRACTORS)) ok(isDeepStrictEq
 const bc = read('game-beat-clock.html');
 const bcScript = bc.slice(bc.lastIndexOf('<script>', bc.indexOf('const QUESTIONS')) + 8, bc.indexOf('</script>', bc.indexOf('const QUESTIONS')));
 const parses = src => { try { new vm.Script(src); return true; } catch { return false; } };
-ok(bc.split(BEAT_CLOCK_FIX.from).length === 2 && !parses(bcScript) && parses(bcScript.replace(BEAT_CLOCK_FIX.from, BEAT_CLOCK_FIX.to)),
-  `game-beat-clock.html: original script fails to parse; the single "${BEAT_CLOCK_FIX.from}" -> "${BEAT_CLOCK_FIX.to}" fix is the only change needed`);
+ok(parses(bcScript), 'game-beat-clock.html: game script parses')
 
 const hub = load('games.json');
 const cards = hub.categories.flatMap(c => c.cards);
