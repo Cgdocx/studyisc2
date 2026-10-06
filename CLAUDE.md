@@ -71,7 +71,7 @@ Font variables ต้องมี **IBM Plex Sans Thai** เป็น fallback �
 
 ## Navigation Bar
 
-ทุกหน้าต้องมี nav bar เหมือนกันทั้งทุกหน้า:
+ทุกหน้าต้องมี nav bar เหมือนกันทั้ง 23 หน้า:
 
 ```html
 <div class="cg-links">
@@ -101,7 +101,7 @@ Active state: หน้าปัจจุบันให้เพิ่ม `clas
 - localStorage ใช้สำหรับ progress tracking (flashcard, quiz scores, learning path)
 - ไม่ต้องสร้างไฟล์ CSS/JS แยก
 
-## ไฟล์ทั้งหมด (24 หน้า)
+## ไฟล์ทั้งหมด (23 หน้า)
 
 | กลุ่ม | ไฟล์ |
 |-------|------|
@@ -112,7 +112,7 @@ Active state: หน้าปัจจุบันให้เพิ่ม `clas
 | Flashcard | `flashcard.html` |
 | Learning Path | `learning-path.html` |
 | Games Portal | `games.html` |
-| Games | `game-term-match.html`, `game-domain-sort.html`, `game-rapid-fire.html`, `game-beat-clock.html`, `game-incident-timeline.html`, `game-fill-gap.html`, `game-defend-castle.html`, `game-phish-detect.html`, `game-quiz-rpg.html` |
+| Games | `game-term-match.html`, `game-domain-sort.html`, `game-rapid-fire.html`, `game-beat-clock.html`, `game-incident-timeline.html`, `game-fill-gap.html`, `game-defend-castle.html`, `game-phish-detect.html` |
 
 ## ISC2 CC 5 Domains
 
