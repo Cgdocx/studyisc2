@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
-import { EXTRACTORS, OUT_DIR, read, stripComments, blockEnd, decode } from './content-lib.mjs';
+import { EXTRACTORS, OUT_DIR, read, blockEnd, tokens } from './content-lib.mjs';
 
 let failed = 0;
 const ok = (cond, msg) => { process.stdout.write((cond ? '[OK] ' : '[X] ') + msg + '\n'); if (!cond) failed++; };
@@ -11,22 +11,6 @@ for (const [name, extract] of Object.entries(EXTRACTORS)) ok(isDeepStrictEqual(l
 
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const attrs = o => Object.entries(o).map(([k, v]) => ` ${k}="${esc(v)}"`).join('');
-
-function tokens(html) {
-  const out = [];
-  const re = /<\/?([a-zA-Z][a-zA-Z0-9]*)([^>]*)>|([^<]+)/g;
-  for (const m of stripComments(html).matchAll(re)) {
-    if (m[3] !== undefined) {
-      const t = decode(m[3]).replace(/\s+/g, ' ').trim();
-      if (t) out.push('#' + t);
-      continue;
-    }
-    const closing = m[0][1] === '/';
-    const at = [...(m[2] || '').matchAll(/([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*"([^"]*)")?/g)].map(a => `${a[1]}=${decode(a[2] ?? '')}`).sort();
-    out.push((closing ? '/' : '') + m[1].toLowerCase() + (closing ? '' : '[' + at.join('|') + ']'));
-  }
-  return out;
-}
 
 const L = load('lessons.json');
 for (const les of L.lessons) {

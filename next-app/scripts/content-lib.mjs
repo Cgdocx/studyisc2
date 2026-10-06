@@ -60,6 +60,22 @@ export function meta(html) {
   return { title, metas };
 }
 
+export function tokens(html) {
+  const out = [];
+  const re = /<\/?([a-zA-Z][a-zA-Z0-9]*)([^>]*)>|([^<]+)/g;
+  for (const m of stripComments(html).matchAll(re)) {
+    if (m[3] !== undefined) {
+      const t = decode(m[3]).replace(/\s+/g, ' ').trim();
+      if (t) out.push('#' + t);
+      continue;
+    }
+    const closing = m[0][1] === '/';
+    const at = [...(m[2] || '').matchAll(/([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*"([^"]*)")?/g)].map(a => `${a[1]}=${decode(a[2] ?? '')}`).sort();
+    out.push((closing ? '/' : '') + m[1].toLowerCase() + (closing ? '' : '[' + at.join('|') + ']'));
+  }
+  return out;
+}
+
 export function evalConst(html, name, endMarker) {
   const start = html.indexOf(`const ${name} = `);
   if (start < 0) throw new Error('missing const ' + name);

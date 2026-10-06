@@ -1,0 +1,59 @@
+.pg-beat-clock {
+  --cream: #EFE9D9; --cream-2: #E4DCC4; --green: #1F8A4C; --green2: #136636;
+  --green-dim: rgba(31,138,76,.15); --pink: #F06CA8; --orange: #E85A1F; --yellow: #F5C518;
+  --ink: #0F0F0F; --ink-2: #2A2A2A; --white: #FFFFFF; --bg: #EFE9D9; --bg2: #E4DCC4;
+  --card: #FFFFFF; --card2: #F7F4EB; --line: #0F0F0F; --text: #0F0F0F; --muted: #4A4A4A;
+  --red: #D12438; --red-dim: rgba(209,36,56,.12); --gold: #E85A1F; --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F; --radius: 0px;
+  --font-display: 'Archivo Black', 'IBM Plex Sans Thai', sans-serif;
+  --font-body: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', monospace;
+}
+.pg-beat-clock, .pg-beat-clock * { box-sizing: border-box; margin: 0; padding: 0; }
+.pg-beat-clock { background: var(--cream); color: var(--ink); font-family: var(--font-thai); min-height: 100vh; }
+.pg-beat-clock .wrap { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
+.pg-beat-clock .game-header { text-align: center; margin-bottom: 32px; padding: 28px 20px; background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+.pg-beat-clock .game-header .eyebrow { font-family: var(--font-mono); font-size: 12px; font-weight: 800; letter-spacing: 0.12em; color: var(--orange); text-transform: uppercase; margin-bottom: 6px; }
+.pg-beat-clock .game-header h1 { font-family: var(--font-display); font-size: 32px; text-transform: uppercase; line-height: 1.1; margin-bottom: 8px; }
+.pg-beat-clock .game-header .sub { font-size: 15px; color: var(--ink-2); line-height: 1.5; }
+.pg-beat-clock .hud { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.pg-beat-clock .hud-box { background: var(--white); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); padding: 10px 16px; text-align: center; flex: 1; min-width: 80px; }
+.pg-beat-clock .hud-label { font-family: var(--font-mono); font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--muted); }
+.pg-beat-clock .hud-value { font-family: var(--font-display); font-size: 28px; margin-top: 2px; }
+.pg-beat-clock .progress-bar { width: 100%; height: 12px; background: var(--cream-2); border: 2px solid var(--ink); margin-bottom: 24px; }
+.pg-beat-clock .progress-fill { height: 100%; background: var(--green); transition: width 0.3s ease; }
+.pg-beat-clock .question-card { background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 28px 24px; margin-bottom: 20px; }
+.pg-beat-clock .q-number { font-family: var(--font-mono); font-size: 12px; font-weight: 800; color: var(--orange); text-transform: uppercase; margin-bottom: 8px; }
+.pg-beat-clock .q-text { font-size: 18px; font-weight: 600; line-height: 1.6; margin-bottom: 20px; }
+.pg-beat-clock .q-domain { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 16px; }
+.pg-beat-clock .choices { display: flex; flex-direction: column; gap: 10px; }
+.pg-beat-clock .choice-btn { text-align: left; padding: 14px 18px; font-family: var(--font-thai); font-size: 15px; font-weight: 500; background: var(--card2); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); cursor: pointer; transition: transform 0.1s, box-shadow 0.1s, background 0.1s; line-height: 1.5; }
+.pg-beat-clock .choice-btn:hover:not(:disabled) { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+.pg-beat-clock .choice-btn:disabled { cursor: default; }
+.pg-beat-clock .choice-btn.correct { background: var(--green); color: var(--white); }
+.pg-beat-clock .choice-btn.wrong { background: var(--red); color: var(--white); }
+.pg-beat-clock .choice-btn.reveal { background: var(--green-dim); border-color: var(--green); }
+.pg-beat-clock .explain-box { margin-top: 14px; padding: 12px 16px; background: var(--cream-2); border: 2px solid var(--ink); font-size: 14px; line-height: 1.6; display: none; }
+.pg-beat-clock .explain-box.show { display: block; }
+.pg-beat-clock .start-btn, .pg-beat-clock .restart-btn { display: block; margin: 24px auto; font-family: var(--font-display); font-size: 18px; text-transform: uppercase; padding: 16px 48px; background: var(--ink); color: var(--cream); border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--orange); cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; }
+.pg-beat-clock .start-btn:hover, .pg-beat-clock .restart-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--orange); }
+.pg-beat-clock .next-btn { display: none; margin: 16px auto 0; font-family: var(--font-mono); font-size: 13px; font-weight: 700; text-transform: uppercase; padding: 12px 32px; background: var(--ink); color: var(--cream); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); cursor: pointer; }
+.pg-beat-clock .next-btn:hover { background: var(--orange); }
+.pg-beat-clock .results-card { background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 32px 24px; text-align: center; display: none; }
+.pg-beat-clock .results-card h2 { font-family: var(--font-display); font-size: 28px; text-transform: uppercase; margin-bottom: 16px; }
+.pg-beat-clock .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin: 20px 0; }
+.pg-beat-clock .result-stat { background: var(--cream); border: 2px solid var(--ink); padding: 14px 10px; }
+.pg-beat-clock .result-stat .val { font-family: var(--font-display); font-size: 28px; }
+.pg-beat-clock .result-stat .lbl { font-family: var(--font-mono); font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+.pg-beat-clock .leaderboard { margin-top: 24px; text-align: left; }
+.pg-beat-clock .leaderboard h3 { font-family: var(--font-display); font-size: 16px; text-transform: uppercase; margin-bottom: 10px; }
+.pg-beat-clock .lb-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 12px; }
+.pg-beat-clock .lb-table th { text-align: left; padding: 6px 10px; background: var(--ink); color: var(--cream); font-weight: 800; text-transform: uppercase; }
+.pg-beat-clock .lb-table td { padding: 6px 10px; border-bottom: 1px solid var(--cream-2); }
+.pg-beat-clock .lb-table tr.highlight td { background: var(--yellow); font-weight: 700; }
+@media (max-width: 600px) {
+  .pg-beat-clock .game-header h1 { font-size: 24px; }
+  .pg-beat-clock .q-text { font-size: 16px; }
+  .pg-beat-clock .hud-value { font-size: 22px; }
+}

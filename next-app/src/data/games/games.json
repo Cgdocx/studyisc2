@@ -1,0 +1,159 @@
+{
+ "title": "Mini Games - ISC2 CC Study Portal",
+ "description": "เกมฝึกทักษะ Cybersecurity สำหรับเตรียมสอบ ISC2 CC - จับคู่คำศัพท์, จัดหมวดโดเมน, ถูกผิดแข่งเวลา, เรียงลำดับ, เติมคำ, ปกป้องปราสาท, นักสืบฟิชชิ่ง",
+ "hero": {
+  "eyebrow": "ISC2 CC · Mini Games Portal",
+  "title": "MINI GAMES",
+  "sub": "เรียนรู้ Cybersecurity ผ่านเกมสนุกๆ ฝึกจำคำศัพท์ ทดสอบความเข้าใจ และจำลองสถานการณ์จริง ครอบคลุมทั้ง 5 Domains"
+ },
+ "categories": [
+  {
+   "label": "จับคู่ (MATCH)",
+   "cards": [
+    {
+     "style": {
+      "--accent-bg": "var(--yellow)",
+      "--btn-bg": "var(--ink)",
+      "--btn-color": "var(--cream)"
+     },
+     "badge": "DRAG & DROP",
+     "title": "Term Matching",
+     "desc": "ลากคำศัพท์ไปจับคู่กับคำอธิบายที่ถูกต้อง ครอบคลุม 44 คู่จากทั้ง 5 Domains เล่น 3 รอบ รอบละ 8 คู่",
+     "meta": [
+      "44 PAIRS",
+      "5 DOMAINS"
+     ],
+     "href": "game-term-match.html",
+     "button": "เล่นเกม →"
+    },
+    {
+     "style": {
+      "--accent-bg": "var(--green)",
+      "--btn-bg": "var(--green)",
+      "--btn-color": "var(--white)"
+     },
+     "badge": "SORTING",
+     "title": "Domain Sorting",
+     "desc": "Concept โผล่มา ลากใส่ถัง Domain ที่ถูกต้อง ฝึกจำว่าแต่ละเรื่องอยู่ Domain ไหน 52 concepts, 4 รอบ",
+     "meta": [
+      "52 CONCEPTS",
+      "5 BUCKETS"
+     ],
+     "href": "game-domain-sort.html",
+     "button": "เล่นเกม →"
+    }
+   ]
+  },
+  {
+   "label": "แข่งเวลา (SPEED)",
+   "cards": [
+    {
+     "style": {
+      "--accent-bg": "var(--orange)",
+      "--btn-bg": "var(--orange)",
+      "--btn-color": "var(--white)"
+     },
+     "badge": "60 SECONDS",
+     "title": "Rapid Fire",
+     "desc": "ถูกหรือผิด? ตอบให้เร็วที่สุดภายใน 60 วินาที ยิ่งตอบถูกติดต่อกัน ยิ่งได้คะแนนทวีคูณ (x2, x3)",
+     "meta": [
+      "82 STATEMENTS",
+      "STREAK x3"
+     ],
+     "href": "game-rapid-fire.html",
+     "button": "เล่นเกม →"
+    },
+    {
+     "style": {
+      "--accent-bg": "var(--pink)",
+      "--btn-bg": "var(--pink)",
+      "--btn-color": "var(--ink)"
+     },
+     "badge": "SPEED RUN",
+     "title": "Beat the Clock",
+     "desc": "ตอบ 20 ข้อให้เร็วที่สุด ผิดโดน +5 วินาที มี Leaderboard ท้าตัวเองทำสถิติใหม่",
+     "meta": [
+      "60+ QUESTIONS",
+      "LEADERBOARD"
+     ],
+     "href": "game-beat-clock.html",
+     "button": "เล่นเกม →"
+    }
+   ]
+  },
+  {
+   "label": "ปริศนา (PUZZLE)",
+   "cards": [
+    {
+     "style": {
+      "--accent-bg": "var(--cream-2)",
+      "--btn-bg": "var(--ink)",
+      "--btn-color": "var(--yellow)"
+     },
+     "badge": "DRAG TO ORDER",
+     "title": "Incident Timeline",
+     "desc": "เรียงลำดับขั้นตอนให้ถูกต้อง ตั้งแต่ IR Lifecycle, Risk Assessment, Change Management รวม 8 สถานการณ์",
+     "meta": [
+      "8 SCENARIOS",
+      "DRAG & DROP"
+     ],
+     "href": "game-incident-timeline.html",
+     "button": "เล่นเกม →"
+    },
+    {
+     "style": {
+      "--accent-bg": "var(--yellow)",
+      "--btn-bg": "var(--ink)",
+      "--btn-color": "var(--cream)"
+     },
+     "badge": "FILL IN",
+     "title": "Fill the Gap",
+     "desc": "เติมคำในช่องว่าง ทดสอบว่าจำคำศัพท์และแนวคิดสำคัญได้ดีแค่ไหน 35 ข้อ ครบ 5 Domains",
+     "meta": [
+      "35 QUESTIONS",
+      "VOCABULARY"
+     ],
+     "href": "game-fill-gap.html",
+     "button": "เล่นเกม →"
+    }
+   ]
+  },
+  {
+   "label": "ผจญภัย (ADVENTURE)",
+   "cards": [
+    {
+     "style": {
+      "--accent-bg": "var(--red)",
+      "--btn-bg": "var(--red)",
+      "--btn-color": "var(--white)"
+     },
+     "badge": "DEFEND 20 ROUNDS",
+     "title": "Defend the Castle",
+     "desc": "คุณคือ Security Analyst ปกป้องปราสาท 100 HP จาก Threat ต่างๆ เลือก Security Control ที่ถูกต้อง ผิดโดนลด HP",
+     "meta": [
+      "20 THREATS",
+      "SURVIVE!"
+     ],
+     "href": "game-defend-castle.html",
+     "button": "เล่นเกม →"
+    },
+    {
+     "style": {
+      "--accent-bg": "var(--green)",
+      "--btn-bg": "var(--green2)",
+      "--btn-color": "var(--white)"
+     },
+     "badge": "DETECTIVE",
+     "title": "Phishing Detective",
+     "desc": "ดูอีเมลแล้วตัดสิน: Phishing หรือ Legit? เลือก Red Flags ที่น่าสงสัย ฝึกสังเกตอีเมลหลอกลวง 15 ฉบับ",
+     "meta": [
+      "15 EMAILS",
+      "RED FLAGS"
+     ],
+     "href": "game-phish-detect.html",
+     "button": "เล่นเกม →"
+    }
+   ]
+  }
+ ]
+}

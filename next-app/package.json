@@ -11,6 +11,8 @@
     "verify:banks": "node scripts/verify-banks.mjs",
     "gen:content": "node scripts/gen-content.mjs",
     "verify:content": "node scripts/verify-content.mjs",
+    "gen:games": "node scripts/gen-games.mjs",
+    "verify:games": "node scripts/verify-games.mjs",
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {

@@ -1,0 +1,583 @@
+{
+ "file": "game-beat-clock.html",
+ "title": "ISC2 CC Beat the Clock - ตอบ 20 ข้อให้เร็วที่สุด",
+ "description": "เกม Beat the Clock ตอบ 20 ข้อ ISC2 CC ให้เร็วที่สุด พร้อม Leaderboard",
+ "questions": [
+  {
+   "q": "CIA Triad ข้อใดเกี่ยวกับการป้องกันข้อมูลไม่ให้ถูกแก้ไขโดยไม่ได้รับอนุญาต?",
+   "c": [
+    "Confidentiality",
+    "Integrity",
+    "Availability",
+    "Non-repudiation"
+   ],
+   "a": 1,
+   "d": "D1: Security Principles",
+   "e": "Integrity = ความถูกต้องครบถ้วนของข้อมูล ป้องกันการแก้ไขโดยไม่ได้รับอนุญาต"
+  },
+  {
+   "q": "Encryption Algorithm ใดเป็น Asymmetric?",
+   "c": [
+    "AES",
+    "DES",
+    "RSA",
+    "Blowfish"
+   ],
+   "a": 2,
+   "d": "D1: Security Principles",
+   "e": "RSA ใช้ Public Key + Private Key คู่กัน ส่วน AES, DES, Blowfish เป็น Symmetric"
+  },
+  {
+   "q": "หลักการใดกำหนดให้ผู้ใช้ได้รับสิทธิ์เท่าที่จำเป็นเท่านั้น?",
+   "c": [
+    "Separation of Duties",
+    "Defense in Depth",
+    "Least Privilege",
+    "Need to Know"
+   ],
+   "a": 2,
+   "d": "D1: Security Principles",
+   "e": "Least Privilege = ให้สิทธิ์น้อยที่สุดที่ต้องใช้ในการทำงาน"
+  },
+  {
+   "q": "ข้อใดคือ Hashing Algorithm?",
+   "c": [
+    "AES-256",
+    "RSA-2048",
+    "SHA-256",
+    "TLS 1.3"
+   ],
+   "a": 2,
+   "d": "D1: Security Principles",
+   "e": "SHA-256 เป็น hashing algorithm ที่สร้าง fixed-length digest แบบ one-way"
+  },
+  {
+   "q": "Defense in Depth หมายถึงอะไร?",
+   "c": [
+    "ใช้ Firewall ตัวเดียวที่แข็งแกร่งที่สุด",
+    "ใช้การป้องกันหลายชั้นซ้อนกัน",
+    "ใช้ Encryption ทุกที่",
+    "ฝึกอบรมพนักงานอย่างเดียว"
+   ],
+   "a": 1,
+   "d": "D1: Security Principles",
+   "e": "Defense in Depth = layered security หลายชั้นป้องกันซ้อนกัน"
+  },
+  {
+   "q": "Digital Signature ใช้ Key ใดในการเซ็น?",
+   "c": [
+    "Public Key ของผู้ส่ง",
+    "Private Key ของผู้ส่ง",
+    "Public Key ของผู้รับ",
+    "Shared Secret Key"
+   ],
+   "a": 1,
+   "d": "D1: Security Principles",
+   "e": "ผู้ส่งเซ็นด้วย Private Key ผู้รับ verify ด้วย Public Key ของผู้ส่ง"
+  },
+  {
+   "q": "ข้อใดไม่ใช่หลักการของ Zero Trust?",
+   "c": [
+    "Never Trust, Always Verify",
+    "Least Privilege Access",
+    "Micro-segmentation",
+    "Trust Internal Network"
+   ],
+   "a": 3,
+   "d": "D1: Security Principles",
+   "e": "Zero Trust ไม่ไว้ใจแม้แต่ network ภายใน"
+  },
+  {
+   "q": "Due Diligence กับ Due Care ต่างกันอย่างไร?",
+   "c": [
+    "เหมือนกันทุกประการ",
+    "Due Diligence = สอบทาน / Due Care = ปฏิบัติตาม",
+    "Due Care = สอบทาน / Due Diligence = ปฏิบัติตาม",
+    "ทั้งสองเป็นเรื่อง Technical Control"
+   ],
+   "a": 1,
+   "d": "D1: Security Principles",
+   "e": "Due Diligence = ตรวจสอบสืบค้น, Due Care = ลงมือดูแลปฏิบัติ"
+  },
+  {
+   "q": "ข้อใดเป็น Preventive Control?",
+   "c": [
+    "CCTV",
+    "Log Review",
+    "Firewall",
+    "Intrusion Detection System"
+   ],
+   "a": 2,
+   "d": "D1: Security Principles",
+   "e": "Firewall ป้องกัน traffic ที่ไม่ได้รับอนุญาต, CCTV=Deterrent, Log Review/IDS=Detective"
+  },
+  {
+   "q": "Separation of Duties ป้องกันปัญหาอะไร?",
+   "c": [
+    "Malware",
+    "Insider Fraud",
+    "DDoS",
+    "Phishing"
+   ],
+   "a": 1,
+   "d": "D1: Security Principles",
+   "e": "แยกหน้าที่ไม่ให้คนเดียวทำครบทุกขั้นตอน ป้องกัน fraud/collusion"
+  },
+  {
+   "q": "Risk Assessment ข้อใดเป็นแบบ Quantitative?",
+   "c": [
+    "ใช้ High/Medium/Low จัดอันดับ",
+    "ใช้สี Red/Yellow/Green",
+    "คำนวณ ALE = SLE x ARO",
+    "ใช้ Expert Judgment อย่างเดียว"
+   ],
+   "a": 2,
+   "d": "D1: Security Principles",
+   "e": "Quantitative ใช้ตัวเลข: ALE (Annual Loss Expectancy) = SLE x ARO"
+  },
+  {
+   "q": "ข้อใดเป็น Administrative Control?",
+   "c": [
+    "Firewall",
+    "Encryption",
+    "Security Policy",
+    "Antivirus"
+   ],
+   "a": 2,
+   "d": "D1: Security Principles",
+   "e": "Security Policy เป็น Administrative/Management Control ส่วน Firewall/Encryption/AV เป็น Technical"
+  },
+  {
+   "q": "RPO (Recovery Point Objective) คืออะไร?",
+   "c": [
+    "เวลาที่ระบบต้องกลับมาทำงาน",
+    "ปริมาณข้อมูลที่ยอมเสียได้",
+    "จำนวน Server ที่ต้องมี",
+    "ค่าใช้จ่ายในการกู้คืน"
+   ],
+   "a": 1,
+   "d": "D2: BC/DR/IR",
+   "e": "RPO = ยอมให้ข้อมูลหายย้อนหลังได้มากแค่ไหน เช่น RPO 4 ชม. = backup ทุก 4 ชม."
+  },
+  {
+   "q": "Site ประเภทใดพร้อมใช้งานได้เร็วที่สุด?",
+   "c": [
+    "Cold Site",
+    "Warm Site",
+    "Hot Site",
+    "Mobile Site"
+   ],
+   "a": 2,
+   "d": "D2: BC/DR/IR",
+   "e": "Hot Site มีอุปกรณ์+ข้อมูลพร้อม switch ได้ทันที"
+  },
+  {
+   "q": "ขั้นตอนแรกของ Incident Response คือข้อใด?",
+   "c": [
+    "Containment",
+    "Eradication",
+    "Preparation",
+    "Detection"
+   ],
+   "a": 2,
+   "d": "D2: BC/DR/IR",
+   "e": "Preparation มาก่อนเสมอ: วางแผน ฝึกซ้อม จัดเตรียมทีมและเครื่องมือ"
+  },
+  {
+   "q": "BIA (Business Impact Analysis) ใช้ทำอะไร?",
+   "c": [
+    "วิเคราะห์ Vulnerability ของระบบ",
+    "วิเคราะห์ผลกระทบต่อธุรกิจเมื่อระบบล่ม",
+    "ทดสอบ Penetration",
+    "ออกแบบ Network"
+   ],
+   "a": 1,
+   "d": "D2: BC/DR/IR",
+   "e": "BIA วิเคราะห์ว่า process ไหนสำคัญสูงสุด หยุดนานสุดได้แค่ไหน"
+  },
+  {
+   "q": "MTTR (Mean Time To Repair) วัดอะไร?",
+   "c": [
+    "เวลาเฉลี่ยระหว่างความเสียหาย",
+    "เวลาเฉลี่ยในการซ่อมแซม",
+    "จำนวน Incident ต่อปี",
+    "ต้นทุนการกู้คืน"
+   ],
+   "a": 1,
+   "d": "D2: BC/DR/IR",
+   "e": "MTTR = เวลาเฉลี่ยที่ใช้ซ่อมระบบ, MTBF = เวลาเฉลี่ยระหว่างครั้งที่พัง"
+  },
+  {
+   "q": "Tabletop Exercise คืออะไร?",
+   "c": [
+    "ทดสอบระบบจริง",
+    "ซ้อมแผนบนโต๊ะด้วยสถานการณ์จำลอง",
+    "ตัดระบบ Production จริง",
+    "ทดสอบ Backup Restore"
+   ],
+   "a": 1,
+   "d": "D2: BC/DR/IR",
+   "e": "Tabletop = discussion-based exercise ไม่กระทบระบบจริง ต้นทุนต่ำ"
+  },
+  {
+   "q": "ข้อใดเรียงลำดับ Incident Response ถูกต้อง?",
+   "c": [
+    "Detection-Containment-Preparation-Recovery",
+    "Preparation-Detection-Containment-Eradication-Recovery-Lessons Learned",
+    "Containment-Detection-Eradication-Recovery",
+    "Recovery-Detection-Containment-Lessons Learned"
+   ],
+   "a": 1,
+   "d": "D2: BC/DR/IR",
+   "e": "NIST: Preparation > Detection > Containment > Eradication > Recovery > Lessons Learned"
+  },
+  {
+   "q": "ข้อใดเป็นข้อเสียของ Hot Site?",
+   "c": [
+    "ใช้เวลานานในการเตรียม",
+    "ค่าใช้จ่ายสูงที่สุด",
+    "ไม่มีอุปกรณ์",
+    "ต้องย้ายข้อมูลด้วยมือ"
+   ],
+   "a": 1,
+   "d": "D2: BC/DR/IR",
+   "e": "Hot Site แพงที่สุดเพราะต้อง maintain อุปกรณ์+ข้อมูลให้พร้อมตลอดเวลา"
+  },
+  {
+   "q": "Multi-Factor Authentication ต้องใช้ปัจจัยอย่างน้อยกี่ประเภท?",
+   "c": [
+    "1 ประเภท",
+    "2 ประเภทขึ้นไป",
+    "3 ประเภทเท่านั้น",
+    "ไม่จำกัด"
+   ],
+   "a": 1,
+   "d": "D3: Access Controls",
+   "e": "MFA = 2+ factors จากคนละประเภท (know/have/are)"
+  },
+  {
+   "q": "Biometrics จัดเป็น Authentication Factor ประเภทใด?",
+   "c": [
+    "Something You Know",
+    "Something You Have",
+    "Something You Are",
+    "Somewhere You Are"
+   ],
+   "a": 2,
+   "d": "D3: Access Controls",
+   "e": "Biometrics = Something You Are เช่น ลายนิ้วมือ ม่านตา ใบหน้า"
+  },
+  {
+   "q": "ข้อใดเป็น Discretionary Access Control (DAC)?",
+   "c": [
+    "Security Label กำหนดสิทธิ์",
+    "เจ้าของไฟล์กำหนดสิทธิ์เอง",
+    "ระบบกำหนดตาม Policy เท่านั้น",
+    "ใช้ Role กำหนดสิทธิ์"
+   ],
+   "a": 1,
+   "d": "D3: Access Controls",
+   "e": "DAC = เจ้าของ (owner) มีอำนาจตัดสินใจให้สิทธิ์แก่ผู้อื่น"
+  },
+  {
+   "q": "Kerberos ใช้อะไรในการ Authentication?",
+   "c": [
+    "Certificate",
+    "Ticket",
+    "Token",
+    "Biometrics"
+   ],
+   "a": 1,
+   "d": "D3: Access Controls",
+   "e": "Kerberos ใช้ TGT (Ticket Granting Ticket) และ Service Ticket"
+  },
+  {
+   "q": "NIST SP 800-63B แนะนำอะไรเกี่ยวกับ Password?",
+   "c": [
+    "บังคับเปลี่ยนทุก 30 วัน",
+    "บังคับใช้ตัวพิเศษเสมอ",
+    "ไม่ต้องบังคับเปลี่ยนเป็นรอบ เว้นแต่มีเหตุ",
+    "ใช้ Password สั้นๆ ก็ได้"
+   ],
+   "a": 2,
+   "d": "D3: Access Controls",
+   "e": "NIST แนะนำ: ไม่ต้องบังคับเปลี่ยนเป็นรอบ ใช้ยาวกว่าซับซ้อน check leaked passwords"
+  },
+  {
+   "q": "SSO (Single Sign-On) มีความเสี่ยงอะไร?",
+   "c": [
+    "ผู้ใช้ต้องจำรหัสผ่านหลายตัว",
+    "ถ้า credential หลุด เข้าถึงทุกระบบได้",
+    "ไม่สามารถใช้ร่วมกับ MFA",
+    "ทำงานช้ากว่า login ปกติ"
+   ],
+   "a": 1,
+   "d": "D3: Access Controls",
+   "e": "SSO = single point of failure ถ้า credential หลุดหนึ่งเดียว ผู้โจมตีเข้าได้ทุกระบบ"
+  },
+  {
+   "q": "ข้อใดเป็น Rule-Based Access Control?",
+   "c": [
+    "กำหนดสิทธิ์ตาม Role",
+    "เจ้าของกำหนดเอง",
+    "Firewall Rule อนุญาตตาม IP/Port",
+    "กำหนดตาม Security Clearance"
+   ],
+   "a": 2,
+   "d": "D3: Access Controls",
+   "e": "Rule-Based = ใช้กฎ (rules) เช่น time-of-day, IP range, port number"
+  },
+  {
+   "q": "Federation ช่วยแก้ปัญหาอะไร?",
+   "c": [
+    "Password ซับซ้อนไม่พอ",
+    "ต้อง login ซ้ำข้ามองค์กร",
+    "ขาด Antivirus",
+    "Backup ไม่เพียงพอ"
+   ],
+   "a": 1,
+   "d": "D3: Access Controls",
+   "e": "Federation = trust ข้ามองค์กร ใช้ SAML/OAuth ให้ login ครั้งเดียวข้ามระบบได้"
+  },
+  {
+   "q": "IDS กับ IPS ต่างกันอย่างไร?",
+   "c": [
+    "IDS block ได้ IPS ทำไม่ได้",
+    "IDS แจ้งเตือนอย่างเดียว IPS block ได้ด้วย",
+    "เหมือนกันทุกประการ",
+    "IPS แจ้งเตือนอย่างเดียว"
+   ],
+   "a": 1,
+   "d": "D4: Network Security",
+   "e": "IDS = Detect + Alert, IPS = Detect + Alert + Block"
+  },
+  {
+   "q": "HTTPS ใช้ Port ใดเป็นค่า Default?",
+   "c": [
+    "80",
+    "8080",
+    "443",
+    "22"
+   ],
+   "a": 2,
+   "d": "D4: Network Security",
+   "e": "HTTPS = Port 443, HTTP = Port 80, SSH = Port 22"
+  },
+  {
+   "q": "DMZ คืออะไร?",
+   "c": [
+    "Firewall ชนิดพิเศษ",
+    "พื้นที่เครือข่ายกึ่งเชื่อถือระหว่าง Internal กับ Internet",
+    "Encryption Protocol",
+    "Backup Server"
+   ],
+   "a": 1,
+   "d": "D4: Network Security",
+   "e": "DMZ = Demilitarized Zone วาง public-facing server เช่น Web Server"
+  },
+  {
+   "q": "Protocol ใดส่งข้อมูลแบบ Plaintext?",
+   "c": [
+    "SSH",
+    "HTTPS",
+    "Telnet",
+    "TLS"
+   ],
+   "a": 2,
+   "d": "D4: Network Security",
+   "e": "Telnet ส่ง plaintext ไม่เข้ารหัส ควรใช้ SSH แทน"
+  },
+  {
+   "q": "VPN ทำหน้าที่อะไร?",
+   "c": [
+    "กรอง Spam",
+    "สร้าง Encrypted Tunnel ผ่าน Public Network",
+    "Scan Malware",
+    "จัดการ IP Address"
+   ],
+   "a": 1,
+   "d": "D4: Network Security",
+   "e": "VPN = Virtual Private Network สร้าง tunnel เข้ารหัสผ่าน Internet"
+  },
+  {
+   "q": "SIEM ทำหน้าที่อะไร?",
+   "c": [
+    "เข้ารหัสข้อมูล",
+    "รวบรวมและวิเคราะห์ Log จากหลายแหล่ง",
+    "จัดการ Patch",
+    "สำรองข้อมูล"
+   ],
+   "a": 1,
+   "d": "D4: Network Security",
+   "e": "Security Information and Event Management = ศูนย์รวม log + correlation + alerting"
+  },
+  {
+   "q": "DoS Attack โจมตี CIA ด้านใด?",
+   "c": [
+    "Confidentiality",
+    "Integrity",
+    "Availability",
+    "Non-repudiation"
+   ],
+   "a": 2,
+   "d": "D4: Network Security",
+   "e": "DoS/DDoS ทำให้ระบบใช้งานไม่ได้ = โจมตี Availability"
+  },
+  {
+   "q": "WPA3 ปลอดภัยกว่า WPA2 อย่างไร?",
+   "c": [
+    "ใช้ WEP ร่วมด้วย",
+    "ใช้ SAE แทน PSK handshake",
+    "ไม่ต้องใช้รหัสผ่าน",
+    "ใช้ Encryption น้อยลง"
+   ],
+   "a": 1,
+   "d": "D4: Network Security",
+   "e": "WPA3 ใช้ SAE (Simultaneous Authentication of Equals) ป้องกัน offline dictionary attack"
+  },
+  {
+   "q": "IPSec ทำงานที่ OSI Layer ใด?",
+   "c": [
+    "Layer 2",
+    "Layer 3",
+    "Layer 4",
+    "Layer 7"
+   ],
+   "a": 1,
+   "d": "D4: Network Security",
+   "e": "IPSec ทำงานที่ Network Layer (Layer 3)"
+  },
+  {
+   "q": "DNS ทำหน้าที่อะไร?",
+   "c": [
+    "เข้ารหัส Email",
+    "แปลง Domain Name เป็น IP Address",
+    "จัดการ Firewall Rules",
+    "สำรองข้อมูล"
+   ],
+   "a": 1,
+   "d": "D4: Network Security",
+   "e": "Domain Name System แปลงชื่อ domain เป็น IP เช่น google.com -> 142.250.x.x"
+  },
+  {
+   "q": "Data Classification ระดับใดสูงสุดในองค์กรรัฐ?",
+   "c": [
+    "Public",
+    "Internal",
+    "Confidential",
+    "Top Secret"
+   ],
+   "a": 3,
+   "d": "D5: Security Operations",
+   "e": "Top Secret = ระดับลับสูงสุดในระบบรัฐบาล"
+  },
+  {
+   "q": "Incremental Backup สำรองข้อมูลอะไร?",
+   "c": [
+    "ทั้งหมดทุกครั้ง",
+    "เฉพาะส่วนที่เปลี่ยนตั้งแต่ Backup ล่าสุด",
+    "เฉพาะ System Files",
+    "เฉพาะ Database"
+   ],
+   "a": 1,
+   "d": "D5: Security Operations",
+   "e": "Incremental = เฉพาะที่เปลี่ยนหลัง backup ครั้งล่าสุด (เร็ว แต่ restore ช้า)"
+  },
+  {
+   "q": "Vulnerability Scanning กับ Penetration Testing ต่างกันอย่างไร?",
+   "c": [
+    "เหมือนกัน",
+    "Scan หาช่องโหว่ / Pentest ลอง exploit จริง",
+    "Scan โจมตีจริง / Pentest แค่ตรวจ",
+    "ไม่เกี่ยวข้องกัน"
+   ],
+   "a": 1,
+   "d": "D5: Security Operations",
+   "e": "Vulnerability Scan = automated scan หาช่องโหว่, Pentest = ethical hacking ลอง exploit จริง"
+  },
+  {
+   "q": "DLP ป้องกันอะไร?",
+   "c": [
+    "Malware",
+    "ข้อมูลรั่วไหลออกจากองค์กร",
+    "DDoS",
+    "Physical Theft"
+   ],
+   "a": 1,
+   "d": "D5: Security Operations",
+   "e": "Data Loss Prevention = ตรวจจับและป้องกันการส่งข้อมูลสำคัญออก"
+  },
+  {
+   "q": "Change Management มีประโยชน์อะไร?",
+   "c": [
+    "ทำให้ระบบเร็วขึ้น",
+    "ควบคุมการเปลี่ยนแปลงอย่างเป็นระบบ ลดความเสี่ยง",
+    "ลดค่าใช้จ่าย Hardware",
+    "เพิ่ม Bandwidth"
+   ],
+   "a": 1,
+   "d": "D5: Security Operations",
+   "e": "Change Management = อนุมัติ ทดสอบ บันทึกทุกการเปลี่ยนแปลง ป้องกันปัญหา"
+  },
+  {
+   "q": "Social Engineering โจมตีจุดอ่อนอะไร?",
+   "c": [
+    "ช่องโหว่ Software",
+    "จุดอ่อนของมนุษย์",
+    "Network Configuration",
+    "Hardware"
+   ],
+   "a": 1,
+   "d": "D5: Security Operations",
+   "e": "Social Engineering หลอกคน ไม่ใช่หลอกระบบ เช่น Phishing, Pretexting, Baiting"
+  },
+  {
+   "q": "Whaling คืออะไร?",
+   "c": [
+    "Phishing ทั่วไป",
+    "Phishing ที่เจาะจงผู้บริหารระดับสูง",
+    "Malware ชนิดหนึ่ง",
+    "Network Attack"
+   ],
+   "a": 1,
+   "d": "D5: Security Operations",
+   "e": "Whaling = spear phishing ที่มุ่งเป้า CEO/CFO/CxO (ปลาใหญ่)"
+  },
+  {
+   "q": "Security Awareness Training ควรจัดบ่อยแค่ไหน?",
+   "c": [
+    "ครั้งเดียวตอนเข้าทำงาน",
+    "เป็นประจำ อย่างน้อยปีละครั้ง",
+    "เมื่อเกิด Incident เท่านั้น",
+    "ไม่จำเป็น"
+   ],
+   "a": 1,
+   "d": "D5: Security Operations",
+   "e": "ฝึกอบรมเป็นประจำ + เมื่อมีภัยคุกคามใหม่ เพื่อให้พนักงานตื่นตัวเสมอ"
+  },
+  {
+   "q": "Hardening คืออะไร?",
+   "c": [
+    "เพิ่ม Feature ใหม่",
+    "ลด Attack Surface ปิด service/port ที่ไม่จำเป็น",
+    "เพิ่ม Bandwidth",
+    "ติดตั้ง Software เพิ่ม"
+   ],
+   "a": 1,
+   "d": "D5: Security Operations",
+   "e": "Hardening = ลดพื้นที่โจมตี ปิดของที่ไม่ใช้ ลบ default account ฯลฯ"
+  },
+  {
+   "q": "Data Retention Policy กำหนดอะไร?",
+   "c": [
+    "วิธีเข้ารหัสข้อมูล",
+    "ระยะเวลาเก็บรักษาข้อมูลก่อนทำลาย",
+    "วิธี Backup",
+    "ขนาด Storage"
+   ],
+   "a": 1,
+   "d": "D5: Security Operations",
+   "e": "กำหนดว่าเก็บข้อมูลนานแค่ไหน เมื่อครบกำหนดต้องทำลายอย่างปลอดภัย"
+  }
+ ]
+}

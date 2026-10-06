@@ -1,0 +1,175 @@
+{
+ "file": "game-incident-timeline.html",
+ "title": "ISC2 CC - Security Incident Timeline Game",
+ "description": "เกมเรียงลำดับขั้นตอนด้าน Cybersecurity ฝึกจำกระบวนการสำคัญ ISC2 CC ทั้ง 8 สถานการณ์",
+ "scenarios": [
+  {
+   "title": "Incident Response Lifecycle (NIST SP 800-61)",
+   "desc": "กระบวนการตอบสนองต่อเหตุการณ์ด้านความมั่นคงปลอดภัย 6 ขั้นตอนตามมาตรฐาน NIST",
+   "steps": [
+    "Preparation",
+    "Detection & Analysis",
+    "Containment",
+    "Eradication",
+    "Recovery",
+    "Lessons Learned"
+   ],
+   "stepsTH": [
+    "การเตรียมความพร้อม",
+    "การตรวจจับและวิเคราะห์",
+    "การควบคุมสถานการณ์",
+    "การกำจัดภัยคุกคาม",
+    "การกู้คืนระบบ",
+    "การถอดบทเรียน"
+   ],
+   "explain": "เริ่มจากเตรียมทีมและเครื่องมือ (Preparation) จากนั้นตรวจจับเหตุการณ์ผิดปกติ (Detection) แล้วจำกัดขอบเขตความเสียหาย (Containment) กำจัดมัลแวร์หรือภัยคุกคาม (Eradication) กู้ระบบกลับมาทำงาน (Recovery) และสุดท้ายทบทวนเหตุการณ์เพื่อปรับปรุง (Lessons Learned)"
+  },
+  {
+   "title": "Risk Assessment Process",
+   "desc": "กระบวนการประเมินความเสี่ยง 7 ขั้นตอน",
+   "steps": [
+    "Asset Identification",
+    "Threat Identification",
+    "Vulnerability Identification",
+    "Likelihood Assessment",
+    "Impact Analysis",
+    "Risk Determination",
+    "Control Recommendations"
+   ],
+   "stepsTH": [
+    "ระบุทรัพย์สิน",
+    "ระบุภัยคุกคาม",
+    "ระบุช่องโหว่",
+    "ประเมินโอกาสเกิด",
+    "วิเคราะห์ผลกระทบ",
+    "พิจารณาระดับความเสี่ยง",
+    "แนะนำมาตรการควบคุม"
+   ],
+   "explain": "เริ่มจากรู้ว่าปกป้องอะไร (Asset) จากนั้นระบุว่ามีภัยอะไรบ้าง (Threat) แล้วหาจุดอ่อน (Vulnerability) ประเมินว่าจะเกิดบ่อยแค่ไหน (Likelihood) เกิดแล้วเสียหายเท่าไร (Impact) รวมเป็นระดับความเสี่ยง (Risk) แล้วเสนอวิธีรับมือ (Control)"
+  },
+  {
+   "title": "Change Management Process",
+   "desc": "กระบวนการบริหารการเปลี่ยนแปลง 7 ขั้นตอน",
+   "steps": [
+    "Request",
+    "Impact Assessment",
+    "Approval",
+    "Testing",
+    "Implementation",
+    "Documentation",
+    "Post-Implementation Review"
+   ],
+   "stepsTH": [
+    "ยื่นคำขอเปลี่ยนแปลง",
+    "ประเมินผลกระทบ",
+    "อนุมัติ",
+    "ทดสอบ",
+    "ดำเนินการจริง",
+    "จัดทำเอกสาร",
+    "ทบทวนหลังดำเนินการ"
+   ],
+   "explain": "ทุกการเปลี่ยนแปลงต้องเริ่มจากคำขอ (Request) แล้ววิเคราะห์ผลกระทบ (Impact) ก่อนขออนุมัติ (Approval) นำไปทดสอบ (Testing) แล้วจึงนำขึ้นจริง (Implementation) บันทึกทุกอย่าง (Documentation) และทบทวนผล (Review)"
+  },
+  {
+   "title": "BCP Lifecycle",
+   "desc": "วงจรการบริหารความต่อเนื่องทางธุรกิจ 6 ขั้นตอน",
+   "steps": [
+    "Project Initiation",
+    "BIA (Business Impact Analysis)",
+    "Strategy Development",
+    "Plan Development",
+    "Testing & Exercises",
+    "Maintenance"
+   ],
+   "stepsTH": [
+    "เริ่มต้นโครงการ",
+    "วิเคราะห์ผลกระทบทางธุรกิจ (BIA)",
+    "พัฒนากลยุทธ์",
+    "จัดทำแผน",
+    "ทดสอบและซ้อมปฏิบัติ",
+    "บำรุงรักษาแผน"
+   ],
+   "explain": "เริ่มจากตั้งโครงการ BCP (Initiation) ทำ BIA เพื่อรู้ว่าอะไรสำคัญที่สุด จากนั้นวางกลยุทธ์ (Strategy) เขียนแผน (Plan) ซ้อมจริง (Testing) แล้ววนกลับมาปรับปรุงอยู่เสมอ (Maintenance)"
+  },
+  {
+   "title": "Access Control Process",
+   "desc": "กระบวนการควบคุมการเข้าถึง 4 ขั้นตอนพื้นฐาน",
+   "steps": [
+    "Identification",
+    "Authentication",
+    "Authorization",
+    "Accountability"
+   ],
+   "stepsTH": [
+    "ระบุตัวตน",
+    "พิสูจน์ตัวตน",
+    "กำหนดสิทธิ์",
+    "ตรวจสอบย้อนกลับ"
+   ],
+   "explain": "ผู้ใช้บอกว่าตัวเองเป็นใคร (Identification เช่น username) พิสูจน์ว่าจริง (Authentication เช่น password) ระบบตรวจว่ามีสิทธิ์ทำอะไร (Authorization) แล้วบันทึก log ไว้ตรวจสอบ (Accountability)"
+  },
+  {
+   "title": "Digital Forensics Process",
+   "desc": "กระบวนการนิติวิทยาศาสตร์ดิจิทัล 6 ขั้นตอน",
+   "steps": [
+    "Identification",
+    "Preservation",
+    "Collection",
+    "Examination",
+    "Analysis",
+    "Presentation"
+   ],
+   "stepsTH": [
+    "ระบุหลักฐาน",
+    "สงวนรักษาหลักฐาน",
+    "เก็บรวบรวม",
+    "ตรวจพิสูจน์",
+    "วิเคราะห์",
+    "นำเสนอผล"
+   ],
+   "explain": "เริ่มจากระบุว่าหลักฐานอยู่ที่ไหน (Identification) รักษาไม่ให้เปลี่ยนแปลง (Preservation) เก็บรวบรวมอย่างถูกวิธี (Collection) ตรวจเนื้อหา (Examination) วิเคราะห์ความหมาย (Analysis) แล้วรายงานเป็นทางการ (Presentation)"
+  },
+  {
+   "title": "Vulnerability Management Lifecycle",
+   "desc": "วงจรการบริหารจัดการช่องโหว่ 6 ขั้นตอน",
+   "steps": [
+    "Discovery",
+    "Prioritization",
+    "Assessment",
+    "Remediation",
+    "Verification",
+    "Reporting"
+   ],
+   "stepsTH": [
+    "ค้นหาช่องโหว่",
+    "จัดลำดับความสำคัญ",
+    "ประเมินรายละเอียด",
+    "แก้ไข/ปิดช่องโหว่",
+    "ตรวจยืนยันผล",
+    "จัดทำรายงาน"
+   ],
+   "explain": "สแกนหาช่องโหว่ (Discovery) จัดลำดับว่าอันไหนเร่งด่วน (Prioritization) ประเมินรายละเอียด (Assessment) แก้ไขหรือ patch (Remediation) ตรวจว่าแก้สำเร็จจริง (Verification) แล้วสรุปรายงาน (Reporting)"
+  },
+  {
+   "title": "Security Awareness Training Cycle",
+   "desc": "วงจรการฝึกอบรมด้านความตระหนักรู้ 6 ขั้นตอน",
+   "steps": [
+    "Needs Assessment",
+    "Content Development",
+    "Delivery",
+    "Assessment",
+    "Feedback",
+    "Update"
+   ],
+   "stepsTH": [
+    "สำรวจความต้องการ",
+    "พัฒนาเนื้อหา",
+    "จัดอบรม",
+    "ประเมินผล",
+    "รับ Feedback",
+    "ปรับปรุงเนื้อหา"
+   ],
+   "explain": "เริ่มจากสำรวจว่าพนักงานขาดความรู้ด้านไหน (Needs Assessment) สร้างเนื้อหา (Content) จัดอบรม (Delivery) ทดสอบ (Assessment) รับความคิดเห็น (Feedback) แล้ววนกลับมาปรับปรุง (Update)"
+  }
+ ]
+}

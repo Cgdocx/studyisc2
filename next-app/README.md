@@ -1,6 +1,6 @@
 # studyisc2 Next.js pilot
 
-Next.js (App Router, TypeScript) version of the ISC2 CC Study Hub. Phase 1 ported the landing page and the 583 quiz, Phase 2 the other quiz sets, Phase 3 the content pages:
+Next.js (App Router, TypeScript) version of the ISC2 CC Study Hub. Phase 1 ported the landing page and the 583 quiz, Phase 2 the other quiz sets, Phase 3 the content pages, Phase 4 the mini games:
 
 | Route | Replaces |
 |-------|----------|
@@ -14,8 +14,10 @@ Next.js (App Router, TypeScript) version of the ISC2 CC Study Hub. Phase 1 porte
 | `/studyisc2/learning-path` | `learning-path.html` |
 | `/studyisc2/flashcard` | `flashcard.html` |
 | `/studyisc2/` | `index.html` (Mind Map) |
+| `/studyisc2/games` | `games.html` |
+| `/studyisc2/game-term-match`, `game-domain-sort`, `game-rapid-fire`, `game-beat-clock`, `game-incident-timeline`, `game-fill-gap`, `game-defend-castle`, `game-phish-detect` | the matching `game-*.html` |
 
-The live GitHub Pages site still serves the root `.html` files. Nothing here is deployed yet. Still to port: `games.html` and the game pages.
+Every page of the site is now ported. The live GitHub Pages site still serves the root `.html` files. Nothing here is deployed yet.
 
 ## Run
 
@@ -77,6 +79,41 @@ npm run verify:content   # JSON equals a fresh extraction; lessons rebuilt from 
 
 Progress uses the same localStorage keys and JSON as the legacy pages, so it carries over in both directions: `lp_completed` (Learning Path, `{"s1":true,...}`) and `fc_mastered` (flashcards, `{"<domain>:<term>":true,...}`). Lessons and the Mind Map store nothing.
 
+## Mini games
+
+Game data, copy and scoring rules come verbatim from the original pages into `src/data/games/`:
+
+| File | Source |
+|------|--------|
+| `games.json` | hero and the 8 cards of `games.html` |
+| `term-match.json` | `ALL_PAIRS`, `DOMAIN_NAMES` (45 pairs) |
+| `domain-sort.json` | `CONCEPTS`, `D_COLORS`, `D_NAMES` (52 concepts) |
+| `rapid-fire.json` | `STATEMENTS` (80) |
+| `beat-clock.json` | `QUESTIONS` (48) |
+| `incident-timeline.json` | `SCENARIOS` (8) |
+| `fill-gap.json` | `QUESTIONS` (34) |
+| `defend-castle.json` | `THREATS` (20) |
+| `phish-detect.json` | `ALL_FLAGS`, `EMAILS` (16) |
+
+```bash
+npm run gen:games      # extract the game JSON
+npm run verify:games   # JSON equals a fresh extraction, data integrity, and (after a build) each exported page's pre-JS markup matches the original token by token
+```
+
+The script of `game-beat-clock.html` has a syntax error (`"ออกแบบ Network"}` where `]` belongs), so the live game never starts. The generator applies that one character fix in memory, asserts it occurs exactly once, and leaves the legacy file untouched. `verify:games` proves the original fails to parse and the fixed copy parses.
+
+The games keep the legacy localStorage keys and formats: `rf_highscore` (Rapid Fire, integer string) and `btc_leaderboard` (Beat the Clock, JSON array of `{total, correct, date}`, best 10). No game sends anything to the Google Sheet.
+
+Intentional differences from the originals:
+
+- the Phishing Detective attachment shows an SVG paperclip instead of the emoji;
+- `prefers-reduced-motion: reduce` turns off game animations and transitions (`src/styles/games/motion.css`);
+- Defend the Castle resets the castle damage look and the next button label when a new game starts (the original keeps the previous game's `damaged`/`critical` classes because it assigns `className` on an SVG element, and keeps "ดูผลลัพธ์" after a lost game);
+- Beat the Clock treats a non-array `btc_leaderboard` as empty instead of crashing;
+- the shared global nav replaces the slightly different nav copies inside the game files.
+
+The hub copy (44 pairs, 82 statements, 60+ questions, 35 questions) and the "0 / 35" Fill the Gap placeholder are kept as written, even though the data holds 45, 80, 48 and 34.
+
 ## Lint
 
 ```bash
@@ -111,10 +148,13 @@ src/components/lesson/                shared lesson layout and data
 src/components/learning/              Learning Path tracker
 src/components/flashcard/             flashcards
 src/components/mindmap/               Mind Map
+src/app/games/, src/app/game-*/       games hub and one route per game
+src/components/games/                 the 8 games and shared helpers
+src/data/games/                       extracted game data
 src/lib/storage.ts                    localStorage hook shared by Learning Path and flashcards
 src/data/content/                     extracted study content
-src/styles/                           page styles scoped under .pg-landing, .pg-quiz, .pg-outline, .pg-ncsa, .pg-explained, .pg-lesson, .pg-learning, .pg-flashcard, .pg-mindmap
-scripts/                              bank and content generators, verifiers, local static server
+src/styles/                           page styles scoped under .pg-landing, .pg-quiz, .pg-outline, .pg-ncsa, .pg-explained, .pg-lesson, .pg-learning, .pg-flashcard, .pg-mindmap, .pg-games and .pg-<game>
+scripts/                              bank, content and game generators, verifiers, local static server
 ```
 
 Rules from the root `CLAUDE.md` still apply: neo-brutalist tokens, the exact Google Fonts URL, IBM Plex Sans Thai fallbacks, no emoji, no `system-ui`, no double dash in user facing text.
