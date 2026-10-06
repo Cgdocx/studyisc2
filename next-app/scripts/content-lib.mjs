@@ -2,34 +2,14 @@ import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
+import { decode, stripComments, blockEnd, tokens } from './check-lib.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 export const ROOT = resolve(here, '../..');
 export const OUT_DIR = resolve(here, '../src/data/content');
 
-const ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: '\u00a0', middot: '\u00b7', rarr: '\u2192', larr: '\u2190', times: '\u00d7', ne: '\u2260', hellip: '\u2026', mdash: '\u2014', ndash: '\u2013' };
-
-export function decode(s) {
-  return s.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e) => {
-    if (e[0] === '#') return String.fromCodePoint(e[1] === 'x' || e[1] === 'X' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10));
-    if (!(e in ENTITIES)) throw new Error('Unknown entity ' + m);
-    return ENTITIES[e];
-  });
-}
-
 export const read = file => readFileSync(resolve(ROOT, file), 'utf8');
-export const stripComments = s => s.replace(/<!--[\s\S]*?-->/g, '');
-
-export function blockEnd(html, start, tag) {
-  const re = new RegExp(`<(/?)${tag}\\b[^>]*>`, 'g');
-  re.lastIndex = start;
-  let depth = 0, m;
-  while ((m = re.exec(html))) {
-    depth += m[1] ? -1 : 1;
-    if (depth === 0) return re.lastIndex;
-  }
-  throw new Error('Unbalanced <' + tag + '>');
-}
+export { decode, stripComments, blockEnd, tokens };
 
 export function parseAttrs(s) {
   const attrs = {};
@@ -58,22 +38,6 @@ export function meta(html) {
   const metas = {};
   for (const m of html.matchAll(/<meta\s+(?:name|property)="([^"]+)"\s+content="([^"]*)"\s*\/?>/g)) metas[m[1]] = decode(m[2]);
   return { title, metas };
-}
-
-export function tokens(html) {
-  const out = [];
-  const re = /<\/?([a-zA-Z][a-zA-Z0-9]*)([^>]*)>|([^<]+)/g;
-  for (const m of stripComments(html).matchAll(re)) {
-    if (m[3] !== undefined) {
-      const t = decode(m[3]).replace(/\s+/g, ' ').trim();
-      if (t) out.push('#' + t);
-      continue;
-    }
-    const closing = m[0][1] === '/';
-    const at = [...(m[2] || '').matchAll(/([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*"([^"]*)")?/g)].map(a => `${a[1]}=${decode(a[2] ?? '')}`).sort();
-    out.push((closing ? '/' : '') + m[1].toLowerCase() + (closing ? '' : '[' + at.join('|') + ']'));
-  }
-  return out;
 }
 
 export function evalConst(html, name, endMarker) {
