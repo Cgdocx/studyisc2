@@ -1,4 +1,5 @@
 import type { Lang, Order, Question, QuizState, StudyMode } from './types';
+import { shuffle } from './engine/shuffle';
 import { EXAM_SECONDS_PER_QUESTION } from './strings';
 
 export type Action =
@@ -9,7 +10,7 @@ export type Action =
   | { type: 'toggleDomain'; dom: number }
   | { type: 'setDomains'; doms: number[] }
   | { type: 'setCount'; count: number }
-  | { type: 'start'; pool: Question[] }
+  | { type: 'start'; pool: Question[]; sessionId: string; seconds: number }
   | { type: 'answer'; idx: number }
   | { type: 'tick' }
   | { type: 'next' }
@@ -20,17 +21,9 @@ export const initialState: QuizState = {
   screen: 'start', mode: 'all', selectedDomains: [1, 2, 3, 4, 5], count: 50,
   questions: [], current: 0, answered: null, score: 0, wrong: 0, answers: [],
   lang: 'en', userName: '', studyMode: 'practice',
-  examTimeLeft: 0, finishedManually: false, runId: 0,
+  examTimeLeft: 0, finishedManually: false, runId: 0, sessionId: '', seconds: EXAM_SECONDS_PER_QUESTION,
 };
 
-function shuffle<T>(a: T[]): T[] {
-  const b = [...a];
-  for (let i = b.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [b[i], b[j]] = [b[j], b[i]];
-  }
-  return b;
-}
 
 function timeout(s: QuizState): QuizState {
   if (s.answered !== null) return s;
@@ -62,7 +55,8 @@ export function reducer(s: QuizState, a: Action): QuizState {
       const n = Math.min(Math.max(1, s.count), src.length);
       return {
         ...s, questions: src.slice(0, n), current: 0, answered: null, score: 0, wrong: 0, answers: [],
-        finishedManually: false, screen: 'quiz', examTimeLeft: EXAM_SECONDS_PER_QUESTION, runId: s.runId + 1,
+        finishedManually: false, screen: 'quiz', examTimeLeft: a.seconds, seconds: a.seconds, runId: s.runId + 1,
+        sessionId: a.sessionId,
       };
     }
     case 'answer': {
@@ -82,7 +76,7 @@ export function reducer(s: QuizState, a: Action): QuizState {
     case 'next':
       if (s.screen !== 'quiz') return s;
       if (s.current < s.questions.length - 1) {
-        return { ...s, current: s.current + 1, answered: null, examTimeLeft: EXAM_SECONDS_PER_QUESTION };
+        return { ...s, current: s.current + 1, answered: null, examTimeLeft: s.seconds };
       }
       return { ...s, screen: 'results' };
     case 'finish':

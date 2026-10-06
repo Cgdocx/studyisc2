@@ -11,12 +11,7 @@ export const EXAM_SECONDS_PER_QUESTION = 90;
 export const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 const UI_STRINGS = {
-  appTitle: { en: 'ISC2 CC - Combined Practice Bank', th: 'ISC2 CC - คลังข้อสอบฝึกฝนรวม' },
   createdBy: { en: 'Created by Gotji', th: 'สร้างโดย Gotji' },
-  tagline: {
-    en: '583 unique questions across all 5 domains, merged from 6 source banks. Fully bilingual - every question, choice, and explanation is available in English and Thai. Use the EN / TH / EN+TH toggle to switch languages, including a side-by-side view.',
-    th: 'ข้อสอบ 583 ข้อ ครอบคลุมทั้ง 5 โดเมน รวบรวมจากคลังข้อสอบ 6 แหล่ง มีสองภาษาครบถ้วน - ทุกคำถาม ตัวเลือก และคำอธิบายมีทั้งภาษาอังกฤษและภาษาไทย ใช้ปุ่ม EN / TH / EN+TH เพื่อสลับภาษา รวมถึงมุมมองแบบเทียบสองภาษา',
-  },
   yourNameLabel: { en: 'Your name (required)', th: 'ชื่อของคุณ (จำเป็น)' },
   namePlaceholder: { en: 'e.g. Gotji', th: 'เช่น Gotji' },
   studyModeLabel: { en: 'Study Mode', th: 'โหมดการเรียน' },
@@ -48,6 +43,11 @@ const UI_STRINGS = {
 } as const;
 
 export type UiKey = keyof typeof UI_STRINGS;
+
+export function pick(entry: { en: string; th: string }, lang: Lang): string {
+  if (lang === 'both') return `${entry.en} / ${entry.th}`;
+  return lang === 'th' ? entry.th : entry.en;
+}
 
 export function t(key: UiKey, lang: Lang): string {
   const entry = UI_STRINGS[key];
