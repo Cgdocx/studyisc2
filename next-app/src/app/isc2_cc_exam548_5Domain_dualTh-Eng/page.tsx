@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import QuizApp from '@/components/quiz/QuizApp';
-import { BANK_583 } from '@/lib/banks';
+import { BANK_548 } from '@/lib/banks';
 import '@/styles/quiz.css';
 import '@/styles/battle.css';
 
 export const metadata: Metadata = {
-  title: BANK_583.title,
+  title: BANK_548.title,
 };
 
-export default function Quiz583Page() {
-  return <QuizApp config={BANK_583} />;
+export default function Quiz548Page() {
+  return <QuizApp config={BANK_548} />;
 }

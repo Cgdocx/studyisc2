@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import BattleLayer from '@/components/battle/BattleLayer';
-import { BASE_PATH } from '@/lib/site';
+import type { BilingualBankConfig } from '@/lib/banks';
+import { useBank } from './engine/useBank';
 import { initialState, reducer } from './reducer';
 import QuizScreen from './QuizScreen';
 import ResultsScreen from './ResultsScreen';
@@ -10,25 +11,17 @@ import StartScreen from './StartScreen';
 import { submitToTracker } from './tracker';
 import type { Question } from './types';
 
-export const QUESTIONS_URL = `${BASE_PATH}/data/questions-583.json`;
+function makeSessionId(): string {
+  return 'sess_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+}
 
-export default function QuizApp() {
-  const [bank, setBank] = useState<Question[] | null>(null);
-  const [loadError, setLoadError] = useState(false);
+export default function QuizApp({ config }: { config: BilingualBankConfig }) {
+  const { data: bank, error: loadError } = useBank<Question[]>(config.dataFile);
   const [s, dispatch] = useReducer(reducer, initialState);
   const [nameDraft, setNameDraft] = useState('');
   const [koLock, setKoLock] = useState(false);
   const lockRef = useRef(false);
   const sentRun = useRef(0);
-
-  useEffect(() => {
-    let alive = true;
-    fetch(QUESTIONS_URL)
-      .then(r => { if (!r.ok) throw new Error(String(r.status)); return r.json() as Promise<Question[]>; })
-      .then(data => { if (alive) setBank(data); })
-      .catch(() => { if (alive) setLoadError(true); });
-    return () => { alive = false; };
-  }, []);
 
   useEffect(() => {
     if (s.screen !== 'quiz' || s.answered !== null || koLock) return;
@@ -43,12 +36,33 @@ export default function QuizApp() {
     return () => clearTimeout(id);
   }, [s.screen, s.studyMode, s.current, last]);
 
+  const latest = useRef(s);
+  latest.current = s;
+  const { tracker } = config;
   useEffect(() => {
-    if (s.screen === 'results' && sentRun.current !== s.runId) {
+    if (tracker && s.screen === 'results' && sentRun.current !== s.runId) {
       sentRun.current = s.runId;
-      submitToTracker(s);
+      submitToTracker(s, tracker);
     }
-  }, [s]);
+  }, [s, tracker]);
+
+  useEffect(() => {
+    if (!tracker || !tracker.autoSaveOnHide) return;
+    const trySubmitIncomplete = () => {
+      const cur = latest.current;
+      if (cur.screen === 'quiz' && sentRun.current !== cur.runId) {
+        sentRun.current = cur.runId;
+        submitToTracker(cur, tracker, { autoSaved: true });
+      }
+    };
+    const onVis = () => { if (document.visibilityState === 'hidden') trySubmitIncomplete(); };
+    document.addEventListener('visibilitychange', onVis);
+    window.addEventListener('pagehide', trySubmitIncomplete);
+    return () => {
+      document.removeEventListener('visibilitychange', onVis);
+      window.removeEventListener('pagehide', trySubmitIncomplete);
+    };
+  }, [tracker]);
 
   const onLockChange = useCallback((locked: boolean) => {
     lockRef.current = locked;
@@ -61,11 +75,12 @@ export default function QuizApp() {
 
   const start = () => {
     if (!bank) return;
-    dispatch({ type: 'start', pool: bank.filter(q => s.selectedDomains.includes(q.dom)) });
+    const seconds = config.timer.kind === 'per-question' ? config.timer.seconds : 0;
+    dispatch({ type: 'start', pool: bank.filter(q => s.selectedDomains.includes(q.dom)), sessionId: makeSessionId(), seconds });
     window.scrollTo({ top: 0 });
   };
 
-  const battleOn = s.studyMode !== 'exam' && (s.screen === 'quiz' || s.screen === 'results') && s.questions.length > 0;
+  const battleOn = config.battle && s.studyMode !== 'exam' && (s.screen === 'quiz' || s.screen === 'results') && s.questions.length > 0;
 
   return (
     <div className="pg-quiz">
@@ -88,6 +103,7 @@ export default function QuizApp() {
           </div>
         ) : s.screen === 'start' ? (
           <StartScreen
+            config={config}
             state={s}
             bank={bank}
             nameDraft={nameDraft}
@@ -111,6 +127,7 @@ export default function QuizApp() {
           />
         ) : (
           <ResultsScreen
+            config={config}
             state={s}
             onLang={l => dispatch({ type: 'setLang', lang: l })}
             onNewQuiz={() => dispatch({ type: 'toStart' })}

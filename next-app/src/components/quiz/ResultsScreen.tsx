@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
+import type { BilingualBankConfig } from '@/lib/banks';
 import LangToggle from './LangToggle';
 import { DOMAIN_NAMES, DOMAIN_NAMES_TH, LETTERS } from './strings';
 import { isComplete, isPassed } from './tracker';
 import type { Lang, QuizState } from './types';
 
 interface Props {
+  config: BilingualBankConfig;
   state: QuizState;
   onLang: (l: Lang) => void;
   onNewQuiz: () => void;
@@ -13,7 +15,7 @@ interface Props {
 
 const NO_ANSWER = '(No answer - time expired)';
 
-export default function ResultsScreen({ state: s, onLang, onNewQuiz, onRetry }: Props) {
+export default function ResultsScreen({ config, state: s, onLang, onNewQuiz, onRetry }: Props) {
   const total = s.questions.length;
   const pct = total > 0 ? Math.round((s.score / total) * 100) : 0;
   const complete = isComplete(s);
@@ -107,7 +109,7 @@ export default function ResultsScreen({ state: s, onLang, onNewQuiz, onRetry }: 
         )}
       </div>
       <div className="print-section">
-        <h1>ISC2 CC - Exam Result</h1>
+        <h1>{config.strings.printTitle}</h1>
         <p>Name: {s.userName || 'Anonymous'} &nbsp;|&nbsp; Date: {printedAt}</p>
         <p>
           Mode: {s.studyMode === 'exam' ? 'Exam' : 'Practice'} &nbsp;|&nbsp; Score: {s.score}/{total} ({pct}%) &nbsp;|&nbsp; Result: {passed ? 'PASS' : 'FAIL'}{!complete ? ' (incomplete)' : ''}

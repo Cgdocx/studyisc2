@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import LangToggle from './LangToggle';
-import { DOMAIN_NAMES, DOMAIN_NAMES_TH, t } from './strings';
+import type { BilingualBankConfig } from '@/lib/banks';
+import { DOMAIN_NAMES, DOMAIN_NAMES_TH, pick, t } from './strings';
 import type { Lang, Order, Question, QuizState, StudyMode } from './types';
 
 interface Props {
+  config: BilingualBankConfig;
   state: QuizState;
   bank: Question[];
   nameDraft: string;
@@ -31,8 +33,8 @@ export default function StartScreen(p: Props) {
     <>
       <header className="hero-section">
         <div className="eyebrow">{t('createdBy', L)}</div>
-        <h1>{t('appTitle', L)}</h1>
-        <div className="sub">{t('tagline', L)}</div>
+        <h1>{pick(p.config.strings.appTitle, L)}</h1>
+        <div className="sub">{pick(p.config.strings.tagline, L)}</div>
         <div style={{ marginTop: 18, display: 'flex', justifyContent: 'center' }}>
           <LangToggle lang={L} disableTh={false} onChange={p.onLang} />
         </div>

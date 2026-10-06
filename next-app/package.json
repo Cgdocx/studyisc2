@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "gen:questions": "node scripts/gen-questions.mjs",
-    "serve": "node scripts/serve-out.mjs"
+    "serve": "node scripts/serve-out.mjs",
+    "gen:banks": "node scripts/gen-banks.mjs",
+    "verify:banks": "node scripts/verify-banks.mjs"
   },
   "dependencies": {
     "next": "16.3.8",

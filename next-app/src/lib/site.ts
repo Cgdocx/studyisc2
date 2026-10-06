@@ -24,6 +24,10 @@ export const NAV_LINKS: NavLink[] = [
 export const PORTED_ROUTES: Record<string, { route: string; nav: NavKey }> = {
   'isc2-cc-landing.html': { route: '/isc2-cc-landing', nav: 'exam' },
   'isc2_cc_BothThai-eng_583quiz.html': { route: '/isc2_cc_BothThai-eng_583quiz', nav: 'exam' },
+  'isc2_cc_exam548_5Domain_dualTh-Eng.html': { route: '/isc2_cc_exam548_5Domain_dualTh-Eng', nav: 'exam' },
+  '1832quiz_NewExamDomainTH.html': { route: '/1832quiz_NewExamDomainTH', nav: 'exam' },
+  'isc2_cc_exam1NCSA_bi_no-track-50q.html': { route: '/isc2_cc_exam1NCSA_bi_no-track-50q', nav: 'exam' },
+  'quiz-explained.html': { route: '/quiz-explained', nav: 'explained' },
 };
 
 export function activeNavFor(pathname: string | null): NavKey | null {

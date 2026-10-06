@@ -40,4 +40,6 @@ export interface QuizState {
   examTimeLeft: number;
   finishedManually: boolean;
   runId: number;
+  sessionId: string;
+  seconds: number;
 }
