@@ -1,0 +1,3 @@
+@media (prefers-reduced-motion: reduce) {
+  .pg-game *, .pg-game *::before, .pg-game *::after { animation: none !important; transition: none !important; }
+}

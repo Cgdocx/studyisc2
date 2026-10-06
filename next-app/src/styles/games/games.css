@@ -1,0 +1,127 @@
+.pg-games {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --text: #0F0F0F;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F;
+  --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+  --font-display: 'Archivo Black', 'IBM Plex Sans Thai', sans-serif;
+  --font-body: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', monospace;
+}
+.pg-games, .pg-games * { box-sizing: border-box; margin: 0; padding: 0; }
+.pg-games {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-thai);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+.pg-games .wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+.pg-games header.hero-section {
+  text-align: center;
+  margin-bottom: 48px;
+  padding: 32px 20px;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.pg-games .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 800; letter-spacing: 0.12em;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 8px;
+}
+.pg-games h1 {
+  font-family: var(--font-display);
+  font-size: 38px; font-weight: 400; line-height: 1.1;
+  text-transform: uppercase; color: var(--ink); margin-bottom: 12px;
+}
+.pg-games .sub {
+  font-family: var(--font-thai); font-size: 16px; color: var(--ink-2);
+  max-width: 720px; margin: 0 auto; line-height: 1.6;
+}
+.pg-games .category-label {
+  font-family: var(--font-display); font-size: 20px; text-transform: uppercase;
+  margin: 40px 0 16px; padding: 10px 16px;
+  background: var(--ink); color: var(--cream);
+  border: 2px solid var(--ink); display: inline-block;
+  box-shadow: 3px 3px 0 var(--orange);
+}
+.pg-games .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 16px;
+}
+.pg-games .card {
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 26px 24px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.pg-games .card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 var(--ink);
+}
+.pg-games .card-badge {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  padding: 3px 8px; background: var(--accent-bg, var(--yellow));
+  border: 1.5px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  text-transform: uppercase; margin-bottom: 14px; align-self: flex-start;
+}
+.pg-games .card h2 {
+  font-family: var(--font-display); font-size: 20px; font-weight: 400;
+  text-transform: uppercase; margin-bottom: 10px; color: var(--ink);
+}
+.pg-games .card p {
+  font-family: var(--font-thai); font-size: 14px; line-height: 1.7; color: var(--ink-2);
+  margin-bottom: 20px; flex: 1;
+}
+.pg-games .card-meta {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  color: var(--ink); background: var(--cream);
+  padding: 8px 12px; border: 1.5px solid var(--ink);
+  margin-bottom: 18px; display: flex; justify-content: space-between;
+}
+.pg-games .card-btn {
+  display: block; text-align: center;
+  background: var(--btn-bg, var(--ink)); color: var(--btn-color, var(--cream));
+  text-decoration: none; font-family: var(--font-mono); font-size: 13px; font-weight: 800;
+  padding: 12px 18px; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  text-transform: uppercase; transition: transform 0.1s ease, background 0.1s ease;
+}
+.pg-games .card-btn:hover {
+  background: var(--yellow); color: var(--ink);
+  transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink);
+}
+@media (max-width: 600px) {
+  .pg-games h1 { font-size: 26px; }
+  .pg-games .wrap { padding: 24px 16px 60px; }
+  .pg-games .category-label { font-size: 16px; }
+}

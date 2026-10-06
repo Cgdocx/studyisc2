@@ -36,6 +36,15 @@ export const PORTED_ROUTES: Record<string, { route: string; nav: NavKey }> = {
   'learning-path.html': { route: '/learning-path', nav: 'path' },
   'flashcard.html': { route: '/flashcard', nav: 'flashcard' },
   'index.html': { route: '/', nav: 'mindmap' },
+  'games.html': { route: '/games', nav: 'games' },
+  'game-term-match.html': { route: '/game-term-match', nav: 'games' },
+  'game-domain-sort.html': { route: '/game-domain-sort', nav: 'games' },
+  'game-rapid-fire.html': { route: '/game-rapid-fire', nav: 'games' },
+  'game-beat-clock.html': { route: '/game-beat-clock', nav: 'games' },
+  'game-incident-timeline.html': { route: '/game-incident-timeline', nav: 'games' },
+  'game-fill-gap.html': { route: '/game-fill-gap', nav: 'games' },
+  'game-defend-castle.html': { route: '/game-defend-castle', nav: 'games' },
+  'game-phish-detect.html': { route: '/game-phish-detect', nav: 'games' },
 };
 
 function cleanPath(pathname: string): string {

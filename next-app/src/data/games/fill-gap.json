@@ -1,0 +1,415 @@
+{
+ "file": "game-fill-gap.html",
+ "title": "ISC2 CC - Fill the Gap Game",
+ "description": "เกมเติมคำในช่องว่าง ฝึกจำศัพท์และแนวคิดสำคัญ ISC2 CC Certified in Cybersecurity",
+ "questions": [
+  {
+   "domain": "Domain 1: Security Principles",
+   "sentence": "_______ คือหลักการที่ว่า ข้อมูลต้องไม่ถูกเปลี่ยนแปลงโดยไม่ได้รับอนุญาต",
+   "answer": "Integrity",
+   "choices": [
+    "Integrity",
+    "Availability",
+    "Confidentiality",
+    "Authentication"
+   ],
+   "explain": "Integrity หมายถึงความถูกต้องครบถ้วนของข้อมูล ต้องไม่ถูกแก้ไขโดยไม่ได้รับอนุญาต ต่างจาก Confidentiality (การรักษาความลับ) และ Availability (ความพร้อมใช้งาน)"
+  },
+  {
+   "domain": "Domain 1: Security Principles",
+   "sentence": "_______ คือหลักการที่ข้อมูลต้องเข้าถึงได้โดยผู้ที่มีสิทธิ์เมื่อต้องการใช้งาน",
+   "answer": "Availability",
+   "choices": [
+    "Availability",
+    "Integrity",
+    "Non-repudiation",
+    "Confidentiality"
+   ],
+   "explain": "Availability ทำให้มั่นใจว่าระบบและข้อมูลพร้อมใช้งานเมื่อผู้ใช้ที่ได้รับอนุญาตต้องการ"
+  },
+  {
+   "domain": "Domain 1: Security Principles",
+   "sentence": "_______ คือหลักการที่ข้อมูลต้องถูกเก็บเป็นความลับจากผู้ที่ไม่มีสิทธิ์",
+   "answer": "Confidentiality",
+   "choices": [
+    "Confidentiality",
+    "Privacy",
+    "Integrity",
+    "Accountability"
+   ],
+   "explain": "Confidentiality ป้องกันการเปิดเผยข้อมูลแก่ผู้ไม่มีสิทธิ์ ใช้วิธีเช่น encryption และ access control"
+  },
+  {
+   "domain": "Domain 1: Security Principles",
+   "sentence": "หลัก _______ กำหนดให้ผู้ใช้ได้รับสิทธิ์เข้าถึงเฉพาะสิ่งที่จำเป็นต่อการทำงานเท่านั้น",
+   "answer": "Least Privilege",
+   "choices": [
+    "Least Privilege",
+    "Need to Know",
+    "Separation of Duties",
+    "Defense in Depth"
+   ],
+   "explain": "Least Privilege ให้สิทธิ์น้อยที่สุดเท่าที่จำเป็น ลดความเสี่ยงหากบัญชีถูกบุกรุก"
+  },
+  {
+   "domain": "Domain 1: Security Principles",
+   "sentence": "_______ คือการที่ผู้กระทำไม่สามารถปฏิเสธว่าตนไม่ได้ทำสิ่งนั้น",
+   "answer": "Non-repudiation",
+   "choices": [
+    "Non-repudiation",
+    "Authentication",
+    "Authorization",
+    "Accountability"
+   ],
+   "explain": "Non-repudiation ใช้ digital signature เป็นหลักฐานว่าผู้ส่งส่งข้อมูลจริง ปฏิเสธไม่ได้"
+  },
+  {
+   "domain": "Domain 1: Security Principles",
+   "sentence": "แนวคิด _______ ใช้มาตรการรักษาความปลอดภัยหลายชั้นซ้อนกัน",
+   "answer": "Defense in Depth",
+   "choices": [
+    "Defense in Depth",
+    "Least Privilege",
+    "Zero Trust",
+    "Security by Design"
+   ],
+   "explain": "Defense in Depth วางมาตรการป้องกันหลายชั้น ถ้าชั้นหนึ่งถูกเจาะ ชั้นถัดไปยังป้องกันอยู่"
+  },
+  {
+   "domain": "Domain 1: Security Principles",
+   "sentence": "_______ คือการประเมินว่าภัยคุกคามและช่องโหว่จะส่งผลกระทบต่อองค์กรมากน้อยเพียงใด",
+   "answer": "Risk Assessment",
+   "choices": [
+    "Risk Assessment",
+    "Vulnerability Scan",
+    "Penetration Test",
+    "Security Audit"
+   ],
+   "explain": "Risk Assessment ประเมินโอกาสและผลกระทบของภัยคุกคามที่อาจเกิดขึ้น เพื่อจัดลำดับความสำคัญ"
+  },
+  {
+   "domain": "Domain 1: Security Principles",
+   "sentence": "การ _______ ความเสี่ยงคือการยอมรับความเสี่ยงนั้นโดยไม่ดำเนินมาตรการเพิ่มเติม",
+   "answer": "Accept",
+   "choices": [
+    "Accept",
+    "Mitigate",
+    "Transfer",
+    "Avoid"
+   ],
+   "explain": "Risk Acceptance คือการตัดสินใจยอมรับความเสี่ยงเพราะต้นทุนการป้องกันสูงกว่าผลกระทบ หรือความเสี่ยงอยู่ในระดับที่ยอมรับได้"
+  },
+  {
+   "domain": "Domain 2: BC, DR & IR",
+   "sentence": "_______ หมายถึงระยะเวลาสูงสุดที่ระบบสามารถหยุดทำงานได้ก่อนเกิดผลกระทบร้ายแรง",
+   "answer": "RTO",
+   "choices": [
+    "RTO",
+    "RPO",
+    "MTBF",
+    "MTTR"
+   ],
+   "explain": "RTO (Recovery Time Objective) คือเวลาสูงสุดที่ยอมให้ระบบหยุดทำงานได้ เช่น RTO 4 ชั่วโมง หมายถึงต้องกู้ระบบภายใน 4 ชั่วโมง"
+  },
+  {
+   "domain": "Domain 2: BC, DR & IR",
+   "sentence": "_______ คือปริมาณข้อมูลสูงสุดที่ยอมให้สูญหายได้ วัดเป็นช่วงเวลา",
+   "answer": "RPO",
+   "choices": [
+    "RPO",
+    "RTO",
+    "SLA",
+    "BIA"
+   ],
+   "explain": "RPO (Recovery Point Objective) เช่น RPO 1 ชั่วโมง หมายถึงยอมเสียข้อมูลได้ไม่เกิน 1 ชั่วโมงก่อนเหตุการณ์"
+  },
+  {
+   "domain": "Domain 2: BC, DR & IR",
+   "sentence": "_______ คือกระบวนการวิเคราะห์ว่ากระบวนการธุรกิจใดสำคัญที่สุดต่อองค์กร",
+   "answer": "BIA",
+   "choices": [
+    "BIA",
+    "BCP",
+    "DRP",
+    "SLA"
+   ],
+   "explain": "BIA (Business Impact Analysis) ระบุว่ากระบวนการไหนสำคัญที่สุด หยุดแล้วเสียหายเท่าไร เป็นขั้นตอนแรกของ BCP"
+  },
+  {
+   "domain": "Domain 2: BC, DR & IR",
+   "sentence": "_______ เป็นแผนที่มุ่งเน้นการกู้คืนระบบ IT หลังเหตุภัยพิบัติ",
+   "answer": "DRP",
+   "choices": [
+    "DRP",
+    "BCP",
+    "IRP",
+    "COOP"
+   ],
+   "explain": "DRP (Disaster Recovery Plan) เน้นกู้คืนระบบสารสนเทศ ส่วน BCP ครอบคลุมธุรกิจทั้งหมด"
+  },
+  {
+   "domain": "Domain 2: BC, DR & IR",
+   "sentence": "ขั้นตอนแรกของ Incident Response ตาม NIST คือ _______",
+   "answer": "Preparation",
+   "choices": [
+    "Preparation",
+    "Detection",
+    "Containment",
+    "Eradication"
+   ],
+   "explain": "Preparation คือเตรียมทีม เครื่องมือ และแผนรับมือไว้ล่วงหน้า เป็นรากฐานของ IR ทั้งหมด"
+  },
+  {
+   "domain": "Domain 2: BC, DR & IR",
+   "sentence": "_______ site คือศูนย์สำรองที่มีอุปกรณ์ครบพร้อมใช้งานทันที",
+   "answer": "Hot",
+   "choices": [
+    "Hot",
+    "Warm",
+    "Cold",
+    "Mobile"
+   ],
+   "explain": "Hot site มีอุปกรณ์และข้อมูลพร้อมใช้ทันที Warm site มีอุปกรณ์แต่ต้องโหลดข้อมูล Cold site มีแค่สถานที่"
+  },
+  {
+   "domain": "Domain 3: Access Controls",
+   "sentence": "_______ เป็นการควบคุมการเข้าถึงที่กำหนดสิทธิ์ตามบทบาทหน้าที่",
+   "answer": "RBAC",
+   "choices": [
+    "RBAC",
+    "DAC",
+    "MAC",
+    "ABAC"
+   ],
+   "explain": "RBAC (Role-Based Access Control) ให้สิทธิ์ตาม role เช่น admin, user, manager ง่ายต่อการจัดการในองค์กรใหญ่"
+  },
+  {
+   "domain": "Domain 3: Access Controls",
+   "sentence": "_______ เป็นการควบคุมที่เจ้าของข้อมูลมีอำนาจกำหนดสิทธิ์เอง",
+   "answer": "DAC",
+   "choices": [
+    "DAC",
+    "MAC",
+    "RBAC",
+    "Rule-Based"
+   ],
+   "explain": "DAC (Discretionary Access Control) เจ้าของไฟล์ตัดสินใจเองว่าจะแชร์ให้ใคร เช่นระบบ permission ใน Windows/Linux"
+  },
+  {
+   "domain": "Domain 3: Access Controls",
+   "sentence": "_______ เป็นระบบที่ใช้ label ความลับ (เช่น Top Secret, Secret) ในการกำหนดสิทธิ์",
+   "answer": "MAC",
+   "choices": [
+    "MAC",
+    "DAC",
+    "RBAC",
+    "ABAC"
+   ],
+   "explain": "MAC (Mandatory Access Control) ใช้ security labels กำหนดสิทธิ์โดยระบบ ผู้ใช้เปลี่ยนไม่ได้ ใช้ในงานทหารและรัฐบาล"
+  },
+  {
+   "domain": "Domain 3: Access Controls",
+   "sentence": "_______ คือการใช้ปัจจัยตั้งแต่ 2 ประเภทขึ้นไปในการพิสูจน์ตัวตน",
+   "answer": "MFA",
+   "choices": [
+    "MFA",
+    "SSO",
+    "2FA",
+    "Biometrics"
+   ],
+   "explain": "MFA (Multi-Factor Authentication) ใช้ปัจจัยต่างประเภทกัน เช่น password (something you know) + OTP (something you have)"
+  },
+  {
+   "domain": "Domain 3: Access Controls",
+   "sentence": "_______ คือระบบที่ให้ผู้ใช้ login ครั้งเดียวแล้วเข้าถึงหลายระบบได้",
+   "answer": "SSO",
+   "choices": [
+    "SSO",
+    "MFA",
+    "LDAP",
+    "OAuth"
+   ],
+   "explain": "SSO (Single Sign-On) ลดจำนวนครั้งที่ต้อง login เพิ่มความสะดวก แต่ถ้าบัญชี SSO ถูกเจาะจะเข้าถึงทุกระบบ"
+  },
+  {
+   "domain": "Domain 3: Access Controls",
+   "sentence": "ปัจจัยพิสูจน์ตัวตนประเภท something you _______ ได้แก่ลายนิ้วมือ ม่านตา ใบหน้า",
+   "answer": "are",
+   "choices": [
+    "are",
+    "know",
+    "have",
+    "do"
+   ],
+   "explain": "Something you are คือ biometrics (ลายนิ้วมือ, ม่านตา, ใบหน้า) / Something you know คือ password / Something you have คือ token, smart card"
+  },
+  {
+   "domain": "Domain 4: Network Security",
+   "sentence": "_______ ทำหน้าที่กรองทราฟิกระหว่างเครือข่ายตามกฎที่กำหนด",
+   "answer": "Firewall",
+   "choices": [
+    "Firewall",
+    "IDS",
+    "Router",
+    "Switch"
+   ],
+   "explain": "Firewall กรอง traffic ขาเข้า-ออกตามกฎ (rules/policies) เช่น allow/deny ตาม port, IP, protocol"
+  },
+  {
+   "domain": "Domain 4: Network Security",
+   "sentence": "_______ ตรวจจับทราฟิกที่น่าสงสัยและแจ้งเตือน แต่ไม่บล็อก",
+   "answer": "IDS",
+   "choices": [
+    "IDS",
+    "IPS",
+    "Firewall",
+    "WAF"
+   ],
+   "explain": "IDS (Intrusion Detection System) ตรวจจับและแจ้งเตือนเท่านั้น ต่างจาก IPS ที่บล็อกได้ด้วย"
+  },
+  {
+   "domain": "Domain 4: Network Security",
+   "sentence": "_______ ตรวจจับและบล็อกทราฟิกอันตรายได้อัตโนมัติ",
+   "answer": "IPS",
+   "choices": [
+    "IPS",
+    "IDS",
+    "SIEM",
+    "NAC"
+   ],
+   "explain": "IPS (Intrusion Prevention System) ทำงานเชิงรุก ตรวจจับและบล็อก traffic อันตรายได้ทันที"
+  },
+  {
+   "domain": "Domain 4: Network Security",
+   "sentence": "_______ คือโซนเครือข่ายกึ่งสาธารณะที่วางเซิร์ฟเวอร์ที่ต้องเข้าถึงจากอินเทอร์เน็ต",
+   "answer": "DMZ",
+   "choices": [
+    "DMZ",
+    "VLAN",
+    "VPN",
+    "Subnet"
+   ],
+   "explain": "DMZ (Demilitarized Zone) วาง web server, mail server ไว้ระหว่างเครือข่ายภายในกับอินเทอร์เน็ต ป้องกันการเข้าถึงเครือข่ายภายในโดยตรง"
+  },
+  {
+   "domain": "Domain 4: Network Security",
+   "sentence": "_______ เข้ารหัสการเชื่อมต่อเพื่อให้เข้าถึงเครือข่ายองค์กรจากระยะไกลอย่างปลอดภัย",
+   "answer": "VPN",
+   "choices": [
+    "VPN",
+    "SSL",
+    "SSH",
+    "DMZ"
+   ],
+   "explain": "VPN (Virtual Private Network) สร้าง encrypted tunnel สำหรับเข้าถึงเครือข่ายองค์กรจากภายนอก"
+  },
+  {
+   "domain": "Domain 4: Network Security",
+   "sentence": "โปรโตคอล _______ ทำงานที่ port 443 และเข้ารหัสการสื่อสารบนเว็บ",
+   "answer": "HTTPS",
+   "choices": [
+    "HTTPS",
+    "HTTP",
+    "FTP",
+    "SSH"
+   ],
+   "explain": "HTTPS ใช้ TLS/SSL เข้ารหัสบน port 443 ป้องกันการดักจับข้อมูลระหว่างเบราว์เซอร์กับเว็บเซิร์ฟเวอร์"
+  },
+  {
+   "domain": "Domain 4: Network Security",
+   "sentence": "_______ แบ่งเครือข่ายทางลอจิคัลโดยไม่ต้องแยกสายกายภาพ",
+   "answer": "VLAN",
+   "choices": [
+    "VLAN",
+    "VPN",
+    "DMZ",
+    "NAT"
+   ],
+   "explain": "VLAN (Virtual LAN) แบ่งเครือข่ายเป็นกลุ่มๆ ใน switch เดียวกัน ลดขนาด broadcast domain และเพิ่มความปลอดภัย"
+  },
+  {
+   "domain": "Domain 5: Security Operations",
+   "sentence": "_______ รวบรวมและวิเคราะห์ log จากหลายแหล่งเพื่อตรวจจับภัยคุกคาม",
+   "answer": "SIEM",
+   "choices": [
+    "SIEM",
+    "IDS",
+    "SOC",
+    "DLP"
+   ],
+   "explain": "SIEM (Security Information and Event Management) รวม log จาก firewall, server, IDS ฯลฯ มาวิเคราะห์และแจ้งเตือนเหตุการณ์ผิดปกติ"
+  },
+  {
+   "domain": "Domain 5: Security Operations",
+   "sentence": "_______ ป้องกันไม่ให้ข้อมูลสำคัญรั่วไหลออกนอกองค์กร",
+   "answer": "DLP",
+   "choices": [
+    "DLP",
+    "IPS",
+    "WAF",
+    "SIEM"
+   ],
+   "explain": "DLP (Data Loss Prevention) ตรวจจับและบล็อกการส่งข้อมูลสำคัญออกทาง email, USB, cloud ฯลฯ"
+  },
+  {
+   "domain": "Domain 5: Security Operations",
+   "sentence": "การทำ _______ คือการเก็บสำเนาข้อมูลไว้เพื่อกู้คืนเมื่อเกิดเหตุ",
+   "answer": "Backup",
+   "choices": [
+    "Backup",
+    "Archive",
+    "Snapshot",
+    "Replication"
+   ],
+   "explain": "Backup คือสำเนาข้อมูลสำหรับกู้คืน ต่างจาก Archive (เก็บถาวร) และ Replication (สำเนาแบบ real-time)"
+  },
+  {
+   "domain": "Domain 5: Security Operations",
+   "sentence": "_______ backup เก็บเฉพาะข้อมูลที่เปลี่ยนแปลงตั้งแต่ full backup ครั้งล่าสุด",
+   "answer": "Differential",
+   "choices": [
+    "Differential",
+    "Incremental",
+    "Full",
+    "Mirror"
+   ],
+   "explain": "Differential เก็บข้อมูลที่เปลี่ยนนับจาก full backup ล่าสุด / Incremental เก็บเฉพาะที่เปลี่ยนนับจาก backup ครั้งก่อนหน้า"
+  },
+  {
+   "domain": "Domain 5: Security Operations",
+   "sentence": "_______ คือกระบวนการติดตั้งอัพเดตเพื่อแก้ไขช่องโหว่ในซอฟต์แวร์",
+   "answer": "Patch Management",
+   "choices": [
+    "Patch Management",
+    "Change Management",
+    "Configuration Management",
+    "Release Management"
+   ],
+   "explain": "Patch Management คือการจัดการติดตั้ง security patch อย่างเป็นระบบ ทดสอบก่อนนำขึ้นจริง"
+  },
+  {
+   "domain": "Domain 5: Security Operations",
+   "sentence": "_______ คือการเข้ารหัสข้อมูลขณะจัดเก็บอยู่ในดิสก์หรือฐานข้อมูล",
+   "answer": "Encryption at rest",
+   "choices": [
+    "Encryption at rest",
+    "Encryption in transit",
+    "Hashing",
+    "Tokenization"
+   ],
+   "explain": "Encryption at rest ป้องกันข้อมูลหากดิสก์หรืออุปกรณ์ถูกขโมย / Encryption in transit ป้องกันขณะส่งผ่านเครือข่าย"
+  },
+  {
+   "domain": "Domain 1: Security Principles",
+   "sentence": "_______ คือการแยกหน้าที่เพื่อไม่ให้คนคนเดียวควบคุมกระบวนการทั้งหมดได้",
+   "answer": "Separation of Duties",
+   "choices": [
+    "Separation of Duties",
+    "Least Privilege",
+    "Job Rotation",
+    "Dual Control"
+   ],
+   "explain": "Separation of Duties แบ่งงานเพื่อป้องกัน fraud เช่น คนอนุมัติจ่ายเงินกับคนโอนเงินต้องคนละคน"
+  }
+ ]
+}

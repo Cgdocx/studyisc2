@@ -1,0 +1,118 @@
+.pg-rapid-fire {
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green: #1F8A4C;
+  --green2: #136636;
+  --green-dim: rgba(31,138,76,.15);
+  --pink: #F06CA8;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --white: #FFFFFF;
+  --bg: #EFE9D9;
+  --bg2: #E4DCC4;
+  --card: #FFFFFF;
+  --card2: #F7F4EB;
+  --line: #0F0F0F;
+  --text: #0F0F0F;
+  --muted: #4A4A4A;
+  --red: #D12438;
+  --red-dim: rgba(209,36,56,.12);
+  --gold: #E85A1F;
+  --warn: #E85A1F;
+  --shadow: 4px 4px 0 #0F0F0F;
+  --radius: 0px;
+  --font-display: 'Archivo Black', 'IBM Plex Sans Thai', sans-serif;
+  --font-body: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+  --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', monospace;
+}
+.pg-rapid-fire, .pg-rapid-fire * { box-sizing: border-box; margin: 0; padding: 0; }
+.pg-rapid-fire { background: var(--cream); color: var(--ink); font-family: var(--font-thai); min-height: 100vh; }
+.pg-rapid-fire .wrap { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
+.pg-rapid-fire .game-header {
+  text-align: center; margin-bottom: 32px; padding: 28px 20px;
+  background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+}
+.pg-rapid-fire .game-header .eyebrow {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+  letter-spacing: 0.12em; color: var(--orange); text-transform: uppercase; margin-bottom: 6px;
+}
+.pg-rapid-fire .game-header h1 {
+  font-family: var(--font-display); font-size: 32px; text-transform: uppercase; line-height: 1.1; margin-bottom: 8px;
+}
+.pg-rapid-fire .game-header .sub { font-size: 15px; color: var(--ink-2); line-height: 1.5; }
+.pg-rapid-fire .hud {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  margin-bottom: 24px; flex-wrap: wrap;
+}
+.pg-rapid-fire .hud-box {
+  background: var(--white); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  padding: 10px 16px; text-align: center; flex: 1; min-width: 100px;
+}
+.pg-rapid-fire .hud-label { font-family: var(--font-mono); font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--muted); }
+.pg-rapid-fire .hud-value { font-family: var(--font-display); font-size: 28px; margin-top: 2px; }
+.pg-rapid-fire .hud-value.timer { color: var(--red); }
+.pg-rapid-fire .hud-value.streak { color: var(--orange); }
+.pg-rapid-fire .statement-card {
+  background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+  padding: 36px 28px; text-align: center; margin-bottom: 24px; min-height: 160px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: background 0.15s ease;
+}
+.pg-rapid-fire .statement-card.flash-correct { background: var(--green-dim); }
+.pg-rapid-fire .statement-card.flash-wrong { background: var(--red-dim); }
+.pg-rapid-fire .statement-text { font-size: 20px; font-weight: 600; line-height: 1.6; }
+.pg-rapid-fire .statement-domain {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  color: var(--muted); margin-top: 12px; text-transform: uppercase;
+}
+.pg-rapid-fire .statement-explain {
+  margin-top: 10px; font-size: 14px; color: var(--green2); font-weight: 600;
+  opacity: 0; transition: opacity 0.2s;
+}
+.pg-rapid-fire .statement-explain.show { opacity: 1; }
+.pg-rapid-fire .btn-row { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; }
+.pg-rapid-fire .game-btn {
+  font-family: var(--font-display); font-size: 22px; text-transform: uppercase;
+  padding: 16px 40px; border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+  cursor: pointer; transition: transform 0.1s, box-shadow 0.1s;
+  min-width: 140px;
+}
+.pg-rapid-fire .game-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+.pg-rapid-fire .game-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+.pg-rapid-fire .game-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: 4px 4px 0 var(--ink); }
+.pg-rapid-fire .btn-true { background: var(--green); color: var(--white); }
+.pg-rapid-fire .btn-false { background: var(--red); color: var(--white); }
+.pg-rapid-fire .start-btn, .pg-rapid-fire .restart-btn {
+  display: block; margin: 24px auto; font-family: var(--font-display); font-size: 18px;
+  text-transform: uppercase; padding: 16px 48px; background: var(--ink); color: var(--cream);
+  border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--orange); cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.pg-rapid-fire .start-btn:hover, .pg-rapid-fire .restart-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--orange); }
+.pg-rapid-fire .multiplier-badge {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0);
+  font-family: var(--font-display); font-size: 64px; color: var(--orange);
+  pointer-events: none; z-index: 9999; transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0;
+}
+.pg-rapid-fire .multiplier-badge.pop { transform: translate(-50%,-50%) scale(1.2); opacity: 1; }
+.pg-rapid-fire .results-card {
+  background: var(--white); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+  padding: 32px 24px; text-align: center; display: none;
+}
+.pg-rapid-fire .results-card h2 { font-family: var(--font-display); font-size: 28px; text-transform: uppercase; margin-bottom: 16px; }
+.pg-rapid-fire .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 20px 0; }
+.pg-rapid-fire .result-stat {
+  background: var(--cream); border: 2px solid var(--ink); padding: 14px 10px;
+}
+.pg-rapid-fire .result-stat .val { font-family: var(--font-display); font-size: 32px; }
+.pg-rapid-fire .result-stat .lbl { font-family: var(--font-mono); font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+.pg-rapid-fire .new-record { color: var(--orange); font-family: var(--font-mono); font-size: 13px; font-weight: 800; margin-top: 10px; }
+@media (max-width: 600px) {
+  .pg-rapid-fire .game-header h1 { font-size: 24px; }
+  .pg-rapid-fire .statement-text { font-size: 17px; }
+  .pg-rapid-fire .game-btn { font-size: 18px; padding: 14px 28px; min-width: 110px; }
+  .pg-rapid-fire .hud-value { font-size: 22px; }
+}

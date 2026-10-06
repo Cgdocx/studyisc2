@@ -1,0 +1,270 @@
+{
+ "file": "game-phish-detect.html",
+ "title": "Phishing Detective - นักสืบฟิชชิ่ง | ISC2 CC Mini Game",
+ "description": "ฝึกตรวจจับอีเมล Phishing เรียนรู้ Red Flags ที่ต้องระวัง เกมฝึกทักษะ Security Awareness สำหรับเตรียมสอบ ISC2 CC",
+ "flags": [
+  {
+   "id": "domain_mismatch",
+   "label": "Sender domain ไม่ตรงกับองค์กรจริง (Domain Mismatch)"
+  },
+  {
+   "id": "urgency",
+   "label": "สร้างความเร่งด่วน / ข่มขู่ (Urgency / Threats)"
+  },
+  {
+   "id": "generic_greeting",
+   "label": "ทักทายแบบกว้างๆ ไม่ระบุชื่อ (Generic Greeting)"
+  },
+  {
+   "id": "suspicious_link",
+   "label": "URL link น่าสงสัย / ไม่ตรงกับองค์กร (Suspicious Link)"
+  },
+  {
+   "id": "spelling",
+   "label": "สะกดผิด / ไวยากรณ์แปลก (Spelling / Grammar Errors)"
+  },
+  {
+   "id": "credential_request",
+   "label": "ขอข้อมูล Login / รหัสผ่าน / บัตรเครดิต (Credential Request)"
+  },
+  {
+   "id": "unexpected_attachment",
+   "label": "ไฟล์แนบที่ไม่คาดคิด (Unexpected Attachment)"
+  },
+  {
+   "id": "too_good",
+   "label": "ข้อเสนอดีเกินจริง (Too Good to Be True)"
+  }
+ ],
+ "emails": [
+  {
+   "from": "security@faceb00k-support.com",
+   "to": "you@company.co.th",
+   "date": "5 ต.ค. 2026, 09:14",
+   "subject": "บัญชีของคุณจะถูกระงับใน 24 ชั่วโมง!",
+   "body": "เรียน ผู้ใช้งาน Facebook,\n\nเราตรวจพบกิจกรรมที่น่าสงสัยในบัญชีของคุณ หากคุณไม่ยืนยันตัวตนภายใน 24 ชั่วโมง บัญชีจะถูกระงับถาวร\n\nกรุณาคลิกลิงก์ด้านล่างเพื่อยืนยัน:\n<span class=\"fake-link\">http://faceb00k-login.secure-verify.net/auth</span>\n\nขอบคุณ,\nทีมความปลอดภัย Facebook",
+   "attachment": null,
+   "isPhishing": true,
+   "flags": [
+    "domain_mismatch",
+    "urgency",
+    "generic_greeting",
+    "suspicious_link",
+    "credential_request"
+   ],
+   "explanation": "Domain ส่ง faceb00k-support.com ใช้เลข 0 แทนตัว o (Typosquatting) Facebook จริงใช้ @facebook.com เท่านั้น ลิงก์ชี้ไปที่ secure-verify.net ไม่ใช่ facebook.com"
+  },
+  {
+   "from": "it-helpdesk@c0mpany-support.co",
+   "to": "you@company.co.th",
+   "date": "4 ต.ค. 2026, 15:32",
+   "subject": "ด่วน! กรุณาอัปเดตรหัสผ่านทันที",
+   "body": "สวัสดีครับ,\n\nระบบ IT ตรวจพบว่ารหัสผ่านของคุณหมดอายุแล้ว หากไม่อัปเดตภายใน 2 ชั่วโมง บัญชีจะถูกล็อค\n\nกรุณาคลิกเพื่ออัปเดตรหัสผ่าน:\n<span class=\"fake-link\">http://company-password-reset.tk/update</span>\n\nกรุณาเตรียมรหัสผ่านเดิมเพื่อยืนยันตัวตน\n\nฝ่าย IT Support",
+   "attachment": null,
+   "isPhishing": true,
+   "flags": [
+    "domain_mismatch",
+    "urgency",
+    "suspicious_link",
+    "credential_request"
+   ],
+   "explanation": "Domain c0mpany-support.co ใช้เลข 0 แทน o และ .tk เป็น free domain ที่นิยมใช้ใน Phishing ฝ่าย IT จริงจะไม่ขอรหัสผ่านเดิมและจะใช้ระบบ Reset ภายในองค์กร"
+  },
+  {
+   "from": "prize@lottery-winner.net",
+   "to": "you@company.co.th",
+   "date": "3 ต.ค. 2026, 11:45",
+   "subject": "ยินดีด้วย! คุณชนะรางวัล $1,000,000 USD!",
+   "body": "Dear Lucky Winner,\n\nCongratulations!! You have been selected as the WINNER of our International Email Lottery Program. You have won the sum of $1,000,000.00 USD!\n\nTo claim your prize, please reply with the following informations:\n- Full Name\n- Phone Number\n- Bank Account Number\n- Home Address\n\nYou must respond within 48 hours or the prize will be forfeited.\n\nBest regards,\nDr. James Williams\nInternational Lottery Commission",
+   "attachment": null,
+   "isPhishing": true,
+   "flags": [
+    "too_good",
+    "urgency",
+    "generic_greeting",
+    "credential_request",
+    "spelling"
+   ],
+   "explanation": "Lottery scam คลาสสิก ไม่มีการจับสลากที่คุณไม่ได้สมัคร การขอข้อมูลธนาคารเป็นสัญญาณชัดเจน มีข้อผิดพลาด (informations แทน information)"
+  },
+  {
+   "from": "noreply@github.com",
+   "to": "you@company.co.th",
+   "date": "5 ต.ค. 2026, 08:22",
+   "subject": "Your repository has a new star",
+   "body": "Hey Cgdocx,\n\nuser123 just starred your repository studyisc2.\n\nYou now have 15 stars on this repository.\n\nTo manage your notification settings, visit:\n<span class=\"fake-link\">https://github.com/settings/notifications</span>\n\nThanks,\nThe GitHub Team",
+   "attachment": null,
+   "isPhishing": false,
+   "flags": [],
+   "explanation": "อีเมลจริงจาก GitHub: domain ถูกต้อง (@github.com) ทักทายด้วยชื่อผู้ใช้จริง ลิงก์ชี้ไป github.com ไม่ขอข้อมูลส่วนตัว เป็น Notification ปกติ"
+  },
+  {
+   "from": "billing@microsoft.com",
+   "to": "you@company.co.th",
+   "date": "1 ต.ค. 2026, 10:00",
+   "subject": "Your Microsoft 365 invoice for October 2026",
+   "body": "Hi,\n\nYour Microsoft 365 Business Standard subscription invoice is ready.\n\nInvoice Number: INV-2026-10-4821\nAmount: $12.50 USD\nBilling Period: October 1-31, 2026\n\nYou can view and download your invoice from the Microsoft 365 admin center:\n<span class=\"fake-link\">https://admin.microsoft.com/billing</span>\n\nIf you have questions about your bill, contact support through the admin center.\n\nMicrosoft Billing Team",
+   "attachment": null,
+   "isPhishing": false,
+   "flags": [],
+   "explanation": "อีเมลจริงจาก Microsoft: domain @microsoft.com ถูกต้อง มีเลข Invoice ชัดเจน จำนวนเงินสมเหตุสมผล ลิงก์ชี้ไป admin.microsoft.com ไม่ขอข้อมูลส่วนตัว"
+  },
+  {
+   "from": "admin@paypa1-security.com",
+   "to": "you@company.co.th",
+   "date": "4 ต.ค. 2026, 18:01",
+   "subject": "Unusual Activity Detected - Verify Your Account Now",
+   "body": "Dear Valued Customer,\n\nWe have detected unusual sign-in activity on your PayPal account from an unrecognized device in Russia.\n\nIf this was not you, please secure your account immediately:\n<span class=\"fake-link\">http://paypa1-secure.com/verify-account?id=83921</span>\n\nFailure to verify within 12 hours will result in permanent account suspension.\n\nPayPal Security Team",
+   "attachment": null,
+   "isPhishing": true,
+   "flags": [
+    "domain_mismatch",
+    "urgency",
+    "generic_greeting",
+    "suspicious_link",
+    "credential_request"
+   ],
+   "explanation": "Domain paypa1-security.com ใช้เลข 1 แทน l (Homograph Attack) PayPal จริงใช้ @paypal.com ลิงก์ปลอม paypa1-secure.com สร้างความกลัวด้วยการอ้าง Login จากรัสเซีย"
+  },
+  {
+   "from": "hr@company.co.th",
+   "to": "all-staff@company.co.th",
+   "date": "3 ต.ค. 2026, 09:00",
+   "subject": "วันหยุดพิเศษ วันปิยมหาราช 23 ตุลาคม 2026",
+   "body": "เรียน พนักงานทุกท่าน,\n\nแจ้งเพื่อทราบ: บริษัทหยุดทำการในวันปิยมหาราช วันพฤหัสบดีที่ 23 ตุลาคม 2026\n\nกรุณาวางแผนงานล่วงหน้า หากมีงานเร่งด่วนให้ประสานหัวหน้าทีมโดยตรง\n\nฝ่ายทรัพยากรบุคคล\nบริษัท Company จำกัด",
+   "attachment": null,
+   "isPhishing": false,
+   "flags": [],
+   "explanation": "อีเมลจริงจากฝ่าย HR: domain ตรงกับองค์กร (@company.co.th) ส่งถึง all-staff เป็นการแจ้งข้อมูลทั่วไป ไม่ขอข้อมูลส่วนตัว ไม่มีลิงก์น่าสงสัย"
+  },
+  {
+   "from": "support@amaz0n-orders.com",
+   "to": "you@company.co.th",
+   "date": "4 ต.ค. 2026, 20:55",
+   "subject": "คำสั่งซื้อของคุณถูกระงับ - ต้องยืนยันการชำระเงิน",
+   "body": "เรียน ลูกค้า,\n\nคำสั่งซื้อ #AMZ-9182374 ของคุณถูกระงับเนื่องจากปัญหาการชำระเงิน\n\nกรุณาอัปเดตข้อมูลบัตรเครดิตของคุณภายใน 24 ชั่วโมง มิฉะนั้นคำสั่งซื้อจะถูกยกเลิก:\n<span class=\"fake-link\">http://amaz0n-verify.payment-center.com/update-cc</span>\n\nAmazon Customer Service",
+   "attachment": null,
+   "isPhishing": true,
+   "flags": [
+    "domain_mismatch",
+    "urgency",
+    "generic_greeting",
+    "suspicious_link",
+    "credential_request"
+   ],
+   "explanation": "Domain amaz0n-orders.com ใช้เลข 0 แทน o Amazon จริงใช้ @amazon.com ขอข้อมูลบัตรเครดิตผ่านลิงก์ภายนอก ทักทายแบบกว้าง 'ลูกค้า' ไม่ระบุชื่อ"
+  },
+  {
+   "from": "ceo@company.co.th",
+   "to": "you@company.co.th",
+   "date": "5 ต.ค. 2026, 07:45",
+   "subject": "ด่วนมาก - โอนเงินวันนี้",
+   "body": "สวัสดี,\n\nผมกำลังอยู่ในประชุมสำคัญ ไม่สะดวกโทร ต้องการให้คุณโอนเงิน 500,000 บาทไปยังบัญชีด้านล่างวันนี้ เป็นค่าบริการที่เร่งด่วนมาก\n\nธนาคารกรุงเทพ\nชื่อบัญชี: บจก. เอบีซี เซอร์วิส\nเลขที่: 098-7-65432-1\n\nอย่าแจ้งใครก่อน เดี๋ยวผมอธิบายทีหลัง รีบทำเลยนะ\n\nCEO",
+   "attachment": null,
+   "isPhishing": true,
+   "flags": [
+    "urgency",
+    "credential_request"
+   ],
+   "explanation": "Business Email Compromise (BEC) แม้ Domain จะดูถูกต้อง แต่ลักษณะน่าสงสัย: เร่งด่วนมาก, ขอโอนเงินจำนวนมาก, สั่งห้ามแจ้งใคร, ไม่สะดวกโทร ควรโทรยืนยันกับ CEO โดยตรงก่อนเสมอ"
+  },
+  {
+   "from": "newsletter@techcrunch.com",
+   "to": "you@company.co.th",
+   "date": "5 ต.ค. 2026, 06:30",
+   "subject": "TechCrunch Daily: AI Startups Raise Record Funding",
+   "body": "Good morning,\n\nHere's what's happening in tech today:\n\n1. AI startups raised a record $45B in Q3 2026\n2. New EU cybersecurity regulations take effect\n3. Cloud spending growth slows for first time\n\nRead full stories:\n<span class=\"fake-link\">https://techcrunch.com/2026/10/05/daily-digest</span>\n\nYou're receiving this because you subscribed. Unsubscribe:\n<span class=\"fake-link\">https://techcrunch.com/unsubscribe</span>",
+   "attachment": null,
+   "isPhishing": false,
+   "flags": [],
+   "explanation": "Newsletter จริงจาก TechCrunch: domain @techcrunch.com ถูกต้อง เนื้อหาเป็นข่าวทั่วไป ลิงก์ชี้ไป techcrunch.com มี Unsubscribe link (ข้อกำหนดตามกฎหมาย)"
+  },
+  {
+   "from": "scanner@company.co.th",
+   "to": "you@company.co.th",
+   "date": "4 ต.ค. 2026, 16:20",
+   "subject": "Scanned Document: Invoice_Oct2026.pdf",
+   "body": "เรียน คุณ,\n\nมีเอกสารสแกนจากเครื่อง Scanner ชั้น 3 ส่งถึงคุณ กรุณาตรวจสอบไฟล์แนบ\n\nหากเปิดไม่ได้ กรุณาเปิดใช้งาน Macro ในโปรแกรม",
+   "attachment": "Invoice_Oct2026.doc.exe",
+   "isPhishing": true,
+   "flags": [
+    "unexpected_attachment",
+    "generic_greeting",
+    "spelling"
+   ],
+   "explanation": "ไฟล์แนบ .doc.exe เป็น Double Extension ซ่อน Malware เป็น Executable ไม่ใช่เอกสาร การขอให้เปิด Macro เป็นเทคนิค Social Engineering สแกนเนอร์จริงส่ง PDF ไม่ใช่ .doc.exe"
+  },
+  {
+   "from": "rewards@line-official.jp",
+   "to": "you@company.co.th",
+   "date": "4 ต.ค. 2026, 13:10",
+   "subject": "LINE Points 50,000 แต้มรอคุณรับ! หมดเขตวันนี้",
+   "body": "เรียน ผู้ใช้งาน LINE,\n\nยินดีด้วย! คุณได้รับ LINE Points 50,000 แต้ม จากแคมเปญพิเศษ\n\nกรุณากรอกข้อมูลเพื่อรับแต้ม:\n- เบอร์โทรศัพท์\n- รหัสผ่าน LINE\n- เลขบัตรประชาชน\n\n<span class=\"fake-link\">http://line-points-reward.com/claim</span>\n\nหมดเขตวันนี้เท่านั้น!\n\nLINE Official",
+   "attachment": null,
+   "isPhishing": true,
+   "flags": [
+    "domain_mismatch",
+    "too_good",
+    "urgency",
+    "credential_request",
+    "suspicious_link"
+   ],
+   "explanation": "Domain line-official.jp ไม่ใช่ Domain จริงของ LINE (ใช้ @line.me หรือ @linecorp.com) ขอรหัสผ่านและเลขบัตรประชาชน 50,000 แต้มฟรีเป็นข้อเสนอดีเกินจริง"
+  },
+  {
+   "from": "noreply@linkedin.com",
+   "to": "you@company.co.th",
+   "date": "5 ต.ค. 2026, 10:15",
+   "subject": "You appeared in 5 searches this week",
+   "body": "Hi,\n\nYou appeared in 5 searches this week.\n\nSee who's viewing your profile and discover new opportunities.\n\n<span class=\"fake-link\">https://www.linkedin.com/me/search-appearances</span>\n\nBest,\nThe LinkedIn Team\n\nThis email was sent to you@company.co.th.\nUnsubscribe: <span class=\"fake-link\">https://www.linkedin.com/comm/unsubscribe</span>\nLinkedIn Corporation, 1000 W Maude Ave, Sunnyvale, CA 94085",
+   "attachment": null,
+   "isPhishing": false,
+   "flags": [],
+   "explanation": "อีเมลจริงจาก LinkedIn: domain @linkedin.com ถูกต้อง มี Unsubscribe link และที่อยู่บริษัทจริง (ตามกฎหมาย CAN-SPAM) เนื้อหาเป็น Notification ปกติ ลิงก์ชี้ไป linkedin.com"
+  },
+  {
+   "from": "delivery@dhl-tracking-th.com",
+   "to": "you@company.co.th",
+   "date": "3 ต.ค. 2026, 17:30",
+   "subject": "พัสดุของคุณไม่สามารถจัดส่งได้ - ชำระค่าธรรมเนียมเพิ่ม",
+   "body": "เรียน ลูกค้า,\n\nพัสดุ DHL หมายเลข TH-8291034 ไม่สามารถจัดส่งได้เนื่องจากค่าธรรมเนียมศุลกากรค้างชำระ 150 บาท\n\nกรุณาชำระเงินเพื่อดำเนินการจัดส่งต่อ:\n<span class=\"fake-link\">http://dhl-tracking-th.com/pay?ref=TH8291034</span>\n\nหากไม่ชำระภายใน 3 วัน พัสดุจะถูกส่งกลับต้นทาง\n\nDHL Express Thailand",
+   "attachment": null,
+   "isPhishing": true,
+   "flags": [
+    "domain_mismatch",
+    "urgency",
+    "generic_greeting",
+    "suspicious_link",
+    "credential_request"
+   ],
+   "explanation": "DHL จริงใช้ @dhl.com Domain dhl-tracking-th.com เป็นของปลอม การขอชำระเงินผ่านลิงก์แทนที่จะผ่านระบบ DHL จริง สร้างความเร่งด่วนด้วยกำหนดเวลา 3 วัน"
+  },
+  {
+   "from": "security-alert@g00gle-account.com",
+   "to": "you@company.co.th",
+   "date": "5 ต.ค. 2026, 02:14",
+   "subject": "Critical Security Alert: Someone has your password",
+   "body": "Hi,\n\nSomeone just used your password to try to sign in to your Google Account from a new Windows device.\n\nDevice: Windows PC\nLocation: Lagos, Nigeria\nTime: 5 Oct 2026, 02:12 AM\n\nIf this wasn't you, someone has your password. Please change it immediately:\n<span class=\"fake-link\">http://g00gle-security.com/change-password</span>\n\nGoogle Security Team",
+   "attachment": null,
+   "isPhishing": true,
+   "flags": [
+    "domain_mismatch",
+    "urgency",
+    "suspicious_link",
+    "credential_request"
+   ],
+   "explanation": "Domain g00gle-account.com ใช้เลข 0 แทน o Google จริงใช้ @google.com หรือ @accounts.google.com ลิงก์ g00gle-security.com เป็นของปลอม สร้างความตื่นตระหนกด้วยการอ้าง Login จาก Nigeria"
+  },
+  {
+   "from": "system@jira.company.co.th",
+   "to": "you@company.co.th",
+   "date": "5 ต.ค. 2026, 09:30",
+   "subject": "[JIRA] SEC-142: Update security policy documentation",
+   "body": "Assigned to you:\n\nSEC-142: Update security policy documentation\n\nPriority: Medium\nReporter: สมชาย ว.\nDue: 10 Oct 2026\n\nDescription:\nPlease update the Information Security Policy document (v2.3) to include the new remote work guidelines approved in the Q3 security review.\n\n<span class=\"fake-link\">https://jira.company.co.th/browse/SEC-142</span>",
+   "attachment": null,
+   "isPhishing": false,
+   "flags": [],
+   "explanation": "อีเมลจริงจากระบบ JIRA ภายในองค์กร: domain @jira.company.co.th ถูกต้อง มีรายละเอียด Ticket ชัดเจน ลิงก์ชี้ไป JIRA ขององค์กร ระบุชื่อผู้แจ้งและกำหนดส่ง"
+  }
+ ]
+}

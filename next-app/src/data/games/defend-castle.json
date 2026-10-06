@@ -1,0 +1,287 @@
+{
+ "file": "game-defend-castle.html",
+ "title": "Defend the Castle - ปกป้องปราสาท | ISC2 CC Mini Game",
+ "description": "เกมจำลองสถานการณ์ Security Analyst ปกป้องปราสาทจากภัยคุกคาม เรียนรู้ Security Controls ผ่านการเล่นเกม",
+ "threats": [
+  {
+   "text": "พนักงานได้รับอีเมลมี link น่าสงสัย ขอให้กรอก credentials เข้าระบบ",
+   "severity": "high",
+   "damage": 20,
+   "domain": "Domain 1: Security Principles",
+   "correct": 0,
+   "choices": [
+    "Security Awareness Training",
+    "Firewall Rule",
+    "Antivirus Scan",
+    "Data Encryption"
+   ],
+   "explanation": "Security Awareness Training สอนพนักงานให้รู้จักอีเมล Phishing และไม่กรอกข้อมูลในลิงก์ที่ไม่น่าเชื่อถือ Firewall และ Antivirus ไม่สามารถป้องกันการที่ผู้ใช้กรอกข้อมูลเองได้"
+  },
+  {
+   "text": "พบว่า Server สำคัญมี Unpatched Vulnerability (CVE ระดับ Critical)",
+   "severity": "high",
+   "damage": 25,
+   "domain": "Domain 5: Security Operations",
+   "correct": 0,
+   "choices": [
+    "Patch Management",
+    "Password Policy",
+    "VLAN Segmentation",
+    "Multi-Factor Authentication"
+   ],
+   "explanation": "Patch Management คือกระบวนการอัปเดตซอฟต์แวร์เพื่อปิดช่องโหว่ที่รู้จัก (Known Vulnerability) การแก้ Password หรือเพิ่ม MFA ไม่ได้แก้ช่องโหว่ของตัว Software"
+  },
+  {
+   "text": "อดีตพนักงานที่ลาออกไปแล้ว 2 สัปดาห์ ยังสามารถเข้าถึงระบบได้อยู่",
+   "severity": "high",
+   "damage": 20,
+   "domain": "Domain 3: Access Controls Concepts",
+   "correct": 0,
+   "choices": [
+    "Account Deprovisioning",
+    "Intrusion Detection System",
+    "Data Encryption",
+    "Backup & Recovery"
+   ],
+   "explanation": "Account Deprovisioning (การยกเลิกสิทธิ์บัญชี) ต้องทำทันทีเมื่อพนักงานลาออก เป็นส่วนหนึ่งของ Identity Lifecycle Management ป้องกัน Insider Threat จากอดีตพนักงาน"
+  },
+  {
+   "text": "Malware กำลังแพร่กระจายจากเครื่องหนึ่งไปยังเครื่องอื่นในเครือข่ายภายใน",
+   "severity": "high",
+   "damage": 25,
+   "domain": "Domain 4: Network Security",
+   "correct": 0,
+   "choices": [
+    "Network Segmentation",
+    "Single Sign-On (SSO)",
+    "Change Management",
+    "Business Continuity Plan"
+   ],
+   "explanation": "Network Segmentation แบ่งเครือข่ายเป็นส่วนย่อย ป้องกัน Lateral Movement ของ Malware ทำให้แพร่กระจายได้จำกัดวง SSO และ Change Management ไม่หยุดการแพร่กระจายของ Malware"
+  },
+  {
+   "text": "ผู้ใช้หลายคนใช้รหัสผ่าน '123456' ในทุกระบบขององค์กร",
+   "severity": "medium",
+   "damage": 15,
+   "domain": "Domain 3: Access Controls Concepts",
+   "correct": 0,
+   "choices": [
+    "Password Policy + MFA",
+    "Firewall Rule",
+    "Data Loss Prevention",
+    "VLAN Segmentation"
+   ],
+   "explanation": "Password Policy บังคับความซับซ้อนของรหัสผ่าน และ MFA เพิ่มชั้นป้องกันอีกขั้น แม้รหัสผ่านถูกเดาได้ก็เข้าระบบไม่ได้ถ้าไม่มี Factor ที่สอง"
+  },
+  {
+   "text": "ข้อมูลลูกค้าถูกคัดลอกออกผ่าน USB Drive โดยไม่ได้รับอนุญาต",
+   "severity": "high",
+   "damage": 20,
+   "domain": "Domain 5: Security Operations",
+   "correct": 0,
+   "choices": [
+    "DLP + USB Policy",
+    "Intrusion Detection System",
+    "Patch Management",
+    "Multi-Factor Authentication"
+   ],
+   "explanation": "Data Loss Prevention (DLP) ตรวจจับและป้องกันการส่งข้อมูลออก ร่วมกับ USB Policy ที่ควบคุมการใช้อุปกรณ์ภายนอก IDS ตรวจจับการบุกรุกเครือข่าย ไม่ได้ดู USB"
+  },
+  {
+   "text": "DDoS Attack กำลังทำให้ Web Server หลักขององค์กรล่ม ลูกค้าเข้าไม่ได้",
+   "severity": "high",
+   "damage": 25,
+   "domain": "Domain 4: Network Security",
+   "correct": 0,
+   "choices": [
+    "DDoS Mitigation / CDN",
+    "Data Encryption",
+    "Role-Based Access Control",
+    "Backup & Recovery"
+   ],
+   "explanation": "DDoS Mitigation กรอง Traffic ที่ผิดปกติ และ CDN กระจายโหลด ลด Impact จากการโจมตี Encryption หรือ RBAC ไม่ช่วยเรื่อง Availability ของ Server"
+  },
+  {
+   "text": "พบ Unauthorized Wireless Access Point ติดตั้งอยู่ในสำนักงาน (Rogue AP)",
+   "severity": "medium",
+   "damage": 15,
+   "domain": "Domain 4: Network Security",
+   "correct": 0,
+   "choices": [
+    "Rogue AP Detection / NAC",
+    "VPN Tunnel",
+    "Hashing Algorithm",
+    "Business Impact Analysis"
+   ],
+   "explanation": "Rogue AP Detection สแกนหา Access Point ที่ไม่ได้รับอนุญาต และ NAC (Network Access Control) บล็อกอุปกรณ์ที่ไม่ผ่านการตรวจสอบ VPN ไม่แก้ปัญหา AP ปลอม"
+  },
+  {
+   "text": "Log ระบบแสดงว่ามีผู้พยายาม Login ผิดพลาดหลายร้อยครั้งภายใน 1 นาที",
+   "severity": "high",
+   "damage": 20,
+   "domain": "Domain 3: Access Controls Concepts",
+   "correct": 0,
+   "choices": [
+    "Account Lockout Policy",
+    "Data Classification",
+    "Incident Recovery",
+    "Security Audit"
+   ],
+   "explanation": "Account Lockout Policy ล็อคบัญชีหลัง Login ผิดหลายครั้ง ป้องกัน Brute Force Attack โดยตรง Data Classification และ Audit ไม่หยุดการโจมตีแบบ Real-time"
+  },
+  {
+   "text": "ทีม Developer เข้าถึง Production Database ได้โดยตรง ทั้งที่ไม่จำเป็นต้องใช้",
+   "severity": "medium",
+   "damage": 15,
+   "domain": "Domain 3: Access Controls Concepts",
+   "correct": 0,
+   "choices": [
+    "Least Privilege / RBAC",
+    "Encryption at Rest",
+    "Disaster Recovery Plan",
+    "Penetration Testing"
+   ],
+   "explanation": "หลัก Least Privilege ให้สิทธิ์เท่าที่จำเป็นเท่านั้น RBAC กำหนดสิทธิ์ตาม Role ไม่ใช่ตัวบุคคล Developer ไม่จำเป็นต้องเข้าถึง Production Data โดยตรง"
+  },
+  {
+   "text": "องค์กรไม่มีแผนรับมือเหตุการณ์ (Incident Response Plan) เมื่อเกิดเหตุจริงจึงสับสน",
+   "severity": "medium",
+   "damage": 15,
+   "domain": "Domain 2: BC, DR & IR",
+   "correct": 0,
+   "choices": [
+    "Incident Response Plan",
+    "Firewall Upgrade",
+    "Data Encryption",
+    "Access Review"
+   ],
+   "explanation": "Incident Response Plan กำหนดขั้นตอนที่ชัดเจนเมื่อเกิดเหตุ: Detection, Analysis, Containment, Eradication, Recovery, Lessons Learned ไม่มีแผน = ตอบสนองช้าและสับสน"
+  },
+  {
+   "text": "Backup ข้อมูลไม่เคยถูกทดสอบ เมื่อ Ransomware โจมตีจึงกู้คืนไม่ได้",
+   "severity": "high",
+   "damage": 25,
+   "domain": "Domain 2: BC, DR & IR",
+   "correct": 0,
+   "choices": [
+    "Backup Testing / DR Drill",
+    "Strong Password",
+    "Network Monitoring",
+    "Physical Security"
+   ],
+   "explanation": "การมี Backup อย่างเดียวไม่พอ ต้องทดสอบ (Backup Testing) และซ้อมแผน DR (Disaster Recovery Drill) เป็นประจำ เพื่อให้แน่ใจว่ากู้คืนได้จริงเมื่อต้องการ"
+  },
+  {
+   "text": "ไม่มีการเข้ารหัสข้อมูลบัตรเครดิตลูกค้าที่เก็บใน Database",
+   "severity": "high",
+   "damage": 20,
+   "domain": "Domain 1: Security Principles",
+   "correct": 0,
+   "choices": [
+    "Encryption at Rest",
+    "IDS/IPS",
+    "Change Management",
+    "Security Awareness"
+   ],
+   "explanation": "Encryption at Rest เข้ารหัสข้อมูลที่จัดเก็บ ป้องกันแม้ Database ถูกเข้าถึงโดยไม่ได้รับอนุญาต จำเป็นสำหรับข้อมูลที่อยู่ภายใต้ PCI-DSS"
+  },
+  {
+   "text": "พนักงานทำ Laptop สำหรับงานหายที่สนามบิน มีข้อมูลองค์กรอยู่ภายใน",
+   "severity": "medium",
+   "damage": 15,
+   "domain": "Domain 1: Security Principles",
+   "correct": 0,
+   "choices": [
+    "Full Disk Encryption + Remote Wipe",
+    "Firewall",
+    "IDS",
+    "Patch Management"
+   ],
+   "explanation": "Full Disk Encryption ทำให้ข้อมูลอ่านไม่ได้แม้ถอด Hard Disk ออก Remote Wipe ลบข้อมูลจากระยะไกล ป้องกัน Data Breach จากอุปกรณ์สูญหาย"
+  },
+  {
+   "text": "เว็บไซต์องค์กรถูกเปลี่ยนหน้าแรก (Website Defacement) แสดงข้อความแฮ็กเกอร์",
+   "severity": "high",
+   "damage": 20,
+   "domain": "Domain 5: Security Operations",
+   "correct": 0,
+   "choices": [
+    "WAF + File Integrity Monitoring",
+    "VPN",
+    "MFA",
+    "BCP"
+   ],
+   "explanation": "WAF (Web Application Firewall) กรองการโจมตีเว็บ File Integrity Monitoring ตรวจจับการเปลี่ยนแปลงไฟล์ที่ไม่ได้รับอนุญาต ทั้งสองป้องกันและตรวจจับ Defacement"
+  },
+  {
+   "text": "ไม่มีการจำแนกระดับความลับของข้อมูล ทุกคนเข้าถึงทุกไฟล์ได้เหมือนกัน",
+   "severity": "medium",
+   "damage": 15,
+   "domain": "Domain 1: Security Principles",
+   "correct": 0,
+   "choices": [
+    "Data Classification + Labeling",
+    "Network Segmentation",
+    "Patch Management",
+    "IDS"
+   ],
+   "explanation": "Data Classification จำแนกข้อมูลเป็นระดับ (Public, Internal, Confidential, Restricted) เพื่อกำหนดการป้องกันที่เหมาะสม เป็นรากฐานของ Access Control ที่ดี"
+  },
+  {
+   "text": "มีคนแอบเข้ามาในอาคารสำนักงานตาม (Tailgating) พนักงานที่แตะบัตรเข้า",
+   "severity": "medium",
+   "damage": 15,
+   "domain": "Domain 1: Security Principles",
+   "correct": 0,
+   "choices": [
+    "Mantrap / Anti-Tailgating",
+    "Encryption",
+    "Firewall",
+    "SIEM"
+   ],
+   "explanation": "Mantrap (ห้องกั้นสองชั้น) บังคับให้เข้าทีละคน ป้องกัน Tailgating ได้โดยตรง เป็นมาตรการ Physical Security ที่สำคัญ"
+  },
+  {
+   "text": "องค์กรใช้ Cloud Storage โดยไม่มี Policy ควบคุม พนักงานแชร์ไฟล์สาธารณะ",
+   "severity": "medium",
+   "damage": 15,
+   "domain": "Domain 5: Security Operations",
+   "correct": 0,
+   "choices": [
+    "Cloud Security Policy + CASB",
+    "Antivirus",
+    "Physical Lock",
+    "Password Rotation"
+   ],
+   "explanation": "Cloud Security Policy กำหนดกฎการใช้งาน Cloud CASB (Cloud Access Security Broker) บังคับ Policy และตรวจสอบการแชร์ข้อมูลใน Cloud Service"
+  },
+  {
+   "text": "ระบบ Log กระจายอยู่หลาย Server ไม่มีศูนย์กลาง เมื่อเกิดเหตุตรวจสอบลำบาก",
+   "severity": "low",
+   "damage": 10,
+   "domain": "Domain 5: Security Operations",
+   "correct": 0,
+   "choices": [
+    "SIEM (Centralized Logging)",
+    "MFA",
+    "Encryption",
+    "Backup"
+   ],
+   "explanation": "SIEM (Security Information and Event Management) รวบรวม Log จากทุกระบบมาที่เดียว วิเคราะห์ Correlation และแจ้งเตือนอัตโนมัติ ช่วยตรวจสอบเหตุการณ์ได้เร็ว"
+  },
+  {
+   "text": "พนักงานใช้ Public Wi-Fi ที่ร้านกาแฟเข้าถึงระบบงานโดยไม่ผ่าน VPN",
+   "severity": "medium",
+   "damage": 15,
+   "domain": "Domain 4: Network Security",
+   "correct": 0,
+   "choices": [
+    "VPN Policy (Always-On VPN)",
+    "IDS",
+    "Data Classification",
+    "Patch Management"
+   ],
+   "explanation": "VPN เข้ารหัส Traffic ทั้งหมดแม้อยู่บน Public Wi-Fi ป้องกัน Man-in-the-Middle Attack Always-On VPN บังคับให้เชื่อมต่อ VPN อัตโนมัติก่อนเข้าระบบ"
+  }
+ ]
+}
