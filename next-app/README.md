@@ -109,7 +109,7 @@ Intentional differences from the originals:
 - Beat the Clock treats a non-array `btc_leaderboard` as empty instead of crashing;
 - the shared global nav replaces the slightly different nav copies inside the game files.
 
-The hub copy (44 pairs, 82 statements, 60+ questions, 35 questions) and the "0 / 35" Fill the Gap placeholder are kept as written, even though the data holds 45, 80, 48 and 34.
+The hub card counts are not hand-written: each card's first meta tag (and the count in its description) is a `{count}` token in `games.json`, filled at build time by `src/components/games/counts.ts` (server-only, used by the hub page) from the game data (45 pairs, 52 concepts, 80 statements, 48 questions, 8 scenarios, 34 questions, 20 threats, and the 15 emails Phishing Detective deals per game from its pool of 16). The Fill the Gap placeholder ("0 / 34") and the Beat the Clock intro ("คลัง 48 คำถาม") also read the data. The legacy pages said 44 / 82 / 60+ / 35 and "0 / 35"; `verify:games` maps these declared count fixes back before comparing the built markup with the pinned original, and checks that the hub numbers equal the data. Other numbers on the cards (rounds, timers, buckets, HP) were checked against the game logic and stay literal.
 
 ## Lint
 
@@ -117,21 +117,29 @@ The hub copy (44 pairs, 82 statements, 60+ questions, 35 questions) and the "0 /
 npm run lint
 ```
 
-ESLint uses `eslint-config-next` (core web vitals and TypeScript). The React Compiler rules `refs`, `purity`, `set-state-in-effect` and `exhaustive-deps` are switched off only for the Phase 1 and 2 components (`quiz`, `outline`, `ncsa`, `explained`, `battle`), which keep mutable state in refs. Refactoring them is a follow-up; new code passes the full rule set.
+ESLint uses `eslint-config-next` (core web vitals and TypeScript) with the full rule set, including the React Compiler rules, for every component. Components with an imperative engine (the 1832 outline session, the battle layer) keep it in a ref but render from state snapshots, sync "latest value" refs in a layout effect, and restore localStorage after hydration with `useRestoreAfterHydration` (`src/lib/client.ts`).
 
 ## Deploy
 
-`.github/workflows/nextjs-pages.yml` builds and checks `next-app` on every pull request and push to `main` (`npm ci`, lint, `verify:banks`, `verify:content`, build, `verify:games`, `audit:out`). Only a manual run (`workflow_dispatch`) on `main` uploads `next-app/out/` and deploys it with `actions/deploy-pages` (Pages `build_type: workflow`). Merging alone never changes the live site.
+`.github/workflows/nextjs-pages.yml` builds and checks `next-app` (`npm ci`, lint, `verify:banks`, `verify:content`, build, `verify:games`, `audit:out`):
 
-`public/` holds the files that ship at the site root: `sw.js`, `manifest.json` (byte-identical to the legacy file), `.nojekyll`, and the three CSV files (byte-identical, moved from the repo root). `sw.js` differs from the legacy worker in two lines: the cache is `studyisc2-cache-v3`, so returning visitors dropped the cache of legacy pages, and `./favicon.ico` is out of the precache list, because that file never existed and `cache.addAll` fails as a whole on one 404.
+- pull request: build and checks only, never deploys;
+- push to `main` (every merge): build, checks, then uploads `next-app/out/` and deploys it with `actions/deploy-pages` (Pages `build_type: workflow`). **Merging a PR changes the live site** a few minutes later, as long as the checks pass;
+- manual run (`workflow_dispatch`) on `main`: the same build and deploy, for a redeploy without a new commit.
+
+Runs are grouped per ref: a new push to a PR cancels its older run; runs on `main` are never cancelled mid-way, and the deploy job also sits in the `pages` concurrency group so deploys happen one at a time in order. Only the deploy job gets `pages: write` and `id-token: write`.
+
+`public/` holds the files that ship at the site root: `sw.js`, `manifest.json`, the site icons, `.nojekyll`, and the three CSV files (byte-identical, moved from the repo root). `manifest.json` keeps every legacy field except `icons`, which now lists the real icons with `/studyisc2/` paths. `sw.js` differs from the legacy worker only in its cache name, `studyisc2-cache-v4` (v3 dropped the legacy page cache, v4 picks up the icons), and `./favicon.ico` is precached again now that the file exists (`cache.addAll` fails as a whole on one 404, which is why it had been taken out).
+
+Site icons: `favicon.ico` (16/32/48), `icon.svg`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` and `apple-touch-icon.png` (180), a yellow tile with a black border and "CC" in Archivo Black, like the nav's "ISC2 CC" badge. The sources are `icons/mark.svg` (tab icon) and `icons/badge.svg` (app icon), with the text already converted to outlines; `node scripts/make-icons.mjs` regenerates the files in `public/` (uses `sharp`, installed with Next.js). The root layout metadata links the favicon, SVG and apple-touch icon on every page.
 
 ```bash
-npm run audit:out                          # every legacy URL (pinned list) is served from out/, CSV/manifest bytes, link crawl, sw.js and manifest paths
-node scripts/audit-out.mjs --verify-live   # after a deploy: the live site serves the Next.js build at every legacy URL
-gh workflow run nextjs-pages.yml --ref main  # deploy (needs approval)
+npm run audit:out                          # every legacy URL (pinned list) is served from out/, CSV bytes, icons (type, sizes, links on every page), manifest validity, link crawl, sw.js precache
+node scripts/audit-out.mjs --verify-live   # after a deploy: the live site serves the Next.js build at every legacy URL, sw.js v4, icons
+gh workflow run nextjs-pages.yml --ref main  # manual redeploy of main (merges deploy on their own)
 ```
 
-Rollback to an earlier build: re-run the deploy job of an earlier successful `Next.js site` run on `main`. The legacy root site is no longer on `main`; going back to it means restoring the files from `791433d` and setting `build_type=legacy` again.
+Rollback to an earlier build: revert the change on `main` (the revert's push deploys), or re-run the deploy job of an earlier successful `Next.js site` run on `main`. The legacy root site is no longer on `main`; going back to it means restoring the files from `791433d` and setting `build_type=legacy` again.
 
 ## Legacy parity snapshot
 
@@ -141,7 +149,7 @@ Rollback to an earlier build: re-run the deploy job of an earlier successful `Ne
 - `data`: hashes of the 18 JSON files in `public/data`, `src/data/content` and `src/data/games`;
 - `lessonMarkup`, `gameMarkup`, `mindmapNoscript`: fingerprints of the original markup.
 
-The verify scripts fail when a pinned JSON changes. If a content change is intentional, update that file's `sha256` in the snapshot in the same PR (`node -e "console.log(require('crypto').createHash('sha256').update(JSON.stringify(require('./src/data/...json'))).digest('hex'))"`), so the diff shows the content moved away from the legacy original on purpose.
+The verify scripts fail when a pinned JSON changes. If a content change is intentional, update that file's `sha256` in the snapshot in the same PR (`node -e "console.log(require('crypto').createHash('sha256').update(JSON.stringify(require('./src/data/...json'))).digest('hex'))"`), so the diff shows the content moved away from the legacy original on purpose. Keep the old value as `legacySha256` and say why in `changed` (as done for `games.json` when the hub counts became `{count}` tokens, and for `manifest.json`, whose fields other than `icons` are pinned as `withoutIconsSha256`).
 
 ## Layout
 
@@ -168,9 +176,10 @@ src/components/games/                 the 8 games and shared helpers
 src/data/games/                       game data (source of truth)
 src/lib/storage.ts                    localStorage hook shared by Learning Path and flashcards
 src/data/content/                     study content (source of truth)
-public/                               sw.js, manifest.json, .nojekyll, the 3 CSV files, data/ question banks
+public/                               sw.js, manifest.json, site icons, .nojekyll, the 3 CSV files, data/ question banks
+icons/                                vector sources of the site icons (scripts/make-icons.mjs)
 src/styles/                           page styles scoped under .pg-landing, .pg-quiz, .pg-outline, .pg-ncsa, .pg-explained, .pg-lesson, .pg-learning, .pg-flashcard, .pg-mindmap, .pg-games and .pg-<game>
-scripts/                              gen-questions (CSV -> JSON), verifiers, legacy-snapshot.json, URL audit, local static server
+scripts/                              gen-questions (CSV -> JSON), make-icons, verifiers, legacy-snapshot.json, URL audit, local static server
 ```
 
 Rules from the root `CLAUDE.md` apply: neo-brutalist tokens, the exact Google Fonts URL, IBM Plex Sans Thai fallbacks, no emoji, no `system-ui`, no double dash in user facing text.

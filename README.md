@@ -68,8 +68,8 @@ URL ทั้งหมดอยู่ใต้ https://cgdocx.github.io/studyisc
 | เนื้อหาบทเรียน, flashcard, mind map, learning path | `next-app/src/data/content/` |
 | ข้อมูลเกม | `next-app/src/data/games/` |
 | CSV (ข้อสอบ 583, glossary, รายชื่อหน้า) | `next-app/public/` |
-| `sw.js`, `manifest.json` | `next-app/public/` |
-| Deploy | `.github/workflows/nextjs-pages.yml` (build + ตรวจทุก PR, deploy เมื่อสั่ง run เองบน `main`) |
+| `sw.js`, `manifest.json`, ไอคอนเว็บ (`favicon.ico`, `icon.svg`, PNG) | `next-app/public/` (ต้นฉบับ vector ใน `next-app/icons/`) |
+| Deploy | `.github/workflows/nextjs-pages.yml` (build + ตรวจทุก PR, deploy อัตโนมัติเมื่อ merge เข้า `main`, สั่ง run เองเพื่อ redeploy ได้) |
 
 ไฟล์ HTML แบบเดิมที่เคยอยู่ที่ root ถูกลบแล้ว ดูย้อนหลังได้ใน git history (`git show 791433d:<ไฟล์>.html`)
 

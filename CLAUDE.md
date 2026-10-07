@@ -102,7 +102,7 @@ Active state (`cg-link active`) มาจากค่า `nav` ของแต�
 
 - เว็บทั้งหมดอยู่ใน `next-app/` (Next.js App Router + TypeScript) ไม่มีหน้า HTML ที่ root อีกแล้ว
 - build เป็น static export (`output: 'export'`, `basePath: '/studyisc2'`) แต่ละ route export เป็น `<ชื่อหน้า>.html` ชื่อเดิม URL เดิมจึงใช้ได้ทั้งหมด
-- deploy ด้วย GitHub Actions (`.github/workflows/nextjs-pages.yml`) ทุก PR ต้องผ่าน lint, `verify:banks`, `verify:content`, build, `verify:games`, `audit:out` การ deploy ทำเมื่อสั่ง run workflow เองบน `main` เท่านั้น
+- deploy ด้วย GitHub Actions (`.github/workflows/nextjs-pages.yml`) ทุก PR ต้องผ่าน lint, `verify:banks`, `verify:content`, build, `verify:games`, `audit:out` PR จะ build และตรวจเท่านั้น ไม่ deploy เมื่อ merge (push เข้า `main`) workflow จะ build ตรวจ แล้ว deploy ขึ้น GitHub Pages อัตโนมัติ (merge = เว็บจริงเปลี่ยน) สั่ง run workflow เองบน `main` (`workflow_dispatch`) ได้เมื่อต้องการ redeploy
 - ข้อมูลอยู่ใน JSON ที่ commit ไว้ (source of truth): ข้อสอบ `next-app/public/data/`, เนื้อหา `next-app/src/data/content/`, เกม `next-app/src/data/games/` แก้เนื้อหาที่ JSON ไม่ใช่ใน component
 - JSON เหล่านี้ถูก pin hash ไว้ใน `next-app/scripts/legacy-snapshot.json` (หลักฐานว่าตรงกับหน้าเดิมตอนลบ) ถ้าตั้งใจแก้เนื้อหา ต้องอัปเดต hash ในไฟล์นั้นใน PR เดียวกัน (วิธีดูใน `next-app/README.md`)
 - localStorage ใช้ key และรูปแบบเดิมสำหรับ progress tracking (flashcard, quiz scores, learning path, เกม) ห้ามเปลี่ยน key

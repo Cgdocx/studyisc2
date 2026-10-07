@@ -15,8 +15,51 @@ const GAMES = ['games.json', 'term-match.json', 'domain-sort.json', 'rapid-fire.
 
 for (const name of GAMES) {
   const pin = snap.data['src/data/games/' + name];
-  ok(jsonHash(load(name)) === pin.sha256, `${name}: unchanged since verified identical to a fresh extraction from ${pin.source} at ${snap.commit.slice(0, 7)}`);
+  ok(jsonHash(load(name)) === pin.sha256, pin.changed
+    ? `${name}: matches its pinned hash (verified against ${pin.source} at ${snap.commit.slice(0, 7)}, changed on purpose since: ${pin.changed})`
+    : `${name}: unchanged since verified identical to a fresh extraction from ${pin.source} at ${snap.commit.slice(0, 7)}`);
 }
+
+// Hub card counts: the {count} token of each card is filled from the game data (src/components/games/counts.ts).
+const countsSrc = readFileSync(resolve(APP, 'src/components/games/phish-config.ts'), 'utf8');
+const PHISH_PER_GAME = Number(countsSrc.match(/PHISH_EMAILS_PER_GAME = (\d+);/)[1]);
+const COUNTS = {
+  'game-term-match.html': load('term-match.json').pairs.length,
+  'game-domain-sort.html': load('domain-sort.json').concepts.length,
+  'game-rapid-fire.html': load('rapid-fire.json').statements.length,
+  'game-beat-clock.html': load('beat-clock.json').questions.length,
+  'game-incident-timeline.html': load('incident-timeline.json').scenarios.length,
+  'game-fill-gap.html': load('fill-gap.json').questions.length,
+  'game-defend-castle.html': load('defend-castle.json').threats.length,
+  'game-phish-detect.html': PHISH_PER_GAME,
+};
+const phishSrc = readFileSync(resolve(APP, 'src/components/games/PhishDetect.tsx'), 'utf8');
+ok(PHISH_PER_GAME <= load('phish-detect.json').emails.length && phishSrc.includes('.slice(0, PHISH_EMAILS_PER_GAME)'), `Phishing Detective deals PHISH_EMAILS_PER_GAME = ${PHISH_PER_GAME} of ${load('phish-detect.json').emails.length} emails, the number its hub card quotes`);
+const hubCards = load('games.json').categories.flatMap(c => c.cards);
+const literal = hubCards.filter(c => /\d/.test(c.meta[0]) || !c.meta[0].includes('{count}'));
+ok(literal.length === 0, `games.json: every card's first meta tag is a {count} token, so hub counts cannot drift from the data` + (literal.length ? ': ' + literal.map(c => c.href).join(', ') : ''));
+
+// Intentional text changes against the legacy pages: [text now, text in the legacy page]. The built
+// markup is mapped back with these before its fingerprint is compared with the pinned original.
+const DEVIATIONS = {
+  'games.html': [
+    [`${COUNTS['game-term-match.html']} คู่`, '44 คู่'], [`${COUNTS['game-term-match.html']} PAIRS`, '44 PAIRS'],
+    [`${COUNTS['game-rapid-fire.html']} STATEMENTS`, '82 STATEMENTS'],
+    [`${COUNTS['game-beat-clock.html']} QUESTIONS`, '60+ QUESTIONS'],
+    [`${COUNTS['game-fill-gap.html']} ข้อ`, '35 ข้อ'], [`${COUNTS['game-fill-gap.html']} QUESTIONS`, '35 QUESTIONS'],
+  ],
+  'game-fill-gap.html': [[`0 / ${COUNTS['game-fill-gap.html']}`, '0 / 35']],
+  'game-beat-clock.html': [[`คลัง ${COUNTS['game-beat-clock.html']} คำถาม`, 'คลัง 60+ คำถาม']],
+};
+const toLegacy = (file, html) => {
+  let out = html;
+  const misses = [];
+  for (const [now, then] of DEVIATIONS[file] || []) {
+    if (out.split(now).length !== 2) misses.push(now);
+    out = out.replace(now, then);
+  }
+  return { out, misses };
+};
 
 const hub = load('games.json');
 const cards = hub.categories.flatMap(c => c.cards);
@@ -54,9 +97,17 @@ const routeMap = routes();
 if (existsSync(OUT)) {
   for (const file of ['games.html', ...files]) {
     const built = readFileSync(resolve(OUT, file), 'utf8');
-    const x = fingerprint(normGameMarkup(wrapOf(built, 'pg-game"'), routeMap));
+    const { out: mapped, misses } = toLegacy(file, wrapOf(built, 'pg-game"'));
+    const x = fingerprint(normGameMarkup(mapped, routeMap));
     const y = snap.gameMarkup[file];
-    ok(isDeepStrictEqual(x, y), `out/${file}: pre-JS .wrap markup matches the original, per the pinned fingerprint (${y.nodes} tags/text nodes, ${y.textChars} text chars)` + (isDeepStrictEqual(x, y) ? '' : ` got ${x.nodes} nodes / ${x.textChars} chars`));
+    const dev = (DEVIATIONS[file] || []).length;
+    const same = isDeepStrictEqual(x, y) && misses.length === 0;
+    ok(same, `out/${file}: pre-JS .wrap markup matches the original, per the pinned fingerprint (${y.nodes} tags/text nodes, ${y.textChars} text chars)` + (dev ? `, apart from ${dev} intentional count fix(es): ${DEVIATIONS[file].map(d => `'${d[1]}' -> '${d[0]}'`).join(', ')}` : '') + (same ? '' : ` got ${x.nodes} nodes / ${x.textChars} chars${misses.length ? '; expected once: ' + misses.join(', ') : ''}`));
+    if (file === 'games.html') {
+      const metas = [...wrapOf(built, 'pg-game"').matchAll(/<div class="card-meta">([\s\S]*?)<\/div>/g)].map(m => [...m[1].matchAll(/<span>([^<]*)<\/span>/g)].map(t => decode(t[1])));
+      const want = hubCards.map(c => c.meta.map(m => m.replaceAll('{count}', String(COUNTS[c.href]))));
+      ok(isDeepStrictEqual(metas, want) && !wrapOf(built, 'pg-game"').includes('{count}'), `out/games.html: hub card counts equal the game data (${hubCards.map(c => want[hubCards.indexOf(c)][0]).join(', ')})`);
+    }
     const t = decode(built.match(/<title>([^<]*)<\/title>/)[1]);
     ok(t === snap.files[file].title, `out/${file}: <title> ${t}`);
   }

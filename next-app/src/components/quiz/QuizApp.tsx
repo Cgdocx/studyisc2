@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react';
 import BattleLayer from '@/components/battle/BattleLayer';
 import type { BilingualBankConfig } from '@/lib/banks';
 import { useBank } from './engine/useBank';
@@ -23,21 +23,22 @@ export default function QuizApp({ config }: { config: BilingualBankConfig }) {
   const lockRef = useRef(false);
   const sentRun = useRef(0);
 
+  const { screen, current, answered, runId, studyMode } = s;
   useEffect(() => {
-    if (s.screen !== 'quiz' || s.answered !== null || koLock) return;
+    if (screen !== 'quiz' || answered !== null || koLock) return;
     const id = window.setInterval(() => dispatch({ type: 'tick' }), 1000);
     return () => clearInterval(id);
-  }, [s.screen, s.current, s.answered, s.runId, koLock]);
+  }, [screen, current, answered, runId, koLock]);
 
   const last = s.answers[s.answers.length - 1];
   useEffect(() => {
-    if (s.screen !== 'quiz' || s.studyMode !== 'exam' || !last || !last.timedOut || last.qIndex !== s.current) return;
+    if (screen !== 'quiz' || studyMode !== 'exam' || !last || !last.timedOut || last.qIndex !== current) return;
     const id = window.setTimeout(() => dispatch({ type: 'next' }), 900);
     return () => clearTimeout(id);
-  }, [s.screen, s.studyMode, s.current, last]);
+  }, [screen, studyMode, current, last]);
 
   const latest = useRef(s);
-  latest.current = s;
+  useLayoutEffect(() => { latest.current = s; });
   const { tracker } = config;
   useEffect(() => {
     if (tracker && s.screen === 'results' && sentRun.current !== s.runId) {

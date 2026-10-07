@@ -1,5 +1,8 @@
 name: Next.js site
 
+# Pull requests: build and verify only.
+# Push to main (every merge): build, verify, then deploy to GitHub Pages.
+# workflow_dispatch on main: manual redeploy of the current main (same jobs).
 on:
   pull_request:
   push:
@@ -8,6 +11,12 @@ on:
 
 permissions:
   contents: read
+
+# One run per ref at a time. A newer push to a PR cancels its older run; on main runs are never cancelled
+# mid-way (a newer one waits, and deploys keep their order through the "pages" group below).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
@@ -34,7 +43,7 @@ jobs:
       - run: npm run audit:out
 
       - name: Upload Pages artifact
-        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         uses: actions/upload-pages-artifact@v5
         with:
           path: next-app/out
@@ -42,7 +51,7 @@ jobs:
 
   deploy:
     name: Deploy to GitHub Pages
-    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     needs: build
     runs-on: ubuntu-latest
     permissions:

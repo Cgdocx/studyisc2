@@ -1,12 +1,8 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
-const noSubscribe = () => () => {};
-
-export function useIsClient(): boolean {
-  return useSyncExternalStore(noSubscribe, () => true, () => false);
-}
+export { useIsClient } from '@/lib/client';
 
 export function shuffled<T>(arr: readonly T[]): T[] {
   const a = [...arr];
