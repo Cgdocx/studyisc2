@@ -26,7 +26,7 @@
   --font-body: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
   --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
   --font-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', monospace;
-  --d1: #1F8A4C; --d2: #E85A1F; --d3: #F06CA8; --d4: #3B82F6; --d5: #8B5CF6;
+  --d1: var(--green); --d2: var(--orange); --d3: var(--pink); --d4: var(--yellow); --d5: var(--red);
 }
 .pg-flashcard, .pg-flashcard * { box-sizing: border-box; margin: 0; padding: 0; }
 .pg-flashcard { background: var(--cream); color: var(--ink); font-family: var(--font-thai); min-height: 100vh; -webkit-font-smoothing: antialiased; }
@@ -45,7 +45,7 @@
 .pg-flashcard .domain-btn[data-d="1"].active { background: var(--d1); }
 .pg-flashcard .domain-btn[data-d="2"].active { background: var(--d2); }
 .pg-flashcard .domain-btn[data-d="3"].active { background: var(--d3); }
-.pg-flashcard .domain-btn[data-d="4"].active { background: var(--d4); }
+.pg-flashcard .domain-btn[data-d="4"].active { background: var(--d4); color: var(--ink); }
 .pg-flashcard .domain-btn[data-d="5"].active { background: var(--d5); }
 .pg-flashcard .controls-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
 .pg-flashcard .ctrl-btn { font-family: var(--font-mono); font-size: 12px; font-weight: 700; padding: 8px 16px; border: 2px solid var(--ink); background: var(--white); box-shadow: 2px 2px 0 var(--ink); cursor: pointer; transition: transform 0.1s; }

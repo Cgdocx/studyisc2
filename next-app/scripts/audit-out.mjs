@@ -17,8 +17,8 @@ const ok = (cond, msg) => { process.stdout.write((cond ? '[OK] ' : '[X] ') + msg
 // Every URL the legacy root site published, pinned (with checksums) when the legacy files were deleted.
 const snap = loadSnapshot();
 const SITE = Object.keys(snap.files);
-const SAME_BYTES = SITE.filter(f => /\.csv$/.test(f));
-const sameAsLegacy = (f, body) => sha256(body) === snap.files[f].sha256;
+const PINNED_CSVS = SITE.filter(f => /\.csv$/.test(f));
+const matchesPinnedHash = (f, body) => sha256(body) === snap.files[f].sha256;
 const SW_CACHE = 'studyisc2-cache-v4';
 // manifest.json keeps every legacy field; only "icons" changed (pinned as a hash of the legacy JSON without icons).
 const manifestFieldsKept = body => { const m = JSON.parse(body); delete m.icons; return jsonHash(m) === snap.files['manifest.json'].withoutIconsSha256; };
@@ -88,7 +88,7 @@ if (verifyLive) {
     const r = await get(LIVE, f);
     if (r.status !== 200) { bad.push(`${f} (${r.status})`); continue; }
     if (f.endsWith('.html') && !r.body.toString().includes('/studyisc2/_next/')) bad.push(`${f} (not the Next.js build)`);
-    if (SAME_BYTES.includes(f) && !sameAsLegacy(f, r.body)) bad.push(`${f} (bytes differ)`);
+    if (PINNED_CSVS.includes(f) && !matchesPinnedHash(f, r.body)) bad.push(`${f} (checksum differs from the pinned file)`);
     if (f === 'manifest.json' && !manifestFieldsKept(r.body)) bad.push('manifest.json (fields other than icons differ from the legacy file)');
     if (f === 'sw.js' && !r.body.toString().includes(SW_CACHE)) bad.push(`sw.js (not the ${SW_CACHE} worker)`);
     if (f === 'index.html' && pageIconLinks(r.body.toString()).join() !== PAGE_ICON_LINKS.join()) bad.push('index.html (icon links missing)');
@@ -98,7 +98,7 @@ if (verifyLive) {
   const asset = (await get(LIVE, 'index.html')).body.toString().match(/\/studyisc2\/(_next\/static\/[^"]+\.js)/);
   const assetRes = asset ? await get(LIVE, asset[1]) : { status: 0 };
   if (assetRes.status !== 200) bad.push(`_next asset ${asset ? asset[1] : '(none found)'} (${assetRes.status})`);
-  ok(bad.length === 0, `live site ${LIVE}: ${SITE.length} site URLs and ${VARIANTS.length} URL forms return 200, every page is the Next.js build, _next/ assets load, sw.js is ${SW_CACHE}, ${Object.keys(ICONS).length} site icons load with the right type and size, manifest fields (apart from icons) and CSVs identical to the legacy files` + (bad.length ? ': ' + bad.join(', ') : ''));
+  ok(bad.length === 0, `live site ${LIVE}: ${SITE.length} site URLs and ${VARIANTS.length} URL forms return 200, every page is the Next.js build, _next/ assets load, sw.js is ${SW_CACHE}, ${Object.keys(ICONS).length} site icons load with the right type and size, manifest fields (apart from icons) are unchanged, and CSVs match their pinned checksums` + (bad.length ? ': ' + bad.join(', ') : ''));
   process.exit(failed ? 1 : 0);
 }
 
@@ -112,10 +112,10 @@ try {
   const missing = [];
   for (const f of SITE) {
     const r = await get(LOCAL, f);
-    const same = !SAME_BYTES.includes(f) || sameAsLegacy(f, r.body);
+    const same = !PINNED_CSVS.includes(f) || matchesPinnedHash(f, r.body);
     if (r.status !== 200 || !same) missing.push(`${f} (${r.status}${same ? '' : ', bytes differ'})`);
   }
-  ok(missing.length === 0, `${SITE.length} site URLs served from out/ at the same /studyisc2/ path (${SITE.filter(f => f.endsWith('.html')).length} pages, sw.js, manifest.json, ${SITE.filter(f => f.endsWith('.csv')).length} CSV byte-identical to the legacy files)` + (missing.length ? ': ' + missing.join(', ') : ''));
+  ok(missing.length === 0, `${SITE.length} site URLs served from out/ at the same /studyisc2/ path (${SITE.filter(f => f.endsWith('.html')).length} pages, sw.js, manifest.json, ${PINNED_CSVS.length} CSV files matching their pinned checksums)` + (missing.length ? ': ' + missing.join(', ') : ''));
 
   const iconBad = [];
   for (const name of Object.keys(ICONS)) { const p = iconProblems(name, await get(LOCAL, name)); if (p) iconBad.push(p); }

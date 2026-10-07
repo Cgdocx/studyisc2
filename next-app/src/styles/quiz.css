@@ -138,7 +138,7 @@
 .pg-quiz .mode-card span { font-size: 12.5px; color: var(--ink-2); font-family: var(--font-thai);
 }
 .pg-quiz .mode-card.selected {
-  border-color: var(--ink); background: #DCFCE7;
+  border-color: var(--ink); background: var(--green-dim);
   box-shadow: 4px 4px 0 var(--ink);
 }
 .pg-quiz .domain-grid { display: flex; flex-direction: column; gap: 8px;
@@ -150,7 +150,7 @@
 }
 .pg-quiz .domain-row:hover { background: var(--cream-2);
 }
-.pg-quiz .domain-row.checked { border-color: var(--ink); background: #DCFCE7;
+.pg-quiz .domain-row.checked { border-color: var(--ink); background: var(--green-dim);
 }
 .pg-quiz .domain-row input { width: 18px; height: 18px; accent-color: var(--orange); cursor: pointer;
 }
@@ -202,7 +202,7 @@
 }
 .pg-quiz .start-btn-row .btn { width: 100%;
 }
-.pg-quiz .warn { color: #DC2626; font-size: 13px; margin-top: 10px; font-family: var(--font-mono); font-weight: 700;
+.pg-quiz .warn { color: var(--red); font-size: 13px; margin-top: 10px; font-family: var(--font-mono); font-weight: 700;
 }
 .pg-quiz .quiz-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 6px; flex-wrap: wrap;
 }
@@ -222,7 +222,7 @@
 }
 .pg-quiz .score-correct { color: var(--green);
 }
-.pg-quiz .score-wrong { color: #DC2626;
+.pg-quiz .score-wrong { color: var(--red);
 }
 .pg-quiz .progress-bar-track {
   width: 100%; height: 12px; background: var(--cream-2);
@@ -270,13 +270,13 @@
   box-shadow: 3px 3px 0 var(--ink) !important;
 }
 .pg-quiz .option-btn.correct-selected, .pg-quiz .option-btn.correct-reveal {
-  background: #BBF7D0 !important;
+  background: var(--green-dim) !important;
   border-color: var(--ink) !important;
   color: var(--ink) !important;
   box-shadow: 3px 3px 0 var(--ink) !important;
 }
 .pg-quiz .option-btn.wrong-selected {
-  background: #FECDD3 !important;
+  background: var(--red-dim) !important;
   border-color: var(--ink) !important;
   color: var(--ink) !important;
   box-shadow: 3px 3px 0 var(--ink) !important;
@@ -356,7 +356,7 @@
 .pg-quiz .domain-results { margin: 24px 0; text-align: left;
 }
 .pg-quiz .finish-banner {
-  background: #DCFCE7; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  background: var(--green-dim); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
   padding: 16px; font-weight: 700; margin-bottom: 20px; text-align: center;
 }
 .pg-quiz .incomplete-banner {

@@ -45,14 +45,14 @@
    "d": 1,
    "term": "Non-repudiation",
    "hint": "นอน-รีพิวดิเอชัน",
-   "th": "การป้องกันไม่ให้ผู้ส่งปฏิเสธว่าไม่ได้กระทำการ โดยมีหลักฐานยืนยันได้",
+   "th": "การมีหลักฐานที่น่าเชื่อถือยืนยันว่าบุคคลได้กระทำรายการนั้น ทำให้ยากที่จะปฏิเสธภายหลัง",
    "en": "Assurance that a party cannot deny having performed an action, backed by evidence"
   },
   {
    "d": 1,
    "term": "Least Privilege",
    "hint": "ลีสต์ พริวิเลจ",
-   "th": "หลักการให้สิทธิ์เฉพาะเท่าที่จำเป็นต่อการปฏิบัติงาน ไม่มากไม่น้อยกว่า",
+   "th": "หลักการให้สิทธิ์เข้าถึงเท่าที่จำเป็นต่อหน้าที่ และไม่ให้สิทธิ์เกินความจำเป็น",
    "en": "Granting only the minimum permissions needed to perform a task"
   },
   {
@@ -66,14 +66,14 @@
    "d": 1,
    "term": "Due Diligence",
    "hint": "ดิว ดิลิเจนซ์",
-   "th": "การตรวจสอบและศึกษาข้อมูลอย่างรอบคอบก่อนตัดสินใจ เช่น ก่อนซื้อบริษัทหรือเลือกผู้ให้บริการ",
+   "th": "การตรวจสอบข้อมูลและประเมินความเสี่ยงอย่างรอบด้าน เพื่อให้เข้าใจสิ่งที่ต้องปกป้องและวิธีดำเนินการที่เหมาะสม",
    "en": "Thorough investigation and research before making a decision"
   },
   {
    "d": 1,
    "term": "Due Care",
    "hint": "ดิว แคร์",
-   "th": "การปฏิบัติหน้าที่ด้วยความระมัดระวังตามมาตรฐานที่คนทั่วไปพึงกระทำ",
+   "th": "การใช้ความระมัดระวังและดำเนินมาตรการตามสมควรเพื่อปกป้องทรัพย์สิน",
    "en": "Acting responsibly and taking reasonable steps to protect assets"
   },
   {
@@ -87,7 +87,7 @@
    "d": 1,
    "term": "Threat Actor",
    "hint": "เทรต แอคเตอร์",
-   "th": "บุคคลหรือกลุ่มที่ก่อให้เกิดภัยคุกคามต่อระบบสารสนเทศ เช่น แฮกเกอร์ อินไซเดอร์",
+   "th": "บุคคลหรือกลุ่มที่เป็นต้นตอหรือมีส่วนก่อให้เกิดภัยคุกคามต่อระบบสารสนเทศ เช่น ผู้โจมตีหรือบุคลากรภายใน",
    "en": "An entity that poses a threat to information systems, e.g. hackers, insiders"
   },
   {
@@ -101,7 +101,7 @@
    "d": 1,
    "term": "Zero Day",
    "hint": "ซีโร่ เดย์",
-   "th": "ช่องโหว่ที่ถูกค้นพบแต่ยังไม่มี Patch แก้ไข ผู้พัฒนามีเวลา 0 วันในการแก้ไข",
+   "th": "ช่องโหว่ที่ยังไม่มีแพตช์แก้ไข หรือถูกโจมตีก่อนที่ผู้พัฒนาจะมีโอกาสออกแพตช์",
    "en": "A vulnerability discovered before the vendor has released a fix"
   },
   {
@@ -136,7 +136,7 @@
    "d": 1,
    "term": "Risk Acceptance",
    "hint": "ริสค์ แอคเซ็ปแตนซ์",
-   "th": "การยอมรับความเสี่ยงที่เหลืออยู่เพราะต้นทุนการแก้ไขสูงกว่าผลกระทบ",
+   "th": "การตัดสินใจยอมรับความเสี่ยงคงเหลือเมื่อค่าใช้จ่ายในการลดความเสี่ยงสูงกว่าความเสียหายที่คาดว่าจะเกิด",
    "en": "Acknowledging residual risk when the cost of mitigation exceeds the impact"
   },
   {
@@ -192,7 +192,7 @@
    "d": 1,
    "term": "Privacy",
    "hint": "ไพรเวซี",
-   "th": "สิทธิในการควบคุมข้อมูลส่วนบุคคลของตนเอง รวมถึงการเก็บรวบรวมและการใช้งาน",
+   "th": "หลักการและสิทธิที่เกี่ยวข้องกับการเก็บรวบรวม ใช้ เปิดเผย และคุ้มครองข้อมูลส่วนบุคคล",
    "en": "The right to control one's personal information and how it is collected/used"
   },
   {
@@ -206,7 +206,7 @@
    "d": 2,
    "term": "BCP",
    "hint": "บี-ซี-พี",
-   "th": "Business Continuity Plan แผนรักษาความต่อเนื่องทางธุรกิจ เพื่อให้องค์กรดำเนินงานได้แม้เกิดเหตุฉุกเฉิน",
+   "th": "Business Continuity Plan แผนความต่อเนื่องทางธุรกิจที่ช่วยให้องค์กรดำเนินงานสำคัญต่อไปได้เมื่อเกิดเหตุขัดข้อง",
    "en": "Business Continuity Plan: ensuring critical operations continue during a disaster"
   },
   {
@@ -227,14 +227,14 @@
    "d": 2,
    "term": "RPO",
    "hint": "อาร์-พี-โอ",
-   "th": "Recovery Point Objective จุดเวลาสูงสุดที่ยอมให้ข้อมูลสูญหายได้ เช่น ย้อนหลังไม่เกิน 4 ชม.",
+   "th": "Recovery Point Objective ระยะเวลาย้อนหลังของข้อมูลสูงสุดที่องค์กรยอมสูญเสียได้ เช่น ยอมรับการสูญเสียข้อมูลย้อนหลังไม่เกิน 4 ชั่วโมง",
    "en": "Maximum acceptable data loss measured in time, e.g. no more than 4 hours of data"
   },
   {
    "d": 2,
    "term": "RTO",
    "hint": "อาร์-ที-โอ",
-   "th": "Recovery Time Objective ระยะเวลาสูงสุดที่ยอมให้ระบบหยุดทำงานได้ก่อนกู้คืน",
+   "th": "Recovery Time Objective ระยะเวลาสูงสุดนับจากระบบหยุดชะงักที่ต้องกู้คืนให้กลับมาใช้งานได้",
    "en": "Maximum acceptable downtime before a system must be restored"
   },
   {
@@ -255,7 +255,7 @@
    "d": 2,
    "term": "Incident Response",
    "hint": "อินซิเดนต์ รีสพอนส์",
-   "th": "กระบวนการตอบสนองต่อเหตุการณ์ด้านความปลอดภัย ตั้งแต่ตรวจจับจนถึงสรุปบทเรียน",
+   "th": "กระบวนการจัดการเหตุการณ์ด้านความปลอดภัย ตั้งแต่ตรวจจับและควบคุมเหตุ ไปจนถึงกำจัดสาเหตุ ฟื้นฟูระบบ และทบทวนบทเรียน",
    "en": "Process of detecting, containing, eradicating, and recovering from security incidents"
   },
   {
@@ -311,21 +311,21 @@
    "d": 2,
    "term": "Cold Site",
    "hint": "โคลด์ไซต์",
-   "th": "ศูนย์สำรองเปล่า มีแค่พื้นที่และระบบไฟฟ้า ต้องติดตั้งทุกอย่าง ค่าใช้จ่ายต่ำที่สุด",
+   "th": "สถานที่สำรองที่มีเพียงพื้นที่และสาธารณูปโภคพื้นฐาน ต้องนำอุปกรณ์มาติดตั้งก่อนใช้งาน มีต้นทุนต่ำแต่ใช้เวลากู้คืนระบบนาน",
    "en": "Empty backup facility with only power and space; cheapest but slowest to activate"
   },
   {
    "d": 2,
    "term": "Differential Backup",
    "hint": "ดิฟเฟอเรนเชียล แบ็คอัพ",
-   "th": "การสำรองข้อมูลที่เปลี่ยนแปลงตั้งแต่ Full Backup ครั้งล่าสุด กู้คืนต้องใช้ Full + Differential ล่าสุด",
+   "th": "การสำรองข้อมูลที่เปลี่ยนแปลงนับจากการสำรองแบบ Full ครั้งล่าสุด การกู้คืนใช้ข้อมูลสำรอง Full ร่วมกับ Differential ชุดล่าสุด",
    "en": "Backs up changes since the last full backup; restore needs full + latest differential"
   },
   {
    "d": 2,
    "term": "Incremental Backup",
    "hint": "อินครีเมนทัล แบ็คอัพ",
-   "th": "การสำรองเฉพาะข้อมูลที่เปลี่ยนแปลงตั้งแต่การสำรองครั้งล่าสุด (Full หรือ Incremental) เร็วแต่กู้คืนช้ากว่า",
+   "th": "การสำรองเฉพาะข้อมูลที่เปลี่ยนแปลงนับจากการสำรองครั้งก่อน ไม่ว่าจะเป็น Full หรือ Incremental ใช้เวลาสำรองน้อย แต่การกู้คืนต้องใช้ Full และ Incremental ทุกชุดตามลำดับ",
    "en": "Backs up changes since the last backup of any type; fastest backup but slowest restore"
   },
   {
@@ -339,7 +339,7 @@
    "d": 3,
    "term": "Authentication",
    "hint": "ออเธนติเคชัน",
-   "th": "กระบวนการยืนยันตัวตนว่าผู้ใช้เป็นผู้ที่อ้างตัวจริง เช่น ใช้รหัสผ่าน ลายนิ้วมือ",
+   "th": "การตรวจสอบว่าผู้ใช้เป็นบุคคลตามที่กล่าวอ้างจริงหรือไม่ เช่น ตรวจสอบด้วยรหัสผ่านหรือลายนิ้วมือ",
    "en": "Verifying a user's identity, e.g. via password, fingerprint"
   },
   {
@@ -423,7 +423,7 @@
    "d": 3,
    "term": "Token",
    "hint": "โทเค็น",
-   "th": "อุปกรณ์หรือซอฟต์แวร์ที่สร้างรหัสชั่วคราว (OTP) สำหรับยืนยันตัวตน",
+   "th": "ข้อมูลหรืออุปกรณ์ที่ใช้แทนข้อมูลรับรองหรือสิทธิ์การเข้าถึง เช่น รหัสใช้ครั้งเดียว (OTP) หรือ Access Token",
    "en": "Hardware or software generating one-time passwords for authentication"
   },
   {
@@ -493,21 +493,21 @@
    "d": 4,
    "term": "VPN",
    "hint": "วี-พี-เอ็น",
-   "th": "Virtual Private Network สร้างอุโมงค์เข้ารหัสข้อมูลผ่านเครือข่ายสาธารณะ",
+   "th": "Virtual Private Network การเชื่อมต่อเครือข่ายส่วนตัวผ่านเครือข่ายสาธารณะ โดยมักใช้ช่องทางที่เข้ารหัสเพื่อปกป้องข้อมูล",
    "en": "Encrypted tunnel over a public network for secure communication"
   },
   {
    "d": 4,
    "term": "TLS",
    "hint": "ที-แอล-เอส",
-   "th": "Transport Layer Security โปรโตคอลเข้ารหัสการสื่อสารบนเว็บ ตัวแทนของ SSL",
+   "th": "Transport Layer Security โปรโตคอลที่ใช้ปกป้องการสื่อสารผ่านเครือข่าย โดยเป็นรุ่นที่พัฒนาต่อจาก SSL",
    "en": "Protocol encrypting web communications; successor to SSL"
   },
   {
    "d": 4,
    "term": "DMZ",
    "hint": "ดี-เอ็ม-แซด",
-   "th": "Demilitarized Zone โซนเครือข่ายกันชนระหว่างเครือข่ายภายในและอินเทอร์เน็ต วาง public server",
+   "th": "Demilitarized Zone เครือข่ายคั่นกลางระหว่างเครือข่ายภายในกับภายนอก ใช้แยกเซิร์ฟเวอร์ที่เปิดให้เข้าถึงจากภายนอกเพื่อลดความเสี่ยงต่อเครือข่ายภายใน",
    "en": "Network buffer zone between internal network and the internet for public servers"
   },
   {
@@ -521,14 +521,14 @@
    "d": 4,
    "term": "VLAN",
    "hint": "วี-แลน",
-   "th": "Virtual LAN การแบ่งเครือข่ายเสมือนบน Switch เดียวกัน เพื่อแยกทราฟฟิกและเพิ่มความปลอดภัย",
+   "th": "Virtual LAN การแบ่งเครือข่ายกายภาพออกเป็นเครือข่ายย่อยเชิงตรรกะ เพื่อแยกกลุ่มอุปกรณ์และควบคุมการสื่อสารระหว่างกลุ่ม",
    "en": "Logical network segmentation on the same physical switch for traffic isolation"
   },
   {
    "d": 4,
    "term": "Zero Trust",
    "hint": "ซีโร่ ทรัสต์",
-   "th": "โมเดลที่ไม่ไว้วางใจใครเลยไม่ว่าจะอยู่ในหรือนอกเครือข่าย ต้องยืนยันตัวตนทุกครั้ง",
+   "th": "แนวทางที่ไม่ให้ความเชื่อถือโดยอัตโนมัติเพียงเพราะผู้ใช้หรืออุปกรณ์อยู่ในเครือข่าย และตรวจสอบก่อนอนุญาตให้เข้าถึงทรัพยากร",
    "en": "Security model trusting no one by default; verify every access request"
   },
   {
@@ -570,7 +570,7 @@
    "d": 4,
    "term": "MITM",
    "hint": "แมน-อิน-เดอะ-มิดเดิ้ล",
-   "th": "Man-in-the-Middle Attack การดักฟังและแก้ไขข้อมูลระหว่างสองฝ่ายโดยที่ทั้งคู่ไม่รู้ตัว",
+   "th": "Man-in-the-Middle Attack การโจมตีที่ผู้โจมตีแทรกตัวอยู่ระหว่างคู่สื่อสารเพื่อดักอ่านหรือแก้ไขข้อมูลโดยที่ทั้งสองฝ่ายไม่รู้ตัว",
    "en": "Attacker intercepts and potentially alters communication between two parties"
   },
   {
@@ -584,7 +584,7 @@
    "d": 4,
    "term": "Port Scanning",
    "hint": "พอร์ต สแกนนิ่ง",
-   "th": "เทคนิคตรวจสอบว่าพอร์ตใดเปิดอยู่บนเซิร์ฟเวอร์ ผู้โจมตีใช้หาช่องทางเข้า",
+   "th": "การสำรวจพอร์ตของระบบเพื่อดูว่ามีพอร์ตใดเปิดให้เชื่อมต่อและมีบริการใดทำงานอยู่ มักใช้ในการสำรวจระบบ",
    "en": "Technique probing which ports are open on a server; used in reconnaissance"
   },
   {
@@ -626,21 +626,21 @@
    "d": 5,
    "term": "Digital Signature",
    "hint": "ดิจิทัล ซิกเนเจอร์",
-   "th": "ลายเซ็นดิจิทัลที่ใช้ Private Key สร้าง เพื่อยืนยันตัวตนผู้ส่งและความถูกต้องของข้อมูล",
+   "th": "ลายเซ็นดิจิทัลที่สร้างด้วย Private Key ผู้รับใช้ Public Key คู่กันตรวจสอบลายเซ็นและยืนยันว่าข้อมูลไม่ถูกแก้ไข โดยไม่ได้ปกปิดเนื้อหาข้อมูล",
    "en": "Cryptographic signature verifying sender identity and data integrity using private key"
   },
   {
    "d": 5,
    "term": "PKI",
    "hint": "พี-เค-ไอ",
-   "th": "Public Key Infrastructure โครงสร้างพื้นฐานจัดการกุญแจสาธารณะ รวมถึง CA, ใบรับรอง, CRL",
+   "th": "Public Key Infrastructure ระบบสำหรับออก จัดการ ตรวจสอบ และเพิกถอนใบรับรองดิจิทัล รวมถึง Certificate Authority และ CRL",
    "en": "Framework managing public keys, certificates, and certificate authorities"
   },
   {
    "d": 5,
    "term": "Certificate Authority",
    "hint": "เซอร์ทิฟิเคต ออธอริตี้",
-   "th": "หน่วยงานที่ออกใบรับรองดิจิทัล (Digital Certificate) เพื่อยืนยันความถูกต้องของ Public Key",
+   "th": "หน่วยงานที่เชื่อถือได้ซึ่งออกใบรับรองดิจิทัล เพื่อรับรองความเชื่อมโยงระหว่างเจ้าของกับ Public Key",
    "en": "Trusted entity issuing digital certificates to verify public key ownership"
   },
   {
@@ -654,7 +654,7 @@
    "d": 5,
    "term": "Asymmetric Encryption",
    "hint": "อะซิมเมตริก",
-   "th": "การเข้ารหัสที่ใช้คู่กุญแจ Public (เข้ารหัส) และ Private (ถอดรหัส) ช้ากว่า Symmetric แต่ปลอดภัยกว่าในการแลกเปลี่ยนกุญแจ",
+   "th": "การเข้ารหัสที่ใช้คู่กุญแจ Public และ Private โดยการเข้ารหัสและการสร้างลายเซ็นใช้กุญแจต่างกัน ช้ากว่าแบบ Symmetric แต่ช่วยแก้ปัญหาการแลกเปลี่ยนกุญแจ",
    "en": "Encryption using a key pair (public to encrypt, private to decrypt); slower but solves key distribution"
   },
   {
@@ -675,7 +675,7 @@
    "d": 5,
    "term": "DLP",
    "hint": "ดี-แอล-พี",
-   "th": "Data Loss Prevention ระบบป้องกันข้อมูลรั่วไหล ตรวจจับและบล็อกการส่งข้อมูลสำคัญออกนอกองค์กร",
+   "th": "Data Loss Prevention มาตรการตรวจสอบและควบคุมการจัดเก็บ ใช้ หรือส่งต่อข้อมูลสำคัญ เพื่อป้องกันการเปิดเผยหรือส่งออกโดยไม่ได้รับอนุญาต",
    "en": "System preventing sensitive data from leaving the organization"
   },
   {
@@ -710,7 +710,7 @@
    "d": 5,
    "term": "Data Classification",
    "hint": "ดาต้า คลาสซิฟิเคชัน",
-   "th": "การจัดระดับชั้นความลับของข้อมูล เช่น Public, Internal, Confidential, Top Secret",
+   "th": "การจัดประเภทข้อมูลและกำหนดระดับความอ่อนไหว เช่น Public, Internal, Confidential และ Top Secret",
    "en": "Categorizing data by sensitivity level, e.g. Public, Internal, Confidential, Top Secret"
   },
   {

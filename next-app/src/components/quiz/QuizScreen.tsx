@@ -56,7 +56,7 @@ export default function QuizScreen({ state: s, koLock, onLang, onAnswer, onNext,
         <div className="score-live">
           {isExam
             ? <span className="score-answered">Answered {s.answers.length}/{total}</span>
-            : <><span className="score-correct">✓ {s.score}</span><span className="score-wrong">✗ {s.wrong}</span></>}
+            : <><span className="score-correct">[OK] {s.score}</span><span className="score-wrong">[X] {s.wrong}</span></>}
         </div>
       </div>
       <div className="progress-bar-track"><div className="progress-bar-fill" style={{ width: pct + '%' }} /></div>

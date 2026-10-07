@@ -125,8 +125,10 @@
    "title": "ISC2 CC - อธิบายทำไมผิด: แบบทดสอบ 57 ข้อพร้อมคำอธิบายทุกตัวเลือก"
   },
   "studyisc2_glossary_th_en.csv": {
-   "sha256": "9247f26a00434327b1874f3fea86934d1f0ccd344048328eff688d2a970747b6",
-   "bytes": 39249
+   "sha256": "d19d19816ee6c73b2b59519a242caf6832aed53aec3cdcab815abc0b4f0d28b1",
+   "bytes": 42223,
+   "legacySha256": "9247f26a00434327b1874f3fea86934d1f0ccd344048328eff688d2a970747b6",
+   "changed": "2026-10-07: Thai glossary wording revised for clarity and technical accuracy"
   },
   "studyisc2_pages_bilingual.csv": {
    "sha256": "d3f8c4546b6766a741faed84324d545a20dfc57bee38b6a709882b1e743ccd79",
@@ -177,7 +179,9 @@
   },
   "src/data/content/flashcards.json": {
    "source": "flashcard.html",
-   "sha256": "2cd259a56f9d90e90ba56af9a6017a28c44cfbaf0708376152de9423a78224ea"
+   "sha256": "f4bd5cf0dbf03bdd23ffa22bdb5fc4de6145022e044bb574856cad8308283bb2",
+   "legacySha256": "2cd259a56f9d90e90ba56af9a6017a28c44cfbaf0708376152de9423a78224ea",
+   "changed": "2026-10-07: Thai glossary wording revised for clarity and technical accuracy"
   },
   "src/data/content/mindmap.json": {
    "source": "index.html",
@@ -191,7 +195,9 @@
   },
   "src/data/games/term-match.json": {
    "source": "game-term-match.html",
-   "sha256": "a59e0e24eb4d597ff690382be676e92bad1258f1b450e817259ae5cb4ad76f2c"
+   "sha256": "3bd69aeba157f5253f3b7ba4ab5ab42ad7d39a80de6d3e944063647105d7e082",
+   "legacySha256": "a59e0e24eb4d597ff690382be676e92bad1258f1b450e817259ae5cb4ad76f2c",
+   "changed": "2026-10-07: Thai term definitions revised for clarity and technical accuracy"
   },
   "src/data/games/domain-sort.json": {
    "source": "game-domain-sort.html",

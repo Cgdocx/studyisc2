@@ -87,7 +87,7 @@ export const COMPANION = {
   evolutionStages: [
     { minLevel: 1, sprite: '●', name: 'BYTE (KITTEN)', bg: 'var(--yellow)' },
     { minLevel: 3, sprite: '◆', name: 'FOX BYTE', bg: 'var(--orange)' },
-    { minLevel: 5, sprite: '★', name: 'CYBER LION', bg: '#BBF7D0' },
+    { minLevel: 5, sprite: '★', name: 'CYBER LION', bg: 'var(--green-dim)' },
     { minLevel: 8, sprite: '✦', name: 'MECHA GUARDIAN', bg: 'var(--pink)' },
     { minLevel: 12, sprite: '✸', name: 'CYBER OVERLORD', bg: 'var(--accent)' },
   ],

@@ -24,7 +24,7 @@
   --font-body: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
   --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
   --font-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', monospace;
-  --d1: #1F8A4C; --d2: #E85A1F; --d3: #F06CA8; --d4: #3B82F6; --d5: #8B5CF6;
+  --d1: var(--green); --d2: var(--orange); --d3: var(--pink); --d4: var(--yellow); --d5: var(--red);
 }
 .pg-learning, .pg-learning * { box-sizing: border-box; margin: 0; padding: 0; }
 .pg-learning { background: var(--cream); color: var(--ink); font-family: var(--font-thai); min-height: 100vh; -webkit-font-smoothing: antialiased; }

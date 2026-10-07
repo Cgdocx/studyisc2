@@ -12,7 +12,7 @@
   --font-body: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
   --font-thai: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
   --font-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', monospace;
-  --d1: #E85A1F; --d2: #1F8A4C; --d3: #F06CA8; --d4: #3B82F6; --d5: #8B5CF6;
+  --d1: var(--orange); --d2: var(--green); --d3: var(--pink); --d4: var(--yellow); --d5: var(--red);
 }
 .pg-domain-sort, .pg-domain-sort * { box-sizing: border-box; margin: 0; padding: 0; }
 .pg-domain-sort { background: var(--cream); color: var(--ink); font-family: var(--font-thai); min-height: 100vh; }
@@ -120,6 +120,6 @@
 }
 .pg-domain-sort .result-item .ri-icon { width: 20px; text-align: center; font-size: 14px; }
 .pg-domain-sort .result-item .ri-term { flex: 1; }
-.pg-domain-sort .result-item .ri-dom { font-size: 10px; padding: 2px 6px; color: var(--white); border-radius: 2px; }
+.pg-domain-sort .result-item .ri-dom { font-size: 10px; padding: 2px 6px; color: var(--white); border-radius: var(--radius); }
 .pg-domain-sort .result-item.ri-correct .ri-icon { color: var(--green); }
 .pg-domain-sort .result-item.ri-wrong .ri-icon { color: var(--red); }

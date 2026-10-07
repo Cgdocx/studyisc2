@@ -116,7 +116,7 @@
 .pg-explained .domain-badge.d2 { background: #E85A1F; color: var(--white); }
 .pg-explained .domain-badge.d3 { background: #F06CA8; color: var(--ink); }
 .pg-explained .domain-badge.d4 { background: #1F8A4C; color: var(--white); }
-.pg-explained .domain-badge.d5 { background: #7C3AED; color: var(--white); }
+.pg-explained .domain-badge.d5 { background: var(--red); color: var(--white); }
 .pg-explained .q-body { padding: 20px; }
 .pg-explained .q-text {
   font-size: 15px; font-weight: 600; line-height: 1.7; margin-bottom: 6px;

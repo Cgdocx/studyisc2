@@ -11,7 +11,9 @@ const load = name => loadJson('src/data/content/' + name);
 
 for (const name of ['lessons.json', 'learning-path.json', 'flashcards.json', 'mindmap.json']) {
   const pin = snap.data['src/data/content/' + name];
-  ok(jsonHash(load(name)) === pin.sha256, `${name}: unchanged since verified identical to a fresh extraction from ${pin.source} at ${at}`);
+  ok(jsonHash(load(name)) === pin.sha256, pin.changed
+    ? `${name}: matches its pinned hash (verified against ${pin.source} at ${at}, changed on purpose since: ${pin.changed})`
+    : `${name}: unchanged since verified identical to a fresh extraction from ${pin.source} at ${at}`);
 }
 
 const L = load('lessons.json');

@@ -159,7 +159,7 @@
   white-space: pre-wrap;
 }
 .pg-phish-detect .email-body .fake-link {
-  color: #1a73e8;
+  color: var(--green2);
   text-decoration: underline;
   font-family: var(--font-mono);
   font-size: 12px;

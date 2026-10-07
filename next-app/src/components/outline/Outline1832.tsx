@@ -650,7 +650,7 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
     const m: StrikeModal = {
       title: `[!] INTEGRITY STRIKE ${strikes}/3: ออกจากโหมดสอบ`,
       desc: <>{reason || 'ตรวจพบการสลับหน้าต่างหรือหลุดออกจากโหมดเต็มหน้าจอ'}<br /><strong>คำเตือน:</strong> หากตรวจพบครบ 3 ครั้ง ระบบจะตัดสิทธิ์และส่งผลสอบทันที</>,
-      btnText: '⛶ ล็อกเต็มหน้าจอและสอบต่อ',
+      btnText: 'ล็อกเต็มหน้าจอและสอบต่อ',
       btnBg: 'var(--ink)',
       final: false,
     };
@@ -1186,7 +1186,7 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
           </div>
           <div>
             <button className="btn primary" id="btnReenterFullscreen" type="button" style={{ ...sx('padding:12px 28px;font-size:14px;background:var(--ink);color:var(--white);'), background: modal ? modal.btnBg : 'var(--ink)' }} onClick={onModalButton}>
-              {modal ? modal.btnText : '⛶ ล็อกเต็มหน้าจอและสอบต่อ'}
+              {modal ? modal.btnText : 'ล็อกเต็มหน้าจอและสอบต่อ'}
             </button>
           </div>
         </div>

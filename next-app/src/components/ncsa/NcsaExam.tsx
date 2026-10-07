@@ -225,8 +225,8 @@ function NcsaApp({ data, config }: { data: NcsaData; config: SimpleBankConfig })
       }),
     };
     postToSheet(tracker, JSON.stringify(payload)).then(() => {
-      setSendStatus('Sent to tracking sheet ✓ / ส่งผลไปยัง Google Sheet แล้ว');
-      showToast('✓ Result sent / ส่งผลสำเร็จแล้ว', 'good');
+      setSendStatus('[OK] Sent to tracking sheet / ส่งผลไปยัง Google Sheet แล้ว');
+      showToast('[OK] Result sent / ส่งผลสำเร็จแล้ว', 'good');
     }, () => {
       setSendStatus('Failed to send - check your connection / ส่งไม่สำเร็จ');
       showToast('[!] Failed to send result / ส่งผลไม่สำเร็จ', 'bad');
