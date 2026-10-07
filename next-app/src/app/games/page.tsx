@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import SiteLink from '@/components/SiteLink';
+import { withCount } from '@/components/games/counts';
 import data from '@/data/games/games.json';
 import '@/styles/games/games.css';
 import '@/styles/games/motion.css';
@@ -27,10 +28,10 @@ export default function GamesPage() {
                 <div>
                   <span className="card-badge">{card.badge}</span>
                   <h2>{card.title}</h2>
-                  <p>{card.desc}</p>
+                  <p>{withCount(card.desc, card.href)}</p>
                 </div>
                 <div>
-                  <div className="card-meta">{card.meta.map(m => <span key={m}>{m}</span>)}</div>
+                  <div className="card-meta">{card.meta.map(m => <span key={m}>{withCount(m, card.href)}</span>)}</div>
                   <SiteLink file={card.href} className="card-btn">{card.button}</SiteLink>
                 </div>
               </div>

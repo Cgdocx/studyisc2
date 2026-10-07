@@ -4,6 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import type { CSSProperties, ReactNode } from 'react';
 import type { SimpleBankConfig } from '@/lib/banks';
 import BankLoading from '@/components/quiz/engine/BankLoading';
+import { useRestoreAfterHydration } from '@/lib/client';
 import { postToSheet } from '@/components/quiz/engine/sheet';
 import { shuffle } from '@/components/quiz/engine/shuffle';
 import { useBank } from '@/components/quiz/engine/useBank';
@@ -93,6 +94,44 @@ function isAnswered(ans: number | null | undefined): ans is number {
 
 const randomOf = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)];
 
+/** Resume banner text for the saved session; `stale` when it is from another schema. null when unreadable. */
+function readSavedSession(): { desc: string | null; stale: boolean } | null {
+  try {
+    const raw = localStorage.getItem(SAVED_KEY);
+    if (!raw) return { desc: null, stale: false };
+    const st = JSON.parse(raw);
+    if (!st || st.v !== QUIZ_SCHEMA_VERSION || !st.itemIndices || !st.itemIndices.length) return { desc: null, stale: true };
+    const answeredCount = (st.answers || []).filter((a: number | null) => a !== null && a !== -1).length;
+    return { desc: 'ทำค้างอยู่ที่ข้อ ' + ((st.i || 0) + 1) + '/' + st.itemIndices.length + ' (ตอบแล้ว ' + answeredCount + ' ข้อ)', stale: false };
+  } catch {
+    return null;
+  }
+}
+
+function removeSavedSession(): void {
+  try { localStorage.removeItem(SAVED_KEY); } catch { /* ignore */ }
+}
+
+/** Mistake bank banner text, null when empty, undefined when unreadable. */
+function readMistakeDesc(): string | null | undefined {
+  try {
+    const raw = localStorage.getItem(MISTAKE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    const list = Array.isArray(parsed) ? parsed : [];
+    if (!list.length) return null;
+    return 'มีข้อสอบในคลังรอฝึกทบทวน ' + list.length + ' ข้อ (Mastery streak >= 2 เพื่อปลดออก)';
+  } catch {
+    return undefined;
+  }
+}
+
+/** Milliseconds since `start` (0 when unset). Only called from event handlers. */
+function elapsedSince(start?: number): number {
+  const now = Date.now();
+  return now - (start || now);
+}
+
 export default function Outline1832({ config }: { config: SimpleBankConfig }) {
   const { data, error } = useBank<BankQ[]>(config.dataFile);
   if (!data) return <div className="pg-outline"><div className="wrap"><BankLoading error={error} /></div></div>;
@@ -100,8 +139,9 @@ export default function Outline1832({ config }: { config: SimpleBankConfig }) {
 }
 
 function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig }) {
-  const [, setVersion] = useState(0);
-  const bump = useCallback(() => setVersion(v => v + 1), []);
+  // The session is driven imperatively (timers, keyboard, integrity events) through sessionRef;
+  // `snap` is the immutable copy that rendering reads, refreshed by publish().
+  const [snap, setSnap] = useState<Session | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('en');
   const uiLang = viewMode === 'th' ? 'th' : 'en';
   const x = I18N[uiLang];
@@ -143,17 +183,18 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
   const pwaWorker = useRef<ServiceWorker | null>(null);
   const viewRef = useRef<ViewMode>('en');
   const selectedRef = useRef(selected);
-  const nameValRef = useRef('');
-  viewRef.current = viewMode;
-  selectedRef.current = selected;
-  nameValRef.current = userName;
-  modalRef.current = modal;
 
-  const session = sessionRef.current;
+  const session = snap;
+  useLayoutEffect(() => { screenRef.current = screen; }, [screen]);
   const showEn = viewMode === 'en' || viewMode === 'both';
   const showTh = viewMode === 'th' || viewMode === 'both';
 
-  const go = (s: Screen) => { screenRef.current = s; setScreen(s); };
+  const publish = useCallback(() => {
+    const s = sessionRef.current;
+    setSnap(s ? { ...s, answers: [...s.answers], reasons: [...s.reasons] } : null);
+  }, []);
+  const go = (s: Screen) => { setScreen(s); publish(); };
+  const updateSelected = (next: Set<number>) => { selectedRef.current = next; setSelected(next); };
 
   const saveActiveSession = useCallback(() => {
     const s = sessionRef.current;
@@ -177,29 +218,15 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
   }, [bank]);
 
   const checkSavedSession = useCallback(() => {
-    try {
-      const raw = localStorage.getItem(SAVED_KEY);
-      if (!raw) { setResumeDesc(null); return; }
-      const st = JSON.parse(raw);
-      if (!st || st.v !== QUIZ_SCHEMA_VERSION || !st.itemIndices || !st.itemIndices.length) {
-        try { localStorage.removeItem(SAVED_KEY); } catch { /* ignore */ }
-        setResumeDesc(null);
-        return;
-      }
-      const answeredCount = (st.answers || []).filter((a: number | null) => a !== null && a !== -1).length;
-      setResumeDesc('ทำค้างอยู่ที่ข้อ ' + ((st.i || 0) + 1) + '/' + st.itemIndices.length + ' (ตอบแล้ว ' + answeredCount + ' ข้อ)');
-    } catch { /* ignore */ }
+    const saved = readSavedSession();
+    if (!saved) return;
+    if (saved.stale) removeSavedSession();
+    setResumeDesc(saved.desc);
   }, []);
 
   const checkMistakeBank = useCallback(() => {
-    try {
-      const raw = localStorage.getItem(MISTAKE_KEY);
-      if (!raw) { setMistakeDesc(null); return; }
-      const parsed = JSON.parse(raw);
-      const list = Array.isArray(parsed) ? parsed : [];
-      if (!list.length) { setMistakeDesc(null); return; }
-      setMistakeDesc('มีข้อสอบในคลังรอฝึกทบทวน ' + list.length + ' ข้อ (Mastery streak >= 2 เพื่อปลดออก)');
-    } catch { /* ignore */ }
+    const desc = readMistakeDesc();
+    if (desc !== undefined) setMistakeDesc(desc);
   }, []);
 
   const updateCompanionUI = useCallback((speech: string | null, anim: '' | 'bounce' | 'shake') => {
@@ -256,9 +283,9 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
     if (!s || s.answers[s.i] !== null) return;
     s.answers[s.i] = -2;
     s.reasons[s.i] = 'timeout';
-    if (s.mode === 'practice') bump();
+    if (s.mode === 'practice') publish();
     else nextRef.current();
-  }, [stopTimer, bump]);
+  }, [stopTimer, publish]);
 
   const startTimer = useCallback((keepTimer?: boolean) => {
     stopTimer();
@@ -283,8 +310,8 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
     const s = sessionRef.current;
     if (s) s.qStartTime = Date.now();
     if (!keepTimer) startTimer();
-    bump();
-  }, [startTimer, bump]);
+    publish();
+  }, [startTimer, publish]);
 
   const enterQuiz = () => { go('quiz'); setHomeBtn(true); };
 
@@ -410,7 +437,6 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
     setReview(null);
     sendResultToSheet(s);
   };
-  finishRef.current = finish;
 
   const nextQ = () => {
     stopTimer();
@@ -421,7 +447,6 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
     renderQuestion();
     saveActiveSession();
   };
-  nextRef.current = nextQ;
 
   const skipQ = () => {
     const s = sessionRef.current;
@@ -440,12 +465,12 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
     s.reasons[s.i] = 'answered';
     const q = s.items[s.i];
     if (s.strictIntegrity) {
-      const latency = Date.now() - (s.qStartTime || Date.now());
+      const latency = elapsedSince(s.qStartTime);
       if (((q && q.q) || '').length > 140 && latency < 1800) s.suspiciousFastAnswers = (s.suspiciousFastAnswers || 0) + 1;
     }
     onCompanionAnswer(idx === q.a);
     if (s.mode === 'practice') stopTimer();
-    bump();
+    publish();
     saveActiveSession();
   };
 
@@ -644,16 +669,26 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
   };
 
   const handlers = useRef({ triggerIntegrityStrike, triggerIntegrityToast, pick, nextQ });
-  handlers.current = { triggerIntegrityStrike, triggerIntegrityToast, pick, nextQ };
+  useLayoutEffect(() => {
+    finishRef.current = finish;
+    nextRef.current = nextQ;
+    handlers.current = { triggerIntegrityStrike, triggerIntegrityToast, pick, nextQ };
+  });
 
-  useEffect(() => {
+  useRestoreAfterHydration(() => {
     try {
       const saved = localStorage.getItem(NAME_KEY) || '';
       if (saved) setUserName(saved);
     } catch { /* ignore */ }
-    checkSavedSession();
-    checkMistakeBank();
-  }, [checkSavedSession, checkMistakeBank]);
+    const saved = readSavedSession();
+    if (saved) setResumeDesc(saved.desc);
+    const mistakes = readMistakeDesc();
+    if (mistakes !== undefined) setMistakeDesc(mistakes);
+  });
+
+  useEffect(() => {
+    if (readSavedSession()?.stale) removeSavedSession();
+  }, []);
 
   useEffect(() => {
     const strictQuiz = () => {
@@ -787,13 +822,14 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
   }, []);
 
   const changeView = (mode: ViewMode) => {
+    viewRef.current = mode;
     setViewMode(mode);
     if (sessionRef.current && screenRef.current === 'quiz') renderQuestion(true);
   };
   const toggleDomain = (id: number) => {
     const next = new Set(selected);
     if (next.has(id)) next.delete(id); else next.add(id);
-    setSelected(next);
+    updateSelected(next);
   };
 
   const q = screen === 'quiz' && session ? session.items[session.i] : null;
@@ -964,7 +1000,7 @@ function OutlineApp({ bank, config }: { bank: BankQ[]; config: SimpleBankConfig 
               />
             </div>
             <button className="btn primary" id="btnStart" type="button" onClick={startQuiz}>{x.start}</button>
-            <button className="btn" id="btnAll" type="button" onClick={() => setSelected(selected.size === 5 ? new Set() : new Set([1, 2, 3, 4, 5]))}>{selected.size === 5 ? x.none : x.all}</button>
+            <button className="btn" id="btnAll" type="button" onClick={() => updateSelected(selected.size === 5 ? new Set() : new Set([1, 2, 3, 4, 5]))}>{selected.size === 5 ? x.none : x.all}</button>
           </div>
           <div className="stats-row">
             <span className="pill" id="bankStat">{bank.length} {x.inBank}</span>{' '}

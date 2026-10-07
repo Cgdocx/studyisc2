@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import data from '@/data/games/phish-detect.json';
+import { PHISH_EMAILS_PER_GAME } from './phish-config';
 import { shuffled } from './shared';
 
 interface Flag { id: string; label: string }
@@ -39,7 +40,7 @@ export default function PhishDetect() {
   const [ended, setEnded] = useState(false);
 
   function startGame() {
-    setEmails(shuffled(EMAILS).slice(0, 15));
+    setEmails(shuffled(EMAILS).slice(0, PHISH_EMAILS_PER_GAME));
     setIdx(0);
     setScore(0);
     setStreak(0);

@@ -115,7 +115,9 @@
   },
   "manifest.json": {
    "sha256": "2978fa3df03e4a5599861baee0a0ab12d2a152cdb64e0fcfda0e6c723eab5ff7",
-   "bytes": 498
+   "bytes": 498,
+   "withoutIconsSha256": "8f9f0923dcaa233df7858ebd19407a5af95a29b0de679da76bde87dc59cb8c36",
+   "changed": "2026-10-07: icons now list the real site icons (the legacy entry pointed at a favicon.ico that never existed); every other field is unchanged (withoutIconsSha256)"
   },
   "quiz-explained.html": {
    "sha256": "f0022da243912d419006596b7f08b9c4dc1e7c0cde03d529552cf15443afb4ee",
@@ -183,7 +185,9 @@
   },
   "src/data/games/games.json": {
    "source": "games.html",
-   "sha256": "c117532b927c64369081b80ec32148db7c2226b37837615292b2ccad02220e63"
+   "sha256": "c29ffadb5a8f66f7dab7bbd201b5172c48e4c23024e3843dca8f77184c5a8e11",
+   "legacySha256": "c117532b927c64369081b80ec32148db7c2226b37837615292b2ccad02220e63",
+   "changed": "2026-10-07: card counts are {count} tokens filled from the game data at build time (stale 44/82/60+/35 replaced by the real 45/80/48/34)"
   },
   "src/data/games/term-match.json": {
    "source": "game-term-match.html",

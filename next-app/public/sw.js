@@ -1,4 +1,4 @@
-const CACHE_NAME = 'studyisc2-cache-v3';
+const CACHE_NAME = 'studyisc2-cache-v4';
 
 const PRECACHE_ASSETS = [
   './',
@@ -8,7 +8,8 @@ const PRECACHE_ASSETS = [
   './isc2_cc_exam548_5Domain_dualTh-Eng.html',
   './isc2_cc_exam1NCSA_bi_no-track-50q.html',
   './isc2-cc-landing.html',
-  './manifest.json'
+  './manifest.json',
+  './favicon.ico'
 ];
 
 self.addEventListener('install', event => {

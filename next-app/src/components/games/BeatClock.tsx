@@ -136,7 +136,7 @@ export default function BeatClock() {
 
         <div id="startScreen" style={phase === 'start' ? undefined : HIDE}>
           <div className="question-card" style={{ textAlign: 'center' }}>
-            <div className="q-text">ระบบจะสุ่ม 20 ข้อจากคลัง 60+ คำถาม ครอบคลุม 5 Domains<br />นาฬิกาเดินตั้งแต่เริ่ม : ตอบผิดมี Penalty +5 วินาที</div>
+            <div className="q-text">{`ระบบจะสุ่ม ${TOTAL_Q} ข้อจากคลัง ${QUESTIONS.length} คำถาม ครอบคลุม 5 Domains`}<br />นาฬิกาเดินตั้งแต่เริ่ม : ตอบผิดมี Penalty +5 วินาที</div>
           </div>
           <button className="start-btn" onClick={startGame}>START</button>
         </div>

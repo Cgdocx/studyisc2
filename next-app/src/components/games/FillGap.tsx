@@ -29,7 +29,7 @@ function Hero() {
 
 function Shell({ done, total, correct, wrong, hidden, children }: { done: number; total: string; correct: number; wrong: number; hidden: boolean; children?: ReactNode }) {
   const hide = hidden ? { display: 'none' } : undefined;
-  const width = total === '35' ? 0 : Math.round(done / Number(total) * 100);
+  const width = Math.round(done / Number(total) * 100);
   return (
     <>
       <div className="progress-bar-wrap" style={hide}>
@@ -161,7 +161,7 @@ export default function FillGap() {
       {client ? <Game /> : (
         <div className="wrap">
           <Hero />
-          <Shell done={0} total="35" correct={0} wrong={0} hidden={false}>
+          <Shell done={0} total={String(QUESTIONS.length)} correct={0} wrong={0} hidden={false}>
             <div id="gameArea"></div>
           </Shell>
           <FinalScreen results={[]} show={false} onRestart={() => {}} />

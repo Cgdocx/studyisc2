@@ -1,12 +1,13 @@
 'use client';
 
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { SimpleBankConfig } from '@/lib/banks';
 import BankLoading from '@/components/quiz/engine/BankLoading';
 import { postToSheet } from '@/components/quiz/engine/sheet';
 import { shuffle } from '@/components/quiz/engine/shuffle';
 import { useBank } from '@/components/quiz/engine/useBank';
 import TopicBadge from '@/components/quiz/TopicBadge';
+import { useRestoreAfterHydration } from '@/lib/client';
 
 interface NcsaQuestion {
   id: string;
@@ -88,7 +89,7 @@ function NcsaApp({ data, config }: { data: NcsaData; config: SimpleBankConfig })
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
+  useRestoreAfterHydration(() => {
     try {
       setName(localStorage.getItem(NAME_KEY) || '');
       const raw = localStorage.getItem(PROGRESS_KEY);
@@ -99,7 +100,7 @@ function NcsaApp({ data, config }: { data: NcsaData; config: SimpleBankConfig })
         if (p.order && p.order.length === Q.length) setOrder(p.order);
       }
     } catch { /* storage unavailable */ }
-  }, [Q.length]);
+  });
 
   const saveProgress = (a: Record<string, number[]>, r: Record<string, CheckResult>, o: number[]) => {
     try { localStorage.setItem(PROGRESS_KEY, JSON.stringify({ answers: a, results: r, order: o })); } catch { /* ignore */ }
@@ -247,14 +248,14 @@ function NcsaApp({ data, config }: { data: NcsaData; config: SimpleBankConfig })
   const correctN = order.filter(i => results[Q[i].id]?.correct).length;
   const progressPct = total ? Math.round(checkedN / total * 100) : 0;
 
-  const renderQuestion = () => {
-    if (curIdx === null) {
-      return <div className="notice">No questions match the current filter. / ไม่พบคำถามตามตัวกรอง</div>;
-    }
+  let questionView: ReactNode = null;
+  if (screen === 'quiz' && curIdx === null) {
+    questionView = <div className="notice">No questions match the current filter. / ไม่พบคำถามตามตัวกรอง</div>;
+  } else if (screen === 'quiz' && curIdx !== null) {
     const q = Q[curIdx];
     const r = results[q.id];
     const saved = new Set(answers[q.id] || []);
-    return (
+    questionView = (
       <>
         <div className="question-head">
           <div>
@@ -307,7 +308,7 @@ function NcsaApp({ data, config }: { data: NcsaData; config: SimpleBankConfig })
         </div>
       </>
     );
-  };
+  }
 
   return (
     <div className="pg-ncsa">
@@ -408,7 +409,7 @@ function NcsaApp({ data, config }: { data: NcsaData; config: SimpleBankConfig })
 
           <div className="layout">
             <main className="panel main-panel">
-              <div id="questionArea">{screen === 'quiz' && renderQuestion()}</div>
+              <div id="questionArea">{questionView}</div>
             </main>
             <aside className="panel side">
               <div className="stats-card" id="sideStats">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import type { Answer, Lang, Question, Screen } from '@/components/quiz/types';
 import { PLAYER_SVG } from './art';
 import BattleReport from './BattleReport';
@@ -69,7 +69,7 @@ const emptyStats = (): BattleStats => ({
 
 export default function BattleLayer(props: Props) {
   const P = useRef(props);
-  P.current = props;
+  useLayoutEffect(() => { P.current = props; });
   const E = useRef<Engine>({
     qref: null, answers: 0, index: -1, hp: PLAYER_MAX, ko: false, locked: false, enemy: null, marks: {},
     stats: emptyStats(), reported: false, rv: null, reviveView: null, rail: null, log: '', seq: 0,
@@ -82,20 +82,19 @@ export default function BattleLayer(props: Props) {
   const reviveRef = useRef<HTMLDivElement>(null);
   const [view, setView] = useState<View>({ hp: PLAYER_MAX, enemy: null, rail: null, log: '', revive: null, report: null });
 
-  const S = E.current;
   const later = (fn: () => void, ms: number) => { timers.current.push(window.setTimeout(fn, ms)); };
   const clearTimers = () => { while (timers.current.length) clearTimeout(timers.current.pop()); };
   const commit = () => setView(v => ({
     ...v,
-    hp: S.hp,
-    enemy: S.enemy ? { ...S.enemy } : null,
-    rail: S.rail,
-    log: S.log,
-    revive: S.reviveView,
+    hp: E.current.hp,
+    enemy: E.current.enemy ? { ...E.current.enemy } : null,
+    rail: E.current.rail,
+    log: E.current.log,
+    revive: E.current.reviveView,
   }));
   const setLock = (on: boolean) => {
-    if (S.locked === on) return;
-    S.locked = on;
+    if (E.current.locked === on) return;
+    E.current.locked = on;
     P.current.onLockChange(on);
   };
 
@@ -140,19 +139,19 @@ export default function BattleLayer(props: Props) {
     for (let k = 0; k < MOBS_PER; k++) {
       const idx = sl.start + k;
       if (idx >= total) break;
-      const m = S.marks[idx];
+      const m = E.current.marks[idx];
       dots.push({ label: 'M' + (k + 1), cls: m === true ? ' done' : m === false ? ' miss' : idx === current ? ' now' : '' });
     }
     if (sl.bossTurns > 0) {
-      const bm = S.marks['b' + sl.stage];
+      const bm = E.current.marks['b' + sl.stage];
       dots.push({ label: 'BOSS', cls: ' boss' + (bm === true ? ' done' : bm === false ? ' miss' : sl.isBoss ? ' now' : '') });
     }
-    S.rail = { stage: sl.stage, stages: sl.stages, dots };
+    E.current.rail = { stage: sl.stage, stages: sl.stages, dots };
   };
 
   const endRevive = () => {
-    S.rv = null;
-    S.reviveView = null;
+    E.current.rv = null;
+    E.current.reviveView = null;
     setLock(false);
   };
 
@@ -166,7 +165,7 @@ export default function BattleLayer(props: Props) {
       if (!sl.isBoss) mobTotal++;
       else if (sl.pos === MOBS_PER) bossTotal++;
     }
-    Object.assign(S, {
+    Object.assign(E.current, {
       qref: P.current.questions, answers: 0, index: -1, hp: PLAYER_MAX, ko: false, enemy: null, marks: {},
       reported: false, stats: { ...emptyStats(), mobTotal, bossTotal },
     });
@@ -176,7 +175,7 @@ export default function BattleLayer(props: Props) {
 
   const showEnemy = (e: EnemyState) => {
     es.current?.reset();
-    S.enemy = e;
+    E.current.enemy = e;
     es.current?.play(e.boss ? 'boss-enter' : 'enter');
     if (e.boss) later(() => replay(arenaRef.current, 'quake'), 520);
   };
@@ -186,9 +185,9 @@ export default function BattleLayer(props: Props) {
     const total = questions.length, q = questions[current], sl = slot(current, total);
     clearTimers();
     let note = '';
-    if (S.ko) {
-      S.ko = false;
-      S.hp = PLAYER_MAX;
+    if (E.current.ko) {
+      E.current.ko = false;
+      E.current.hp = PLAYER_MAX;
       ps.current?.reset();
       endRevive();
       note = 'ฟื้นคืนชีพ : ';
@@ -196,14 +195,14 @@ export default function BattleLayer(props: Props) {
     if (!sl.isBoss) {
       const d = domainOf(q.dom);
       showEnemy({ boss: false, d, m: d.mobs[sl.pos % d.mobs.length], hp: HIT, max: HIT });
-      S.log = note + S.enemy!.m.th + ' ปรากฏตัว! ตอบถูกเพื่อโจมตี';
-    } else if (sl.pos === MOBS_PER || !S.enemy || !S.enemy.boss) {
+      E.current.log = note + E.current.enemy!.m.th + ' ปรากฏตัว! ตอบถูกเพื่อโจมตี';
+    } else if (sl.pos === MOBS_PER || !E.current.enemy || !E.current.enemy.boss) {
       const d = domainOf(questions[sl.bossStart].dom);
       const hp = HIT * sl.bossTurns;
       showEnemy({ boss: true, d, m: d.boss, hp, max: hp });
-      S.log = note + 'บอส ' + d.boss.th + ' ปรากฏตัว! ตอบถูก ' + sl.bossTurns + ' ข้อติดเพื่อล้ม';
+      E.current.log = note + 'บอส ' + d.boss.th + ' ปรากฏตัว! ตอบถูก ' + sl.bossTurns + ' ข้อติดเพื่อล้ม';
     } else {
-      S.log = note + 'บอสยังยืนอยู่ : เหลืออีก ' + (sl.bossStart + sl.bossTurns - current) + ' เทิร์น';
+      E.current.log = note + 'บอสยังยืนอยู่ : เหลืออีก ' + (sl.bossStart + sl.bossTurns - current) + ' เทิร์น';
     }
     buildRail();
     commit();
@@ -211,7 +210,7 @@ export default function BattleLayer(props: Props) {
   };
 
   const turn = (a: Answer) => {
-    const e = S.enemy;
+    const e = E.current.enemy;
     if (!e) return;
     const total = P.current.questions.length, sl = slot(a.qIndex, total);
     const lastBossTurn = sl.isBoss && a.qIndex === sl.bossStart + sl.bossTurns - 1;
@@ -231,24 +230,24 @@ export default function BattleLayer(props: Props) {
         if (down) later(() => es.current?.mark('defeat'), 560);
       });
       if (!e.boss) {
-        S.stats.mobs++;
-        S.marks[a.qIndex] = true;
-        S.log = '[HIT] ล้ม ' + e.m.th + ' (' + e.m.en + ') สำเร็จ';
+        E.current.stats.mobs++;
+        E.current.marks[a.qIndex] = true;
+        E.current.log = '[HIT] ล้ม ' + e.m.th + ' (' + e.m.en + ') สำเร็จ';
       } else if (down) {
-        S.stats.bosses++;
-        S.stats.bossArt.push(e.m.svg);
-        S.marks['b' + sl.stage] = true;
-        const heal = Math.min(BOSS_HEAL, PLAYER_MAX - S.hp);
-        S.hp += heal;
+        E.current.stats.bosses++;
+        E.current.stats.bossArt.push(e.m.svg);
+        E.current.marks['b' + sl.stage] = true;
+        const heal = Math.min(BOSS_HEAL, PLAYER_MAX - E.current.hp);
+        E.current.hp += heal;
         fx.push(() => { if (heal > 0) later(() => ps.current?.pop('+' + heal, 'heal'), 700); });
-        S.log = '[HIT] ล้มบอส ' + e.m.th + ' แล้ว! ได้รางวัล +' + heal + ' HP';
+        E.current.log = '[HIT] ล้มบอส ' + e.m.th + ' แล้ว! ได้รางวัล +' + heal + ' HP';
       } else {
-        S.log = '[HIT] โจมตีบอส -' + HIT + ' HP เหลือ ' + e.hp;
+        E.current.log = '[HIT] โจมตีบอส -' + HIT + ' HP เหลือ ' + e.hp;
       }
     } else {
       const dmg = e.boss ? BOSS_ATK : MOB_ATK;
-      S.hp = Math.max(0, S.hp - dmg);
-      const ko = S.hp <= 0;
+      E.current.hp = Math.max(0, E.current.hp - dmg);
+      const ko = E.current.hp <= 0;
       fx.push(() => {
         es.current?.play('lunge-l');
         later(() => {
@@ -259,22 +258,22 @@ export default function BattleLayer(props: Props) {
         if (ko) later(() => ps.current?.mark('defeat'), 600);
         if (!e.boss || lastBossTurn) later(() => es.current?.mark('flee'), 760);
       });
-      if (!e.boss) S.marks[a.qIndex] = false;
-      if (lastBossTurn) S.marks['b' + sl.stage] = false;
+      if (!e.boss) E.current.marks[a.qIndex] = false;
+      if (lastBossTurn) E.current.marks['b' + sl.stage] = false;
       let msg = prefix + '[MISS] โดนตี -' + dmg + ' HP';
       if (!e.boss) msg += ' : ' + e.m.th + ' หนีไปแล้ว';
       else if (lastBossTurn) msg += ' : บอสหนีไปได้';
       if (ko) {
-        S.ko = true;
-        S.stats.ko++;
+        E.current.ko = true;
+        E.current.stats.ko++;
         msg += ' : หมดแรง! ทบทวนข้อที่ผิดเพื่อฟื้นคืนชีพ';
         setLock(true);
       }
-      S.log = msg;
+      E.current.log = msg;
     }
     buildRail();
     commit();
-    if (S.ko) {
+    if (E.current.ko) {
       pan(() => fx.forEach(f => f()), true);
       later(startRevive, reducedMotion() ? 0 : 1150);
     } else {
@@ -283,7 +282,7 @@ export default function BattleLayer(props: Props) {
   };
 
   const startRevive = () => {
-    if (!S.ko || S.rv) return;
+    if (!E.current.ko || E.current.rv) return;
     const { answers, questions } = P.current;
     const wrong: Question[] = [];
     const seen = new Set<number>();
@@ -296,40 +295,40 @@ export default function BattleLayer(props: Props) {
     }
     if (!wrong.length) { revive('none'); return; }
     const need = Math.min(REVIEW_MAX, wrong.length);
-    S.rv = { queue: wrong.slice(0, need), spare: wrong.slice(need), need, ok: 0, tries: 0, cur: null, perm: [], answeredCur: false };
+    E.current.rv = { queue: wrong.slice(0, need), spare: wrong.slice(need), need, ok: 0, tries: 0, cur: null, perm: [], answeredCur: false };
     nextReview();
     later(scrollRevive, 40);
   };
 
   const nextReview = () => {
-    const r = S.rv;
+    const r = E.current.rv;
     if (!r) return;
     if (r.ok >= r.need) { revive('full'); return; }
     if (r.tries >= REVIEW_CAP) { revive('cap'); return; }
     r.cur = r.queue.shift()!;
     r.perm = shuffleIdx(r.cur.options.length);
     r.answeredCur = false;
-    S.reviveView = {
-      phase: 'ask', key: ++S.seq, need: r.need, ok: r.ok, tries: r.tries, q: r.cur, perm: r.perm,
+    E.current.reviveView = {
+      phase: 'ask', key: ++E.current.seq, need: r.need, ok: r.ok, tries: r.tries, q: r.cur, perm: r.perm,
       picked: null, correct: false, gain: 0, note: '', final: 'none',
     };
     commit();
   };
 
   const reviewAnswer = (j: number) => {
-    const r = S.rv;
+    const r = E.current.rv;
     if (!r || !r.cur || r.answeredCur) return;
     r.answeredCur = true;
     const q = r.cur, ok = r.perm[j] === q.correct_idx;
     r.tries++;
-    S.stats.reviewTried++;
+    E.current.stats.reviewTried++;
     let gain = 0, note = '';
     if (ok) {
       r.ok++;
-      S.stats.reviewOk++;
+      E.current.stats.reviewOk++;
       const target = Math.round((PLAYER_MAX * r.ok) / r.need);
-      gain = Math.max(0, target - S.hp);
-      S.hp = Math.max(S.hp, target);
+      gain = Math.max(0, target - E.current.hp);
+      E.current.hp = Math.max(E.current.hp, target);
       if (gain > 0) ps.current?.pop('+' + gain, 'heal');
     } else {
       note = 'ข้อนี้จะกลับมาให้ลองใหม่';
@@ -342,32 +341,32 @@ export default function BattleLayer(props: Props) {
       }
     }
     const done = r.ok >= r.need, capped = !done && r.tries >= REVIEW_CAP;
-    S.reviveView = {
-      phase: 'answered', key: S.seq, need: r.need, ok: r.ok, tries: r.tries, q, perm: r.perm,
+    E.current.reviveView = {
+      phase: 'answered', key: E.current.seq, need: r.need, ok: r.ok, tries: r.tries, q, perm: r.perm,
       picked: j, correct: ok, gain, note, final: done ? 'full' : capped ? 'cap' : 'none',
     };
     commit();
   };
 
   const revive = (reason: 'none' | 'full' | 'cap') => {
-    const before = S.hp;
-    S.hp = reason === 'cap' ? Math.max(S.hp, CAP_HP) : PLAYER_MAX;
-    S.ko = false;
-    S.rv = null;
+    const before = E.current.hp;
+    E.current.hp = reason === 'cap' ? Math.max(E.current.hp, CAP_HP) : PLAYER_MAX;
+    E.current.ko = false;
+    E.current.rv = null;
     ps.current?.reset();
     ps.current?.play('enter');
-    if (S.hp > before) ps.current?.pop('+' + (S.hp - before), 'heal');
+    if (E.current.hp > before) ps.current?.pop('+' + (E.current.hp - before), 'heal');
     if (reason === 'none') {
       endRevive();
-      S.log = 'ฟื้นคืนชีพทันที : ไม่มีข้อผิดให้ทบทวน';
+      E.current.log = 'ฟื้นคืนชีพทันที : ไม่มีข้อผิดให้ทบทวน';
       commit();
       return;
     }
     const msg = reason === 'cap'
-      ? 'ทบทวนครบ ' + REVIEW_CAP + ' ครั้งแล้ว ฟื้นคืนชีพฉุกเฉินด้วย HP ' + S.hp
-      : 'ฟื้นคืนชีพเต็ม HP ' + S.hp + ' : พร้อมสู้ต่อ';
-    S.log = msg;
-    S.reviveView = { phase: 'done', key: ++S.seq, reason, msg };
+      ? 'ทบทวนครบ ' + REVIEW_CAP + ' ครั้งแล้ว ฟื้นคืนชีพฉุกเฉินด้วย HP ' + E.current.hp
+      : 'ฟื้นคืนชีพเต็ม HP ' + E.current.hp + ' : พร้อมสู้ต่อ';
+    E.current.log = msg;
+    E.current.reviveView = { phase: 'done', key: ++E.current.seq, reason, msg };
     commit();
     later(scrollRevive, 40);
   };
@@ -379,30 +378,30 @@ export default function BattleLayer(props: Props) {
   };
 
   const report = () => {
-    if (S.reported) return;
-    S.reported = true;
+    if (E.current.reported) return;
+    E.current.reported = true;
     clearTimers();
-    setView(v => ({ ...v, report: { stats: { ...S.stats, bossArt: [...S.stats.bossArt] }, hp: S.hp } }));
+    setView(v => ({ ...v, report: { stats: { ...E.current.stats, bossArt: [...E.current.stats.bossArt] }, hp: E.current.hp } }));
   };
 
   const { questions, answers, current, answered, screen } = props;
   useEffect(() => {
-    if (questions !== S.qref) reset();
+    if (questions !== E.current.qref) reset();
     if (screen === 'results') {
-      if (!S.reported) {
+      if (!E.current.reported) {
         endRevive();
         commit();
         report();
       }
       return;
     }
-    if (answers.length > S.answers) {
-      S.answers = answers.length;
+    if (answers.length > E.current.answers) {
+      E.current.answers = answers.length;
       turn(answers[answers.length - 1]);
       return;
     }
-    if (current !== S.index && answered === null) {
-      S.index = current;
+    if (current !== E.current.index && answered === null) {
+      E.current.index = current;
       spawn();
     }
   });

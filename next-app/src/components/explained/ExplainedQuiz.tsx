@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useRestoreAfterHydration } from '@/lib/client';
 import type { SimpleBankConfig } from '@/lib/banks';
 import BankLoading from '@/components/quiz/engine/BankLoading';
 import { shuffle } from '@/components/quiz/engine/shuffle';
@@ -55,7 +56,7 @@ function ExplainedApp({ bank }: { bank: ExplainedQuestion[] }) {
   const [showReviewBtn, setShowReviewBtn] = useState(false);
   const [wrongCount, setWrongCount] = useState(0);
 
-  useEffect(() => { setShowReviewBtn(loadWrongHistory().length > 0); }, []);
+  useRestoreAfterHydration(() => setShowReviewBtn(loadWrongHistory().length > 0));
 
   const startQuiz = (m: Mode) => {
     let list: ExplainedQuestion[];
